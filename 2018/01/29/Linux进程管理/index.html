@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="在过去的一个多月时间，一直在思考运维的工作重点和定位，因为在工作中会不断有琐事在掠夺个体的时间，导致很多人陷入了看起来很忙，在工作三五年之后，发现自己掌握的知识和方法论十分有限，在经过这个一段混乱到有序的升维阶段后，算是看清了一点前方的路。个人觉得，运维工作，是整个软件开发生命周期的一环非常重要的环节，而软件生命周期说到底就是围绕着人、需求、软件产品的也即应用程序等内容来进行，而目前阶段，主要矛盾">
+<meta name="description" content="请承认这是篇干货">
 <meta name="keywords" content="进程管理">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Linux进程管理">
 <meta property="og:url" content="http://yoursite.com/2018/01/29/Linux进程管理/index.html">
 <meta property="og:site_name" content="Watchmen1992&#39;s Blog">
-<meta property="og:description" content="在过去的一个多月时间，一直在思考运维的工作重点和定位，因为在工作中会不断有琐事在掠夺个体的时间，导致很多人陷入了看起来很忙，在工作三五年之后，发现自己掌握的知识和方法论十分有限，在经过这个一段混乱到有序的升维阶段后，算是看清了一点前方的路。个人觉得，运维工作，是整个软件开发生命周期的一环非常重要的环节，而软件生命周期说到底就是围绕着人、需求、软件产品的也即应用程序等内容来进行，而目前阶段，主要矛盾">
+<meta property="og:description" content="请承认这是篇干货">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-01-29T10:20:28.371Z">
+<meta property="og:updated_time" content="2018-01-29T11:24:22.185Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux进程管理">
-<meta name="twitter:description" content="在过去的一个多月时间，一直在思考运维的工作重点和定位，因为在工作中会不断有琐事在掠夺个体的时间，导致很多人陷入了看起来很忙，在工作三五年之后，发现自己掌握的知识和方法论十分有限，在经过这个一段混乱到有序的升维阶段后，算是看清了一点前方的路。个人觉得，运维工作，是整个软件开发生命周期的一环非常重要的环节，而软件生命周期说到底就是围绕着人、需求、软件产品的也即应用程序等内容来进行，而目前阶段，主要矛盾">
+<meta name="twitter:description" content="请承认这是篇干货">
 
 
 
@@ -339,7 +339,7 @@
 
           
               <div class="post-description">
-                  在过去的一个多月时间，一直在思考运维的工作重点和定位，因为在工作中会不断有琐事在掠夺个体的时间，导致很多人陷入了看起来很忙，在工作三五年之后，发现自己掌握的知识和方法论十分有限，在经过这个一段混乱到有序的升维阶段后，算是看清了一点前方的路。个人觉得，运维工作，是整个软件开发生命周期的一环非常重要的环节，而软件生命周期说到底就是围绕着人、需求、软件产品的也即应用程序等内容来进行，而目前阶段，主要矛盾应该是应用程序，也就是围绕这程序和进程展开的一系列活动，说到进程，这里就能很清晰的明确关注点了，那就是进程赖以生存的资源：CPU、内存、磁盘、网络、操作系统，那么我们运维的重点其实就是围绕这这些内容来展开，包括监控、安全、云、存储、大数据、自动化等等的一切目的就是更好更快的调配这些资源，所以，今天这篇文章，将要围绕着进程管理的这几个方面来展开，记录下一些相关的重要命令，方便后续快速排障和分析问题。有关运维的进阶，后续会专门写一篇文章来讲讲linux运维工程师，包括岗位职场、成长路线、具体实施方法、运维思想以及个人从业至今的一些感悟等等，应该能勉强算的上是干货吧。
+                  请承认这是篇干货
               </div>
           
 
@@ -356,7 +356,10 @@
       
 
       
-        <h1 id="操作系统"><a href="#操作系统" class="headerlink" title="操作系统"></a>操作系统</h1><h1 id="CPU"><a href="#CPU" class="headerlink" title="CPU"></a>CPU</h1><h1 id="内存"><a href="#内存" class="headerlink" title="内存"></a>内存</h1><h1 id="磁盘"><a href="#磁盘" class="headerlink" title="磁盘"></a>磁盘</h1><h1 id="网卡流量、网络带宽"><a href="#网卡流量、网络带宽" class="headerlink" title="网卡流量、网络带宽"></a>网卡流量、网络带宽</h1><h1 id="综合命令"><a href="#综合命令" class="headerlink" title="综合命令"></a>综合命令</h1>
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>在过去的一个多月时间，一直在思考运维的工作重点和定位，因为在工作中会不断有琐事在掠夺个体的时间，导致很多人陷入了看起来很忙，在工作三五年之后，发现自己掌握的知识和方法论十分有限，在经过这个一段混乱到有序的升维阶段后，算是看清了一点前方的路。</p>
+<p>个人觉得，运维工作，是整个软件开发生命周期的一环非常重要的环节，而软件生命周期说到底就是围绕着人、需求、软件产品也即应用程序等内容来进行，而目前阶段，主要矛盾应该是应用程序，也就是围绕着程序和进程展开的一系列活动，那说到进程，这里就能很清晰的明确关注点了，那就是进程赖以生存的资源：CPU、内存、磁盘、网络、操作系统，那么我们运维的重点其实就是围绕这这些内容来展开，包括监控、安全、云、存储、大数据、自动化等等的一切目的就是更好更快更合理的调配这些资源，所以，今天这篇文章，将要围绕着进程管理的这几个方面来展开，记录下一些相关的重要命令，方便后续快速排障和分析问题。</p>
+<p>有关这段时间的感悟，也就是运维的进阶，后续会专门写一篇文章来讲讲linux运维工程师，包括岗位职责、成长路线、具体实施方法、运维思想以及个人从业至今的一些感悟等等，不知能否算的上是干货，但至少是个人的一点愚见，写好之后，会在此处放上链接。</p>
+<h1 id="操作系统"><a href="#操作系统" class="headerlink" title="操作系统"></a>操作系统</h1><h1 id="CPU"><a href="#CPU" class="headerlink" title="CPU"></a>CPU</h1><h1 id="内存"><a href="#内存" class="headerlink" title="内存"></a>内存</h1><h1 id="磁盘"><a href="#磁盘" class="headerlink" title="磁盘"></a>磁盘</h1><h1 id="网卡流量、网络带宽"><a href="#网卡流量、网络带宽" class="headerlink" title="网卡流量、网络带宽"></a>网卡流量、网络带宽</h1><h1 id="综合命令"><a href="#综合命令" class="headerlink" title="综合命令"></a>综合命令</h1>
       
     </div>
     
@@ -581,7 +584,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#操作系统"><span class="nav-number">1.</span> <span class="nav-text">操作系统</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CPU"><span class="nav-number">2.</span> <span class="nav-text">CPU</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#内存"><span class="nav-number">3.</span> <span class="nav-text">内存</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#磁盘"><span class="nav-number">4.</span> <span class="nav-text">磁盘</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#网卡流量、网络带宽"><span class="nav-number">5.</span> <span class="nav-text">网卡流量、网络带宽</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#综合命令"><span class="nav-number">6.</span> <span class="nav-text">综合命令</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#操作系统"><span class="nav-number">2.</span> <span class="nav-text">操作系统</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CPU"><span class="nav-number">3.</span> <span class="nav-text">CPU</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#内存"><span class="nav-number">4.</span> <span class="nav-text">内存</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#磁盘"><span class="nav-number">5.</span> <span class="nav-text">磁盘</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#网卡流量、网络带宽"><span class="nav-number">6.</span> <span class="nav-text">网卡流量、网络带宽</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#综合命令"><span class="nav-number">7.</span> <span class="nav-text">综合命令</span></a></li></ol></div>
             
 
           </div>
