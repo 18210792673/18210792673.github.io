@@ -4,8 +4,43 @@
 
     
   <url>
+    <loc>http://yoursite.com/2018/01/29/Linux%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/</loc>
+    <lastmod>2018-01-29T10:20:28.371Z</lastmod>
+    <data>
+        <display>
+        <title>Linux进程管理</title>
+        <pubTime>2018-01-29T09:59:42.000Z</pubTime>
+        
+        <tag>进程管理</tag>
+         
+         
+           
+             
+              <breadCrumb title="linux进程管理" url="http://yoursite.com/categories/linux%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://yoursite.com/2018/01/26/linux%E5%BF%AB%E6%8D%B7%E9%94%AE/</loc>
+    <lastmod>2018-01-26T11:47:00.054Z</lastmod>
+    <data>
+        <display>
+        <title>linux快捷键</title>
+        <pubTime>2018-01-26T11:46:59.000Z</pubTime>
+        
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://yoursite.com/2018/01/25/TotalCommander%E5%B8%B8%E7%94%A8%E5%BF%AB%E6%8D%B7%E9%94%AE/</loc>
-    <lastmod>2018-01-26T03:27:57.717Z</lastmod>
+    <lastmod>2018-01-26T11:35:14.303Z</lastmod>
     <data>
         <display>
         <title>TotalCommander常用快捷键</title>
