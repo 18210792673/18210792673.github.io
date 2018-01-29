@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="Watchmen1992&#39;s Blog">
 <meta property="og:description" content="请承认这是篇干货">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-01-29T12:13:40.153Z">
+<meta property="og:updated_time" content="2018-01-29T12:17:53.935Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux进程管理&#x2F;性能分析">
 <meta name="twitter:description" content="请承认这是篇干货">
@@ -364,20 +364,20 @@
 <h1 id="操作系统"><a href="#操作系统" class="headerlink" title="操作系统"></a>操作系统</h1><h1 id="CPU"><a href="#CPU" class="headerlink" title="CPU"></a>CPU</h1><h1 id="内存"><a href="#内存" class="headerlink" title="内存"></a>内存</h1><h1 id="磁盘"><a href="#磁盘" class="headerlink" title="磁盘"></a>磁盘</h1><h1 id="网卡流量、网络带宽"><a href="#网卡流量、网络带宽" class="headerlink" title="网卡流量、网络带宽"></a>网卡流量、网络带宽</h1><h1 id="综合命令"><a href="#综合命令" class="headerlink" title="综合命令"></a>综合命令</h1><h2 id="glances"><a href="#glances" class="headerlink" title="glances"></a>glances</h2><p>glances是一款用Python开发的系统状态监控工具，它的监控指标也特别的丰富。基本包含了常用的所有指标。这也是个人常用的一个命令，强烈推荐。</p>
 <h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>glances CentOS系统中由epel源提供安装。<br>安装过程:</p>
 <ul>
-<li><h1 id="yum-y-install-epel-release"><a href="#yum-y-install-epel-release" class="headerlink" title="yum -y install epel-release"></a>yum -y install epel-release</h1></li>
-<li><h1 id="yum-y-install-glances"><a href="#yum-y-install-glances" class="headerlink" title="yum -y install glances"></a>yum -y install glances</h1></li>
+<li>yum -y install epel-release </li>
+<li>yum -y install glances</li>
 </ul>
 <p>安装后的启动界面如下：<br>glances 可以使用交互式命令打开和关闭某类监控，改变监控指标单位，改变进程排序列。</p>
 <p>a：自动对进程排序<br>c：根据 CPU 使用率对进程排序<br>m：根据内存使用率对进程排序<br>i：根据 I/O 速率对进程排序<br>d：关闭/开启 磁盘 I/O 状态信息<br>f：关闭/开启 文件系统状态信息<br>1：全局 CPU 状态 / 单个显示 CPU 状态<br>u：显示网络接口的累积流量</p>
 <h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><h2 id="htop"><a href="#htop" class="headerlink" title="htop"></a>htop</h2><p>Htop是Linux 系统中的一个交互式的系统监控和进程查看工具，它被设计用来取代传统的 Unix 系统监控工具 top。Htop 的界面更加直观，功能更加强大，实乃居家旅行杀人越货的必备神器。</p>
-<p>###安装<br>在CentOS/RHEL系统中，htop由epel源提供安装。<br>安装过程：</p>
+<h3 id="安装-1"><a href="#安装-1" class="headerlink" title="安装"></a>安装</h3><p>在CentOS/RHEL系统中，htop由epel源提供安装。<br>安装过程：</p>
 <ul>
-<li><h1 id="yum-y-install-epel-release-1"><a href="#yum-y-install-epel-release-1" class="headerlink" title="yum -y install epel-release"></a>yum -y install epel-release</h1></li>
-<li><h1 id="yum-y-install-htop"><a href="#yum-y-install-htop" class="headerlink" title="yum -y install htop"></a>yum -y install htop</h1></li>
+<li>yum -y install epel-release </li>
+<li>yum -y install htop</li>
 </ul>
 <p>安装后的启动界面如下：</p>
 <p>这里显示了系统的 CPU使用率，平均负载，内存使用情况，Swap 使用情况，网络接口流量速率，磁盘 I/O 速率，挂载分区的空间使用率以及进程状态等信息。</p>
-<p>###使用<br>glances 可以使用交互式命令打开和关闭某类监控，改变监控指标单位，改变进程排序列。</p>
+<h3 id="使用-1"><a href="#使用-1" class="headerlink" title="使用"></a>使用</h3><p>glances 可以使用交互式命令打开和关闭某类监控，改变监控指标单位，改变进程排序列。</p>
 <p>以下为常用参数：</p>
 <blockquote>
 <p>a：自动对进程排序</p>
@@ -389,14 +389,13 @@
 <p>1：全局 CPU 状态 / 单个显示 CPU 状态</p>
 <p>u：显示网络接口的累积流量</p>
 </blockquote>
-<p>##dstat<br>dstat 是一款功能非常强大的系统性能监控工具，它整合了 vmstat，iostat，netstat 和 ifstat 四款工具的功能。</p>
-<p>###安装</p>
-<p>###安装<br>在CentOS/RHEL系统中，dstat由epel源提供安装。<br>安装过程：</p>
+<h2 id="dstat"><a href="#dstat" class="headerlink" title="dstat"></a>dstat</h2><p>dstat 是一款功能非常强大的系统性能监控工具，它整合了 vmstat，iostat，netstat 和 ifstat 四款工具的功能。</p>
+<h3 id="安装-2"><a href="#安装-2" class="headerlink" title="安装"></a>安装</h3><p>在CentOS/RHEL系统中，dstat由epel源提供安装。<br>安装过程：</p>
 <ul>
-<li><h1 id="yum-y-install-epel-release-2"><a href="#yum-y-install-epel-release-2" class="headerlink" title="yum -y install epel-release"></a>yum -y install epel-release</h1></li>
-<li><h1 id="yum-y-install-dstat"><a href="#yum-y-install-dstat" class="headerlink" title="yum -y install dstat"></a>yum -y install dstat</h1></li>
+<li>yum -y install epel-release </li>
+<li>yum -y install dstat</li>
 </ul>
-<h3 id="使用-1"><a href="#使用-1" class="headerlink" title="使用"></a>使用</h3><p>-c: 显示cpu性能指标相关的统计数据</p>
+<h3 id="使用-2"><a href="#使用-2" class="headerlink" title="使用"></a>使用</h3><p>-c: 显示cpu性能指标相关的统计数据</p>
 <p>-d: 显示disk相关的速率数据</p>
 <p>-g: 显示page相关的速率数据</p>
 <p>-i: 显示interrupt相关的速率数据</p>
@@ -644,7 +643,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#程序和进程"><span class="nav-number">1.1.</span> <span class="nav-text">程序和进程</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#操作系统"><span class="nav-number">2.</span> <span class="nav-text">操作系统</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CPU"><span class="nav-number">3.</span> <span class="nav-text">CPU</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#内存"><span class="nav-number">4.</span> <span class="nav-text">内存</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#磁盘"><span class="nav-number">5.</span> <span class="nav-text">磁盘</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#网卡流量、网络带宽"><span class="nav-number">6.</span> <span class="nav-text">网卡流量、网络带宽</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#综合命令"><span class="nav-number">7.</span> <span class="nav-text">综合命令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#glances"><span class="nav-number">7.1.</span> <span class="nav-text">glances</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装"><span class="nav-number">7.1.1.</span> <span class="nav-text">安装</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#yum-y-install-epel-release"><span class="nav-number">8.</span> <span class="nav-text">yum -y install epel-release</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#yum-y-install-glances"><span class="nav-number">9.</span> <span class="nav-text">yum -y install glances</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用"><span class="nav-number">9.0.1.</span> <span class="nav-text">使用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#htop"><span class="nav-number">9.1.</span> <span class="nav-text">htop</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#yum-y-install-epel-release-1"><span class="nav-number">10.</span> <span class="nav-text">yum -y install epel-release</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#yum-y-install-htop"><span class="nav-number">11.</span> <span class="nav-text">yum -y install htop</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#yum-y-install-epel-release-2"><span class="nav-number">12.</span> <span class="nav-text">yum -y install epel-release</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#yum-y-install-dstat"><span class="nav-number">13.</span> <span class="nav-text">yum -y install dstat</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用-1"><span class="nav-number">13.0.1.</span> <span class="nav-text">使用</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#程序和进程"><span class="nav-number">1.1.</span> <span class="nav-text">程序和进程</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#操作系统"><span class="nav-number">2.</span> <span class="nav-text">操作系统</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CPU"><span class="nav-number">3.</span> <span class="nav-text">CPU</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#内存"><span class="nav-number">4.</span> <span class="nav-text">内存</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#磁盘"><span class="nav-number">5.</span> <span class="nav-text">磁盘</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#网卡流量、网络带宽"><span class="nav-number">6.</span> <span class="nav-text">网卡流量、网络带宽</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#综合命令"><span class="nav-number">7.</span> <span class="nav-text">综合命令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#glances"><span class="nav-number">7.1.</span> <span class="nav-text">glances</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装"><span class="nav-number">7.1.1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用"><span class="nav-number">7.1.2.</span> <span class="nav-text">使用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#htop"><span class="nav-number">7.2.</span> <span class="nav-text">htop</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装-1"><span class="nav-number">7.2.1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用-1"><span class="nav-number">7.2.2.</span> <span class="nav-text">使用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#dstat"><span class="nav-number">7.3.</span> <span class="nav-text">dstat</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装-2"><span class="nav-number">7.3.1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用-2"><span class="nav-number">7.3.2.</span> <span class="nav-text">使用</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
