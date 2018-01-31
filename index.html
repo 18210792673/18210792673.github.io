@@ -569,6 +569,28 @@
           </span>
 
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/常用软件工具/" itemprop="url" rel="index">
+                    <span itemprop="name">常用软件工具</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -597,111 +619,14 @@
 
       
         
-          
-            <h1 id="Markdown介绍"><a href="#Markdown介绍" class="headerlink" title="Markdown介绍"></a>Markdown介绍</h1><p>Markdown 是一种轻量级标记语言，让写作者专注于写作而不用关注样式。</p>
-<p>划重点：<strong>轻量级</strong>、<strong>标记语言</strong></p>
-<h2 id="核心理念"><a href="#核心理念" class="headerlink" title="核心理念"></a>核心理念</h2><p>Markdown 的目标是实现「易读易写」，成为一种适用于网络的书写语言。。不管从任何角度来说，可读性，都是最重要的。<br>Markdown 的语法全由一些符号所组成，这些符号经过精挑细选，其作用一目了然。比如：在文字两旁加上星号，看起来就像<em>强调</em>。</p>
-<p>划重点：<strong>语法是非常简单的符号</strong>、<strong>即写即读</strong></p>
-<h2 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h2><h3 id="兼容HTML"><a href="#兼容HTML" class="headerlink" title="兼容HTML"></a>兼容HTML</h3><p>Markdown 的构想不是要使得 HTML文档更容易书写。HTML 已经很容易写了。<br>Markdown 的理念是，能让文档更容易读、写和随意改。</p>
-<p>HTML是一种发布的格式，而Markdown 是一种书写的格式。<br>也因此，Markdown 的格式语法只涵盖纯文本可以涵盖的范围。</p>
-<h1 id="快速检索"><a href="#快速检索" class="headerlink" title="快速检索"></a>快速检索</h1><h2 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h2><h3 id="无序列表（MarkdownPad中快捷键为Ctrl-u）："><a href="#无序列表（MarkdownPad中快捷键为Ctrl-u）：" class="headerlink" title="无序列表（MarkdownPad中快捷键为Ctrl+u）："></a>无序列表（MarkdownPad中快捷键为Ctrl+u）：</h3><pre><code>* list1     前面使用*号
-- list2        前面使用-号
-+ list3        前面使用+号
-</code></pre><p>效果如下：</p>
-<ul>
-<li>list1</li>
-</ul>
-<ul>
-<li>list2</li>
-</ul>
-<ul>
-<li>list3</li>
-</ul>
-<p>###有序列表(MarkdownPad中快捷键为Ctrl+shift+o）：</p>
-<pre><code>1. list1    前面使用数字+英文的点号
-2. list2
-</code></pre><p>效果如下：</p>
-<ol>
-<li>list1</li>
-<li>list2</li>
-</ol>
-<h2 id="区块引用（MarkdownPad中快捷键为Ctrl-q）"><a href="#区块引用（MarkdownPad中快捷键为Ctrl-q）" class="headerlink" title="区块引用（MarkdownPad中快捷键为Ctrl+q）"></a>区块引用（MarkdownPad中快捷键为Ctrl+q）</h2><pre><code>&gt; 数据1    使用&gt;号
-&gt; 数据2
-</code></pre><p>实际效果展示：</p>
-<blockquote>
-<p>数据1</p>
-<p>数据2</p>
-</blockquote>
-<h2 id="代码区块（MarkdownPad中快捷键为Ctrl-k）："><a href="#代码区块（MarkdownPad中快捷键为Ctrl-k）：" class="headerlink" title="代码区块（MarkdownPad中快捷键为Ctrl+k）："></a>代码区块（MarkdownPad中快捷键为Ctrl+k）：</h2><h3 id="文字内加区块，不会加空白处底纹"><a href="#文字内加区块，不会加空白处底纹" class="headerlink" title="文字内加区块，不会加空白处底纹"></a>文字内加区块，不会加空白处底纹</h3><pre><code>使用``（数字1左边，ESC下面的按键）
-</code></pre><p>实际效果展示：在文件中含有<code>代码区块</code>是什么样子</p>
-<h3 id="整行的代码区块行，会加空白处底纹"><a href="#整行的代码区块行，会加空白处底纹" class="headerlink" title="整行的代码区块行，会加空白处底纹"></a>整行的代码区块行，会加空白处底纹</h3><pre><code>缩进4个空格或者是一个制表符。
-</code></pre><p>实际效果展示：</p>
-<pre><code>现在的效果就是整整一个的区块行，如果这段代码比较长的话，那么markdown就会在下面生成一个查看条，供用户左右拉取调整，就是如现在所示。
-</code></pre><h2 id="分割线-分隔线（暂无快捷键）"><a href="#分割线-分隔线（暂无快捷键）" class="headerlink" title="分割线/分隔线（暂无快捷键）"></a>分割线/分隔线（暂无快捷键）</h2><p>一行中用三个以上的星号、减号、底线来建立一个分隔线，可以在字符之间加入空格，也可以不加空格</p>
-<pre><code>* * * 
-***
-*****
----
-- - - 
-</code></pre><p>实际效果展示如下：</p>
-<hr>
-<h2 id="网页链接"><a href="#网页链接" class="headerlink" title="网页链接"></a>网页链接</h2><pre><code>&lt;https://www.baidu.com&gt;    用&lt;&gt;尖括号将内容包起来，markdown就会自动把它转成链接。网页链接、邮箱链接等都采用这种方式
-</code></pre><p>实际效果展示如下：<br>这段话中将要插入百度<a href="https://www.baidu.com" target="_blank" rel="noopener">https://www.baidu.com</a>的链接</p>
-<h2 id="图片链接"><a href="#图片链接" class="headerlink" title="图片链接"></a>图片链接</h2><p>图片链接分为2部分，一种是在文字中，通过文字来链接到图片位置，用户需要点击这个文字链接去查看图片，优点是使文字更简约，缺点是无法直观的看到图。<br>因此，第二种方式是直接在文章中显示图片。</p>
-<p>我们把这两种方式分别称之为：行内式和参考式</p>
-<h3 id="行内式"><a href="#行内式" class="headerlink" title="行内式"></a>行内式</h3><p>行内式的图片语法看起来像是：</p>
-<pre><code>![Alt text](/path/to/img.jpg)
-参考案例：![Alt text](/path/to/img.jpg &quot;Optional title&quot;)
-</code></pre><p>详细叙述如下：</p>
-<blockquote>
-<p>一个惊叹号 !</p>
-<p>接着一个方括号，里面放上图片的替代文字</p>
-<p>接着一个普通括号，里面放上图片的网址，</p>
-<p>最后还可以用引号包住并加上 选择性的 ‘title’ 文字。</p>
-</blockquote>
-<h3 id="参考式"><a href="#参考式" class="headerlink" title="参考式"></a>参考式</h3><p>参考式的图片语法则长得像这样：</p>
-<pre><code>![Alt text][id]
-「id」是图片参考的名称，图片参考的定义方式则和连结参考一样：
-
-参考案例：[id]: url/to/image  &quot;Optional title attribute&quot;
-</code></pre><hr>
-<h1 id="实际操作"><a href="#实际操作" class="headerlink" title="实际操作"></a>实际操作</h1><h2 id="标题"><a href="#标题" class="headerlink" title="标题"></a>标题</h2><p>Markdown 支持两种标题的语法，类 Setext 和类 atx 形式。<br>类 Setext 形式是用底线的形式，利用 = （最高阶标题）和 - （第二阶标题），例如：</p>
-<h1 id="This-is-an-H1"><a href="#This-is-an-H1" class="headerlink" title="This is an H1"></a>This is an H1</h1><h2 id="This-is-an-H2"><a href="#This-is-an-H2" class="headerlink" title="This is an H2"></a>This is an H2</h2><p>任何数量的 = 和 - 都可以有效果。</p>
-<p>类 Atx 形式则是在行首插入 1 到 6 个 # ，对应到标题 1 到 6 阶，例如：</p>
-<p>&lt; # 这是 H1 ## 这是 H2 ###### 这是 H6 &gt;</p>
-<h2 id="区块引用-Blockquotes"><a href="#区块引用-Blockquotes" class="headerlink" title="区块引用 Blockquotes"></a>区块引用 Blockquotes</h2><p>Markdown 标记区块引用是使用类似 email 中用 &gt; 的引用方式。如果你还熟悉在 email 信件中的引言部分，你就知道怎么在 Markdown 文件中建立一个区块引用，那会看起来像是你自己先断好行，然后在每行的最前面加上 &gt; ：</p>
-<h2 id="列表-1"><a href="#列表-1" class="headerlink" title="列表"></a>列表</h2><p>Markdown 支持有序列表和无序列表。<br>无序列表使用星号、加号或是减号作为列表标记：</p>
-<ul>
-<li>Red</li>
-<li>Green</li>
-<li>Blue</li>
-</ul>
-<p>等同于：</p>
-<ul>
-<li>Red</li>
-<li>Green</li>
-<li>Blue</li>
-</ul>
-<p>也等同于：</p>
-<ul>
-<li>Red</li>
-<li>Green</li>
-<li>Blue</li>
-</ul>
-<p>有序列表则使用数字接着一个英文句点：</p>
-<ol>
-<li>Bird</li>
-<li>McHale</li>
-<li>Parish</li>
-</ol>
-<p>##代码区块<br>和程序相关的写作或是标签语言原始码通常会有已经排版好的代码区块，通常这些区块我们并不希望它以一般段落文件的方式去排版，<br>而是照原来的样子显示，Markdown 会用 <code>&lt;pre&gt;</code> 和 <code>&lt;code&gt;</code> 标签来把代码区块包起来。</p>
-<p>要在 Markdown 中建立代码区块很简单，只要简单地缩进 4 个空格或是 1 个制表符就可以，例如，下面的输入：</p>
-<p>这是一个简单段落：</p>
-<pre><code>的的
-的
-</code></pre><p>呵呵<code>的的</code></p>
-
-          
+          markdown介绍、快速入门、进阶，进阶后到资深不讲也不会。本文不会讲markdown更高级的应用，因为每个人工作侧重点都不一样，如果不是markdown相关技术岗位，绝大部分人不需要了解非常深入的一些用法，因为还有更重要的事情等待我们去做，更重要的是每个人的时间都是非常宝贵的，掌握并应用熟练之后，再运用它去支撑我们的工作这才是最重要的。
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/01/25/Markdown语法/">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1196,7 +1121,7 @@
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">3</span>
                   <span class="site-state-item-name">标签</span>
                 
               </div>
