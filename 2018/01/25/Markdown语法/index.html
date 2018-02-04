@@ -531,8 +531,13 @@ _Coding，让开发更简单_
 <figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">require</span> <span class="string">'redcarpet'</span></span><br><span class="line">markdown = Redcarpet.new(<span class="string">"Hello World!"</span>)</span><br><span class="line">puts markdown.to_html</span><br></pre></td></tr></table></figure>
 <p>实际效果展示：</p>
 <pre><code>现在的效果就是整整一个的区块行，如果这段代码比较长的话，那么markdown就会在下面生成一个查看条，供用户左右拉取调整，就是如现在所示。
-</code></pre><h3 id="指定代码格式的区块行"><a href="#指定代码格式的区块行" class="headerlink" title="指定代码格式的区块行"></a>指定代码格式的区块行</h3><pre><code><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">	$ 数据内容1</span><br><span class="line">	$ 数据内容2</span><br><span class="line">	```	此处以bash格式的内容进行举例说明</span><br><span class="line"></span><br><span class="line">实际效果展示：</span><br><span class="line"></span><br><span class="line">```bash</span><br><span class="line">$ line1-test1</span><br><span class="line">$ line2-test2</span><br></pre></td></tr></table></figure>
-</code></pre><h2 id="分割线-分隔线（暂无快捷键）"><a href="#分割线-分隔线（暂无快捷键）" class="headerlink" title="分割线/分隔线（暂无快捷键）"></a>分割线/分隔线（暂无快捷键）</h2><p>一行中用三个以上的星号、减号、底线来建立一个分隔线，可以在字符之间加入空格，也可以不加空格</p>
+</code></pre><h3 id="指定代码格式的区块行"><a href="#指定代码格式的区块行" class="headerlink" title="指定代码格式的区块行"></a>指定代码格式的区块行</h3><pre><code>\`\`\`bash 
+$ 数据内容1
+$ 数据内容2
+\`\`\`    此处以bash格式的内容进行举例说明
+</code></pre><p>实际效果展示：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ line1-test1</span><br><span class="line">$ line2-test2</span><br></pre></td></tr></table></figure>
+<h2 id="分割线-分隔线（暂无快捷键）"><a href="#分割线-分隔线（暂无快捷键）" class="headerlink" title="分割线/分隔线（暂无快捷键）"></a>分割线/分隔线（暂无快捷键）</h2><p>一行中用三个以上的星号、减号、底线来建立一个分隔线，可以在字符之间加入空格，也可以不加空格</p>
 <pre><code>* * * 
 ***
 *****
