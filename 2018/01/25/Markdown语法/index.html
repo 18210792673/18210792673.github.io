@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="markdown介绍、快速入门、进阶，进阶后到资深不讲也不会。本文不会讲markdown更高级的应用，因为每个人工作侧重点都不一样，如果不是markdown相关技术岗位，绝大部分人不需要了解非常深入的一些用法，因为还有更重要的事情等待我们去做，更重要的是每个人的时间都是非常宝贵的，掌握并应用熟练之后，再运用它去支撑我们的工作这才是最重要的。如果需要深入了解可上官网查阅资料，多人协作共同打造技术链。">
+<meta name="description" content="markdown常用操作">
 <meta name="keywords" content="markdown">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Markdown语法">
 <meta property="og:url" content="http://yoursite.com/2018/01/25/Markdown语法/index.html">
 <meta property="og:site_name" content="Watchmen1992&#39;s Blog">
-<meta property="og:description" content="markdown介绍、快速入门、进阶，进阶后到资深不讲也不会。本文不会讲markdown更高级的应用，因为每个人工作侧重点都不一样，如果不是markdown相关技术岗位，绝大部分人不需要了解非常深入的一些用法，因为还有更重要的事情等待我们去做，更重要的是每个人的时间都是非常宝贵的，掌握并应用熟练之后，再运用它去支撑我们的工作这才是最重要的。如果需要深入了解可上官网查阅资料，多人协作共同打造技术链。">
+<meta property="og:description" content="markdown常用操作">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-01-31T01:54:54.183Z">
+<meta property="og:updated_time" content="2018-02-04T02:45:47.214Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Markdown语法">
-<meta name="twitter:description" content="markdown介绍、快速入门、进阶，进阶后到资深不讲也不会。本文不会讲markdown更高级的应用，因为每个人工作侧重点都不一样，如果不是markdown相关技术岗位，绝大部分人不需要了解非常深入的一些用法，因为还有更重要的事情等待我们去做，更重要的是每个人的时间都是非常宝贵的，掌握并应用熟练之后，再运用它去支撑我们的工作这才是最重要的。如果需要深入了解可上官网查阅资料，多人协作共同打造技术链。">
+<meta name="twitter:description" content="markdown常用操作">
 
 
 
@@ -339,7 +339,7 @@
 
           
               <div class="post-description">
-                  markdown介绍、快速入门、进阶，进阶后到资深不讲也不会。本文不会讲markdown更高级的应用，因为每个人工作侧重点都不一样，如果不是markdown相关技术岗位，绝大部分人不需要了解非常深入的一些用法，因为还有更重要的事情等待我们去做，更重要的是每个人的时间都是非常宝贵的，掌握并应用熟练之后，再运用它去支撑我们的工作这才是最重要的。如果需要深入了解可上官网查阅资料，多人协作共同打造技术链。
+                  markdown常用操作
               </div>
           
 
@@ -362,7 +362,31 @@
 <p>划重点：<strong>语法是非常简单的符号</strong>、<strong>即写即读</strong></p>
 <h2 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h2><h3 id="兼容HTML"><a href="#兼容HTML" class="headerlink" title="兼容HTML"></a>兼容HTML</h3><p>Markdown 的构想不是要使得 HTML文档更容易书写。HTML 已经很容易写了。<br>Markdown 的理念是，能让文档更容易读、写和随意改。</p>
 <p>HTML是一种发布的格式，而Markdown 是一种书写的格式。<br>也因此，Markdown 的格式语法只涵盖纯文本可以涵盖的范围。</p>
-<h1 id="快速检索"><a href="#快速检索" class="headerlink" title="快速检索"></a>快速检索</h1><p>本章节为之后所有章节的总结提炼，如题是提供快速检索功能，建议看完后续内容再来阅读此章节。</p>
+<h1 id="常用操作"><a href="#常用操作" class="headerlink" title="常用操作"></a>常用操作</h1><p>本章节为之后所有章节的总结提炼，提供快速检索功能，后续章节内容包含相关解释性说明。</p>
+<h2 id="标题（MarkdownPad中快捷键为Ctrl-1-2-3-4）："><a href="#标题（MarkdownPad中快捷键为Ctrl-1-2-3-4）：" class="headerlink" title="标题（MarkdownPad中快捷键为Ctrl+1/2/3/4）："></a>标题（MarkdownPad中快捷键为Ctrl+1/2/3/4）：</h2><p>Markdown 支持两种标题的语法，类 Setext 和类 atx 形式。<br>类 Setext 形式是用底线的形式，利用 = （最高阶标题）和 - （第二阶标题），例如：</p>
+<pre><code>This is an H1
+=============
+
+This is an H2
+-------------
+</code></pre><p>任何数量的 = 和 - 都可以有效果。但是这种形式只支持2层标题。</p>
+<p>类 Atx 形式则是在行首插入 1 到 6 个 # ，对应到标题 1 到 6 阶，例如：</p>
+<pre><code># 这是 H1 
+## 这是 H2 
+###### 这是 H6 
+</code></pre><h2 id="强调"><a href="#强调" class="headerlink" title="强调"></a>强调</h2><p>在Markdown中，可以使用 * 和  _  来表示斜体和加粗。</p>
+<h3 id="加粗"><a href="#加粗" class="headerlink" title="加粗"></a>加粗</h3><p>加粗部分使用方式如下：</p>
+<pre><code>**Coding，让开发更简单**
+__Coding，让开发更简单__
+</code></pre><p>实际展示效果如下：</p>
+<p><strong>Coding，让开发更简单</strong></p>
+<p><strong>Coding，让开发更简单</strong></p>
+<h3 id="斜体"><a href="#斜体" class="headerlink" title="斜体"></a>斜体</h3><p>斜体部分的使用如下：</p>
+<pre><code>*Coding，让开发更简单*
+_Coding，让开发更简单_
+</code></pre><p>实际展示效果展示如下：</p>
+<p><em>Coding，让开发更简单</em></p>
+<p><em>Coding，让开发更简单</em></p>
 <h2 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h2><h3 id="无序列表（MarkdownPad中快捷键为Ctrl-u）："><a href="#无序列表（MarkdownPad中快捷键为Ctrl-u）：" class="headerlink" title="无序列表（MarkdownPad中快捷键为Ctrl+u）："></a>无序列表（MarkdownPad中快捷键为Ctrl+u）：</h3><pre><code>* list1     前面使用*号
 - list2        前面使用-号
 + list3        前面使用+号
@@ -385,19 +409,27 @@
 </ol>
 <h2 id="区块引用（MarkdownPad中快捷键为Ctrl-q）"><a href="#区块引用（MarkdownPad中快捷键为Ctrl-q）" class="headerlink" title="区块引用（MarkdownPad中快捷键为Ctrl+q）"></a>区块引用（MarkdownPad中快捷键为Ctrl+q）</h2><pre><code>&gt; 数据1    使用&gt;号
 &gt; 数据2
+&gt; &gt; 二级引用  注意区块引用可以包含多级引用
+&gt; 
 </code></pre><p>实际效果展示：</p>
 <blockquote>
 <p>数据1</p>
 <p>数据2</p>
+<blockquote>
+<p>这是二级引用</p>
+<blockquote>
+<p>三级引用</p>
 </blockquote>
-<h2 id="代码区块（MarkdownPad中快捷键为Ctrl-k）："><a href="#代码区块（MarkdownPad中快捷键为Ctrl-k）：" class="headerlink" title="代码区块（MarkdownPad中快捷键为Ctrl+k）："></a>代码区块（MarkdownPad中快捷键为Ctrl+k）：</h2><p>代码区块包括3种，文字内和单独一行以及制定代码格式的区块行</p>
+</blockquote>
+</blockquote>
+<h2 id="代码区块（MarkdownPad中快捷键为Ctrl-k）："><a href="#代码区块（MarkdownPad中快捷键为Ctrl-k）：" class="headerlink" title="代码区块（MarkdownPad中快捷键为Ctrl+k）："></a>代码区块（MarkdownPad中快捷键为Ctrl+k）：</h2><p>代码区块包括3种，文字内和单独一行以及指定代码格式的区块行</p>
 <h3 id="文字内加区块，不会加空白处底纹"><a href="#文字内加区块，不会加空白处底纹" class="headerlink" title="文字内加区块，不会加空白处底纹"></a>文字内加区块，不会加空白处底纹</h3><pre><code>使用``（数字1左边，ESC下面的按键）
 </code></pre><p>实际效果展示：在文件中含有<code>代码区块</code>是什么样子</p>
 <h3 id="整行的代码区块行，会加空白处底纹"><a href="#整行的代码区块行，会加空白处底纹" class="headerlink" title="整行的代码区块行，会加空白处底纹"></a>整行的代码区块行，会加空白处底纹</h3><pre><code>缩进4个空格或者一个制表符（tab键）。
 </code></pre><p>实际效果展示：</p>
 <pre><code>现在的效果就是整整一个的区块行，如果这段代码比较长的话，那么markdown就会在下面生成一个查看条，供用户左右拉取调整，就是如现在所示。
-</code></pre><h3 id="制定代码格式的区块行"><a href="#制定代码格式的区块行" class="headerlink" title="制定代码格式的区块行"></a>制定代码格式的区块行</h3><pre><code><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">	$ 数据内容1</span><br><span class="line">	$ 数据内容2</span><br><span class="line">	```	此处以bash格式的内容进行举例说明</span><br><span class="line"></span><br><span class="line">```bash</span><br><span class="line">$ line1</span><br><span class="line">$ line2</span><br></pre></td></tr></table></figure>
-</code></pre><h2 id="分割线-分隔线（暂无快捷键）"><a href="#分割线-分隔线（暂无快捷键）" class="headerlink" title="分割线/分隔线（暂无快捷键）"></a>分割线/分隔线（暂无快捷键）</h2><p>一行中用三个以上的星号、减号、底线来建立一个分隔线，可以在字符之间加入空格，也可以不加空格</p>
+</code></pre><h3 id="指定代码格式的区块行"><a href="#指定代码格式的区块行" class="headerlink" title="指定代码格式的区块行"></a>指定代码格式的区块行</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ 数据内容1</span><br><span class="line">$ 数据内容2</span><br><span class="line">```	此处以bash格式的内容进行举例说明</span><br><span class="line"></span><br><span class="line">```bash</span><br><span class="line">$ line1</span><br><span class="line">$ line2</span><br></pre></td></tr></table></figure>
+<h2 id="分割线-分隔线（暂无快捷键）"><a href="#分割线-分隔线（暂无快捷键）" class="headerlink" title="分割线/分隔线（暂无快捷键）"></a>分割线/分隔线（暂无快捷键）</h2><p>一行中用三个以上的星号、减号、底线来建立一个分隔线，可以在字符之间加入空格，也可以不加空格</p>
 <pre><code>* * * 
 ***
 *****
@@ -428,7 +460,28 @@
 「id」是图片参考的名称，图片参考的定义方式则和连结参考一样：
 
 参考案例：[id]: url/to/image  &quot;Optional title attribute&quot;
-</code></pre><hr>
+</code></pre><h2 id="表格"><a href="#表格" class="headerlink" title="表格"></a>表格</h2><table>
+<thead>
+<tr>
+<th>First Header</th>
+<th>Second Header</th>
+<th>Third Header</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Content Cell</td>
+<td>Content Cell</td>
+<td>Content Cell</td>
+</tr>
+<tr>
+<td>Content Cell</td>
+<td>Content Cell</td>
+<td>Content Cell</td>
+</tr>
+</tbody>
+</table>
+<hr>
 <h1 id="实际操作"><a href="#实际操作" class="headerlink" title="实际操作"></a>实际操作</h1><h2 id="标题"><a href="#标题" class="headerlink" title="标题"></a>标题</h2><p>Markdown 支持两种标题的语法，类 Setext 和类 atx 形式。<br>类 Setext 形式是用底线的形式，利用 = （最高阶标题）和 - （第二阶标题），例如：</p>
 <pre><code>This is an H1
 =============
@@ -700,7 +753,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Markdown介绍"><span class="nav-number">1.</span> <span class="nav-text">Markdown介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#核心理念"><span class="nav-number">1.1.</span> <span class="nav-text">核心理念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#特性"><span class="nav-number">1.2.</span> <span class="nav-text">特性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#兼容HTML"><span class="nav-number">1.2.1.</span> <span class="nav-text">兼容HTML</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#快速检索"><span class="nav-number">2.</span> <span class="nav-text">快速检索</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#列表"><span class="nav-number">2.1.</span> <span class="nav-text">列表</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#无序列表（MarkdownPad中快捷键为Ctrl-u）："><span class="nav-number">2.1.1.</span> <span class="nav-text">无序列表（MarkdownPad中快捷键为Ctrl+u）：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#有序列表-MarkdownPad中快捷键为Ctrl-shift-o）："><span class="nav-number">2.1.2.</span> <span class="nav-text">有序列表(MarkdownPad中快捷键为Ctrl+shift+o）：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#区块引用（MarkdownPad中快捷键为Ctrl-q）"><span class="nav-number">2.2.</span> <span class="nav-text">区块引用（MarkdownPad中快捷键为Ctrl+q）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代码区块（MarkdownPad中快捷键为Ctrl-k）："><span class="nav-number">2.3.</span> <span class="nav-text">代码区块（MarkdownPad中快捷键为Ctrl+k）：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#文字内加区块，不会加空白处底纹"><span class="nav-number">2.3.1.</span> <span class="nav-text">文字内加区块，不会加空白处底纹</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#整行的代码区块行，会加空白处底纹"><span class="nav-number">2.3.2.</span> <span class="nav-text">整行的代码区块行，会加空白处底纹</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#制定代码格式的区块行"><span class="nav-number">2.3.3.</span> <span class="nav-text">制定代码格式的区块行</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分割线-分隔线（暂无快捷键）"><span class="nav-number">2.4.</span> <span class="nav-text">分割线/分隔线（暂无快捷键）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#网页链接"><span class="nav-number">2.5.</span> <span class="nav-text">网页链接</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#直接显示"><span class="nav-number">2.5.1.</span> <span class="nav-text">直接显示</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#文字跳转"><span class="nav-number">2.5.2.</span> <span class="nav-text">文字跳转</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#图片链接"><span class="nav-number">2.6.</span> <span class="nav-text">图片链接</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#行内式"><span class="nav-number">2.6.1.</span> <span class="nav-text">行内式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考式"><span class="nav-number">2.6.2.</span> <span class="nav-text">参考式</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实际操作"><span class="nav-number">3.</span> <span class="nav-text">实际操作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#标题"><span class="nav-number">3.1.</span> <span class="nav-text">标题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#区块引用-Blockquotes"><span class="nav-number">3.2.</span> <span class="nav-text">区块引用 Blockquotes</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#列表-1"><span class="nav-number">3.3.</span> <span class="nav-text">列表</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Markdown介绍"><span class="nav-number">1.</span> <span class="nav-text">Markdown介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#核心理念"><span class="nav-number">1.1.</span> <span class="nav-text">核心理念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#特性"><span class="nav-number">1.2.</span> <span class="nav-text">特性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#兼容HTML"><span class="nav-number">1.2.1.</span> <span class="nav-text">兼容HTML</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#常用操作"><span class="nav-number">2.</span> <span class="nav-text">常用操作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#标题（MarkdownPad中快捷键为Ctrl-1-2-3-4）："><span class="nav-number">2.1.</span> <span class="nav-text">标题（MarkdownPad中快捷键为Ctrl+1/2/3/4）：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#强调"><span class="nav-number">2.2.</span> <span class="nav-text">强调</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#加粗"><span class="nav-number">2.2.1.</span> <span class="nav-text">加粗</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#斜体"><span class="nav-number">2.2.2.</span> <span class="nav-text">斜体</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#列表"><span class="nav-number">2.3.</span> <span class="nav-text">列表</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#无序列表（MarkdownPad中快捷键为Ctrl-u）："><span class="nav-number">2.3.1.</span> <span class="nav-text">无序列表（MarkdownPad中快捷键为Ctrl+u）：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#有序列表-MarkdownPad中快捷键为Ctrl-shift-o）："><span class="nav-number">2.3.2.</span> <span class="nav-text">有序列表(MarkdownPad中快捷键为Ctrl+shift+o）：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#区块引用（MarkdownPad中快捷键为Ctrl-q）"><span class="nav-number">2.4.</span> <span class="nav-text">区块引用（MarkdownPad中快捷键为Ctrl+q）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代码区块（MarkdownPad中快捷键为Ctrl-k）："><span class="nav-number">2.5.</span> <span class="nav-text">代码区块（MarkdownPad中快捷键为Ctrl+k）：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#文字内加区块，不会加空白处底纹"><span class="nav-number">2.5.1.</span> <span class="nav-text">文字内加区块，不会加空白处底纹</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#整行的代码区块行，会加空白处底纹"><span class="nav-number">2.5.2.</span> <span class="nav-text">整行的代码区块行，会加空白处底纹</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#指定代码格式的区块行"><span class="nav-number">2.5.3.</span> <span class="nav-text">指定代码格式的区块行</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分割线-分隔线（暂无快捷键）"><span class="nav-number">2.6.</span> <span class="nav-text">分割线/分隔线（暂无快捷键）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#网页链接"><span class="nav-number">2.7.</span> <span class="nav-text">网页链接</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#直接显示"><span class="nav-number">2.7.1.</span> <span class="nav-text">直接显示</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#文字跳转"><span class="nav-number">2.7.2.</span> <span class="nav-text">文字跳转</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#图片链接"><span class="nav-number">2.8.</span> <span class="nav-text">图片链接</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#行内式"><span class="nav-number">2.8.1.</span> <span class="nav-text">行内式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考式"><span class="nav-number">2.8.2.</span> <span class="nav-text">参考式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#表格"><span class="nav-number">2.9.</span> <span class="nav-text">表格</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实际操作"><span class="nav-number">3.</span> <span class="nav-text">实际操作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#标题"><span class="nav-number">3.1.</span> <span class="nav-text">标题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#区块引用-Blockquotes"><span class="nav-number">3.2.</span> <span class="nav-text">区块引用 Blockquotes</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#列表-1"><span class="nav-number">3.3.</span> <span class="nav-text">列表</span></a></li></ol></li></ol></div>
             
 
           </div>

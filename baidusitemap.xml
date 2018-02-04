@@ -4,8 +4,28 @@
 
     
   <url>
+    <loc>http://yoursite.com/2018/01/25/TotalCommander%E5%B8%B8%E7%94%A8%E5%BF%AB%E6%8D%B7%E9%94%AE/</loc>
+    <lastmod>2018-02-04T02:46:14.661Z</lastmod>
+    <data>
+        <display>
+        <title>TotalCommander常用快捷键</title>
+        <pubTime>2018-01-25T14:01:57.000Z</pubTime>
+        
+        <tag>TC操作</tag>
+         
+         
+           
+             
+              <breadCrumb title="常用软件工具" url="http://yoursite.com/categories/%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6%E5%B7%A5%E5%85%B7/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://yoursite.com/2018/01/25/Markdown%E8%AF%AD%E6%B3%95/</loc>
-    <lastmod>2018-01-31T01:54:54.183Z</lastmod>
+    <lastmod>2018-02-04T02:45:47.214Z</lastmod>
     <data>
         <display>
         <title>Markdown语法</title>
@@ -53,26 +73,6 @@
         
          
            
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://yoursite.com/2018/01/25/TotalCommander%E5%B8%B8%E7%94%A8%E5%BF%AB%E6%8D%B7%E9%94%AE/</loc>
-    <lastmod>2018-01-26T11:35:14.303Z</lastmod>
-    <data>
-        <display>
-        <title>TotalCommander常用快捷键</title>
-        <pubTime>2018-01-25T14:01:57.000Z</pubTime>
-        
-        <tag>TC操作</tag>
-         
-         
-           
-             
-              <breadCrumb title="常用软件工具" url="http://yoursite.com/categories/%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6%E5%B7%A5%E5%85%B7/"/>
-          
         </display>
     </data>
     </url>
