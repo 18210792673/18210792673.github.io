@@ -79,9 +79,6 @@
 
 
 
-  <meta property="fb:admins" content="<user_id>" />
-  <meta property="fb:app_id" content="<app_id>" />
-
 
 
 <meta name="description" content="Focus on Linux operations and development.">
@@ -132,24 +129,6 @@
 
   <title>home | Watchmen1992's Blog</title>
   
-<script>
-  window.fbAsyncInit = function() {
-    FB.init({
-      appId      : '<app_id>',
-      xfbml      : true,
-      version    : 'v2.10'
-    });
-  };
-
-  (function(d, s, id){
-     var js, fjs = d.getElementsByTagName(s)[0];
-     if (d.getElementById(id)) {return;}
-     js = d.createElement(s); js.id = id;
-     js.src = "//connect.facebook.net/zh_Hans/sdk.js";
-     fjs.parentNode.insertBefore(js, fjs);
-   }(document, 'script', 'facebook-jssdk'));
-</script>
-
 
 
 
@@ -311,12 +290,7 @@
 
   
     <div class="comments" id="comments">
-      <div class="fb-comments"
-           data-href="http://yoursite.com/home/index.html"
-           data-numposts="10"
-           data-width="100%"
-           data-colorscheme="light">
-      </div>
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zMzg1NC8xMDQwNw=="></div>
     </div>
 
   
@@ -586,6 +560,17 @@
 
 
 
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
   
 
 
