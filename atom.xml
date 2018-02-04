@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Watchmen1992&#39;s Blog</title>
+  
+  <subtitle>锦瑟年华当与书香为度，是为不负天地人生。</subtitle>
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="http://yoursite.com/"/>
+  <updated>2018-02-04T05:10:00.273Z</updated>
+  <id>http://yoursite.com/</id>
+  
+  <author>
+    <name>XiaoHua WANG</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>RSS介绍及使用</title>
+    <link href="http://yoursite.com/2018/02/04/RSS%E4%BB%8B%E7%BB%8D%E5%8F%8A%E4%BD%BF%E7%94%A8/"/>
+    <id>http://yoursite.com/2018/02/04/RSS介绍及使用/</id>
+    <published>2018-02-04T04:31:13.000Z</published>
+    <updated>2018-02-04T05:10:00.273Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="原文"><a href="#原文" class="headerlink" title="原文"></a>原文</h1><p><a href="http://www.ruanyifeng.com/blog/2006/01/rss.html" target="_blank" rel="noopener">http://www.ruanyifeng.com/blog/2006/01/rss.html</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;原文&quot;&gt;&lt;a href=&quot;#原文&quot; class=&quot;headerlink&quot; title=&quot;原文&quot;&gt;&lt;/a&gt;原文&lt;/h1&gt;&lt;p&gt;&lt;a href=&quot;http://www.ruanyifeng.com/blog/2006/01/rss.html&quot; target=&quot;_bla
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Linux进程管理/性能分析</title>
+    <link href="http://yoursite.com/2018/01/29/Linux%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/"/>
+    <id>http://yoursite.com/2018/01/29/Linux进程管理/</id>
+    <published>2018-01-29T09:59:42.000Z</published>
+    <updated>2018-01-30T01:17:31.275Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>在过去的一个多月时间，一直在思考运维的工作重点和定位，因为在工作中会不断有琐事在掠夺个体的时间，导致很多人陷入了看起来很忙，但是在工作三五年之后，发现自己掌握的知识和方法论十分有限，在经过这么一段混乱到有序的升维阶段后，算是看清了一点前方的路。</p><p>个人觉得，运维工作，是整个软件开发生命周期的一环非常重要的环节，而软件生命周期说到底就是围绕着人、需求、软件产品也即应用程序等内容来进行，而目前阶段（原谅我是运维菜鸟），主要矛盾应该是应用程序，也就是围绕着程序和进程展开的一系列活动，那说到进程，这里就能很清晰的明确关注点了，那就是进程赖以生存的资源：CPU、内存、磁盘、网络、操作系统，那么我们运维的重点其实就是围绕这这些内容来展开，包括监控、安全、云、存储、大数据、自动化等等的一切目的就是更好更快更合理的调配这些资源，所以，今天这篇文章，将要围绕着进程管理的这几个方面来展开，记录下一些相关的重要命令，方便后续快速排障和分析问题。</p><p>有关这段时间的感悟，也就是运维的进阶，后续会专门写一篇文章来讲讲linux运维工程师，包括岗位职责、成长路线、具体实施方法、运维思想以及个人从业至今的一些感悟等等，不知能否算的上是干货，但至少是个人的一点愚见，写好之后，会在此处放上链接。</p><h2 id="程序和进程"><a href="#程序和进程" class="headerlink" title="程序和进程"></a>程序和进程</h2><p>有关linux程序和进程知识，因现阶段无法提供深层次的讲解，不敢妄自菲薄，所以暂时搁置。</p><p>##命令说明<br>具有很强针对性的命令将会被归类到具体的资源目录下，一次能查看2个以上的命令将归类到综合命令目录下。</p><h1 id="操作系统"><a href="#操作系统" class="headerlink" title="操作系统"></a>操作系统</h1><h1 id="CPU"><a href="#CPU" class="headerlink" title="CPU"></a>CPU</h1><h1 id="内存"><a href="#内存" class="headerlink" title="内存"></a>内存</h1><h1 id="磁盘"><a href="#磁盘" class="headerlink" title="磁盘"></a>磁盘</h1><h1 id="网卡流量、网络带宽"><a href="#网卡流量、网络带宽" class="headerlink" title="网卡流量、网络带宽"></a>网卡流量、网络带宽</h1><h1 id="网络通道情况"><a href="#网络通道情况" class="headerlink" title="网络通道情况"></a>网络通道情况</h1><h2 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h2><p>目前的架构基本上都是C/S或者B/S架构，那么client端访问server端和server端返回数据给client都是经由网络这条通道来实现的。因此，畅通的网络是提供服务的前提和基础，对网络状况的分析、排查、故障定位非常重要。</p><h1 id="综合命令"><a href="#综合命令" class="headerlink" title="综合命令"></a>综合命令</h1><h2 id="glances"><a href="#glances" class="headerlink" title="glances"></a>glances</h2><p>glances是一款用Python开发的系统状态监控工具，它的监控指标也特别的丰富。基本包含了常用的所有指标。这也是个人常用的一个命令，强烈推荐。</p><h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>glances CentOS系统中由epel源提供安装。<br>安装过程:</p><ul><li>yum -y install epel-release </li><li>yum -y install glances</li></ul><p>安装后的启动界面如下：<br>glances 可以使用交互式命令打开和关闭某类监控，改变监控指标单位，改变进程排序列。</p><p>a：自动对进程排序<br>c：根据 CPU 使用率对进程排序<br>m：根据内存使用率对进程排序<br>i：根据 I/O 速率对进程排序<br>d：关闭/开启 磁盘 I/O 状态信息<br>f：关闭/开启 文件系统状态信息<br>1：全局 CPU 状态 / 单个显示 CPU 状态<br>u：显示网络接口的累积流量</p><h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><h2 id="htop"><a href="#htop" class="headerlink" title="htop"></a>htop</h2><p>Htop是Linux 系统中的一个交互式的系统监控和进程查看工具，它被设计用来取代传统的 Unix 系统监控工具 top。Htop 的界面更加直观，功能更加强大，实乃居家旅行杀人越货的必备神器。</p><h3 id="安装-1"><a href="#安装-1" class="headerlink" title="安装"></a>安装</h3><p>在CentOS/RHEL系统中，htop由epel源提供安装。<br>安装过程：</p><ul><li>yum -y install epel-release </li><li>yum -y install htop</li></ul><p>安装后的启动界面如下：</p><p>这里显示了系统的 CPU使用率，平均负载，内存使用情况，Swap 使用情况，网络接口流量速率，磁盘 I/O 速率，挂载分区的空间使用率以及进程状态等信息。</p><h3 id="使用-1"><a href="#使用-1" class="headerlink" title="使用"></a>使用</h3><p>glances 可以使用交互式命令打开和关闭某类监控，改变监控指标单位，改变进程排序列。</p><p>以下为常用参数：</p><blockquote><p>a：自动对进程排序</p><p>c：根据 CPU 使用率对进程排序</p><p>m：根据内存使用率对进程排序</p><p>i：根据 I/O 速率对进程排序</p><p>d：关闭/开启 磁盘 I/O 状态信息</p><p>f：关闭/开启 文件系统状态信息</p><p>1：全局 CPU 状态 / 单个显示 CPU 状态</p><p>u：显示网络接口的累积流量</p></blockquote><h2 id="dstat"><a href="#dstat" class="headerlink" title="dstat"></a>dstat</h2><p>dstat 是一款功能非常强大的系统性能监控工具，它整合了 vmstat，iostat，netstat 和 ifstat 四款工具的功能。</p><h3 id="安装-2"><a href="#安装-2" class="headerlink" title="安装"></a>安装</h3><p>在CentOS/RHEL系统中，dstat由epel源提供安装。<br>安装过程：</p><ul><li>yum -y install epel-release </li><li>yum -y install dstat</li></ul><h3 id="使用-2"><a href="#使用-2" class="headerlink" title="使用"></a>使用</h3><p>-c: 显示cpu性能指标相关的统计数据</p><p>-d: 显示disk相关的速率数据</p><p>-g: 显示page相关的速率数据</p><p>-i: 显示interrupt相关的速率数据</p><p>-l: 显示load average相关的统计数据</p><p>-m: 显示memory相关的统计数据</p><p>-n: 显示网络收发数据的速率</p><p>-p: 显示进程相关的统计数据</p><p>-r: io请求的速率</p><p>-s: 显示swap的相关数据</p><p>-y: 显示系统相关的数据，包括中断和进程切换</p><p>–top-cpu：显示最占用CPU的进程</p><p>–top-bio：显示最消耗block io的进程</p><p>–top-io：最占用io的进程</p><p>–top-mem：显示最占用内存的进程</p><p>–ipc: 显示进程间通信相关的速率数据</p><p>–raw: 显示raw套接的相关的数据</p><p>–tcp: 显示tcp套接字的相关数据</p><p>–udp: 显示udp套接字的相关数据</p><p>–unix: 显示unix sock接口相关的统计数据</p><p>–socket: 显示所有类型套接字的相关数据</p><p>-a: 相当于-cdngy</p><p>dstat 还可以支持插件工作，它的插件位于 /usr/share/dstat 目录中，可以使用这些插件对 mysql 等程序进行监控。</p>]]></content>
+    
+    <summary type="html">
+    
+      请承认这是篇干货
+    
+    </summary>
+    
+      <category term="linux进程管理" scheme="http://yoursite.com/categories/linux%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/"/>
+    
+    
+      <category term="进程管理" scheme="http://yoursite.com/tags/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>linux快捷键</title>
+    <link href="http://yoursite.com/2018/01/26/linux%E5%BF%AB%E6%8D%B7%E9%94%AE/"/>
+    <id>http://yoursite.com/2018/01/26/linux快捷键/</id>
+    <published>2018-01-26T11:46:59.000Z</published>
+    <updated>2018-01-26T11:47:00.054Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Markdown语法</title>
+    <link href="http://yoursite.com/2018/01/25/Markdown%E8%AF%AD%E6%B3%95/"/>
+    <id>http://yoursite.com/2018/01/25/Markdown语法/</id>
+    <published>2018-01-25T14:08:24.000Z</published>
+    <updated>2018-02-04T02:45:47.214Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="Markdown介绍"><a href="#Markdown介绍" class="headerlink" title="Markdown介绍"></a>Markdown介绍</h1><p>Markdown 是一种轻量级标记语言，让写作者专注于写作而不用关注样式。</p><p>划重点：<strong>轻量级</strong>、<strong>标记语言</strong></p><h2 id="核心理念"><a href="#核心理念" class="headerlink" title="核心理念"></a>核心理念</h2><p>Markdown 的目标是实现「易读易写」，成为一种适用于网络的书写语言。。不管从任何角度来说，可读性，都是最重要的。<br>Markdown 的语法全由一些符号所组成，这些符号经过精挑细选，其作用一目了然。比如：在文字两旁加上星号，看起来就像<em>强调</em>。</p><p>划重点：<strong>语法是非常简单的符号</strong>、<strong>即写即读</strong></p><h2 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h2><h3 id="兼容HTML"><a href="#兼容HTML" class="headerlink" title="兼容HTML"></a>兼容HTML</h3><p>Markdown 的构想不是要使得 HTML文档更容易书写。HTML 已经很容易写了。<br>Markdown 的理念是，能让文档更容易读、写和随意改。</p><p>HTML是一种发布的格式，而Markdown 是一种书写的格式。<br>也因此，Markdown 的格式语法只涵盖纯文本可以涵盖的范围。</p><h1 id="常用操作"><a href="#常用操作" class="headerlink" title="常用操作"></a>常用操作</h1><p>本章节为之后所有章节的总结提炼，提供快速检索功能，后续章节内容包含相关解释性说明。</p><h2 id="标题（MarkdownPad中快捷键为Ctrl-1-2-3-4）："><a href="#标题（MarkdownPad中快捷键为Ctrl-1-2-3-4）：" class="headerlink" title="标题（MarkdownPad中快捷键为Ctrl+1/2/3/4）："></a>标题（MarkdownPad中快捷键为Ctrl+1/2/3/4）：</h2><p>Markdown 支持两种标题的语法，类 Setext 和类 atx 形式。<br>类 Setext 形式是用底线的形式，利用 = （最高阶标题）和 - （第二阶标题），例如：</p><pre><code>This is an H1=============This is an H2-------------</code></pre><p>任何数量的 = 和 - 都可以有效果。但是这种形式只支持2层标题。</p><p>类 Atx 形式则是在行首插入 1 到 6 个 # ，对应到标题 1 到 6 阶，例如：</p><pre><code># 这是 H1 ## 这是 H2 ###### 这是 H6 </code></pre><h2 id="强调"><a href="#强调" class="headerlink" title="强调"></a>强调</h2><p>在Markdown中，可以使用 * 和  _  来表示斜体和加粗。</p><h3 id="加粗"><a href="#加粗" class="headerlink" title="加粗"></a>加粗</h3><p>加粗部分使用方式如下：</p><pre><code>**Coding，让开发更简单**__Coding，让开发更简单__</code></pre><p>实际展示效果如下：</p><p><strong>Coding，让开发更简单</strong></p><p><strong>Coding，让开发更简单</strong></p><h3 id="斜体"><a href="#斜体" class="headerlink" title="斜体"></a>斜体</h3><p>斜体部分的使用如下：</p><pre><code>*Coding，让开发更简单*_Coding，让开发更简单_</code></pre><p>实际展示效果展示如下：</p><p><em>Coding，让开发更简单</em></p><p><em>Coding，让开发更简单</em></p><h2 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h2><h3 id="无序列表（MarkdownPad中快捷键为Ctrl-u）："><a href="#无序列表（MarkdownPad中快捷键为Ctrl-u）：" class="headerlink" title="无序列表（MarkdownPad中快捷键为Ctrl+u）："></a>无序列表（MarkdownPad中快捷键为Ctrl+u）：</h3><pre><code>* list1     前面使用*号- list2        前面使用-号+ list3        前面使用+号</code></pre><p>效果如下：</p><ul><li>list1</li></ul><ul><li>list2</li></ul><ul><li>list3</li></ul><h3 id="有序列表-MarkdownPad中快捷键为Ctrl-shift-o）："><a href="#有序列表-MarkdownPad中快捷键为Ctrl-shift-o）：" class="headerlink" title="有序列表(MarkdownPad中快捷键为Ctrl+shift+o）："></a>有序列表(MarkdownPad中快捷键为Ctrl+shift+o）：</h3><pre><code>1. list1    使用数字+英文的点号，空格后接数据2. list2</code></pre><p>效果如下：</p><ol><li>list1</li><li>list2</li></ol><h2 id="区块引用（MarkdownPad中快捷键为Ctrl-q）"><a href="#区块引用（MarkdownPad中快捷键为Ctrl-q）" class="headerlink" title="区块引用（MarkdownPad中快捷键为Ctrl+q）"></a>区块引用（MarkdownPad中快捷键为Ctrl+q）</h2><pre><code>&gt; 数据1    使用&gt;号&gt; 数据2&gt; &gt; 二级引用  注意区块引用可以包含多级引用&gt; </code></pre><p>实际效果展示：</p><blockquote><p>数据1</p><p>数据2</p><blockquote><p>这是二级引用</p><blockquote><p>三级引用</p></blockquote></blockquote></blockquote><h2 id="代码区块（MarkdownPad中快捷键为Ctrl-k）："><a href="#代码区块（MarkdownPad中快捷键为Ctrl-k）：" class="headerlink" title="代码区块（MarkdownPad中快捷键为Ctrl+k）："></a>代码区块（MarkdownPad中快捷键为Ctrl+k）：</h2><p>代码区块包括3种，文字内和单独一行以及指定代码格式的区块行</p><h3 id="文字内加区块，不会加空白处底纹"><a href="#文字内加区块，不会加空白处底纹" class="headerlink" title="文字内加区块，不会加空白处底纹"></a>文字内加区块，不会加空白处底纹</h3><pre><code>使用``（数字1左边，ESC下面的按键）</code></pre><p>实际效果展示：在文件中含有<code>代码区块</code>是什么样子</p><h3 id="整行的代码区块行，会加空白处底纹"><a href="#整行的代码区块行，会加空白处底纹" class="headerlink" title="整行的代码区块行，会加空白处底纹"></a>整行的代码区块行，会加空白处底纹</h3><pre><code>缩进4个空格或者一个制表符（tab键）。</code></pre><p>实际效果展示：</p><pre><code>现在的效果就是整整一个的区块行，如果这段代码比较长的话，那么markdown就会在下面生成一个查看条，供用户左右拉取调整，就是如现在所示。</code></pre><h3 id="指定代码格式的区块行"><a href="#指定代码格式的区块行" class="headerlink" title="指定代码格式的区块行"></a>指定代码格式的区块行</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ 数据内容1</span><br><span class="line">$ 数据内容2</span><br><span class="line">```此处以bash格式的内容进行举例说明</span><br><span class="line"></span><br><span class="line">```bash</span><br><span class="line">$ line1</span><br><span class="line">$ line2</span><br></pre></td></tr></table></figure><h2 id="分割线-分隔线（暂无快捷键）"><a href="#分割线-分隔线（暂无快捷键）" class="headerlink" title="分割线/分隔线（暂无快捷键）"></a>分割线/分隔线（暂无快捷键）</h2><p>一行中用三个以上的星号、减号、底线来建立一个分隔线，可以在字符之间加入空格，也可以不加空格</p><pre><code>* * * ********---- - - </code></pre><p>实际效果展示如下：</p><hr><h2 id="网页链接"><a href="#网页链接" class="headerlink" title="网页链接"></a>网页链接</h2><p>网页链接有2种方式，一种是直接显示链接，一种是通过文字进行跳转</p><h3 id="直接显示"><a href="#直接显示" class="headerlink" title="直接显示"></a>直接显示</h3><pre><code>&lt;https://www.baidu.com&gt;    用&lt;&gt;尖括号将内容包起来，markdown就会自动把它转成链接。网页链接、邮箱链接等都采用这种方式</code></pre><p>实际效果展示如下：<br>这段话中将要插入百度<a href="https://www.baidu.com" target="_blank" rel="noopener">https://www.baidu.com</a>的链接</p><h3 id="文字跳转"><a href="#文字跳转" class="headerlink" title="文字跳转"></a>文字跳转</h3><pre><code>More info: [Server](https://hexo.io/docs/server.html)    前面是解释性说明，[]内是可以跳转的文字，()内是真正访问的地址。</code></pre><p>实际效果展示如下：</p><p>请点击<a href="https://www.baidu.com" target="_blank" rel="noopener">百度</a>调整到百度页面</p><h2 id="图片链接"><a href="#图片链接" class="headerlink" title="图片链接"></a>图片链接</h2><p>图片链接分为2部分，一种是在文字中，通过文字来链接到图片位置，用户需要点击这个文字链接去查看图片，优点是使文字更简约，缺点是无法直观的看到图。<br>因此，第二种方式是直接在文章中显示图片。</p><p>我们把这两种方式分别称之为：行内式和参考式</p><h3 id="行内式"><a href="#行内式" class="headerlink" title="行内式"></a>行内式</h3><p>行内式的图片语法看起来像是：</p><pre><code>![Alt text](/path/to/img.jpg)参考案例：![Alt text](/path/to/img.jpg &quot;Optional title&quot;)</code></pre><p>详细叙述如下：</p><blockquote><p>一个惊叹号 !</p><p>接着一个方括号，里面放上图片的替代文字</p><p>接着一个普通括号，里面放上图片的网址，</p><p>最后还可以用引号包住并加上 选择性的 ‘title’ 文字。</p></blockquote><h3 id="参考式"><a href="#参考式" class="headerlink" title="参考式"></a>参考式</h3><p>参考式的图片语法则长得像这样：</p><pre><code>![Alt text][id]「id」是图片参考的名称，图片参考的定义方式则和连结参考一样：参考案例：[id]: url/to/image  &quot;Optional title attribute&quot;</code></pre><h2 id="表格"><a href="#表格" class="headerlink" title="表格"></a>表格</h2><table><thead><tr><th>First Header</th><th>Second Header</th><th>Third Header</th></tr></thead><tbody><tr><td>Content Cell</td><td>Content Cell</td><td>Content Cell</td></tr><tr><td>Content Cell</td><td>Content Cell</td><td>Content Cell</td></tr></tbody></table><hr><h1 id="实际操作"><a href="#实际操作" class="headerlink" title="实际操作"></a>实际操作</h1><h2 id="标题"><a href="#标题" class="headerlink" title="标题"></a>标题</h2><p>Markdown 支持两种标题的语法，类 Setext 和类 atx 形式。<br>类 Setext 形式是用底线的形式，利用 = （最高阶标题）和 - （第二阶标题），例如：</p><pre><code>This is an H1=============This is an H2-------------</code></pre><p>任何数量的 = 和 - 都可以有效果。</p><p>类 Atx 形式则是在行首插入 1 到 6 个 # ，对应到标题 1 到 6 阶，例如：</p><pre><code># 这是 H1 ## 这是 H2 ###### 这是 H6 </code></pre><h2 id="区块引用-Blockquotes"><a href="#区块引用-Blockquotes" class="headerlink" title="区块引用 Blockquotes"></a>区块引用 Blockquotes</h2><p>Markdown 标记区块引用是使用类似 email 中用 &gt; 的引用方式。如果你还熟悉在 email 信件中的引言部分，你就知道怎么在 Markdown 文件中建立一个区块引用，那会看起来像是你自己先断好行，然后在每行的最前面加上 &gt; ：</p><h2 id="列表-1"><a href="#列表-1" class="headerlink" title="列表"></a>列表</h2><p>Markdown 支持有序列表和无序列表。<br>无序列表使用星号、加号或是减号作为列表标记：</p><ul><li>Red</li><li>Green</li><li>Blue</li></ul><p>等同于：</p><ul><li>Red</li><li>Green</li><li>Blue</li></ul><p>也等同于：</p><ul><li>Red</li><li>Green</li><li>Blue</li></ul><p>有序列表则使用数字接着一个英文句点：</p><ol><li>Bird</li><li>McHale</li><li>Parish</li></ol><p>##代码区块<br>和程序相关的写作或是标签语言原始码通常会有已经排版好的代码区块，通常这些区块我们并不希望它以一般段落文件的方式去排版，<br>而是照原来的样子显示，Markdown 会用 <code>&lt;pre&gt;</code> 和 <code>&lt;code&gt;</code> 标签来把代码区块包起来。</p><p>要在 Markdown 中建立代码区块很简单，只要简单地缩进 4 个空格或是 1 个制表符就可以，例如，下面的输入：</p><p>这是一个简单段落：</p><pre><code>的的的</code></pre><p>呵呵<code>的的</code></p>]]></content>
+    
+    <summary type="html">
+    
+      markdown常用操作
+    
+    </summary>
+    
+      <category term="常用软件工具" scheme="http://yoursite.com/categories/%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6%E5%B7%A5%E5%85%B7/"/>
+    
+    
+      <category term="markdown" scheme="http://yoursite.com/tags/markdown/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>TotalCommander常用快捷键</title>
+    <link href="http://yoursite.com/2018/01/25/TotalCommander%E5%B8%B8%E7%94%A8%E5%BF%AB%E6%8D%B7%E9%94%AE/"/>
+    <id>http://yoursite.com/2018/01/25/TotalCommander常用快捷键/</id>
+    <published>2018-01-25T14:01:57.000Z</published>
+    <updated>2018-02-04T02:46:14.661Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="TC介绍"><a href="#TC介绍" class="headerlink" title="TC介绍"></a>TC介绍</h1><h1 id="定位"><a href="#定位" class="headerlink" title="定位"></a>定位</h1><h1 id="选择"><a href="#选择" class="headerlink" title="选择"></a>选择</h1><h1 id="实际"><a href="#实际" class="headerlink" title="实际"></a>实际</h1>]]></content>
+    
+    <summary type="html">
+    
+      TC是一款很强大的资源管理器软件，值得所有人花一定时间学习掌握。本文主要记录个人在使用TC中常用的快捷键，便于检索查看，有关TC功能将在第一部分进行简单介绍，读者可自行查看了解。
+    
+    </summary>
+    
+      <category term="常用软件工具" scheme="http://yoursite.com/categories/%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6%E5%B7%A5%E5%85%B7/"/>
+    
+    
+      <category term="TC操作" scheme="http://yoursite.com/tags/TC%E6%93%8D%E4%BD%9C/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>test_my_site</title>
+    <link href="http://yoursite.com/2018/01/23/test-my-site/"/>
+    <id>http://yoursite.com/2018/01/23/test-my-site/</id>
+    <published>2018-01-23T15:25:58.000Z</published>
+    <updated>2018-01-23T15:25:58.389Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Hello World</title>
+    <link href="http://yoursite.com/2018/01/23/hello-world/"/>
+    <id>http://yoursite.com/2018/01/23/hello-world/</id>
+    <published>2018-01-23T15:18:14.264Z</published>
+    <updated>2018-01-23T15:18:14.269Z</updated>
+    
+    <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+</feed>
