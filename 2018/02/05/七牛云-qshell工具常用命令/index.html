@@ -89,19 +89,23 @@
 <meta property="og:site_name" content="Watchmen1992&#39;s Blog">
 <meta property="og:description" content="记录qshell的常用命令，方便快速检索。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://picture.watchmen.xin/qshell-1.png">
-<meta property="og:image" content="http://picture.watchmen.xin/qshell-2.png">
-<meta property="og:image" content="http://picture.watchmen.xin/qshell-3.png">
-<meta property="og:image" content="http://picture.watchmen.xin/qshell-4.png">
-<meta property="og:image" content="http://picture.watchmen.xin/qshell-6.png">
-<meta property="og:image" content="http://picture.watchmen.xin/qshell-7.png">
-<meta property="og:image" content="http://picture.watchmen.xin/qshell-8.png">
-<meta property="og:image" content="http://picture.watchmen.xin/qshell-9.png">
+<meta property="og:image" content="http://picture.watchmen.xin/qshell/qshell-1.png">
+<meta property="og:image" content="http://picture.watchmen.xin/qshell/qshell-2.png">
+<meta property="og:image" content="http://picture.watchmen.xin/qshell/qshell-3.png">
+<meta property="og:image" content="http://picture.watchmen.xin/qshell/qshell-4.png">
+<meta property="og:image" content="http://picture.watchmen.xin/qshell/qshell-10.png">
+<meta property="og:image" content="http://picture.watchmen.xin/qshell/qshell-11.png">
+<meta property="og:image" content="http://picture.watchmen.xin/qshell/qshell-12.png">
+<meta property="og:image" content="http://picture.watchmen.xin/qshell/qshell-5.png">
+<meta property="og:image" content="http://picture.watchmen.xin/qshell/qshell-6.png">
+<meta property="og:image" content="http://picture.watchmen.xin/qshell/qshell-7.png">
+<meta property="og:image" content="http://picture.watchmen.xin/qshell/qshell-8.png">
+<meta property="og:image" content="http://picture.watchmen.xin/qshell/qshell-9.png">
 <meta property="og:updated_time" content="2018-02-05T10:05:15.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="七牛云-qshell工具常用命令">
 <meta name="twitter:description" content="记录qshell的常用命令，方便快速检索。">
-<meta name="twitter:image" content="http://picture.watchmen.xin/qshell-1.png">
+<meta name="twitter:image" content="http://picture.watchmen.xin/qshell/qshell-1.png">
 
 
 
@@ -450,25 +454,65 @@
 -m        切换到多用户模式，这样所有的临时文件写入都在命令运行的目录下
 -h        打印命令列表帮助信息，遇到参数忘记的情况下，可以使用该命令
 -v        打印工具版本，反馈问题的时候，请提前告知工具对应版本号
-</code></pre><h2 id="命令列表"><a href="#命令列表" class="headerlink" title="命令列表"></a>命令列表</h2><p><img src="http://picture.watchmen.xin/qshell-1.png" alt="第一张图片">    </p>
-<p><img src="http://picture.watchmen.xin/qshell-2.png" alt="第二张图片"></p>
-<p><img src="http://picture.watchmen.xin/qshell-3.png" alt="第三张图片"></p>
-<p><img src="http://picture.watchmen.xin/qshell-4.png" alt="第四张图片"></p>
-<h1 id="实际操作"><a href="#实际操作" class="headerlink" title="实际操作"></a>实际操作</h1><h2 id="密钥设置"><a href="#密钥设置" class="headerlink" title="密钥设置"></a>密钥设置</h2><p><strong>单用户</strong></p>
+</code></pre><h2 id="命令列表"><a href="#命令列表" class="headerlink" title="命令列表"></a>命令列表</h2><p><img src="http://picture.watchmen.xin/qshell/qshell-1.png" alt="第一张图片">    </p>
+<p><img src="http://picture.watchmen.xin/qshell/qshell-2.png" alt="第二张图片"></p>
+<p><img src="http://picture.watchmen.xin/qshell/qshell-3.png" alt="第三张图片"></p>
+<p><img src="http://picture.watchmen.xin/qshell/qshell-4.png" alt="第四张图片"></p>
+<h1 id="实际操作"><a href="#实际操作" class="headerlink" title="实际操作"></a>实际操作</h1><p>我们使用qupload来进行文件的管理</p>
+<p><a href="https://github.com/qiniu/qshell/blob/master/docs/qupload.md" target="_blank" rel="noopener">官方文档</a></p>
+<p><strong>命令参数展示</strong></p>
+<p>命令语法：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">qshell qupload [&lt;ThreadCount&gt;] &lt;LocalUploadConfig&gt;</span><br></pre></td></tr></table></figure>
+<p>命令参数：</p>
+<p><img src="http://picture.watchmen.xin/qshell/qshell-10.png" alt="第一张"></p>
+<p><strong>配置参数展示</strong><br>qupload 功能需要配置文件的支持，配置文件支持的全部参数如下：</p>
+<pre><code>{
+   &quot;src_dir&quot;            :   &quot;&lt;LocalPath&gt;&quot;,
+   &quot;bucket&quot;             :   &quot;&lt;Bucket&gt;&quot;,
+   &quot;file_list&quot;          :   &quot;&lt;FileList&gt;&quot;,
+   &quot;key_prefix&quot;         :   &quot;&lt;Key Prefix&gt;&quot;,
+   &quot;up_host&quot;            :   &quot;&lt;Upload Host&gt;&quot;,
+   &quot;ignore_dir&quot;         :   false,
+   &quot;overwrite&quot;          :   false,
+   &quot;check_exists&quot;       :   false,
+   &quot;check_hash&quot;         :   false,
+   &quot;check_size&quot;         :   false,
+   &quot;rescan_local&quot;       :   true,
+   &quot;skip_file_prefixes&quot; :   &quot;test,demo,&quot;,
+   &quot;skip_path_prefixes&quot; :   &quot;hello/,temp/&quot;,
+   &quot;skip_fixed_strings&quot; :   &quot;.svn,.git&quot;,
+   &quot;skip_suffixes&quot;      :   &quot;.DS_Store,.exe&quot;,
+   &quot;log_file&quot;           :   &quot;upload.log&quot;,
+   &quot;log_level&quot;          :   &quot;info&quot;,
+   &quot;log_rotate&quot;         :   1,
+   &quot;log_stdout&quot;         :   false,
+   &quot;file_type&quot;          :   0
+}
+</code></pre><p>参数具体含义如下：</p>
+<p><img src="http://picture.watchmen.xin/qshell/qshell-11.png" alt="第一张"></p>
+<p><img src="http://picture.watchmen.xin/qshell/qshell-12.png" alt="第二张"></p>
+<h2 id="密钥设置"><a href="#密钥设置" class="headerlink" title="密钥设置"></a>密钥设置</h2><p><strong>单用户</strong></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">qshell account ak sk</span><br></pre></td></tr></table></figure>
 <p><strong>多用户</strong></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">qshell -m account ak sk</span><br></pre></td></tr></table></figure>
 <p>这里的ak、sk在个人面板中的密钥管理中查看，点击显示，然后进行复制粘贴</p>
 <p>如下图所示：</p>
-<p><img src="http://picture.watchmen.xin/qshell-6.png" alt="第二张"></p>
+<p><img src="http://picture.watchmen.xin/qshell/qshell-5.png" alt="第一张"></p>
+<p><img src="http://picture.watchmen.xin/qshell/qshell-6.png" alt="第二张"></p>
 <h2 id="上传图片"><a href="#上传图片" class="headerlink" title="上传图片"></a>上传图片</h2><p>这里我们选择qupload方式来进行图片的上传，在windows本地创建一个文件夹用户放置图片数据，每次同步该文件夹即可，不用再单独每张上传</p>
-<h3 id="官方文档"><a href="#官方文档" class="headerlink" title="官方文档"></a>官方文档</h3><p><a href="https://github.com/qiniu/qshell/blob/master/docs/qupload.md" target="_blank" rel="noopener">官方文档</a></p>
 <h3 id="步骤1：创建本地图片文件夹"><a href="#步骤1：创建本地图片文件夹" class="headerlink" title="步骤1：创建本地图片文件夹"></a>步骤1：创建本地图片文件夹</h3><p>如下图所示，在指定位置下创建一个文件夹用于存放图片，在这里，我把它和我的博客文件夹放在同级</p>
-<p><img src="http://picture.watchmen.xin/qshell-7.png" alt="创建本地目录"></p>
+<p><img src="http://picture.watchmen.xin/qshell/qshell-7.png" alt="创建本地目录"></p>
 <h3 id="步骤2：创建配置文件"><a href="#步骤2：创建配置文件" class="headerlink" title="步骤2：创建配置文件"></a>步骤2：创建配置文件</h3><p>如下图所示，在指定目录下创建配置文件，注意，这里需要使用编辑打开，不要用notpad++这些编辑器</p>
-<p><img src="http://picture.watchmen.xin/qshell-8.png" alt="配置文件"></p>
-<h3 id="步骤3：执行命令进行上传"><a href="#步骤3：执行命令进行上传" class="headerlink" title="步骤3：执行命令进行上传"></a>步骤3：执行命令进行上传</h3><p>准备工作都做好后，直接上传即可。如下图所示</p>
-<p><img src="http://picture.watchmen.xin/qshell-9.png" alt="上传"></p>
+<p><img src="http://picture.watchmen.xin/qshell/qshell-8.png" alt="配置文件"></p>
+<h3 id="步骤3：执行命令进行上传"><a href="#步骤3：执行命令进行上传" class="headerlink" title="步骤3：执行命令进行上传"></a>步骤3：执行命令进行上传</h3><p>准备工作都做好后，执行如下命令直接上传：</p>
+<pre><code>qshell qupload 1 c:\Users\56810\blog\config.txt
+</code></pre><p>如下图所示</p>
+<p><img src="http://picture.watchmen.xin/qshell/qshell-9.png" alt="上传"></p>
+<h2 id="其他配置"><a href="#其他配置" class="headerlink" title="其他配置"></a>其他配置</h2><h3 id="下载文件"><a href="#下载文件" class="headerlink" title="下载文件"></a>下载文件</h3><h3 id="刷新缓存"><a href="#刷新缓存" class="headerlink" title="刷新缓存"></a>刷新缓存</h3><p><a href="https://developer.qiniu.com/fusion/kb/1325/refresh-the-cache-and-the-effect-of-time" target="_blank" rel="noopener">官方资料</a></p>
+<p>使用七牛云提供的 qshell 命令行工具，参考使用文档，先设置密钥，然后执行 cdnrefresh 命令来刷新缓存。</p>
+<p>具体操作为：</p>
+<p><strong>步骤1：修改配置文件</strong></p>
+<p><strong>步骤2：执行命令</strong></p>
 
       
     </div>
@@ -716,7 +760,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言-简介"><span class="nav-number">1.</span> <span class="nav-text">前言/简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#官方资料"><span class="nav-number">2.</span> <span class="nav-text">官方资料</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#文档"><span class="nav-number">2.1.</span> <span class="nav-text">文档</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#视频教程"><span class="nav-number">2.2.</span> <span class="nav-text">视频教程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装-环境准备"><span class="nav-number">2.3.</span> <span class="nav-text">安装/环境准备</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#命令选项"><span class="nav-number">2.4.</span> <span class="nav-text">命令选项</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#命令列表"><span class="nav-number">2.5.</span> <span class="nav-text">命令列表</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实际操作"><span class="nav-number">3.</span> <span class="nav-text">实际操作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#密钥设置"><span class="nav-number">3.1.</span> <span class="nav-text">密钥设置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#上传图片"><span class="nav-number">3.2.</span> <span class="nav-text">上传图片</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#官方文档"><span class="nav-number">3.2.1.</span> <span class="nav-text">官方文档</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#步骤1：创建本地图片文件夹"><span class="nav-number">3.2.2.</span> <span class="nav-text">步骤1：创建本地图片文件夹</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#步骤2：创建配置文件"><span class="nav-number">3.2.3.</span> <span class="nav-text">步骤2：创建配置文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#步骤3：执行命令进行上传"><span class="nav-number">3.2.4.</span> <span class="nav-text">步骤3：执行命令进行上传</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言-简介"><span class="nav-number">1.</span> <span class="nav-text">前言/简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#官方资料"><span class="nav-number">2.</span> <span class="nav-text">官方资料</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#文档"><span class="nav-number">2.1.</span> <span class="nav-text">文档</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#视频教程"><span class="nav-number">2.2.</span> <span class="nav-text">视频教程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装-环境准备"><span class="nav-number">2.3.</span> <span class="nav-text">安装/环境准备</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#命令选项"><span class="nav-number">2.4.</span> <span class="nav-text">命令选项</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#命令列表"><span class="nav-number">2.5.</span> <span class="nav-text">命令列表</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实际操作"><span class="nav-number">3.</span> <span class="nav-text">实际操作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#密钥设置"><span class="nav-number">3.1.</span> <span class="nav-text">密钥设置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#上传图片"><span class="nav-number">3.2.</span> <span class="nav-text">上传图片</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#步骤1：创建本地图片文件夹"><span class="nav-number">3.2.1.</span> <span class="nav-text">步骤1：创建本地图片文件夹</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#步骤2：创建配置文件"><span class="nav-number">3.2.2.</span> <span class="nav-text">步骤2：创建配置文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#步骤3：执行命令进行上传"><span class="nav-number">3.2.3.</span> <span class="nav-text">步骤3：执行命令进行上传</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他配置"><span class="nav-number">3.3.</span> <span class="nav-text">其他配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#下载文件"><span class="nav-number">3.3.1.</span> <span class="nav-text">下载文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#刷新缓存"><span class="nav-number">3.3.2.</span> <span class="nav-text">刷新缓存</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
