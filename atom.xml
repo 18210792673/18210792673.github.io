@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2018-02-05T10:05:15.000Z</updated>
+  <updated>2018-02-06T03:18:53.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,50 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>运维蜘蛛理论</title>
+    <link href="http://yoursite.com/2018/02/06/%E8%BF%90%E7%BB%B4%E8%9C%98%E8%9B%9B%E7%90%86%E8%AE%BA/"/>
+    <id>http://yoursite.com/2018/02/06/运维蜘蛛理论/</id>
+    <published>2018-02-06T03:18:53.000Z</published>
+    <updated>2018-02-06T03:18:53.000Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>关于运维思想方面可以关注我的分类：<strong><code>运维思想</code></strong></p><p>关于职场思想方面可以关注我的分类：<strong><code>职场思想</code></strong></p><h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>也就是说，干到最后，我们都是一个：<strong><code>运维蜘蛛侠</code></strong></p><p>在其他行业，也同样可以遵循这个理论（基础知识都必须掌握，但是关注专业知识领域不同），成为：<strong><code>具体行业的蜘蛛侠</code></strong></p><p>这也就是为什么我的昵称叫做：<strong><code>运维蜘蛛侠</code></strong></p>]]></content>
+    
+    <summary type="html">
+    
+      最近和同事们聊到关于对运维岗位的看法，想了很多，因此觉得可以记录分享下我的运维蜘蛛理论，因为是思想方面，所以随着个人的成长将会不断的回顾总结，所以本篇将会持续更新。
+    
+    </summary>
+    
+      <category term="运维思想" scheme="http://yoursite.com/categories/%E8%BF%90%E7%BB%B4%E6%80%9D%E6%83%B3/"/>
+    
+    
+      <category term="运维蜘蛛理论" scheme="http://yoursite.com/tags/%E8%BF%90%E7%BB%B4%E8%9C%98%E8%9B%9B%E7%90%86%E8%AE%BA/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>autohotkeye常用操作</title>
+    <link href="http://yoursite.com/2018/02/06/autohotkeye%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C/"/>
+    <id>http://yoursite.com/2018/02/06/autohotkeye常用操作/</id>
+    <published>2018-02-06T01:21:58.000Z</published>
+    <updated>2018-02-06T01:21:58.000Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p><strong><code>AutoHotkey</code></strong>是一个windows下的开源、免费、自动化软件工具。它由最初旨在提供键盘快捷键的脚本语言驱动(称为：热键)，随着时间的推移演变成一个完整的脚本语言。但你不需要把它想得太深，你只需要知道它可以简化你的重复性工作，一键自动化启动或运行程序等等；以此提高我们的工作效率，改善生活品质；通过按键映射，鼠标模拟，定义宏等。</p><p>本文内容主要分为三部分，主要包括：</p><ul><li><strong>安装</strong></li><li><strong>配置</strong></li><li><strong>实际运用</strong></li><li><strong>个人感受</strong></li></ul><h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><h3 id="官方"><a href="#官方" class="headerlink" title="官方"></a>官方</h3><p><a href="https://autohotkey.com/docs/AutoHotkey.htm" target="_blank" rel="noopener">https://autohotkey.com/docs/AutoHotkey.htm</a></p><h3 id="民间"><a href="#民间" class="headerlink" title="民间"></a>民间</h3><p><a href="https://jeffjade.com/2016/03/11/2016-03-11-autohotkey/" target="_blank" rel="noopener">https://jeffjade.com/2016/03/11/2016-03-11-autohotkey/</a><br><a href="https://ahkcn.github.io/docs/AutoHotkey.htm" target="_blank" rel="noopener">https://ahkcn.github.io/docs/AutoHotkey.htm</a></p><h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><h2 id="下载地址"><a href="#下载地址" class="headerlink" title="下载地址"></a>下载地址</h2><p><a href="https://autohotkey.com/" target="_blank" rel="noopener">autohotkey下载地址</a></p><h1 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h1><h1 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h1><h2 id="个人常用设置"><a href="#个人常用设置" class="headerlink" title="个人常用设置"></a>个人常用设置</h2><h3 id="运行软件设置"><a href="#运行软件设置" class="headerlink" title="运行软件设置"></a>运行软件设置</h3><h3 id="资源管理设置"><a href="#资源管理设置" class="headerlink" title="资源管理设置"></a>资源管理设置</h3><h3 id="其他设置"><a href="#其他设置" class="headerlink" title="其他设置"></a>其他设置</h3>]]></content>
+    
+    <summary type="html">
+    
+      autohotkey是在windows平台下的一个快捷热键管理工具，能够有效的帮助我们提升工作学习效率
+    
+    </summary>
+    
+      <category term="常用软件工具" scheme="http://yoursite.com/categories/%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6%E5%B7%A5%E5%85%B7/"/>
+    
+    
+      <category term="autohotkey" scheme="http://yoursite.com/tags/autohotkey/"/>
+    
+  </entry>
   
   <entry>
     <title>七牛云-qshell工具常用命令</title>
