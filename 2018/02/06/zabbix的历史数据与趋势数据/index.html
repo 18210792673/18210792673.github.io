@@ -482,7 +482,7 @@
 具体单个监控项大小取决于数据库引擎，通常为50B
 </code></pre><p>例如：</p>
 <pre><code>假设有6W个监控项，刷新周期都为60秒（我这里为30秒），那么每秒将会产生1000条数据，也就是每秒会向数据库写入1000条数据。如果我的历史数据保留天数为90天，那么需要的空间大小如下：
-1000x3600x24x90x50=388 800 000 000(B) (约为362G，如果保存一年则为：364x4=1448G)
+1000x3600x24x90x50=388 800 000 000(B) (约为362G，如果保存一年则为：362x4=1448G)
 </code></pre><h3 id="趋势数据配置"><a href="#趋势数据配置" class="headerlink" title="趋势数据配置"></a>趋势数据配置</h3><p>因为趋势数据是每小时每个监控项一条记录，因此可以计算出大致所占的空间，其计算公式如下：</p>
 <pre><code>趋势数据大小=监控项个数x24x365(天数)x128B
 每一个监控项的大小约为128B，每小时产生一条记录，一天24小时，一年365天
@@ -560,6 +560,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/02/08/什么是字符集和字符编码？utf8、GBK等说的又是什么？/" rel="prev" title="什么是字符集和字符编码？utf8、GBK等说的又是什么？">
+                什么是字符集和字符编码？utf8、GBK等说的又是什么？ <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -671,7 +675,7 @@ var jiathis_config={
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -682,7 +686,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">13</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -693,7 +697,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
