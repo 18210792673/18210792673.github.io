@@ -3,7 +3,7 @@
   <entry>
     <title><![CDATA[docker常用命令记录]]></title>
     <url>%2F2018%2F03%2F19%2Fdocker%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E8%AE%B0%E5%BD%95%2F</url>
-    <content type="text"><![CDATA[镜像命令下载/获取镜像运行镜像查看镜像信息images命令使用docker images命令可以列出本地主机上已有镜像的基本信息。 12345678$ docker images [option]常用参数-a --all=true|false 列出所有的镜像文件（包括临时文件），默认为否--digests=true|false 列出镜像的数字摘要值，默认为否-f --filter=[] 过滤列出的镜像具体可以通过man docker-images 进行查看。 具体可以通过man docker-images 进行查看。 inspect命令镜像操作tag命令]]></content>
+    <content type="text"><![CDATA[镜像命令下载/获取镜像运行镜像查看镜像信息images命令使用docker images命令可以列出本地主机上已有镜像的基本信息。 1$ docker images [option] 常用参数 -a –all=true|false 列出所有的镜像文件（包括临时文件），默认为否 –digests=true|false 列出镜像的数字摘要值，默认为否-f –filter=[] 过滤列出的镜像 具体可以通过man docker-images 进行查看。 inspect命令镜像操作tag命令]]></content>
       <categories>
         <category>Docker</category>
       </categories>

@@ -426,7 +426,12 @@
 
       
         <h1 id="镜像命令"><a href="#镜像命令" class="headerlink" title="镜像命令"></a>镜像命令</h1><h2 id="下载-获取镜像"><a href="#下载-获取镜像" class="headerlink" title="下载/获取镜像"></a>下载/获取镜像</h2><h2 id="运行镜像"><a href="#运行镜像" class="headerlink" title="运行镜像"></a>运行镜像</h2><h2 id="查看镜像信息"><a href="#查看镜像信息" class="headerlink" title="查看镜像信息"></a>查看镜像信息</h2><h3 id="images命令"><a href="#images命令" class="headerlink" title="images命令"></a>images命令</h3><p>使用docker images命令可以列出本地主机上已有镜像的基本信息。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ docker images [option]</span><br><span class="line"></span><br><span class="line">常用参数</span><br><span class="line">-a	--all=<span class="literal">true</span>|<span class="literal">false</span>		列出所有的镜像文件（包括临时文件），默认为否</span><br><span class="line">--digests=<span class="literal">true</span>|<span class="literal">false</span>		列出镜像的数字摘要值，默认为否</span><br><span class="line">-f 	--filter=[]		过滤列出的镜像</span><br><span class="line"></span><br><span class="line">具体可以通过man docker-images 进行查看。</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker images [option]</span><br></pre></td></tr></table></figure>
+<p>常用参数</p>
+<ul>
+<li>-a    –all=true|false    列出所有的镜像文件（包括临时文件），默认为否</li>
+<li>–digests=true|false        列出镜像的数字摘要值，默认为否<br>-f     –filter=[]        过滤列出的镜像</li>
+</ul>
 <p>具体可以通过man docker-images 进行查看。</p>
 <h3 id="inspect命令"><a href="#inspect命令" class="headerlink" title="inspect命令"></a>inspect命令</h3><h2 id="镜像操作"><a href="#镜像操作" class="headerlink" title="镜像操作"></a>镜像操作</h2><h3 id="tag命令"><a href="#tag命令" class="headerlink" title="tag命令"></a>tag命令</h3>
       
