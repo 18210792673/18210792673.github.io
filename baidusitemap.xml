@@ -4,6 +4,29 @@
 
     
   <url>
+    <loc>http://yoursite.com/2018/01/25/TotalCommander%E5%B8%B8%E7%94%A8%E5%BF%AB%E6%8D%B7%E9%94%AE/</loc>
+    <lastmod>2018-04-02T09:33:12.157Z</lastmod>
+    <data>
+        <display>
+        <title>TotalCommander常用快捷键</title>
+        <pubTime>2018-01-25T14:01:57.000Z</pubTime>
+        
+        <tag>TC操作</tag>
+         
+         
+           
+             
+              <breadCrumb title="常用软件工具" url="http://yoursite.com/categories/%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6%E5%B7%A5%E5%85%B7/"/>
+          
+             
+              <breadCrumb title="TotalCommander" url="http://yoursite.com/categories/%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6%E5%B7%A5%E5%85%B7/TotalCommander/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://yoursite.com/2018/04/01/%E7%BB%88%E7%AB%AF%E5%B8%B8%E7%94%A8%E5%BF%AB%E6%8D%B7%E9%94%AE/</loc>
     <lastmod>2018-04-01T07:32:57.000Z</lastmod>
     <data>
@@ -63,29 +86,6 @@
            
              
               <breadCrumb title="Docker" url="http://yoursite.com/categories/Docker/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://yoursite.com/2018/01/25/TotalCommander%E5%B8%B8%E7%94%A8%E5%BF%AB%E6%8D%B7%E9%94%AE/</loc>
-    <lastmod>2018-02-09T10:04:51.606Z</lastmod>
-    <data>
-        <display>
-        <title>TotalCommander常用快捷键</title>
-        <pubTime>2018-01-25T14:01:57.000Z</pubTime>
-        
-        <tag>TC操作</tag>
-         
-         
-           
-             
-              <breadCrumb title="常用软件工具" url="http://yoursite.com/categories/%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6%E5%B7%A5%E5%85%B7/"/>
-          
-             
-              <breadCrumb title="TotalCommander" url="http://yoursite.com/categories/%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6%E5%B7%A5%E5%85%B7/TotalCommander/"/>
           
         </display>
     </data>
