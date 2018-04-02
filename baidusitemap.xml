@@ -157,6 +157,9 @@
              
               <breadCrumb title="常用软件工具" url="http://yoursite.com/categories/%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6%E5%B7%A5%E5%85%B7/"/>
           
+             
+              <breadCrumb title="AutoHotKey" url="http://yoursite.com/categories/%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6%E5%B7%A5%E5%85%B7/AutoHotKey/"/>
+          
         </display>
     </data>
     </url>
@@ -180,7 +183,7 @@
               <breadCrumb title="常用软件工具" url="http://yoursite.com/categories/%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6%E5%B7%A5%E5%85%B7/"/>
           
              
-              <breadCrumb title="七牛云" url="http://yoursite.com/categories/%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6%E5%B7%A5%E5%85%B7/%E4%B8%83%E7%89%9B%E4%BA%91/"/>
+              <breadCrumb title="七牛云-qshell" url="http://yoursite.com/categories/%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6%E5%B7%A5%E5%85%B7/%E4%B8%83%E7%89%9B%E4%BA%91-qshell/"/>
           
         </display>
     </data>
