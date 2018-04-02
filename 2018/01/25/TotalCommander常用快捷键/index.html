@@ -89,7 +89,7 @@
 <meta property="og:site_name" content="Watchmen1992&#39;s Blog">
 <meta property="og:description" content="Total Commander是一个会显著提高文件操作效率的工具，而文件操作是应用计算机最基本的功夫，也是伴随一生的操作。因此花一点时间学习，而会受益一世。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-04-02T09:33:12.157Z">
+<meta property="og:updated_time" content="2018-04-02T15:21:58.483Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="TotalCommander常用快捷键">
 <meta name="twitter:description" content="Total Commander是一个会显著提高文件操作效率的工具，而文件操作是应用计算机最基本的功夫，也是伴随一生的操作。因此花一点时间学习，而会受益一世。">
@@ -354,7 +354,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-04-02T17:33:12+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2018-04-02T23:21:58+08:00">
                 2018-04-02
               </time>
             
@@ -442,20 +442,57 @@
 <p><strong>优秀个人文章</strong></p>
 <p><a href="https://xbeta.info/studytc/" target="_blank" rel="noopener">TC学堂——最易读的Total Commander教程</a>-<strong>强烈推荐通过该网站进行学习</strong></p>
 <p><a href="http://www.jiaocheng8.com/ruanjian/totalcommander/376.html" target="_blank" rel="noopener">Total Commander快捷键</a></p>
-<h1 id="定位显示命令"><a href="#定位显示命令" class="headerlink" title="定位显示命令"></a>定位显示命令</h1><h2 id="常用目录"><a href="#常用目录" class="headerlink" title="常用目录"></a>常用目录</h2><p>这部分设置可以说是TC操作的精华，效率直接甩开windows资源管理器几条街。</p>
-<p><strong>步骤1：快速添加</strong></p>
-<p>ctrl+d，添加，然后a直接添加，如下图所示</p>
-<h2 id="常用目录高级配置"><a href="#常用目录高级配置" class="headerlink" title="常用目录高级配置"></a>常用目录高级配置</h2><p>通过自定义配置，可以自定义调整常用目录的名称、顺序等，后续的增删改查也在此页面进行。</p>
-<p><strong>步骤1：进入配置页面</strong><br>ctrl+d，添加，进去之后按c进入常用目录配置对话框。<br>在里面配置的时候，需要再最前面人为添加&amp;。例如&amp;1 xxx</p>
-<p><strong>步骤2：进行具体配置</strong></p>
-<h2 id="直达组合键"><a href="#直达组合键" class="headerlink" title="直达组合键"></a>直达组合键</h2><p>直达组合键：alt+s 进行配置。一般都是类似ctrl+alt+F1这种形式</p>
-<h2 id="其他定位命令"><a href="#其他定位命令" class="headerlink" title="其他定位命令"></a>其他定位命令</h2><pre><code>ctrl +e        进入资源管理器
-
-alt + f1     选择第一个窗口的磁盘  +f2就是选择第二个窗口的磁盘
-
-alt+下箭头    历史记录
-
-ctrl+\        返回到当前目录的根目录
+<h1 id="实际操作"><a href="#实际操作" class="headerlink" title="实际操作"></a>实际操作</h1><h2 id="常用目录"><a href="#常用目录" class="headerlink" title="常用目录"></a>常用目录</h2><p>这部分设置可以说是TC操作的精华，效率直接甩开windows资源管理器几条街。</p>
+<h3 id="快速添加"><a href="#快速添加" class="headerlink" title="快速添加"></a>快速添加</h3><p>ctrl+d，添加，然后a直接添加</p>
+<h3 id="常用目录高级配置"><a href="#常用目录高级配置" class="headerlink" title="常用目录高级配置"></a>常用目录高级配置</h3><p>通过自定义配置，可以自定义调整常用目录的名称、顺序等，后续的增删改查也在此页面进行。</p>
+<p>ctrl+d，添加，进去之后按c进入常用目录配置对话框。<br>在里面配置的时候，需要再最前面人为添加&amp;。</p>
+<p>名称设置：</p>
+<pre><code>&amp;1 test
+$b blog
+</code></pre><p>命令参考设置：</p>
+<pre><code>cd C:\Users\56810\blog\blog
+</code></pre><h2 id="直达组合键"><a href="#直达组合键" class="headerlink" title="直达组合键"></a>直达组合键</h2><p>通过直达组合键，可以直接切换到指定目录下。</p>
+<p>设置：alt+s 调出窗口，再按s进行配置。<br>一共可以使用的个数是一般都是类似ctrl+alt+F1/F2..F11这么11个组合键</p>
+<p>名称设置：</p>
+<pre><code>&amp;1 desktop
+$b blog
+</code></pre><p>命令参考设置：</p>
+<pre><code>cd C:\Users\56810\blog\blog
+</code></pre><p>配置完成之后，切换到桌面只需要：alt+s+1</p>
+<h2 id="切换磁盘分区"><a href="#切换磁盘分区" class="headerlink" title="切换磁盘分区"></a>切换磁盘分区</h2><p>Alt+F1<br>调出分区选项之后，按D则进入D盘，E则进入E盘。</p>
+<h2 id="目录内容查看"><a href="#目录内容查看" class="headerlink" title="目录内容查看"></a>目录内容查看</h2><pre><code>Alt+1    详细的列表信息
+Alt+2    图形信息显示
+Alt+3    目录树显示
+</code></pre><h2 id="多Tab标签操作"><a href="#多Tab标签操作" class="headerlink" title="多Tab标签操作"></a>多Tab标签操作</h2><pre><code>ctrl+t                新建tab
+ctrl+上箭头            新建父目录tab
+ctrl+w                关闭标签
+ctrl+shift+w        关闭所有非活动标签
+ctrl+tab, ctrl+shift+tab    在同侧的tab间切换
+改变tab排列顺序（包括在两个窗口间移动）：鼠标左键拖动。
+</code></pre><h3 id="自定义快捷键，直接切换到第N个标签"><a href="#自定义快捷键，直接切换到第N个标签" class="headerlink" title="自定义快捷键，直接切换到第N个标签"></a>自定义快捷键，直接切换到第N个标签</h3><p>可以在 wincmd.ini 中 [Shortcuts] 段，增加如下内容，</p>
+<pre><code>C+1=cm_SrcActivateTab1
+C+2=cm_SrcActivateTab2
+C+3=cm_SrcActivateTab3
+</code></pre><p><strong>效果： ctrl+1～3 激活第 1～3 个标签，依次类推</strong></p>
+<h2 id="压缩操作"><a href="#压缩操作" class="headerlink" title="压缩操作"></a>压缩操作</h2><pre><code>压缩：                        选中文件之后，执行Alt+F5
+查看压缩文件内容（不解压缩）：    ctrl+右箭头或者直接回车
+解压缩：Alt+F9
+</code></pre><h2 id="文件搜索"><a href="#文件搜索" class="headerlink" title="文件搜索"></a>文件搜索</h2><p>Alt+F7</p>
+<h2 id="创建操作"><a href="#创建操作" class="headerlink" title="创建操作"></a>创建操作</h2><pre><code>F7/Shift+F7                        新建一个或多层文件夹。可以像DOS那样新建多层的目录，比如c:\file\a\b\c
+Shift+F4            新建文本文件，调用记事本编辑（自定义编辑器）
+</code></pre><h2 id="其他快捷键"><a href="#其他快捷键" class="headerlink" title="其他快捷键"></a>其他快捷键</h2><pre><code>ctrl +e                进入资源管理器
+alt + f1             选择第一个窗口的磁盘  +f2就是选择第二个窗口的磁盘
+alt+下箭头            历史记录
+alt+左箭头            返回上一个操作目录（历史目录）
+alt+右箭头            返回下一个操作目录（历史目录）
+ctrl+\                返回到当前目录的根目录
+Ctrl+Shift+Enter    查看当前的路径
+shift+F10            右键
+F3                    文件内容预览
+ctrl+M                批量重命名
+Shift+F4            新建文本文件，调用记事本编辑（自定义编辑器）
+Ctrl+加号            全部选择同一类型的文件（例如压缩文件，目录文件）        
+Ctrl+减号            全部取消同一类型的文件（例如压缩文件，目录文件）    
 </code></pre><hr>
 <h1 id="选择命令"><a href="#选择命令" class="headerlink" title="选择命令"></a>选择命令</h1><h2 id="选择文件"><a href="#选择文件" class="headerlink" title="选择文件"></a>选择文件</h2><h3 id="选择单个文件"><a href="#选择单个文件" class="headerlink" title="选择单个文件"></a>选择单个文件</h3><p>通过右键来实现批量选择文件</p>
 <h3 id="批量选择多个文件"><a href="#批量选择多个文件" class="headerlink" title="批量选择多个文件"></a>批量选择多个文件</h3><p>批量选择有以下几种方法：</p>
@@ -719,7 +756,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#基础知识"><span class="nav-number">1.</span> <span class="nav-text">基础知识</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#参考资料"><span class="nav-number">1.1.</span> <span class="nav-text">参考资料</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#定位显示命令"><span class="nav-number">2.</span> <span class="nav-text">定位显示命令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#常用目录"><span class="nav-number">2.1.</span> <span class="nav-text">常用目录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常用目录高级配置"><span class="nav-number">2.2.</span> <span class="nav-text">常用目录高级配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#直达组合键"><span class="nav-number">2.3.</span> <span class="nav-text">直达组合键</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他定位命令"><span class="nav-number">2.4.</span> <span class="nav-text">其他定位命令</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#选择命令"><span class="nav-number">3.</span> <span class="nav-text">选择命令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#选择文件"><span class="nav-number">3.1.</span> <span class="nav-text">选择文件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#选择单个文件"><span class="nav-number">3.1.1.</span> <span class="nav-text">选择单个文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#批量选择多个文件"><span class="nav-number">3.1.2.</span> <span class="nav-text">批量选择多个文件</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实际操作命令"><span class="nav-number">4.</span> <span class="nav-text">实际操作命令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#查看"><span class="nav-number">4.1.</span> <span class="nav-text">查看</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#重命名"><span class="nav-number">4.2.</span> <span class="nav-text">重命名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#移动"><span class="nav-number">4.3.</span> <span class="nav-text">移动</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一步实现重命名-移动"><span class="nav-number">4.4.</span> <span class="nav-text">一步实现重命名+移动</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#刷新"><span class="nav-number">4.5.</span> <span class="nav-text">刷新</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#基础知识"><span class="nav-number">1.</span> <span class="nav-text">基础知识</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#参考资料"><span class="nav-number">1.1.</span> <span class="nav-text">参考资料</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实际操作"><span class="nav-number">2.</span> <span class="nav-text">实际操作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#常用目录"><span class="nav-number">2.1.</span> <span class="nav-text">常用目录</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#快速添加"><span class="nav-number">2.1.1.</span> <span class="nav-text">快速添加</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常用目录高级配置"><span class="nav-number">2.1.2.</span> <span class="nav-text">常用目录高级配置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#直达组合键"><span class="nav-number">2.2.</span> <span class="nav-text">直达组合键</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#切换磁盘分区"><span class="nav-number">2.3.</span> <span class="nav-text">切换磁盘分区</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#目录内容查看"><span class="nav-number">2.4.</span> <span class="nav-text">目录内容查看</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多Tab标签操作"><span class="nav-number">2.5.</span> <span class="nav-text">多Tab标签操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#自定义快捷键，直接切换到第N个标签"><span class="nav-number">2.5.1.</span> <span class="nav-text">自定义快捷键，直接切换到第N个标签</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#压缩操作"><span class="nav-number">2.6.</span> <span class="nav-text">压缩操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文件搜索"><span class="nav-number">2.7.</span> <span class="nav-text">文件搜索</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建操作"><span class="nav-number">2.8.</span> <span class="nav-text">创建操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他快捷键"><span class="nav-number">2.9.</span> <span class="nav-text">其他快捷键</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#选择命令"><span class="nav-number">3.</span> <span class="nav-text">选择命令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#选择文件"><span class="nav-number">3.1.</span> <span class="nav-text">选择文件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#选择单个文件"><span class="nav-number">3.1.1.</span> <span class="nav-text">选择单个文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#批量选择多个文件"><span class="nav-number">3.1.2.</span> <span class="nav-text">批量选择多个文件</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实际操作命令"><span class="nav-number">4.</span> <span class="nav-text">实际操作命令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#查看"><span class="nav-number">4.1.</span> <span class="nav-text">查看</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#重命名"><span class="nav-number">4.2.</span> <span class="nav-text">重命名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#移动"><span class="nav-number">4.3.</span> <span class="nav-text">移动</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一步实现重命名-移动"><span class="nav-number">4.4.</span> <span class="nav-text">一步实现重命名+移动</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#刷新"><span class="nav-number">4.5.</span> <span class="nav-text">刷新</span></a></li></ol></li></ol></div>
             
 
           </div>
