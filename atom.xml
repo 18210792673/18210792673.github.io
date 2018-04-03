@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2018-04-02T15:41:29.000Z</updated>
+  <updated>2018-04-03T14:32:41.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Win10添加指定程序到开机自启动</title>
+    <link href="http://yoursite.com/2018/04/03/Win10%E6%B7%BB%E5%8A%A0%E6%8C%87%E5%AE%9A%E7%A8%8B%E5%BA%8F%E5%88%B0%E5%BC%80%E6%9C%BA%E8%87%AA%E5%90%AF%E5%8A%A8/"/>
+    <id>http://yoursite.com/2018/04/03/Win10添加指定程序到开机自启动/</id>
+    <published>2018-04-03T14:32:41.000Z</published>
+    <updated>2018-04-03T14:32:41.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>打开运行对话框（win键+R），输入命令</p><pre><code>shell:startup</code></pre><p>会直接弹出启动项对应的目录，然后像把应用程序快捷方式(需要对该执行文件右键创建快捷方式)复制或者剪切到启动目录</p><p>注意：该方式的启动项对应的目录是个人目录，也就是说不是针对系统上的所有用户。</p>]]></content>
+    
+    <summary type="html">
+    
+      Win10添加指定程序到开机自启动
+    
+    </summary>
+    
+      <category term="IT基础知识" scheme="http://yoursite.com/categories/IT%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/"/>
+    
+      <category term="Windows" scheme="http://yoursite.com/categories/IT%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/Windows/"/>
+    
+    
+      <category term="Win10" scheme="http://yoursite.com/tags/Win10/"/>
+    
+  </entry>
   
   <entry>
     <title>Http Server 网络处理模型的进化之路</title>
@@ -143,7 +167,7 @@
     <published>2018-02-06T01:21:58.000Z</published>
     <updated>2018-02-06T01:21:58.000Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p><strong><code>AutoHotkey</code></strong>是一个windows下的开源、免费、自动化软件工具。它由最初旨在提供键盘快捷键的脚本语言驱动(称为：热键)，随着时间的推移演变成一个完整的脚本语言。但你不需要把它想得太深，你只需要知道它可以简化你的重复性工作，一键自动化启动或运行程序等等；以此提高我们的工作效率，改善生活品质；通过按键映射，鼠标模拟，定义宏等。</p><p>本文内容主要分为三部分，主要包括：</p><ul><li><strong>安装</strong></li><li><strong>配置</strong></li><li><strong>实际运用</strong></li><li><strong>个人感受</strong></li></ul><h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><h3 id="官方"><a href="#官方" class="headerlink" title="官方"></a>官方</h3><p><a href="https://autohotkey.com/docs/AutoHotkey.htm" target="_blank" rel="noopener">https://autohotkey.com/docs/AutoHotkey.htm</a></p><h3 id="民间"><a href="#民间" class="headerlink" title="民间"></a>民间</h3><p><a href="https://jeffjade.com/2016/03/11/2016-03-11-autohotkey/" target="_blank" rel="noopener">https://jeffjade.com/2016/03/11/2016-03-11-autohotkey/</a><br><a href="https://ahkcn.github.io/docs/AutoHotkey.htm" target="_blank" rel="noopener">https://ahkcn.github.io/docs/AutoHotkey.htm</a></p><h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><h2 id="下载地址"><a href="#下载地址" class="headerlink" title="下载地址"></a>下载地址</h2><p><a href="https://autohotkey.com/" target="_blank" rel="noopener">autohotkey下载地址</a></p><h1 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h1><h1 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h1><h2 id="个人常用设置"><a href="#个人常用设置" class="headerlink" title="个人常用设置"></a>个人常用设置</h2><h3 id="运行软件设置"><a href="#运行软件设置" class="headerlink" title="运行软件设置"></a>运行软件设置</h3><h3 id="资源管理设置"><a href="#资源管理设置" class="headerlink" title="资源管理设置"></a>资源管理设置</h3><h3 id="其他设置"><a href="#其他设置" class="headerlink" title="其他设置"></a>其他设置</h3>]]></content>
+    <content type="html"><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p><strong><code>AutoHotkey</code></strong>是一个windows下的开源、免费、自动化软件工具。它由最初旨在提供键盘快捷键的脚本语言驱动(称为：热键)，随着时间的推移演变成一个完整的脚本语言。但你不需要把它想得太深，你只需要知道它可以简化你的重复性工作，一键自动化启动或运行程序等等；以此提高我们的工作效率，改善生活品质；通过按键映射，鼠标模拟，定义宏等。</p><h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><h2 id="官方"><a href="#官方" class="headerlink" title="官方"></a>官方</h2><p><a href="https://autohotkey.com/docs/AutoHotkey.htm" target="_blank" rel="noopener">https://autohotkey.com/docs/AutoHotkey.htm</a></p><h2 id="民间"><a href="#民间" class="headerlink" title="民间"></a>民间</h2><p><a href="https://jeffjade.com/2016/03/11/2016-03-11-autohotkey/" target="_blank" rel="noopener">https://jeffjade.com/2016/03/11/2016-03-11-autohotkey/</a><br><a href="https://ahkcn.github.io/docs/AutoHotkey.htm" target="_blank" rel="noopener">https://ahkcn.github.io/docs/AutoHotkey.htm</a></p><h1 id="下载安装"><a href="#下载安装" class="headerlink" title="下载安装"></a>下载安装</h1><p><strong>下载地址</strong><br><a href="https://autohotkey.com/download/" target="_blank" rel="noopener">autohotkey下载地址</a></p><h1 id="使用说明"><a href="#使用说明" class="headerlink" title="使用说明"></a>使用说明</h1><blockquote><p>AutoHotkey doesn’t do anything on its own; it needs a script to tell it what to do. A script is simply a plain text file with the .ahk filename extension containing <code>instructions</code> for the program, like a configuration file, but much more powerful. </p><p>A script can do as little as performing a single action and then exiting, but most scripts define a number of hotkeys, with each hotkey followed by one or more actions to take when the hotkey is pressed.</p></blockquote><p>也就是说，在实际使用的时候，是通过autohotkey去调用脚本，然后再去执行一系列的操作</p><p>脚本是自己定义个一个后缀为.ahk的文件</p><p>然后双击启动Ahk2Exe.exe，选择自己编写的这个ahk文件，执行convert，之后会生成一个ahk.exe的可执行文件。<br>启动这个ahk.exe文件，就将配置加载，之后就可以使用这些热键进行一系列的操作</p><p><strong>一个热键对应一个脚本</strong></p><h2 id="脚本符号"><a href="#脚本符号" class="headerlink" title="脚本符号"></a>脚本符号</h2><p>这里简单说明下脚本中常用符号代表的含义：</p><pre><code># 号代表 Win 键；! 号代表 Alt 键；^ 号代表 Ctrl 键；+ 号代表 shift 键；:: 号(两个英文冒号)起分隔作用；run，非常常用 的 AHK 命令之一;; 号代表 注释后面一行内容；</code></pre><p>run它的后面是要运行的程序完整路径（比如我的Sublime的完整路径是：D:\Program Files (x86)\Sublime Text 3\sublime_text.exe）或网址。为什么第一行代码只是写着“notepad”，没有写上完整路径？因为“notepad”是“运行”对话框中的命令之一。</p><p>如果你想按下“Ctrl + Alt + Shift + Win + Q”（这个快捷键真拉风啊。(￣▽￣)）来启动 QQ 的话，可以这样写：</p><p>^!+#q::run QQ所在完整路径地址。</p><p>AutoHotKey的强大，有类似Mac下的Alfred2之风，可以自我定制(当然啦，后者还是强大太多)。所以可以说，她强大与否，在于使用者的你爱或者不爱折腾。学以致用，如果简单的折腾下，可以使得我们工作效率大幅提升，何乐不为？况且，在见识的增长中，这可以给我们思维带来极大的营养。以下是笔者常用功能的脚本配置：</p><p><strong>温馨提示： 以下几个系统默认的 Win 快捷键，请自行确认是否覆盖</strong></p><pre><code>Win + E：打开资源管理器；Win + D：显示桌面；Win + F：打开查找对话框；Win + R：打开运行对话框；Win + L：锁定电脑；Win + PauseBreak：打开系统属性对话框;Win + Q: 本地文件/网页等搜索;Win + U: 打开控制面板－轻松使用设置中心;</code></pre><h1 id="配置使用"><a href="#配置使用" class="headerlink" title="配置使用"></a>配置使用</h1><p><strong>这是自行编写的脚本的内容</strong></p><pre><code>#q::Run https://wx.qq.com/#w::Run http://watchmen.xin/#e::Run E:\software\tcmd\totalcmd\TOTALCMD64.EXE#r::Run, E:\software\ss\Shadowsocks.exe#t::Run, E:\software\新建文件夹\Snipaste.exe#y::Run, E:\software\TIMqq\Bin\QQScLauncher.exe#u::Run, E:\software\foxmail\Foxmail.exe#i::Run, E:\software\xmanager\Xshell.exe</code></pre>]]></content>
     
     <summary type="html">
     
