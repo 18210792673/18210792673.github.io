@@ -585,7 +585,7 @@ Network Access
 <li>2种角色：master和backup；</li>
 </ul>
 <ul>
-<li>4种状态：stop,master，backup,fall</li>
+<li>4种状态：stop,master,backup,fault</li>
 </ul>
 <ul>
 <li>检测脚本2种触发机制</li>
@@ -651,6 +651,77 @@ Network Access
 <h3 id="补充：为什么4层性能比7层更好？"><a href="#补充：为什么4层性能比7层更好？" class="headerlink" title="补充：为什么4层性能比7层更好？"></a>补充：为什么4层性能比7层更好？</h3><p>在7层，因为负载均衡器要获取报文内部的内容，因此要先和客户端建立连接，才能收到客户发过来的报文内容，然后获取报文内容之后，再根据调度算法进行负载。也就是说7层负载会和客户端和后端服务器分别建立一个TCP连接，而4层负载均衡只需要一次，因此性能肯定比4层差。</p>
 <h3 id="三种负载均衡产品之间的对比"><a href="#三种负载均衡产品之间的对比" class="headerlink" title="三种负载均衡产品之间的对比"></a>三种负载均衡产品之间的对比</h3><p>HAProxy和LVS的4层负载对比<br>因为LVS是基于Linux内核的，但是HAProxy是属于第三方应用，因此在性能上，LVS占据绝对优势。因此，如果只是做纯4层转发，则使用LVS</p>
 <p>HAProxy对比Nginx<br>HAProxy支持更为丰富的后端节点检测机制，并且性能比Nginx好，因此在并发量较大的情况下，使用HAproxy，日PV并发量较小的情况下可以使用Nginx，配置也较为简单。</p>
+<h2 id="4-Redis"><a href="#4-Redis" class="headerlink" title="4. Redis"></a>4. Redis</h2><p><strong>持久化策略</strong><br>数据持久化策略主要分为RDB和AOF两种</p>
+<ul>
+<li>RDB方式：数据文件内记录的是实际的数据。因此在进行数据恢复的时候，速度较快。适合全量备份。在进行RDB持久化时，会fork出一个单独的进行，因此会CPU的开销较大。</li>
+<li>AOF方式：数据文件内记录的是产生数据变化的命令。因此在进行数据恢复的时候，速度较慢，并且其中的内容可以编辑，因此适合在执行了一些类似flushall或者flushdb等命令时进行数据恢复</li>
+<li>混合持久化：Redis4.0版本之后的持久化，结合了RDB和AOF的有点，当进行AOF重写的时候，将会把当前的数据转变成为RDB形式进行保存，重写之后的数据继续以AOF的格式保存</li>
+</ul>
+<p><strong>主从复制</strong><br>在Redis2.6版本之前，主从复制时，每次传输的都是全量数据，因此会非常占用网络带宽和相关资源。<br>在这之后，在Redis master节点上可以设置复制缓存区，来实现差异的增量复制。但是当缓冲区满了之后，还是会执行全量复制。</p>
+<p><strong>淘汰策略</strong><br>淘汰策略是指当Redis进行即将使用到设置的最大内存量，执行的一个策略，避免出现内存溢出的问题，也就是一种内存回收机制。<br>一般在使用到maxmemory的90%时触发，默认策略是不回收。</p>
+<p>在redis中可以配置的策略主要有以下几种：</p>
+<ul>
+<li>noeviction policy    【默认策略，永不过期策略。】不会删除任何数据，拒绝任何写入操作并返回客户端错误信息（error）OOM command not allowed when used memory，此时Redis只响应读操作</li>
+<li>volatile-lru        根据LRU算法删除设置了超时属性（expire）的键，直到腾出足够空间为止，如果没有可以删除的键对象，则回退到noeviction策略</li>
+<li>allkeys-lru        根据LRU算法删除键，不管数据有没有设置超时属性，直到腾出足够空间为止。</li>
+<li>volatile-lfu        根据LFU算法删除设置了超时属性（expire）的键，直到腾出足够空间为止，如果没有可以删除的键对象，则回退到noeviction策略</li>
+<li>allkeys-lfu        根据LFU算法删除键，不管数据有没有设置超时属性，直到腾出足够空间为止。</li>
+<li>volatile-random    随机删除设置了超时属性（expire）的键，直到腾出足够的空间</li>
+<li>allkeys-random    随机删除所有键，知道腾出足够空间为止</li>
+<li>volatile-ttl        根据键值对象的ttl属性，删除最近将要过期的数据，如果没有，则回退到noeviction策略</li>
+</ul>
+<p><strong>常见性能问题</strong></p>
+<p>常见性能问题主要为：</p>
+<ul>
+<li>内存设置不合理</li>
+<li>大量的慢查询</li>
+<li>key值（名称）设置过大</li>
+<li>单个key的value过大</li>
+<li>没有使用Redis的流水线功能</li>
+<li>命令使用不合理，例如可以使用mset等或者禁止使用monitor等命令</li>
+<li>客户端最大连接数设置【需要设置最大描述符，Redis默认会占用32个fd，因此可用的是1024-32】</li>
+<li>TCP积压队列</li>
+<li>定义AOF重写大小</li>
+<li>客户端输出缓冲区</li>
+<li>复制积压缓冲区</li>
+<li>swap优化等等</li>
+</ul>
+<p><strong>哨兵模式</strong></p>
+<p>哨兵模式也就是Redis的高可用模式。<br>一般的配置模式为一对主从，然后配置3个哨兵实例<br>哨兵实例的设置原则：当有(n/2)+1个哨兵宣告需要进行切换时，才进行切换，这一点同样适用于zk等集群选举。因此最好3个以上的奇数个实例，偶数个会浪费一个。【这在5个以上节点时能看出明显的效果】</p>
+<p><strong>分布式集群</strong></p>
+<p>集群采用哈希槽的分配方式，一共有0-16383个槽<br>最小建议配置为3主3从。Redis集群使用的是gossip协议。</p>
+<p><strong>cachecloud云平台</strong></p>
+<p>这是我从github上引入的Redis运维项目</p>
+<h2 id="5-Mysql-Oracle"><a href="#5-Mysql-Oracle" class="headerlink" title="5. Mysql+Oracle"></a>5. Mysql+Oracle</h2><p><strong>Mysql基础知识</strong></p>
+<p><strong>Mysql主从</strong></p>
+<p><strong>Mysql高可用和集群</strong></p>
+<p><strong>Mysql备份与恢复</strong></p>
+<p><strong>Mysql优化</strong></p>
+<p><strong>Mysql常见问题</strong></p>
+<p><strong>Oracle</strong></p>
+<h2 id="6-Ansible等自动化工具"><a href="#6-Ansible等自动化工具" class="headerlink" title="6. Ansible等自动化工具"></a>6. Ansible等自动化工具</h2><p><strong>Ad-Hoc</strong></p>
+<p>Ad-Hoc指的是一般性的临时操作</p>
+<p>日常运维中主要使用的模块有：</p>
+<ul>
+<li>shell模块</li>
+<li>yum模块</li>
+<li>copy模块</li>
+<li>service模块</li>
+</ul>
+<p><strong>Playbook</strong><br>Ansible使用YAML语法描述配置文件，这个配置文件就被成为playbook，剧本</p>
+<p>Ansible的核心理念是：极致的简单高效<br>并且Ansbile是使用python编写的，因此在后续的二次开发上更占据优势。<br>另一个趋势是python的运行方式，它和区块链一致，采用的是去中心化的部署方式，不需要安装客户端即可，通过SSH来实现，并且目前还提供了SSH的加速模式，适用于大规模的环境中，可以说，Ansible绝对是未来的趋势主流。</p>
+<p><strong>puppet、chef、slatstack</strong><br>puppet和chef都是使用ruby编写的，并且配置繁琐，都需要配置客户端目前不适合</p>
+<p>slatstack也是通过python编写，但是slatstack适用于更大的规模，因为ansible使用ssh来传输命令，而它使用zeroMQ来传输数据<br>在1000台主机的情况下，MQ用时2秒左右，而ansible的SSH则用时85秒。</p>
+<p><strong>对比</strong><br>ansible默认情况下适用于200台以内的主机，适合中小型企业，如果数量再多可以使用Ansible的加速模式去实现</p>
+<p>选型标准：选择最合适，如果当前的运维环境主机在百台，则ansible是最好的选择，如果上千台，那么无疑使用slatstack。</p>
+<p><strong>cobbler和kickstart</strong><br>kickstart是传统的批量装机方式，配置比较繁琐</p>
+<p>cobbler是较早前的kickstart的升级版本，有点是容易配置</p>
+<p>并且cobbler具有高级功能，可以根据不同机器的MAC地址来进行设置装机</p>
+<p>关闭自动装机这里之前还发生过一个问题，就是有一次在装机的时候使用的是百兆交换机，导致老是有几台装不上，后来都换成千兆之后，就解决了这个问题。</p>
+<p>关闭这个批量装机，因此centos的网卡名称不再是ethx的形式，因此在安装的时候，我们需要再ks文件中添加命令，来调整网卡的命令规则</p>
+<h2 id="7-Nginx，Httpd，tomcat，weblogic，php，gitlab，Jenkins"><a href="#7-Nginx，Httpd，tomcat，weblogic，php，gitlab，Jenkins" class="headerlink" title="7. Nginx，Httpd，tomcat，weblogic，php，gitlab，Jenkins"></a>7. Nginx，Httpd，tomcat，weblogic，php，gitlab，Jenkins</h2><p>这部分和web相关，主要是和电商，互联网公司等核心为web的紧密相关，也就是主要是LNMP这一套</p>
+<p><strong>Nginx和Httpd</strong></p>
+<p>在这里主要说web，不说nginx的负载均衡，这部分已经在第3条说了。</p>
 
       
     </div>
@@ -719,6 +790,10 @@ Network Access
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/04/04/listary常用操作/" rel="prev" title="listary常用操作">
+                listary常用操作 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -830,7 +905,7 @@ var jiathis_config={
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">16</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -841,7 +916,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -852,7 +927,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-count">17</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -892,7 +967,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#0-自我介绍"><span class="nav-number">1.</span> <span class="nav-text">0. 自我介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-发行版本区别及shell、python"><span class="nav-number">2.</span> <span class="nav-text">1. 发行版本区别及shell、python</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-OSI模型、TCP-IP部分；路由交换基本原理"><span class="nav-number">3.</span> <span class="nav-text">2. OSI模型、TCP/IP部分；路由交换基本原理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#OSI7层模型"><span class="nav-number">3.1.</span> <span class="nav-text">OSI7层模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TCP-IP协议族"><span class="nav-number">3.2.</span> <span class="nav-text">TCP/IP协议族</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#OSI和TCP-IP的区别"><span class="nav-number">3.3.</span> <span class="nav-text">OSI和TCP/IP的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#路由技术"><span class="nav-number">3.4.</span> <span class="nav-text">路由技术</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#交换技术"><span class="nav-number">3.5.</span> <span class="nav-text">交换技术</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-高可用-负载均衡"><span class="nav-number">4.</span> <span class="nav-text">3. 高可用+负载均衡</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#补充：为什么4层性能比7层更好？"><span class="nav-number">4.1.</span> <span class="nav-text">补充：为什么4层性能比7层更好？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三种负载均衡产品之间的对比"><span class="nav-number">4.2.</span> <span class="nav-text">三种负载均衡产品之间的对比</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#0-自我介绍"><span class="nav-number">1.</span> <span class="nav-text">0. 自我介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-发行版本区别及shell、python"><span class="nav-number">2.</span> <span class="nav-text">1. 发行版本区别及shell、python</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-OSI模型、TCP-IP部分；路由交换基本原理"><span class="nav-number">3.</span> <span class="nav-text">2. OSI模型、TCP/IP部分；路由交换基本原理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#OSI7层模型"><span class="nav-number">3.1.</span> <span class="nav-text">OSI7层模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TCP-IP协议族"><span class="nav-number">3.2.</span> <span class="nav-text">TCP/IP协议族</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#OSI和TCP-IP的区别"><span class="nav-number">3.3.</span> <span class="nav-text">OSI和TCP/IP的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#路由技术"><span class="nav-number">3.4.</span> <span class="nav-text">路由技术</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#交换技术"><span class="nav-number">3.5.</span> <span class="nav-text">交换技术</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-高可用-负载均衡"><span class="nav-number">4.</span> <span class="nav-text">3. 高可用+负载均衡</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#补充：为什么4层性能比7层更好？"><span class="nav-number">4.1.</span> <span class="nav-text">补充：为什么4层性能比7层更好？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三种负载均衡产品之间的对比"><span class="nav-number">4.2.</span> <span class="nav-text">三种负载均衡产品之间的对比</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-Redis"><span class="nav-number">5.</span> <span class="nav-text">4. Redis</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-Mysql-Oracle"><span class="nav-number">6.</span> <span class="nav-text">5. Mysql+Oracle</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-Ansible等自动化工具"><span class="nav-number">7.</span> <span class="nav-text">6. Ansible等自动化工具</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-Nginx，Httpd，tomcat，weblogic，php，gitlab，Jenkins"><span class="nav-number">8.</span> <span class="nav-text">7. Nginx，Httpd，tomcat，weblogic，php，gitlab，Jenkins</span></a></li></ol></div>
             
 
           </div>
