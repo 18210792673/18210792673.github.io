@@ -693,7 +693,14 @@ Network Access
 <p><strong>cachecloud云平台</strong></p>
 <p>这是我从github上引入的Redis运维项目</p>
 <h2 id="5-Mysql-Oracle"><a href="#5-Mysql-Oracle" class="headerlink" title="5. Mysql+Oracle"></a>5. Mysql+Oracle</h2><p><strong>Mysql基础知识</strong></p>
-<p><strong>Mysql主从</strong></p>
+<p><strong>Mysql主从复制原理</strong></p>
+<p>整体上来说，复制有3个步骤： </p>
+<ul>
+<li>A.master将改变记录到二进制日志(binary log)中（这些记录叫做二进制日志事件，binary log events）；</li>
+<li>B.slave将master的binary log events拷贝到它的中继日志(relay log)；</li>
+<li>C.slave重做中继日志中的事件，将改变反映它自己的数据。</li>
+</ul>
+<p><strong>Mysql读写分离</strong></p>
 <p><strong>Mysql高可用和集群</strong></p>
 <p><strong>Mysql备份与恢复</strong></p>
 <p><strong>Mysql优化</strong></p>
@@ -722,6 +729,150 @@ Network Access
 <h2 id="7-Nginx，Httpd，tomcat，weblogic，php，gitlab，Jenkins"><a href="#7-Nginx，Httpd，tomcat，weblogic，php，gitlab，Jenkins" class="headerlink" title="7. Nginx，Httpd，tomcat，weblogic，php，gitlab，Jenkins"></a>7. Nginx，Httpd，tomcat，weblogic，php，gitlab，Jenkins</h2><p>这部分和web相关，主要是和电商，互联网公司等核心为web的紧密相关，也就是主要是LNMP这一套</p>
 <p><strong>Nginx和Httpd</strong></p>
 <p>在这里主要说web，不说nginx的负载均衡，这部分已经在第3条说了。</p>
+<h2 id="8-消息队列MQ产品"><a href="#8-消息队列MQ产品" class="headerlink" title="8. 消息队列MQ产品"></a>8. 消息队列MQ产品</h2><p><strong>使用MQ产品的原因</strong></p>
+<ul>
+<li>程序异步解耦</li>
+<li>数据冗余</li>
+<li>扩展性，不需要改变程序的代码，就可以扩展性能。</li>
+<li>灵活性，峰值处理能力。</li>
+<li>消息的顺序保证</li>
+<li>异步通信，允许用户把消息放入队列中，但是并不立即处理它</li>
+</ul>
+<ul>
+<li>ActiveMQ；老牌的MQ产品，完全遵守JMS规范。是apache开源的一个MQ产品，比较重量级，没有什么特殊的亮点</li>
+</ul>
+<blockquote>
+<p>ActiveMQ的高可用集群模式通过ZK来实现，为了保证数据的一致性，因此会严重影响性能。从ActiveMQ 5.9开始，它实现了通过ZooKeeper + LevelDB实现高可用集群的部署方式。这种方式，对外只有Master提供服务<br>这种方式实现了可以称之为半事务特性的机制，Master 将会存储并更新然后等待 (2-1)=1 个<strong>Slave</strong>存储和更新完成，才汇报 success</p>
+</blockquote>
+<ul>
+<li>RabbitMQ；遵循AMQP协议，借助erlang的特性在可靠性、稳定性和实时性上比别的MQ做得更好，非常重量级，性能比较好，适合企业级的开发。但是不利于做二次开发和维护<blockquote>
+<p>由于 rabbitmq 是使用 erlang 开发的，而 erlang 就是为分布式而生的。所以 rabbitmq 便于集群。rabbitmq 集群有两种模式：<code>普通模式、镜像模式。</code></p>
+</blockquote>
+</li>
+<li>普通模式：也是默认模式，对于 queue 来说，消息实体只存在与其中的一个节点，A、B 两个节点只有相同的元数据，即队列的结构。当消息在A时，消费中从B中取消息时，消息会从A中传递到B中。所以consumer应尽量连接每一个节点，从中取消息。即对于同一个逻辑队列，要在多个节点建立物理Queue。否则无论consumer连rabbit01或rabbit02，出口总在rabbit01，会产生瓶颈。</li>
+</ul>
+<ul>
+<li>镜像模式：镜像模式是 rabbitmq 的 HA 方案。其与普通模式的唯一不同之处在于消息会在 A，B 两个节点中同步。当然这种模式带来的副作用也是显而易见的。除了降低系统性能以外，如果队列数量过多，网络带宽将会受到影响。所以这种情况只运用到对高可靠性要求的场合上。</li>
+</ul>
+<blockquote>
+<p>集群配置方式：安装erlang,然后同步三台机器上的.erlang.cookie文件内容<br>因为RabbitMQ的集群是依赖erlang集群，而erlang集群是通过这个cookie进行通信认证的，因此我们做集群的第一步就是干cookie。<br>注意：erlang.cookie文件中cookie值一致，且权限为owner只读。因此需要设置为600</p>
+</blockquote>
+<p><strong>注意：</strong> RabbitMQ单节点环境只允许是磁盘节点，防止重启RabbitMQ时丢失系统的配置信息。RabbitMQ集群环境至少要有一个磁盘节点，因为当节点加入或者离开集群时，必须要将该变更通知到至少一个磁盘节点。 </p>
+<ul>
+<li><p>kafka；也是apache基金会的一个MQ产品。高吞吐量，消息的接受和消费都是落地到磁盘，因此适用于大数据环境流处理，对实时性要求不是太高的环境，可以积压非常庞大的数据量（瓶颈在磁盘）</p>
+<blockquote>
+<p>kafka是一种分布式的，基于发布/订阅的消息系统。有主分区和副本分区的概念。<br>并且kafka中的数据是追加的形式，保证了消息的有序性</p>
+</blockquote>
+</li>
+<li><p>rocketmq；阿里开发并开发的一个MQ产品，纯JAVA开发。具有高吞吐量、高可用性、适合大规模分布式系统应用的特点。RocketMQ思路起源于Kafka，但并不是Kafka的一个Copy，它对消息的可靠传输及事务性做了优化，目前在阿里集团被广泛应用于交易、充值、流计算、消息推送、日志流式处理、binglog分发等场景。</p>
+</li>
+</ul>
+<h2 id="9-flume，zk，es，logstash，kibana系列"><a href="#9-flume，zk，es，logstash，kibana系列" class="headerlink" title="9. flume，zk，es，logstash，kibana系列"></a>9. flume，zk，es，logstash，kibana系列</h2><p><strong>flume</strong></p>
+<p>flume：是一个日志收集软件。flume的agent设计实现这一系列的操作，一个agent就是一个java进程，运行在日志收集节点-也就是日志收集服务器节点。</p>
+<p>agent里面包含3个核心的组件：source—-&gt;channel—–&gt;sink,类似生产者、仓库、消费者的架构。<br>source:收集数据，可以处理各种类型<br>sink：该组件是用于把数据发送到目的地的组件，目的地包括有：hdfs，kafka等等文件系统</p>
+<blockquote>
+<p>工作流：flume的核心是把数据从数据源(source)收集过来，在将收集到的数据送到指定的目的地(sink)。为了保证输送的过程一定成功，在送到目的地(sink)之前，会先缓存数据(channel),待数据真正到达目的地(sink)后，flume在删除自己缓存的数据。 也就是说flume提供了一种类似事务机制。</p>
+</blockquote>
+<p>flume的2种工作模式：主动模式和被动模式【主要是针对客户端来说】。这两种模式和zabbix的两种模式一样</p>
+<p>在进行配置的时候，每个agent实例是通过别名来进行区分的。</p>
+<p><strong>kafka</strong><br>流式消息队列产品，接受flume发送过来的消息，或者日常产生端直接将JSON格式的数据发送到Kafka中。详见上方MQ产品</p>
+<p><strong>zookeeper</strong><br>zk:是一个分布式应用程序协调组件，用于为哪些原生没有提供集群功能的服务实现分布式集群。提供的功能包括：配置维护、域名服务、分布式同步、组服务等。<br>zk的工作流：<br>1、选举Leader。（选举zk集群中的leader）<br>2、同步数据。<br>3、选举Leader过程中算法有很多，但要达到的选举标准是一致的。<br>4、Leader要具有最高的执行ID，类似root权限。<br>5、集群中大多数的机器得到响应并接受选出的Leader。</p>
+<p>注意：zk在3.5.0以上的版本会有一个内嵌的web服务，通过访问<a href="http://localhost:8080/commands来访问以上的命令列表。" target="_blank" rel="noopener">http://localhost:8080/commands来访问以上的命令列表。</a></p>
+<p>一旦Zk集群启动之后，它将等待客户端的连接</p>
+<p><strong>es</strong><br>Es的主要功能是将收集的数据建立索引，方便日后数据的存储于检索。<br>ES不止是一个全文本引擎，他还是一个分布式实时文档存储系统。<br>这里，KCE的数据目的地和ES的数据来源设置成了一个分区，因此避免了磁盘IO的二次开销</p>
+<p><strong>logstash</strong><br>日志收集，需要在日志产生端配置，收集日志，再进行发送，目前使用flume来代替了。</p>
+<p><strong>kibana</strong><br>kibana不多说了，主要是提供了一个连接ES的入口</p>
+<h2 id="10-docker"><a href="#10-docker" class="headerlink" title="10. docker"></a>10. docker</h2><p>docker的核心三大组件是</p>
+<ul>
+<li>镜像</li>
+<li>容器</li>
+<li>仓库</li>
+</ul>
+<p>镜像主要分为几种，一个是官方的或者别人已经写好的镜像文件<br>另一个可以自己产生镜像文件。</p>
+<p>自己产生的镜像文件可以分为两种</p>
+<ul>
+<li>在现有镜像的基础之上commit出来一个新的镜像</li>
+<li>编写dockerfile文件，然后build出来一个镜像</li>
+</ul>
+<p>建议通过dockerfile的形式产生镜像，因为使用commit出来的镜像会存在很多的缓存文件等。</p>
+<p>容器是镜像的运行态，和程序及进程的概念比较像。</p>
+<p>仓库主要分为两种，一个是存储镜像的仓库【里面的 镜像通过tag标签来尽心区分，默认是latest】，另一个是存储仓库名称的注册仓库</p>
+<p>公网上的仓库可以是docker hub，也可以通过官方提供的registry镜像来简单搭建一套本地私有仓库环境:</p>
+<p><strong>dockerfile编写</strong><br>dockerfile主要分为4个部分</p>
+<ul>
+<li>基础镜像信息 from字段，也就是这个应用是以那个镜像为基础的</li>
+<li>维护者信息，maintainer，也就是作者信息</li>
+<li>镜像的操作指令，也就是在制作镜像是要执行的一系列操作</li>
+<li>容器启动时执行指令-CMD，在启动时要执行的操作，例如启动等</li>
+</ul>
+<p>在cachecloud中，基础镜像是使用的centos7.4-内核基础3.0-1811系统<br>维护者是我，镜像的操作指令是JDK环境等等；容器启动时执行的命令是启动cachecloud项目</p>
+<p><strong>k8s</strong></p>
+<p>k8s是谷歌开源的一个容器集群管理项目<br>k8s对集群中的资源进行了不同级别的抽象，每个资源都是一个rest对象，通过API进行操作，通过JSON/YAML格式的模板文件进行定义<br>要注意的是，k8s并不是直接对容器操作，它的操作最小单位是容器组。容器组由一个或多个容器组成。k8s围绕着容器组进行创建，调度，停止等生命周期管理。</p>
+<p><strong>ESXI,vsphere,xen,kvm</strong></p>
+<p>这些是第一家公司所使用的产品<br>exsi和vsphere是vmware公司的企业虚拟化产品，相比于kvm，它有更好的性能，因此它是直接在物理上安装虚拟化操作系统，不需要第三方软件的实现。<br>esxi是单机版本，vsphere是集中管理版本，支持在线迁移等高级功能。<br>xenserver是思杰公司的一个虚拟化产品，单机的操作比vmware的esxi好，但是在涉及到多机环境时不是太好<br>kvm需要linux系统的支持，然后还要安装一系列的组件，相对来说，更方便，但是不够专业，一般企业使用的相对较少。</p>
+<h2 id="11-监控软件及JMX，JVM"><a href="#11-监控软件及JMX，JVM" class="headerlink" title="11. 监控软件及JMX，JVM"></a>11. 监控软件及JMX，JVM</h2><p>zabbix</p>
+<p><strong>我们的生产是怎么监控的</strong></p>
+<p>首先是监控模板，监控一些基础指标，例如CPU，内存，磁盘等</p>
+<p>一些类似HAproxy，activemq等有web页面的应用我们通过web监控来实现【创建web场景，60秒内，尝试连接3次，如果3次都失败，则报警，这里还会涉及到一些有认证的页面，也是可以实现的。】</p>
+<p>更高级一点的例如redis等应用，需要监控一些特定的指标，我们通过自定义监控项来实现。</p>
+<p>JAVA类的应用，在后期慢慢的开放了JMX端口的情况下，陆续加入了JMX的监控。</p>
+<p><strong>自定义监控项</strong><br>为了简单高效，我们自己编写的脚本，判断引用的状态，将采用所能想到的一切来判断，然后再最后只输出一个0,如果服务不正常的话，则输出为1。</p>
+<p><strong>zabbix的一些优化操作</strong><br>采取zabbix的主动模式来进行监控<br>使用自动发现的功能。</p>
+<p><strong>自动发现等操作</strong></p>
+<p><strong>各监控产品的区别</strong><br>zabbix是一款商业的开源软件，涉及到的东西非常之多，因此官方能够靠咨询，技术服务等来收费运作。<br>而cacti，nagios等是普通的开源软件，自然没有zabbix这么强大。</p>
+<p>nagios的可视化功能非常弱，zabbix是有自己的可视化界面的【一般我们都是通过最新数据哪里查看，为了给zabbix减负，不是非必要的情况下，一般不会给监控项添加图形】<br>它不支持自动发现，并且缺少图形展示工具，也没有历史数据，追查起来非常困难。</p>
+<p>cacti是一个PHP程序<br>它通过使用SNMP 协议获取远端网络设备和相关信息，（其实就是使用Net-SNMP 软件包的snmpget 和snmpwalk 命令获取）并通过RRDTOOL 工具绘图，</p>
+<p>通过SNMP采集数据，并且自定义监控项等非常繁琐，报警方式需要添加插件等。</p>
+<p><strong>JMX监控</strong></p>
+<p>前提条件：需要JAVA类程序开放JMX端口【也就是开放API接口】</p>
+<p>工作流：<br>（1）zabbix_server需要知道一台主机上的特定端口的JMX值时，它会向Zabbix-Java-gateway进程去询问。这个连接进程叫做StartJavaPollers</p>
+<p>（2）Zabbix-Java-gateway使用JMXmanagementAPI这个API去查询特定的应用程序</p>
+<p>注意：在配置的时候，StartJavaPollers线程数量要小于等于START_POLLERS设置的线程数量</p>
+<p>这些操作操作完毕之后，在web页面上进行操作，添加JMX监控模板即可。</p>
+<p><strong>JVM调优</strong></p>
+<p>提到虚拟机的内存结构，可能首先想起来的就是堆栈。对象分配到堆上，栈上用来分配对象的引用以及一些基本数据类型相关的值。</p>
+<p>JAVA虚拟机的内存结构是分了好几个区域的。<br>分区域的好处是：</p>
+<ul>
+<li>便于查找</li>
+<li>便于内存回收【如果不分，回收内存就要全部内存扫描】</li>
+</ul>
+<p>JVM内存分区（5部分）：</p>
+<ul>
+<li>方法区        线程共享【这部分常被成为永久代，除了编译后的字节码之外，方法区中还会存放常量，静态变量以及及时编译器编译后的代码等数据。】</li>
+</ul>
+<ul>
+<li>堆            线程共享【这部分一般是Java虚拟机中最大的一块内存区域，这块存储对象的实例。堆内存是垃圾收集器主要光顾的区域，一般来讲根据使用的垃圾收集器的不同，堆中还会划分为一些区域，<code>比如新生代和老年代</code>。新生代还可以再划分为Eden，Survivor等区域。另外为了性能和安全性的角度，在堆中还会为线程划分单独的区域，称之为线程分配缓冲区。更细致的划分是为了让垃圾收集器能够更高效的工作，提高垃圾收集的效率。】</li>
+</ul>
+<ul>
+<li><p>Java栈        线程独享【每一个方法从调用直至执行完成的过程，就对应着一个栈帧在虚拟机栈中入栈到出栈的过程。在Java虚拟机规范中，对于此区域规定了两种异常状况：如果线程请求的栈深度大于虚拟机所允许的深度，将抛出StackOverflowError异常；如果虚拟机栈可以动态扩展，当扩展时无法申请到足够的内存时会抛出OutOfMemoryError异常。】</p>
+</li>
+<li><p>本地方法栈    线程独享【本地方法栈区域也会抛出StackOverflowError和OutOfMemoryError异常。】</p>
+</li>
+</ul>
+<ul>
+<li>程序计数器    线程独享【这部分内存不会内存溢出，字节码行号提示器】</li>
+</ul>
+<p>堆（新生代和老年代等）：</p>
+<blockquote>
+<p>Xms256m 代表堆内存初始值为256MB</p>
+<p>Xmx1024m 代表堆内存最大值为1024MB<br>如果-Xmx不指定或者指定偏小，应用可能会导致java.lang.OutOfMemory错误</p>
+</blockquote>
+<p>方法区（永久代）</p>
+<blockquote>
+<p>PermSize和MaxPermSize指明虚拟机为java永久生成对象（Permanate generation）<br>例如：class对象、方法对象这些可反射（reflective）对象分配内存限制，这些内存不包括在Heap（堆内存）区之中。<br>-XX:PermSize=64MB  最小尺寸，初始分配<br>XX:MaxPermSize=256MB  最大允许分配尺寸，按需分配<br>这部分设置过小会导致：java.lang.OutOfMemoryError: PermGen  space</p>
+<p>MaxPermSize缺省值和-server -client选项相关。<br>-server选项下默认MaxPermSize为64m。 -client选项下默认MaxPermSize为32m </p>
+</blockquote>
+<h2 id="云产品"><a href="#云产品" class="headerlink" title="云产品"></a>云产品</h2><p>说起阿里云，这期间还发生了一个人为事故。<br>当初京东金融本来是通过我们的平台发送的，但是它要我们给他拉专线直接连接运营商。<br>但是这边没有给他拉，而是买了一台阿里云服务器，暴露出一个公网IP地址让它连接，在这台服务器上面部署HAproxy，还是调整到我们的平台。【上边领导们的决定，我就不评论是非对错了 哈哈】</p>
+<p>然后有一天，突然HAProxy的web监测报警，页面打不开。马上上服务器看，CPU爆了【买的服务器配置一般】<br>检查进程。内存正常，磁盘正常，CPU爆了，然后再查看网络连接，发现有大量的CLOSE_WAIT（400个close_wait;100多个establish）</p>
+<blockquote>
+<p>在TCP关闭时，主动关闭的一方发出 FIN 包，被动关闭的一方响应 ACK 包，此时，被动关闭的一方就进入了 CLOSE_WAIT 状态。如果一切正常，稍后被动关闭的一方也会发出 FIN 包，然后迁移到 LAST_ACK 状态。</p>
+</blockquote>
+<p>导致产生大量close_wait的原因是突然遭遇大量的请求，即便响应速度不慢，但是也来不及消费，导致多余的请求还在队列里就被对方关闭了。（因为对方设置了超时时间）。<br>但是linux没有对close_wait做类似超时控制的设置，如果不重启进程，这个状态很可能会永远的持续下去，</p>
+<p>AWS主要是当初想搭VPN，但是一大堆的限制，最终没成功，所以现在是直接买的商业的，稳定，速度也有保证。<br>七牛云，产品主要是数据存储和CDN加速，我自己的博客目前也是在用七牛云。<br>瑞江云，是公司在做什么业务时和人家合作时，人家送的，具体什么我就不知道了。</p>
+<h2 id="13-自身素质"><a href="#13-自身素质" class="headerlink" title="13 自身素质"></a>13 自身素质</h2><p>关于这三个人的管理经验，是在第一家公司公司的时候。<br>亿阳分为很多个部门，其中就有一个对外产品部门，当时是准备和人保合作，进入金融行业。因此拿下了一个标，但是招运维主管的时候的比较难招，差不不行，好的知道是外包驻场的形式一般也不愿意来，到最后实在没办法只能从公司内部要人了，然后就把我派过去了。在那边呆了有7个月左右。<br>当时工作非常艰辛【上一家被换掉是因为政治原因，具体是谁就不知道了】，因此过去需要接受上一家的工作，然后开发二代新产品，中间不能停，也就是起承上启下的作用。<br>当时1个月直接就瘦了10斤，天天加班。</p>
+<h2 id="工作经历"><a href="#工作经历" class="headerlink" title="工作经历"></a>工作经历</h2><h2 id="项目经历"><a href="#项目经历" class="headerlink" title="项目经历"></a>项目经历</h2><h2 id="高效办公系列软件"><a href="#高效办公系列软件" class="headerlink" title="高效办公系列软件"></a>高效办公系列软件</h2><p>TC:资源管理器<br>Autohotey：热键管理器<br>Listary：文件搜索浏览增强工具<br>evernote:云笔记<br>Fences:桌面管理工具<br>Ditto：剪切板增强工具<br>Snipaste：截图工具<br>Everything:文件搜索工具</p>
+<h2 id="运维职业规划"><a href="#运维职业规划" class="headerlink" title="运维职业规划"></a>运维职业规划</h2><p>个人现阶段的努力方向是能够快速解决问题<br>这个要求就非常高，<br>比如开发开发出来的程序，在测试上正常，但是一到生产上，服务器的负载就持续飙升，CPU资源被消耗殆尽，这个时候要能够快速的定位到进程。然后要能分析进程内部的资源消耗情况，比如调用内核的哪些系统调用的情况引起的异常等等，找到之后能不能定位到相应的程序代码，这样才能解决问题，而不是找到进程之后，简单的重启。</p>
+<p>在这之后下一个阶段目标是未雨绸缪，在源头将问题遏制住<br>因此需要具备开发能力，在软件需求评审和软件设计阶段就要参与进来。</p>
 
       
     </div>
@@ -905,7 +1056,7 @@ var jiathis_config={
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-count">17</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -916,7 +1067,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-count">23</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -927,7 +1078,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">18</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -967,7 +1118,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#0-自我介绍"><span class="nav-number">1.</span> <span class="nav-text">0. 自我介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-发行版本区别及shell、python"><span class="nav-number">2.</span> <span class="nav-text">1. 发行版本区别及shell、python</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-OSI模型、TCP-IP部分；路由交换基本原理"><span class="nav-number">3.</span> <span class="nav-text">2. OSI模型、TCP/IP部分；路由交换基本原理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#OSI7层模型"><span class="nav-number">3.1.</span> <span class="nav-text">OSI7层模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TCP-IP协议族"><span class="nav-number">3.2.</span> <span class="nav-text">TCP/IP协议族</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#OSI和TCP-IP的区别"><span class="nav-number">3.3.</span> <span class="nav-text">OSI和TCP/IP的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#路由技术"><span class="nav-number">3.4.</span> <span class="nav-text">路由技术</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#交换技术"><span class="nav-number">3.5.</span> <span class="nav-text">交换技术</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-高可用-负载均衡"><span class="nav-number">4.</span> <span class="nav-text">3. 高可用+负载均衡</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#补充：为什么4层性能比7层更好？"><span class="nav-number">4.1.</span> <span class="nav-text">补充：为什么4层性能比7层更好？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三种负载均衡产品之间的对比"><span class="nav-number">4.2.</span> <span class="nav-text">三种负载均衡产品之间的对比</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-Redis"><span class="nav-number">5.</span> <span class="nav-text">4. Redis</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-Mysql-Oracle"><span class="nav-number">6.</span> <span class="nav-text">5. Mysql+Oracle</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-Ansible等自动化工具"><span class="nav-number">7.</span> <span class="nav-text">6. Ansible等自动化工具</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-Nginx，Httpd，tomcat，weblogic，php，gitlab，Jenkins"><span class="nav-number">8.</span> <span class="nav-text">7. Nginx，Httpd，tomcat，weblogic，php，gitlab，Jenkins</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#0-自我介绍"><span class="nav-number">1.</span> <span class="nav-text">0. 自我介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-发行版本区别及shell、python"><span class="nav-number">2.</span> <span class="nav-text">1. 发行版本区别及shell、python</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-OSI模型、TCP-IP部分；路由交换基本原理"><span class="nav-number">3.</span> <span class="nav-text">2. OSI模型、TCP/IP部分；路由交换基本原理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#OSI7层模型"><span class="nav-number">3.1.</span> <span class="nav-text">OSI7层模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TCP-IP协议族"><span class="nav-number">3.2.</span> <span class="nav-text">TCP/IP协议族</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#OSI和TCP-IP的区别"><span class="nav-number">3.3.</span> <span class="nav-text">OSI和TCP/IP的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#路由技术"><span class="nav-number">3.4.</span> <span class="nav-text">路由技术</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#交换技术"><span class="nav-number">3.5.</span> <span class="nav-text">交换技术</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-高可用-负载均衡"><span class="nav-number">4.</span> <span class="nav-text">3. 高可用+负载均衡</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#补充：为什么4层性能比7层更好？"><span class="nav-number">4.1.</span> <span class="nav-text">补充：为什么4层性能比7层更好？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三种负载均衡产品之间的对比"><span class="nav-number">4.2.</span> <span class="nav-text">三种负载均衡产品之间的对比</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-Redis"><span class="nav-number">5.</span> <span class="nav-text">4. Redis</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-Mysql-Oracle"><span class="nav-number">6.</span> <span class="nav-text">5. Mysql+Oracle</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-Ansible等自动化工具"><span class="nav-number">7.</span> <span class="nav-text">6. Ansible等自动化工具</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-Nginx，Httpd，tomcat，weblogic，php，gitlab，Jenkins"><span class="nav-number">8.</span> <span class="nav-text">7. Nginx，Httpd，tomcat，weblogic，php，gitlab，Jenkins</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-消息队列MQ产品"><span class="nav-number">9.</span> <span class="nav-text">8. 消息队列MQ产品</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-flume，zk，es，logstash，kibana系列"><span class="nav-number">10.</span> <span class="nav-text">9. flume，zk，es，logstash，kibana系列</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#10-docker"><span class="nav-number">11.</span> <span class="nav-text">10. docker</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#11-监控软件及JMX，JVM"><span class="nav-number">12.</span> <span class="nav-text">11. 监控软件及JMX，JVM</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#云产品"><span class="nav-number">13.</span> <span class="nav-text">云产品</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#13-自身素质"><span class="nav-number">14.</span> <span class="nav-text">13 自身素质</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#工作经历"><span class="nav-number">15.</span> <span class="nav-text">工作经历</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#项目经历"><span class="nav-number">16.</span> <span class="nav-text">项目经历</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#高效办公系列软件"><span class="nav-number">17.</span> <span class="nav-text">高效办公系列软件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#运维职业规划"><span class="nav-number">18.</span> <span class="nav-text">运维职业规划</span></a></li></ol></div>
             
 
           </div>
