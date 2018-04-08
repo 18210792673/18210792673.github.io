@@ -701,11 +701,31 @@ Network Access
 <li>C.slave重做中继日志中的事件，将改变反映它自己的数据。</li>
 </ul>
 <p><strong>Mysql读写分离</strong></p>
-<p><strong>Mysql高可用和集群</strong></p>
+<p><strong>Mysql高可用和集群</strong><br>有几种高可用方案：<br>Mysql双主+keepalived【优点：架构简单，】</p>
 <p><strong>Mysql备份与恢复</strong></p>
+<p>逻辑备份：备份的是产生数据变化的sql语句。mysqldump能直接进行这个操作，但是因为它在备份过程中会锁表，并且备份的速度也非常的慢因此我们需要选择第三方工具。</p>
+<p>物理备份：备份的是实际的数据，直接拷贝mysql的数据目录。　直接拷贝只适用于myisam类型的表。这种类型的表是与机器独立的。【这种备份的粒度较粗，不能实现更细粒度的数据恢复，特别是对于更新较为频繁的系统。】</p>
+<p>实际生产环境中一般使用完整备份+增量备份<br>每周日凌晨2点进行一次全量备份，之后的每天凌晨2点进行一次增量备份</p>
+<p>然后再每天备份binlog日志【为了粒度更细致的数据恢复】</p>
 <p><strong>Mysql优化</strong></p>
+<p>mysql优化包括其他所有的网络服务优化，思路都是一致的。</p>
+<p>分层次的来进行。【普遍规律+应用需求】</p>
+<p>普遍规律：</p>
+<blockquote>
+<p>首先是硬件层面</p>
+<p>再次是操作系统层面的基础优化，例如文件描述符的数量，swap使用限制，文件系统（目前主流xfs）</p>
+<p>再次是c/s架构方面的优化，例如TCP的连接队列大小，队列的缓存大小。tcp连接超时时间，tcp滑动窗口（发送和接受）</p>
+</blockquote>
+<p>应用需求：<br>数据库通用：最大连接数，索引（优先在where,order group等涉及的列上创建索引），sort，group等排序结果的缓冲区大小，慢查询，sql语句优化（减少使用like等开销大的语句），命令规范等<br>Mysql：存储引擎</p>
+<p>JAVA类：JVM设置，是否设置锁内存策略，堆内还是堆外内存，线程数量等。<br>web类：压缩，静态文件缓存，CDN加速等</p>
+<p>Mysql特殊：存储引擎等</p>
 <p><strong>Mysql常见问题</strong></p>
+<p>慢查询，sql写的有问题</p>
+<p>mha的时候VIP漂移有问题</p>
+<p>连接数问题</p>
+<p>版本不一致问题</p>
 <p><strong>Oracle</strong></p>
+<p>oracle没什么<br>数据库概念上，oracle是只有一个数据库，然后里面有多用户，每个用户多表<br>mysql是多个数据库，多个用户，采取授权的形式来访问</p>
 <h2 id="6-Ansible等自动化工具"><a href="#6-Ansible等自动化工具" class="headerlink" title="6. Ansible等自动化工具"></a>6. Ansible等自动化工具</h2><p><strong>Ad-Hoc</strong></p>
 <p>Ad-Hoc指的是一般性的临时操作</p>
 <p>日常运维中主要使用的模块有：</p>
