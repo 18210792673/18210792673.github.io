@@ -4,6 +4,46 @@
 
     
   <url>
+    <loc>http://yoursite.com/2018/04/16/%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6%E6%BF%80%E6%B4%BB%E5%AF%86%E9%92%A5/</loc>
+    <lastmod>2018-04-16T12:06:56.000Z</lastmod>
+    <data>
+        <display>
+        <title>常用软件激活密钥</title>
+        <pubTime>2018-04-16T12:06:56.000Z</pubTime>
+        
+        <tag>软件激活密钥</tag>
+         
+         
+           
+             
+              <breadCrumb title="常用软件工具" url="http://yoursite.com/categories/%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6%E5%B7%A5%E5%85%B7/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://yoursite.com/2018/04/16/Linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</loc>
+    <lastmod>2018-04-16T02:57:34.000Z</lastmod>
+    <data>
+        <display>
+        <title>Linux常用命令之curl命令</title>
+        <pubTime>2018-04-16T02:57:34.000Z</pubTime>
+        
+        <tag>curl命令</tag>
+         
+         
+           
+             
+              <breadCrumb title="Linux常用命令" url="http://yoursite.com/categories/Linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://yoursite.com/2018/04/16/%E5%B8%B8%E7%94%A8%E8%8B%B1%E8%AF%AD%E8%AE%B0%E5%BD%95/</loc>
     <lastmod>2018-04-16T01:23:49.000Z</lastmod>
     <data>
@@ -398,6 +438,26 @@
 
     
   <url>
+    <loc>http://yoursite.com/2018/01/23/hello-world/</loc>
+    <lastmod>2018-02-04T08:31:24.000Z</lastmod>
+    <data>
+        <display>
+        <title>Hello World</title>
+        <pubTime>2018-01-23T14:08:24.000Z</pubTime>
+        
+        <tag>hexo</tag>
+         
+         
+           
+             
+              <breadCrumb title="hexo" url="http://yoursite.com/categories/hexo/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://yoursite.com/2018/01/25/Markdown%E8%AF%AD%E6%B3%95/</loc>
     <lastmod>2018-02-04T08:31:24.000Z</lastmod>
     <data>
@@ -414,26 +474,6 @@
           
              
               <breadCrumb title="Markdown" url="http://yoursite.com/categories/%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6%E5%B7%A5%E5%85%B7/Markdown/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://yoursite.com/2018/01/23/hello-world/</loc>
-    <lastmod>2018-02-04T08:31:24.000Z</lastmod>
-    <data>
-        <display>
-        <title>Hello World</title>
-        <pubTime>2018-01-23T14:08:24.000Z</pubTime>
-        
-        <tag>hexo</tag>
-         
-         
-           
-             
-              <breadCrumb title="hexo" url="http://yoursite.com/categories/hexo/"/>
           
         </display>
     </data>
