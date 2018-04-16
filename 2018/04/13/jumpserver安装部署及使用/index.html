@@ -438,31 +438,33 @@
       
 
       
-        <h1 id="安装部署"><a href="#安装部署" class="headerlink" title="安装部署"></a>安装部署</h1><p>【注意：务必保证版本及操作一致】</p>
+        <h1 id="1-安装部署"><a href="#1-安装部署" class="headerlink" title="1. 安装部署"></a>1. 安装部署</h1><p>【注意：务必保证版本及操作一致】</p>
 <p>参考链接：<a href="http://docs.jumpserver.org/zh/latest/step_by_step.html" target="_blank" rel="noopener">一步一步安装文档</a></p>
-<h2 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h2><h3 id="安装依赖关系"><a href="#安装依赖关系" class="headerlink" title="安装依赖关系"></a>安装依赖关系</h3><pre><code>yum -y install wget sqlite-devel xz gcc automake zlib-devel openssl-devel epel-release git  libffi-devel python-devel
+<h2 id="1-1-环境准备"><a href="#1-1-环境准备" class="headerlink" title="1.1 环境准备"></a>1.1 环境准备</h2><h3 id="1-1-1-安装依赖关系"><a href="#1-1-1-安装依赖关系" class="headerlink" title="1.1.1 安装依赖关系"></a>1.1.1 安装依赖关系</h3><pre><code>yum -y install wget sqlite-devel xz gcc automake zlib-devel openssl-devel epel-release git  libffi-devel python-devel
 </code></pre><p><strong>注意：python-deve需要安装对应的版本，我这里安装的是python36-devel</strong> </p>
-<h3 id="建立pythpn虚拟环境"><a href="#建立pythpn虚拟环境" class="headerlink" title="建立pythpn虚拟环境"></a>建立pythpn虚拟环境</h3><p>使用原因：因为 CentOS 6/7 自带的是 Python2，而 Yum 等工具依赖原来的 Python，为了不扰乱原来的环境我们来使用 Python 虚拟环境</p>
-<pre><code>$ cd /opt
+<h3 id="1-1-2-建立python虚拟环境"><a href="#1-1-2-建立python虚拟环境" class="headerlink" title="1.1.2 建立python虚拟环境"></a>1.1.2 建立python虚拟环境</h3><p>使用原因：因为 CentOS 6/7 自带的是 Python2，而 Yum 等工具依赖原来的 Python，为了不扰乱原来的环境我们来使用 Python 虚拟环境</p>
+<p><strong>如果服务器上没有python3.6.1+环境，则需要手动安装</strong></p>
+<pre><code>$ wget https://www.python.org/ftp/python/3.6.1/Python-3.6.1.tar.xz
+$ tar xvf Python-3.6.1.tar.xz  &amp;&amp; cd Python-3.6.1
+$ ./configure &amp;&amp; make &amp;&amp; make install
+
+$ cd /opt
 $ python3 -m venv py3
 $ source /opt/py3/bin/activate
 </code></pre><p><strong>看到下面的提示符代表成功，以后运行 Jumpserver 都要先运行以上 source 命令，以下所有命令均在该虚拟环境中运行</strong></p>
 <pre><code>(py3) [root@localhost py3]
-</code></pre><p><strong>如果服务器上没有python3.6.1+环境，则需要手动安装</strong></p>
-<pre><code>$ wget https://www.python.org/ftp/python/3.6.1/Python-3.6.1.tar.xz
-$ tar xvf Python-3.6.1.tar.xz  &amp;&amp; cd Python-3.6.1
-$ ./configure &amp;&amp; make &amp;&amp; make install
-</code></pre><h2 id="安装-jumpserver"><a href="#安装-jumpserver" class="headerlink" title="安装 jumpserver"></a>安装 jumpserver</h2><h3 id="下载jumpserver"><a href="#下载jumpserver" class="headerlink" title="下载jumpserver"></a>下载jumpserver</h3><pre><code>cd /opt 
+</code></pre><p>在源码安装python3时可能会出现报错，关键字：“ake: <em>*</em> [Objects/unicodeobject.o] Error 4”。<br>这个时候，修改Makefile文件，把‘-DNDEBUG -g -fwrapv -O3 -Wall -Wstrict-prototypes’中的‘03’改为‘02’，然后再重新编译安装即可。</p>
+<h2 id="1-2-安装启动-jumpserver"><a href="#1-2-安装启动-jumpserver" class="headerlink" title="1.2 安装启动 jumpserver"></a>1.2 安装启动 jumpserver</h2><h3 id="1-2-1-下载jumpserver"><a href="#1-2-1-下载jumpserver" class="headerlink" title="1.2.1 下载jumpserver"></a>1.2.1 下载jumpserver</h3><pre><code>cd /opt 
 git clone --depth=1 https://github.com/jumpserver/jumpserver.git &amp;&amp; cd jumpserver &amp;&amp; git checkout master
 </code></pre><p><strong>注意：不要安装在/root、/home 等目录下，以免权限问题</strong></p>
-<h3 id="安装RPM依赖包"><a href="#安装RPM依赖包" class="headerlink" title="安装RPM依赖包"></a>安装RPM依赖包</h3><pre><code>cd requirements
+<h3 id="1-2-2-安装RPM依赖包"><a href="#1-2-2-安装RPM依赖包" class="headerlink" title="1.2.2 安装RPM依赖包"></a>1.2.2 安装RPM依赖包</h3><pre><code>cd requirements
 yum -y install $(cat rpm_requirements.txt)
-</code></pre><h3 id="安装python库依赖"><a href="#安装python库依赖" class="headerlink" title="安装python库依赖"></a>安装python库依赖</h3><pre><code>pip install -r requirements.txt  # 不要指定-i参数，因为镜像上可能没有最新的包，如果没有任何报错请继续
-</code></pre><h3 id="安装-Redis-Jumpserver-使用-Redis-做-cache-和-celery-broke"><a href="#安装-Redis-Jumpserver-使用-Redis-做-cache-和-celery-broke" class="headerlink" title="安装 Redis, Jumpserver 使用 Redis 做 cache 和 celery broke"></a>安装 Redis, Jumpserver 使用 Redis 做 cache 和 celery broke</h3><pre><code>$ yum -y install redis
+</code></pre><h3 id="1-2-3-安装python库依赖"><a href="#1-2-3-安装python库依赖" class="headerlink" title="1.2.3 安装python库依赖"></a>1.2.3 安装python库依赖</h3><pre><code>pip install -r requirements.txt  # 不要指定-i参数，因为镜像上可能没有最新的包，如果没有任何报错请继续
+</code></pre><h3 id="1-2-4-安装-Redis-Jumpserver-使用-Redis-做-cache-和-celery-broke"><a href="#1-2-4-安装-Redis-Jumpserver-使用-Redis-做-cache-和-celery-broke" class="headerlink" title="1.2.4 安装 Redis, Jumpserver 使用 Redis 做 cache 和 celery broke"></a>1.2.4 安装 Redis, Jumpserver 使用 Redis 做 cache 和 celery broke</h3><pre><code>$ yum -y install redis
 $ service redis start
-</code></pre><h3 id="安装配置MySQL"><a href="#安装配置MySQL" class="headerlink" title="安装配置MySQL"></a>安装配置MySQL</h3><pre><code>create database jumpserver default charset &apos;utf8&apos;;
+</code></pre><h3 id="1-2-5-安装配置MySQL"><a href="#1-2-5-安装配置MySQL" class="headerlink" title="1.2.5 安装配置MySQL"></a>1.2.5 安装配置MySQL</h3><pre><code>create database jumpserver default charset &apos;utf8&apos;;
 grant all on jumpserver.* to &apos;jumpserver&apos;@&apos;127.0.0.1&apos; identified by &apos;Jumpserver_password_123&apos;;
-</code></pre><h3 id="修改jumpserver配置文件"><a href="#修改jumpserver配置文件" class="headerlink" title="修改jumpserver配置文件"></a>修改jumpserver配置文件</h3><pre><code>$ cd /opt/jumpserver
+</code></pre><h3 id="1-2-6-修改jumpserver配置文件"><a href="#1-2-6-修改jumpserver配置文件" class="headerlink" title="1.2.6 修改jumpserver配置文件"></a>1.2.6 修改jumpserver配置文件</h3><pre><code>$ cd /opt/jumpserver
 $ cp config_example.py config.py
 $ vi config.py  # 我们计划修改 DevelopmentConfig中的配置，因为默认jumpserver是使用该配置，它继承自Config
 </code></pre><p><strong>注意: 配置文件是 Python 格式，不要用 TAB，而要用空格</strong></p>
@@ -477,7 +479,16 @@ $ vi config.py  # 我们计划修改 DevelopmentConfig中的配置，因为默�
     DB_NAME = &apos;jumpserver&apos;
 
 config = DevelopmentConfig()  # 确保使用的是刚才设置的配置文件，该行默认在文件末尾就存在。
-</code></pre><h3 id="生成数据库表结构和初始化结构"><a href="#生成数据库表结构和初始化结构" class="headerlink" title="生成数据库表结构和初始化结构"></a>生成数据库表结构和初始化结构</h3><h1 id="jumpserver配置"><a href="#jumpserver配置" class="headerlink" title="jumpserver配置"></a>jumpserver配置</h1><h1 id="运维操作"><a href="#运维操作" class="headerlink" title="运维操作"></a>运维操作</h1><h2 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h2><p>启动 jumpserver</p>
+</code></pre><h3 id="1-2-7-生成数据库表结构和初始化结构"><a href="#1-2-7-生成数据库表结构和初始化结构" class="headerlink" title="1.2.7 生成数据库表结构和初始化结构"></a>1.2.7 生成数据库表结构和初始化结构</h3><pre><code>$ cd /opt/jumpserver/utils
+$ bash make_migrations.sh
+</code></pre><h3 id="1-2-8-运行jumpserver"><a href="#1-2-8-运行jumpserver" class="headerlink" title="1.2.8 运行jumpserver"></a>1.2.8 运行jumpserver</h3><pre><code>$ cd /opt/jumpserver
+$ python3 run_server.py all
+</code></pre><p>运行不报错，请浏览器访问 <a href="http://192.168.244.144:8080/" target="_blank" rel="noopener">http://192.168.244.144:8080/</a> (这里只是 Jumpserver, 没有 Web Terminal，所以访问 Web Terminal 会报错)</p>
+<p>账号: admin 密码: admin</p>
+<h1 id="2-jumpserver配置"><a href="#2-jumpserver配置" class="headerlink" title="2. jumpserver配置"></a>2. jumpserver配置</h1><h2 id="2-1-安装-SSH-Server-和-WebSocket-Server-Coco"><a href="#2-1-安装-SSH-Server-和-WebSocket-Server-Coco" class="headerlink" title="2.1 安装 SSH Server 和 WebSocket Server: Coco"></a>2.1 安装 SSH Server 和 WebSocket Server: Coco</h2><p>【此时还是在虚拟环境下】</p>
+<pre><code>$ cd /opt
+$ git clone https://github.com/jumpserver/coco.git &amp;&amp; cd coco &amp;&amp; git checkout master
+</code></pre><h2 id="2-2-安装-Web-Terminal-前端-Luna"><a href="#2-2-安装-Web-Terminal-前端-Luna" class="headerlink" title="2.2  安装 Web Terminal 前端: Luna"></a>2.2  安装 Web Terminal 前端: Luna</h2><h1 id="3-常用命令"><a href="#3-常用命令" class="headerlink" title="3. 常用命令"></a>3. 常用命令</h1><p>启动 jumpserver</p>
 <pre><code>/opt/jumpserver/service.sh start
 </code></pre><p>停止 jumpserver</p>
 <pre><code>/opt/jumpserver/service.sh stop
@@ -485,7 +496,7 @@ config = DevelopmentConfig()  # 确保使用的是刚才设置的配置文件，
 <pre><code>/opt/jumpserver/service.sh restart
 </code></pre><p>查看 jumpserver 状态</p>
 <pre><code>/opt/jumpserver/service.sh status
-</code></pre><h2 id="配置优化-注意事项"><a href="#配置优化-注意事项" class="headerlink" title="配置优化/注意事项"></a>配置优化/注意事项</h2><p>配置文件路径：/opt/jumpserver/ jumpserver.conf、</p>
+</code></pre><h1 id="4-配置优化-注意事项"><a href="#4-配置优化-注意事项" class="headerlink" title="4. 配置优化/注意事项"></a>4. 配置优化/注意事项</h1><p>配置文件路径：/opt/jumpserver/ jumpserver.conf、</p>
 <p>配置如下：</p>
 <pre><code>\[base]
 url = access_url（安装时配置）
@@ -584,6 +595,10 @@ nav_sort_by = ip
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/04/16/常用英语记录/" rel="prev" title="IT常用英语记录">
+                IT常用英语记录 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -695,7 +710,7 @@ var jiathis_config={
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-count">19</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -706,7 +721,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-count">27</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -717,7 +732,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">20</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -757,7 +772,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#安装部署"><span class="nav-number">1.</span> <span class="nav-text">安装部署</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#环境准备"><span class="nav-number">1.1.</span> <span class="nav-text">环境准备</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装依赖关系"><span class="nav-number">1.1.1.</span> <span class="nav-text">安装依赖关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#建立pythpn虚拟环境"><span class="nav-number">1.1.2.</span> <span class="nav-text">建立pythpn虚拟环境</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装-jumpserver"><span class="nav-number">1.2.</span> <span class="nav-text">安装 jumpserver</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#下载jumpserver"><span class="nav-number">1.2.1.</span> <span class="nav-text">下载jumpserver</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装RPM依赖包"><span class="nav-number">1.2.2.</span> <span class="nav-text">安装RPM依赖包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装python库依赖"><span class="nav-number">1.2.3.</span> <span class="nav-text">安装python库依赖</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装-Redis-Jumpserver-使用-Redis-做-cache-和-celery-broke"><span class="nav-number">1.2.4.</span> <span class="nav-text">安装 Redis, Jumpserver 使用 Redis 做 cache 和 celery broke</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装配置MySQL"><span class="nav-number">1.2.5.</span> <span class="nav-text">安装配置MySQL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改jumpserver配置文件"><span class="nav-number">1.2.6.</span> <span class="nav-text">修改jumpserver配置文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#生成数据库表结构和初始化结构"><span class="nav-number">1.2.7.</span> <span class="nav-text">生成数据库表结构和初始化结构</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#jumpserver配置"><span class="nav-number">2.</span> <span class="nav-text">jumpserver配置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#运维操作"><span class="nav-number">3.</span> <span class="nav-text">运维操作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#常用命令"><span class="nav-number">3.1.</span> <span class="nav-text">常用命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置优化-注意事项"><span class="nav-number">3.2.</span> <span class="nav-text">配置优化/注意事项</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#问题-总结"><span class="nav-number">3.3.</span> <span class="nav-text">问题/总结</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用"><span class="nav-number">4.</span> <span class="nav-text">使用</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-安装部署"><span class="nav-number">1.</span> <span class="nav-text">1. 安装部署</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-环境准备"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 环境准备</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-1-安装依赖关系"><span class="nav-number">1.1.1.</span> <span class="nav-text">1.1.1 安装依赖关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-2-建立python虚拟环境"><span class="nav-number">1.1.2.</span> <span class="nav-text">1.1.2 建立python虚拟环境</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-安装启动-jumpserver"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 安装启动 jumpserver</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-1-下载jumpserver"><span class="nav-number">1.2.1.</span> <span class="nav-text">1.2.1 下载jumpserver</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-2-安装RPM依赖包"><span class="nav-number">1.2.2.</span> <span class="nav-text">1.2.2 安装RPM依赖包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-3-安装python库依赖"><span class="nav-number">1.2.3.</span> <span class="nav-text">1.2.3 安装python库依赖</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-4-安装-Redis-Jumpserver-使用-Redis-做-cache-和-celery-broke"><span class="nav-number">1.2.4.</span> <span class="nav-text">1.2.4 安装 Redis, Jumpserver 使用 Redis 做 cache 和 celery broke</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-5-安装配置MySQL"><span class="nav-number">1.2.5.</span> <span class="nav-text">1.2.5 安装配置MySQL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-6-修改jumpserver配置文件"><span class="nav-number">1.2.6.</span> <span class="nav-text">1.2.6 修改jumpserver配置文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-7-生成数据库表结构和初始化结构"><span class="nav-number">1.2.7.</span> <span class="nav-text">1.2.7 生成数据库表结构和初始化结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-8-运行jumpserver"><span class="nav-number">1.2.8.</span> <span class="nav-text">1.2.8 运行jumpserver</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-jumpserver配置"><span class="nav-number">2.</span> <span class="nav-text">2. jumpserver配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-安装-SSH-Server-和-WebSocket-Server-Coco"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 安装 SSH Server 和 WebSocket Server: Coco</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-安装-Web-Terminal-前端-Luna"><span class="nav-number">2.2.</span> <span class="nav-text">2.2  安装 Web Terminal 前端: Luna</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-常用命令"><span class="nav-number">3.</span> <span class="nav-text">3. 常用命令</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-配置优化-注意事项"><span class="nav-number">4.</span> <span class="nav-text">4. 配置优化/注意事项</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#问题-总结"><span class="nav-number">4.1.</span> <span class="nav-text">问题/总结</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用"><span class="nav-number">5.</span> <span class="nav-text">使用</span></a></li></ol></div>
             
 
           </div>
