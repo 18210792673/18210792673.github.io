@@ -1,0 +1,1559 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="ELK架构," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Watchmen1992's Blog" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="ELk日志处理平台架构的之Filebeat+kafka+logstash+Elasticsearch">
+<meta name="keywords" content="ELK架构">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ELK架构之Filebeat+kafka+logstash+Elasticsearch">
+<meta property="og:url" content="http://yoursite.com/2018/04/17/ELK架构之Filebeat-kafka-logstash-Elasticsearch/index.html">
+<meta property="og:site_name" content="Watchmen1992&#39;s Blog">
+<meta property="og:description" content="ELk日志处理平台架构的之Filebeat+kafka+logstash+Elasticsearch">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://picture.watchmen.xin/elk-filebeat/filebeat-3.png">
+<meta property="og:image" content="http://picture.watchmen.xin/elk-filebeat/filebeat-2.png">
+<meta property="og:image" content="http://picture.watchmen.xin/elk-filebeat/filebeat-1.png">
+<meta property="og:updated_time" content="2018-04-17T02:06:21.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ELK架构之Filebeat+kafka+logstash+Elasticsearch">
+<meta name="twitter:description" content="ELk日志处理平台架构的之Filebeat+kafka+logstash+Elasticsearch">
+<meta name="twitter:image" content="http://picture.watchmen.xin/elk-filebeat/filebeat-3.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/04/17/ELK架构之Filebeat-kafka-logstash-Elasticsearch/"/>
+
+
+
+
+
+  <title>ELK架构之Filebeat+kafka+logstash+Elasticsearch | Watchmen1992's Blog</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?07235ad5687ee838f373b31c7c687d23";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Watchmen1992's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">锦瑟年华当与书香为度，是为不负天地人生。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/17/ELK架构之Filebeat-kafka-logstash-Elasticsearch/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="XiaoHua WANG">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/touxiang.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Watchmen1992's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">ELK架构之Filebeat+kafka+logstash+Elasticsearch</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-17T10:06:21+08:00">
+                2018-04-17
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2018-04-17T10:06:21+08:00">
+                2018-04-17
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/IT科学技术知识体系结构之Linux运维方向/" itemprop="url" rel="index">
+                    <span itemprop="name">IT科学技术知识体系结构之Linux运维方向</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/IT科学技术知识体系结构之Linux运维方向/大数据/" itemprop="url" rel="index">
+                    <span itemprop="name">大数据</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/IT科学技术知识体系结构之Linux运维方向/大数据/ELk日志处理平台/" itemprop="url" rel="index">
+                    <span itemprop="name">ELk日志处理平台</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/IT科学技术知识体系结构之Linux运维方向/大数据/ELk日志处理平台/Filebeat-kafka-logstash-Elasticsearch/" itemprop="url" rel="index">
+                    <span itemprop="name">Filebeat+kafka+logstash+Elasticsearch</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/04/17/ELK架构之Filebeat-kafka-logstash-Elasticsearch/" class="leancloud_visitors" data-flag-title="ELK架构之Filebeat+kafka+logstash+Elasticsearch">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+              <div class="post-description">
+                  ELk日志处理平台架构的之Filebeat+kafka+logstash+Elasticsearch
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="整体架构"><a href="#整体架构" class="headerlink" title="整体架构"></a>整体架构</h1><p><img src="http://picture.watchmen.xin/elk-filebeat/filebeat-3.png" alt="流程图"></p>
+<p><strong>组件关系说明：</strong></p>
+<p>logstash 和filebeat都具有日志收集功能，filebeat更轻量，占用资源更少，但logstash 具有filter功能，能过滤分析日志。一般结构都是filebeat采集日志，然后发送到消息队列，redis，kafaka。然后logstash去获取，利用filter功能过滤分析，然后存储到elasticsearch中</p>
+<p>filebeat–&gt;kafka集群–&gt;logstash–&gt;(file server文件系统|kafka集群|ES集群)</p>
+<ul>
+<li>Filebeat    日志收集</li>
+<li>kafka        日志接受消息队列</li>
+<li>logstash    将日志进行过滤分析后存储到ES</li>
+<li>ES        存储，检索，分析</li>
+</ul>
+<h1 id="Filebeat"><a href="#Filebeat" class="headerlink" title="Filebeat"></a><font color="red">Filebeat</font></h1><h2 id="1-filebeat基础知识"><a href="#1-filebeat基础知识" class="headerlink" title="1. filebeat基础知识"></a>1. filebeat基础知识</h2><blockquote>
+<p>Filebeat consists of two main components: <code>prospectors and harvesters.</code></p>
+<p>These components work together to <code>tail files</code> and send event data to the output that you specify.</p>
+</blockquote>
+<ul>
+<li><p>prospectors:勘探者；探矿者【也就是数据变化的探测者，也就是入向配置】</p>
+</li>
+<li><p>harvesters：收割机；收获者【也就是数据的下游接收端，也就是出向配置】</p>
+</li>
+<li><p>spooler：处理程序；【处理程序会集合这些事件，最后filebeat会发送集合的数据到你指定的地点。】</p>
+</li>
+</ul>
+<p>Filebeat工作流程：</p>
+<blockquote>
+<p>当你开启filebeat程序的时候，它会启动一个或多个探测器（prospectors）去检测你指定的日志目录或文件，对于探测器找出的每一个日志文件，filebeat启动收割进程（harvester），每一个收割进程读取一个日志文件的新内容，并发送这些新的日志数据到处理程序（spooler），处理程序会集合这些事件，最后filebeat会发送集合的数据到你指定的地点。</p>
+</blockquote>
+<p>流程图如下：</p>
+<p><img src="http://picture.watchmen.xin/elk-filebeat/filebeat-2.png" alt="流程图"></p>
+<h3 id="1-1-What-is-harvester"><a href="#1-1-What-is-harvester" class="headerlink" title="1.1 What is harvester?"></a>1.1 What is harvester?</h3><blockquote>
+<p>A harvester is responsible for reading the content of a single file. The harvester reads each file, line by line, and sends the content to the output. One harvester is started for each file. T<code>he harvester is responsible for opening and closing the file</code>, which means that the file descriptor remains open while the harvester is running. If a file is removed or renamed while it’s being harvested, Filebeat continues to read the file. This has the side effect that the space on your disk is reserved until the harvester closes. By default, Filebeat keeps the file open until close_inactive is reached.</p>
+<p>Closing a harvester has the following consequences:【关闭时按以下顺序依`次执行，也就是关闭顺序】</p>
+</blockquote>
+<ul>
+<li><p>The file handler is closed, freeing up the underlying resources if the file was deleted while the harvester was still reading the file.<br>The</p>
+</li>
+<li><p>harvesting of the file will only be started again after scan_frequency has elapsed.</p>
+</li>
+</ul>
+<ul>
+<li>If the file is moved or removed while the harvester is closed, harvesting of the file will not continue.</li>
+</ul>
+<p>To control when a harvester is closed, use the close_* configuration options.</p>
+<p>harvester负责打开和关闭文件</p>
+<p>当harvester捕获到一个文件之后，这个文件被删除或者重命名，它将继续读取这个文件。【副作用是占用磁盘空间直到harvester进程关闭】</p>
+<h3 id="1-2-What-is-prospector"><a href="#1-2-What-is-prospector" class="headerlink" title="1.2 What is prospector?"></a>1.2 What is prospector?</h3><blockquote>
+<p>A prospector is responsible for managing the harvesters and finding all sources to read from.</p>
+<p>If the input type is log, the prospector finds all files on the drive that match the defined glob paths and starts a harvester for each file. Each prospector runs in its own Go routine.</p>
+<p>The following example configures Filebeat to harvest lines from all log files that match the specified glob patterns:</p>
+</blockquote>
+<pre><code>filebeat.prospectors:
+- type: log
+  paths:
+    - /var/log/*.log
+    - /var/path2/*.log
+</code></pre><p>prospector负责管理harvesters进程以及寻找需要去读取的资源（input设置）</p>
+<p>Filebeat的input type当前有两种设置：<code>log和stdin</code></p>
+<blockquote>
+<p>The log prospector checks each file to see whether a harvester needs to be started, whether one is already running, or whether the file can be ignored (see ignore_older).<br><code>New lines are only picked up if the size of the file has changed since the harvester was closed.</code></p>
+</blockquote>
+<p>注意，Filebeat只能读取本地的文件，也就是需要在每个日志产生端都安装：<br><strong>Filebeat prospectors can only read <code>local files</code>. There is no functionality to connect to remote hosts to read stored files or logs.</strong></p>
+<h3 id="1-3-How-does-Filebeat-keep-the-state-of-files"><a href="#1-3-How-does-Filebeat-keep-the-state-of-files" class="headerlink" title="1.3 How does Filebeat keep the state of files"></a>1.3 How does Filebeat keep the state of files</h3><p>filebeat通过定期去刷新，将状态落地到磁盘的注册文件中，以这种形式来保持文件检测状态</p>
+<blockquote>
+<p>Filebeat keeps the state of each file and frequently flushes the state to disk in the registry file</p>
+<p>The state is used to remember the last offset a harvester was reading from and to ensure all log lines are sent</p>
+</blockquote>
+<p>filebeat的状态信息记录的是最新的读取偏移量，如果下游的接受者（ES、kafka、logstash等不可达），filebeat将会保持这种状态，当检测后可达之后将会重新发送</p>
+<p>当filebeat重启时，将会重新构建这个注册文件</p>
+<p>每个prospector针对每个文件都会保持一个状态，也就是一个注册文件，因为文件可能会被删除或者重命名</p>
+<p>针对每个文件，filebeat存储一个唯一的标识符去发现该文件之前是否有被收集过</p>
+<blockquote>
+<p>For each file, Filebeat stores unique identifiers to detect whether a file was harvested previously.</p>
+</blockquote>
+<h3 id="1-4-how-does-Filebeat-ensure-at-least-once-delivery"><a href="#1-4-how-does-Filebeat-ensure-at-least-once-delivery" class="headerlink" title="1.4 how does Filebeat ensure at-least-once delivery?"></a>1.4 how does Filebeat ensure at-least-once delivery?</h3><p>Filebeat保证一个事件的完整及正确性，它将发送最少一次给设置的下游输出，以保证没有数据丢失。</p>
+<blockquote>
+<p>Filebeat guarantees that events will be delivered to the configured output at least once and with no data loss.</p>
+<p>Filebeat is able to achieve this behavior because it stores the delivery state of each event in the registry file.</p>
+</blockquote>
+<p>Filebeat能够保证这种特性的原因是因为它将分发状态也存储在这个注册文件中。</p>
+<p>当下游因为阻塞或者其他原因，没有对某一个事件进行确认的时候，filebeat将一直尝试去发送这个事件，直到收到ACK</p>
+<blockquote>
+<p>If Filebeat shuts down while it’s in the process of sending events, it does not wait for the output to acknowledge all events before shutting down. Any events that are sent to the output, but not acknowledged before Filebeat shuts down, are sent again when Filebeat is restarted. This ensures that each event is sent at least once, but you can end up with duplicate events being sent to the output. You can configure Filebeat to wait a specific amount of time before shutting down by setting the<code>shutdown_timeout</code> option.</p>
+</blockquote>
+<p>当Filebeat异常关闭，再次启动的时候，它将会重新发送没有接受到ACk的事件。通过这种机制来保证每个事件至少发送一次。</p>
+<p>因此，为了减少重新发送event事件的次数，可以通过设置shutdown_timeout参数来设置当filebeat关闭时，等待多少时间之后再关闭进程，以保证收到尽量多的ACK</p>
+<p>注意：虽然拥有这种机制来保证数据的不丢失，但还是存在一些可能的情况导致数据的丢失（日志轮转和删除文件时）</p>
+<p>例如：</p>
+<ul>
+<li><p>If log files are written to disk and rotated faster than they can be processed by Filebeat 【当日志刚好触发到日志轮转条件时，并且此时filebeat还没有来得及收集的时候，原因是inode节点发生变化】</p>
+</li>
+<li><p>if files are deleted while the output is unavailable 【当该文件被删除时，并且输出不可用时】</p>
+</li>
+</ul>
+<p><strong>总结：filebeat会维护一个注册文件【是落地到磁盘中的】，该注册文件中包含2个信息</strong></p>
+<ul>
+<li>所发送事件的偏移量，精确记录当前的发送情况。        下游断开时，将保持直到连接后再发送</li>
+<li>发送事件的ACk，记录发送事件的接受情况。            没有收到，将一直持续发送。</li>
+</ul>
+<h2 id="2-Filebeat安装部署配置启动"><a href="#2-Filebeat安装部署配置启动" class="headerlink" title="2. Filebeat安装部署配置启动"></a>2. Filebeat安装部署配置启动</h2><h3 id="2-1-安装"><a href="#2-1-安装" class="headerlink" title="2.1 安装"></a>2.1 安装</h3><pre><code>curl -L -O https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-6.2.3-x86_64.rpm
+
+rpm -vih filebeat-6.2.3-x86_64.rpm
+</code></pre><h3 id="2-2-编辑配置文件"><a href="#2-2-编辑配置文件" class="headerlink" title="2.2 编辑配置文件"></a>2.2 编辑配置文件</h3><p><a href="https://www.elastic.co/guide/en/beats/filebeat/current/directory-layout.html#_docker" target="_blank" rel="noopener">配置文件生成规则</a></p>
+<p>安装完毕之后，配置文件路径：/etc/filebeat/filebeat.yml<br>参考配置文件为：filebeat.reference.yml</p>
+<p>这里采用的是rpm包方式安装，因此生成规则如下：</p>
+<p><img src="http://picture.watchmen.xin/elk-filebeat/filebeat-1.png" alt="生成规则"></p>
+<p>filebeat.yml整个配置文件分为几个部分，分别是：</p>
+<ul>
+<li>Modules configuration</li>
+<li>Filebeat prospectors【上游输入设置。这部分包含内容为：type设置|path路径设置，】</li>
+<li>Filebeat autodiscover</li>
+<li>Filebeat global options</li>
+<li>General</li>
+<li>Elastic Cloud</li>
+<li>Outputs【下游输出设置。这部分内容为：ES|kafka|logstash|】</li>
+<li>Paths</li>
+<li>Dashboards</li>
+<li>Template</li>
+<li>Logging</li>
+<li>Xpack Monitoring【xpack监控】</li>
+<li>HTTP Endpoint</li>
+</ul>
+<p>让我们来配置filebeat：</p>
+<p><strong>1、定义你的日志文件的路径（一个或多个）</strong></p>
+<p>对于大多数的基本filebeat配置，你可以定义一个单一探测器针对一个单一的路径，例如：</p>
+<pre><code>filebeat.prospectors:
+
+- input_type: log
+
+  paths:
+
+    - /var/log/*.log
+</code></pre><p>在这个例子中，探测器会收集/var/log/*.log的所有匹配文件，这意味这filebeat会手机所有的/var/log下以.log结尾的文件，此处还支持Golang Glob支持的所有模式。</p>
+<p>在预定义级别的子目录中获取所有文件，可以使用这个配置：/var/log/<em>/</em>.log，这会找到/var/log下所有子目录中所有的以.log结尾的文件。但它并不会找到/var/log文件夹下的以.log结尾的文件。现在它还不能递归的在所有子目录中获取所有的日志文件。</p>
+<p>如果你设置输出到elasticsearch中，那么你需要在filebeat的配置文件中设置elasticsearch的IP地址与端口。</p>
+<pre><code>output.elasticsearch:
+
+  hosts: [&quot;192.168.1.42:9200&quot;]
+</code></pre><p>如果你设置输出到logstash|kafka等其他程序，那么请参考配置。例如下方</p>
+<pre><code>output.logstash:
+
+  hosts: [&quot;127.0.0.1:5044&quot;]
+</code></pre><p>完整的一个参考案例：</p>
+<pre><code>filebeat.prospectors:
+- input_type: log            #类型选择log|stdin中的log，在filebeat最新版本中input_type写成type
+  paths:
+    - /home/appdeploy/deploy/logs/pinpoint/*-pinpoint.log
+  document_type: tools.pinpoint.data            
+  scan_frequency: 5s            #prospector每隔5秒去检测日志的生成情况
+  tail_files: true                #设置之后，filebeat读取新文件时从文件末尾开始读取，而不是开头，如果设置了日志轮转，那么新文件的第一行将会被忽略
+
+output.kafka:                    #输出策略采用kafka
+   hosts: [&quot;10.10.10.92:9092&quot;, &quot;10.10.10.93:9092&quot;, &quot;10.10.10.94:9092&quot;]        #kafka集群的配置信息
+   topic: &apos;%{[type]}&apos;            #设置topic使用文件类型
+   partition.round_robin:        #Topic的分区算法
+     reachable_only: false        # 如果设置为true，那么event将只会推送到leader上，默认设置就是false
+
+   required_acks: 1                #ACk可靠性级别，0表示不响应，1表示本地commit，-1表示所有的副本commit。默认为1
+   compression: gzip            # 设置输出压缩编解码器，可选snappy and gzip。默认就是gzip
+   max_message_bytes: 1000000    # JSON格式的信息一个传输允许的最大大小上限
+   codec.format:
+        string: &apos;%{[message]}&apos;
+</code></pre><h3 id="2-3-启动"><a href="#2-3-启动" class="headerlink" title="2.3 启动"></a>2.3 启动</h3><pre><code>service filebeat start
+</code></pre><h1 id="kafka"><a href="#kafka" class="headerlink" title="kafka"></a>kafka</h1><p>在这里，kafka的作用是将</p>
+<p>kafka的配置【其中一台，除了id不同之外，其他均类似】</p>
+<p>[root@qa-bigdata002 config]# egrep  -v ‘^#|^$’ <strong>server.properties</strong></p>
+<pre><code>broker.id=0                # The id of the broker. This must be set to a unique integer for each broker，在一个kafka集群中，每个broker的ID必须不同
+port=9092
+host.name=172.24.80.87
+num.network.threads=3                    #The number of threads handling network requests
+
+num.io.threads=8                        # The number of threads doing disk I/O，将数据落地到磁盘的线程数量，一般为CPU核数的倍数
+socket.send.buffer.bytes=102400            #发送缓冲区的大小，单位是字节，这里是1M
+socket.receive.buffer.bytes=102400        #接受缓冲区大小，这里是1M
+socket.request.max.bytes=104857600        #最大接受的请求数量，防止OOM的出现，out of memory,这里设置为104M
+log.dirs=/home/kafka/kafka-logs            # 落地到磁盘的文件的存储路径
+num.partitions=2                        # 每个Topic的分区数量
+num.recovery.threads.per.data.dir=1        #在日志数据恢复时，
+log.retention.hours=168                    #日志保留小时数，这里的168小时，也就是保留7天。
+log.segment.bytes=1073741824            #单个日志的文件的最大大小，现在配置为1G
+log.retention.check.interval.ms=300000    #每隔5分钟检测日志文件是否可以被删除
+log.cleaner.enable=false                #设置flase之后，日志保留策略将会采用上面的分段及超时设置，如果为true，
+zookeeper.connect=172.24.80.87:2181,172.24.80.88:2181,172.24.80.89:2181    #ZK的配置
+zookeeper.connection.timeout.ms=600000            #连接ZK的超时时间
+</code></pre><p><strong>consumer.properties</strong></p>
+<pre><code># Zookeeper connection string
+# comma separated host:port pairs, each corresponding to a zk
+# server. e.g. &quot;127.0.0.1:3000,127.0.0.1:3001,127.0.0.1:3002&quot;
+zookeeper.connect=172.24.80.87:2181,172.24.80.88:2181,172.24.80.89:2181
+
+# timeout in ms for connecting to zookeeper
+zookeeper.connection.timeout.ms=6000
+
+#consumer group id
+group.id=test-consumer-group
+</code></pre><p><strong>producer.properties</strong></p>
+<pre><code># list of brokers used for bootstrapping knowledge about the rest of the cluster
+# format: host1:port1,host2:port2 ...
+metadata.broker.list=172.24.80.87:9092,172.24.80.88:9092,172.24.80.89:9092
+</code></pre><p><strong>zookeeper.properties</strong></p>
+<pre><code># the directory where the snapshot is stored.
+dataDir=/tmp/zookeeper
+# the port at which the clients will connect
+clientPort=2181
+# disable the per-ip limit on the number of connections since this is a non-production config
+maxClientCnxns=0
+</code></pre><h1 id="logstash"><a href="#logstash" class="headerlink" title="logstash"></a>logstash</h1><h1 id="Elasticsearch"><a href="#Elasticsearch" class="headerlink" title="Elasticsearch"></a>Elasticsearch</h1><h2 id="ES模板设置"><a href="#ES模板设置" class="headerlink" title="ES模板设置"></a>ES模板设置</h2><p>通过使用ES模板，可以有效的减轻存储压力<br>ES模板：通过对索引中的每个字段做事先的预定义数据类型（例如ID，name等分别使用存储空间最小的数据类型）</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/wechatpay.jpg" alt="XiaoHua WANG 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/alipay.jpg" alt="XiaoHua WANG 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/ELK架构/" rel="tag"># ELK架构</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/04/17/异地多活机房建设/" rel="next" title="异地多活机房建设">
+                <i class="fa fa-chevron-left"></i> 异地多活机房建设
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zMzg1NC8xMDQwNw=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/touxiang.jpg"
+                alt="XiaoHua WANG" />
+            
+              <p class="site-author-name" itemprop="name">XiaoHua WANG</p>
+              <p class="site-description motion-element" itemprop="description">Focus on Linux operations and development.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">35</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#整体架构"><span class="nav-number">1.</span> <span class="nav-text">整体架构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Filebeat"><span class="nav-number">2.</span> <span class="nav-text">Filebeat</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-filebeat基础知识"><span class="nav-number">2.1.</span> <span class="nav-text">1. filebeat基础知识</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-What-is-harvester"><span class="nav-number">2.1.1.</span> <span class="nav-text">1.1 What is harvester?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-What-is-prospector"><span class="nav-number">2.1.2.</span> <span class="nav-text">1.2 What is prospector?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-How-does-Filebeat-keep-the-state-of-files"><span class="nav-number">2.1.3.</span> <span class="nav-text">1.3 How does Filebeat keep the state of files</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-how-does-Filebeat-ensure-at-least-once-delivery"><span class="nav-number">2.1.4.</span> <span class="nav-text">1.4 how does Filebeat ensure at-least-once delivery?</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Filebeat安装部署配置启动"><span class="nav-number">2.2.</span> <span class="nav-text">2. Filebeat安装部署配置启动</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-安装"><span class="nav-number">2.2.1.</span> <span class="nav-text">2.1 安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-编辑配置文件"><span class="nav-number">2.2.2.</span> <span class="nav-text">2.2 编辑配置文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-启动"><span class="nav-number">2.2.3.</span> <span class="nav-text">2.3 启动</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#kafka"><span class="nav-number">3.</span> <span class="nav-text">kafka</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#logstash"><span class="nav-number">4.</span> <span class="nav-text">logstash</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Elasticsearch"><span class="nav-number">5.</span> <span class="nav-text">Elasticsearch</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#ES模板设置"><span class="nav-number">5.1.</span> <span class="nav-text">ES模板设置</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">XiaoHua WANG</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("mlSs9Cm0Xv2D9B7cFqbp25Df-gzGzoHsz", "alKheIFly9OVC81YCV7otTrf");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

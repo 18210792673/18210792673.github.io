@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/2018/04/17/ELK%E6%9E%B6%E6%9E%84%E4%B9%8BFilebeat-kafka-logstash-Elasticsearch/</loc>
+    
+    <lastmod>2018-04-17T02:06:21.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2018/04/17/%E5%BC%82%E5%9C%B0%E5%A4%9A%E6%B4%BB%E6%9C%BA%E6%88%BF%E5%BB%BA%E8%AE%BE/</loc>
+    
+    <lastmod>2018-04-17T01:30:16.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/2018/04/16/%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6%E6%BF%80%E6%B4%BB%E5%AF%86%E9%92%A5/</loc>
     
     <lastmod>2018-04-16T12:06:56.000Z</lastmod>
