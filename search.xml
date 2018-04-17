@@ -17,6 +17,7 @@
     <content type="text"></content>
       <categories>
         <category>Linux常用命令</category>
+        <category>curl</category>
       </categories>
       <tags>
         <tag>curl命令</tag>

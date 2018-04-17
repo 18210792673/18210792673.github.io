@@ -53,6 +53,8 @@
     
       <category term="Linux常用命令" scheme="http://yoursite.com/categories/Linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/"/>
     
+      <category term="curl" scheme="http://yoursite.com/categories/Linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/curl/"/>
+    
     
       <category term="curl命令" scheme="http://yoursite.com/tags/curl%E5%91%BD%E4%BB%A4/"/>
     
@@ -69,19 +71,7 @@
     
     <summary type="html">
     
-      
-      
-        &lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th style=&quot;text-align:center&quot;&gt;英语&lt;/th&gt;
-&lt;th style=&quot;text-align:center&quot;&gt;释义&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td style=&quot;text
-      
+      IT常用英语
     
     </summary>
     
