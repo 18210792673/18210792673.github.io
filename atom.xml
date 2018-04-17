@@ -31,13 +31,13 @@
     
     </summary>
     
-      <category term="IT科学技术知识体系结构之Linux运维方向" scheme="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E4%B9%8BLinux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/"/>
+      <category term="IT科学技术知识体系结构-Linux运维方向" scheme="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/"/>
     
-      <category term="大数据" scheme="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E4%B9%8BLinux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E5%A4%A7%E6%95%B0%E6%8D%AE/"/>
+      <category term="大数据" scheme="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E5%A4%A7%E6%95%B0%E6%8D%AE/"/>
     
-      <category term="ELk日志处理平台" scheme="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E4%B9%8BLinux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E5%A4%A7%E6%95%B0%E6%8D%AE/ELk%E6%97%A5%E5%BF%97%E5%A4%84%E7%90%86%E5%B9%B3%E5%8F%B0/"/>
+      <category term="ELk日志处理平台" scheme="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E5%A4%A7%E6%95%B0%E6%8D%AE/ELk%E6%97%A5%E5%BF%97%E5%A4%84%E7%90%86%E5%B9%B3%E5%8F%B0/"/>
     
-      <category term="Filebeat+kafka+logstash+Elasticsearch" scheme="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E4%B9%8BLinux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E5%A4%A7%E6%95%B0%E6%8D%AE/ELk%E6%97%A5%E5%BF%97%E5%A4%84%E7%90%86%E5%B9%B3%E5%8F%B0/Filebeat-kafka-logstash-Elasticsearch/"/>
+      <category term="Filebeat+kafka+logstash+Elasticsearch" scheme="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E5%A4%A7%E6%95%B0%E6%8D%AE/ELk%E6%97%A5%E5%BF%97%E5%A4%84%E7%90%86%E5%B9%B3%E5%8F%B0/Filebeat-kafka-logstash-Elasticsearch/"/>
     
     
       <category term="ELK架构" scheme="http://yoursite.com/tags/ELK%E6%9E%B6%E6%9E%84/"/>
@@ -59,11 +59,11 @@
     
     </summary>
     
-      <category term="IT科学技术知识体系结构之Linux运维方向" scheme="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E4%B9%8BLinux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/"/>
+      <category term="IT科学技术知识体系结构-Linux运维方向" scheme="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/"/>
     
-      <category term="运维架构" scheme="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E4%B9%8BLinux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E8%BF%90%E7%BB%B4%E6%9E%B6%E6%9E%84/"/>
+      <category term="运维架构" scheme="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E8%BF%90%E7%BB%B4%E6%9E%B6%E6%9E%84/"/>
     
-      <category term="异地多活" scheme="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E4%B9%8BLinux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E8%BF%90%E7%BB%B4%E6%9E%B6%E6%9E%84/%E5%BC%82%E5%9C%B0%E5%A4%9A%E6%B4%BB/"/>
+      <category term="异地多活" scheme="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E8%BF%90%E7%BB%B4%E6%9E%B6%E6%9E%84/%E5%BC%82%E5%9C%B0%E5%A4%9A%E6%B4%BB/"/>
     
     
       <category term="异地多活机房建设" scheme="http://yoursite.com/tags/%E5%BC%82%E5%9C%B0%E5%A4%9A%E6%B4%BB%E6%9C%BA%E6%88%BF%E5%BB%BA%E8%AE%BE/"/>
