@@ -89,10 +89,13 @@
 <meta property="og:site_name" content="Watchmen1992&#39;s Blog">
 <meta property="og:description" content="Filebeat从入门到精通">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://picture.watchmen.xin/elk-filebeat/filebeat-2.png">
+<meta property="og:image" content="http://picture.watchmen.xin/elk-filebeat/filebeat-1.png">
 <meta property="og:updated_time" content="2018-04-17T05:20:23.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Filebeat">
 <meta name="twitter:description" content="Filebeat从入门到精通">
+<meta name="twitter:image" content="http://picture.watchmen.xin/elk-filebeat/filebeat-2.png">
 
 
 
@@ -458,7 +461,160 @@
       
 
       
-        
+        <p>参考文献： <a href="https://www.elastic.co/guide/en/beats/filebeat/current/index.html" target="_blank" rel="noopener">官网</a></p>
+<h2 id="1-Filebeat基础知识"><a href="#1-Filebeat基础知识" class="headerlink" title="1. Filebeat基础知识"></a>1. Filebeat基础知识</h2><blockquote>
+<p>Filebeat consists of two main components: <code>prospectors and harvesters.</code></p>
+<p>These components work together to <code>tail files</code> and send event data to the output that you specify.</p>
+</blockquote>
+<ul>
+<li><p>prospectors:勘探者；探矿者【也就是数据变化的探测者，也就是入向配置】</p>
+</li>
+<li><p>harvesters：收割机；收获者【也就是数据的下游接收端，也就是出向配置】</p>
+</li>
+<li><p>spooler：处理程序；【处理程序会集合这些事件，最后filebeat会发送集合的数据到你指定的地点。】</p>
+</li>
+</ul>
+<p>Filebeat工作流程：</p>
+<blockquote>
+<p>当你开启filebeat程序的时候，它会启动一个或多个探测器（prospectors）去检测你指定的日志目录或文件，对于探测器找出的每一个日志文件，filebeat启动收割进程（harvester），每一个收割进程读取一个日志文件的新内容，并发送这些新的日志数据到处理程序（spooler），处理程序会集合这些事件，最后filebeat会发送集合的数据到你指定的地点。</p>
+</blockquote>
+<p>流程图如下：</p>
+<p><img src="http://picture.watchmen.xin/elk-filebeat/filebeat-2.png" alt="流程图"></p>
+<h3 id="1-1-What-is-harvester"><a href="#1-1-What-is-harvester" class="headerlink" title="1.1 What is harvester?"></a>1.1 What is harvester?</h3><blockquote>
+<p>A harvester is responsible for reading the content of a single file. The harvester reads each file, line by line, and sends the content to the output. One harvester is started for each file. T<code>he harvester is responsible for opening and closing the file</code>, which means that the file descriptor remains open while the harvester is running. If a file is removed or renamed while it’s being harvested, Filebeat continues to read the file. This has the side effect that the space on your disk is reserved until the harvester closes. By default, Filebeat keeps the file open until close_inactive is reached.</p>
+<p>Closing a harvester has the following consequences:【关闭时按以下顺序依`次执行，也就是关闭顺序】</p>
+</blockquote>
+<ul>
+<li><p>The file handler is closed, freeing up the underlying resources if the file was deleted while the harvester was still reading the file.<br>The</p>
+</li>
+<li><p>harvesting of the file will only be started again after scan_frequency has elapsed.</p>
+</li>
+</ul>
+<ul>
+<li>If the file is moved or removed while the harvester is closed, harvesting of the file will not continue.</li>
+</ul>
+<p>To control when a harvester is closed, use the close_* configuration options.</p>
+<p>harvester负责打开和关闭文件</p>
+<p>当harvester捕获到一个文件之后，这个文件被删除或者重命名，它将继续读取这个文件。【副作用是占用磁盘空间直到harvester进程关闭】</p>
+<h3 id="1-2-What-is-prospector"><a href="#1-2-What-is-prospector" class="headerlink" title="1.2 What is prospector?"></a>1.2 What is prospector?</h3><blockquote>
+<p>A prospector is responsible for managing the harvesters and finding all sources to read from.</p>
+<p>If the input type is log, the prospector finds all files on the drive that match the defined glob paths and starts a harvester for each file. Each prospector runs in its own Go routine.</p>
+<p>The following example configures Filebeat to harvest lines from all log files that match the specified glob patterns:</p>
+</blockquote>
+<pre><code>filebeat.prospectors:
+- type: log
+  paths:
+    - /var/log/*.log
+    - /var/path2/*.log
+</code></pre><p>prospector负责管理harvesters进程以及寻找需要去读取的资源（input设置）</p>
+<p>Filebeat的input type当前有两种设置：<code>log和stdin</code></p>
+<blockquote>
+<p>The log prospector checks each file to see whether a harvester needs to be started, whether one is already running, or whether the file can be ignored (see ignore_older).<br><code>New lines are only picked up if the size of the file has changed since the harvester was closed.</code></p>
+</blockquote>
+<p>注意，Filebeat只能读取本地的文件，也就是需要在每个日志产生端都安装：<br><strong>Filebeat prospectors can only read <code>local files</code>. There is no functionality to connect to remote hosts to read stored files or logs.</strong></p>
+<h3 id="1-3-How-does-Filebeat-keep-the-state-of-files"><a href="#1-3-How-does-Filebeat-keep-the-state-of-files" class="headerlink" title="1.3 How does Filebeat keep the state of files"></a>1.3 How does Filebeat keep the state of files</h3><p>filebeat通过定期去刷新，将状态落地到磁盘的注册文件中，以这种形式来保持文件检测状态</p>
+<blockquote>
+<p>Filebeat keeps the state of each file and frequently flushes the state to disk in the registry file</p>
+<p>The state is used to remember the last offset a harvester was reading from and to ensure all log lines are sent</p>
+</blockquote>
+<p>filebeat的状态信息记录的是最新的读取偏移量，如果下游的接受者（ES、kafka、logstash等不可达），filebeat将会保持这种状态，当检测后可达之后将会重新发送</p>
+<p>当filebeat重启时，将会重新构建这个注册文件</p>
+<p>每个prospector针对每个文件都会保持一个状态，也就是一个注册文件，因为文件可能会被删除或者重命名</p>
+<p>针对每个文件，filebeat存储一个唯一的标识符去发现该文件之前是否有被收集过</p>
+<blockquote>
+<p>For each file, Filebeat stores unique identifiers to detect whether a file was harvested previously.</p>
+</blockquote>
+<h3 id="1-4-how-does-Filebeat-ensure-at-least-once-delivery"><a href="#1-4-how-does-Filebeat-ensure-at-least-once-delivery" class="headerlink" title="1.4 how does Filebeat ensure at-least-once delivery?"></a>1.4 how does Filebeat ensure at-least-once delivery?</h3><p>Filebeat保证一个事件的完整及正确性，它将发送最少一次给设置的下游输出，以保证没有数据丢失。</p>
+<blockquote>
+<p>Filebeat guarantees that events will be delivered to the configured output at least once and with no data loss.</p>
+<p>Filebeat is able to achieve this behavior because it stores the delivery state of each event in the registry file.</p>
+</blockquote>
+<p>Filebeat能够保证这种特性的原因是因为它将分发状态也存储在这个注册文件中。</p>
+<p>当下游因为阻塞或者其他原因，没有对某一个事件进行确认的时候，filebeat将一直尝试去发送这个事件，直到收到ACK</p>
+<blockquote>
+<p>If Filebeat shuts down while it’s in the process of sending events, it does not wait for the output to acknowledge all events before shutting down. Any events that are sent to the output, but not acknowledged before Filebeat shuts down, are sent again when Filebeat is restarted. This ensures that each event is sent at least once, but you can end up with duplicate events being sent to the output. You can configure Filebeat to wait a specific amount of time before shutting down by setting the<code>shutdown_timeout</code> option.</p>
+</blockquote>
+<p>当Filebeat异常关闭，再次启动的时候，它将会重新发送没有接受到ACk的事件。通过这种机制来保证每个事件至少发送一次。</p>
+<p>因此，为了减少重新发送event事件的次数，可以通过设置shutdown_timeout参数来设置当filebeat关闭时，等待多少时间之后再关闭进程，以保证收到尽量多的ACK</p>
+<p>注意：虽然拥有这种机制来保证数据的不丢失，但还是存在一些可能的情况导致数据的丢失（日志轮转和删除文件时）</p>
+<p>例如：</p>
+<ul>
+<li><p>If log files are written to disk and rotated faster than they can be processed by Filebeat 【当日志刚好触发到日志轮转条件时，并且此时filebeat还没有来得及收集的时候，原因是inode节点发生变化】</p>
+</li>
+<li><p>if files are deleted while the output is unavailable 【当该文件被删除时，并且输出不可用时】</p>
+</li>
+</ul>
+<p><strong>总结：filebeat会维护一个注册文件【是落地到磁盘中的】，该注册文件中包含2个信息</strong></p>
+<ul>
+<li>所发送事件的偏移量，精确记录当前的发送情况。        下游断开时，将保持直到连接后再发送</li>
+<li>发送事件的ACk，记录发送事件的接受情况。            没有收到，将一直持续发送。</li>
+</ul>
+<h2 id="2-Filebeat安装部署配置启动"><a href="#2-Filebeat安装部署配置启动" class="headerlink" title="2. Filebeat安装部署配置启动"></a>2. Filebeat安装部署配置启动</h2><h3 id="2-1-安装"><a href="#2-1-安装" class="headerlink" title="2.1 安装"></a>2.1 安装</h3><pre><code>curl -L -O https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-6.2.3-x86_64.rpm
+
+rpm -vih filebeat-6.2.3-x86_64.rpm
+</code></pre><h3 id="2-2-启动"><a href="#2-2-启动" class="headerlink" title="2.2 启动"></a>2.2 启动</h3><pre><code>service filebeat start
+</code></pre><h3 id="2-3-编辑配置文件"><a href="#2-3-编辑配置文件" class="headerlink" title="2.3 编辑配置文件"></a>2.3 编辑配置文件</h3><p><a href="https://www.elastic.co/guide/en/beats/filebeat/current/directory-layout.html#_docker" target="_blank" rel="noopener">配置文件生成规则</a></p>
+<p>安装完毕之后，配置文件路径：/etc/filebeat/filebeat.yml<br>参考配置文件为：filebeat.reference.yml</p>
+<p>这里采用的是rpm包方式安装，因此生成规则如下：</p>
+<p><img src="http://picture.watchmen.xin/elk-filebeat/filebeat-1.png" alt="生成规则"></p>
+<p>filebeat.yml整个配置文件分为几个部分，分别是：</p>
+<pre><code>- Modules configuration
+- Filebeat prospectors        【上游输入设置。这部分包含内容为：type设置|path路径设置，】
+- Filebeat autodiscover
+- Filebeat global options
+- General
+- Elastic Cloud
+- Outputs                    【下游输出设置。这部分内容为：ES|kafka|logstash|】
+- Paths
+- Dashboards
+- Template                    【ES模板配置】
+- Logging
+- Xpack Monitoring            【xpack监控】
+- HTTP Endpoint
+</code></pre><p>让我们来配置filebeat：</p>
+<h4 id="prospectors设置"><a href="#prospectors设置" class="headerlink" title="prospectors设置"></a>prospectors设置</h4><p>对于大多数的基本filebeat配置，你可以定义一个单一探测器针对一个单一的路径，例如：</p>
+<pre><code>filebeat.prospectors:
+
+- input_type: log
+
+  paths:
+
+    - /var/log/*.log
+</code></pre><p>在这个例子中，探测器会收集/var/log/*.log的所有匹配文件，这意味这filebeat会手机所有的/var/log下以.log结尾的文件，此处还支持Golang Glob支持的所有模式。</p>
+<p>在预定义级别的子目录中获取所有文件，可以使用这个配置：/var/log/<em>/</em>.log，这会找到/var/log下所有子目录中所有的以.log结尾的文件。但它并不会找到/var/log文件夹下的以.log结尾的文件。现在它还不能递归的在所有子目录中获取所有的日志文件。</p>
+<h4 id="Outputs设置"><a href="#Outputs设置" class="headerlink" title="Outputs设置"></a>Outputs设置</h4><p>如果你设置输出到elasticsearch中，那么你需要在filebeat的配置文件中设置elasticsearch的IP地址与端口。</p>
+<pre><code>output.elasticsearch:
+
+  hosts: [&quot;192.168.1.42:9200&quot;]
+</code></pre><p>如果要使用Logstash对Filebeat收集的数据执行附加处理，则需要将Filebeat配置为使用Logstash。</p>
+<pre><code>＃----------------------------- Logstash输出------------------ --------------
+output.logstash：
+  hosts：[“127.0.0.1:5044”]
+</code></pre><p>如果您打算使用随Filebeat提供的示例Kibana仪表板，需要配置Kibana，这段是属于kibana设置，不输出output设置</p>
+<pre><code>#============================== Kibana =====================================
+setup.kibana：
+  host：“localhost：5601”
+</code></pre><p>如果设置ES和kibana的安全性设置，使用以下的配置</p>
+<pre><code>output.elasticsearch:
+  hosts: [&quot;myEShost:9200&quot;]
+  username: &quot;elastic&quot;
+  password: &quot;elastic&quot;
+setup.kibana:
+  host: &quot;mykibanahost:5601&quot;
+  username: &quot;elastic&quot; 
+  password: &quot;elastic&quot;
+</code></pre><h4 id="Template设置"><a href="#Template设置" class="headerlink" title="Template设置"></a>Template设置</h4><p><strong>这一部分主要设置ES的模板</strong></p>
+<p>在Elasticsearch中，索引模板用于定义设置和映射，以确定如何分析字段。<br>通过使用ES模板，可以有效的减轻存储压力<br>ES模板：通过对索引中的每个字段做事先的预定义数据类型（例如ID，name等分别使用存储空间最小的数据类型）</p>
+<p>在安装完毕Filebeat之后，会生成fields.yml这个ES模板文件<br>下游如果是ES的话，Filebeat在启动的时候会自动的加载这个模板文件<br>如果要关闭自动加载功能，则将以下参数设置为false</p>
+<pre><code>setup.template.enabled: false
+</code></pre><p>注意：如果该模板已经存在，则不会覆盖它，除非您配置Filebeat来指定执行此操作。</p>
+<p>如果下游连接的不是ES而是logstash，那么需要手动导入模板<br>    filebeat setup –template -E output.logstash.enabled=false -E ‘output.elasticsearch.hosts=[“localhost:9200”]’</p>
+<p><strong>强制Kibana使用最新的Filebeat索引信息</strong><br>如果当前ES中已经有了filebeat的索引信息，那么修改模板之后，因此模板不会被覆盖，因此需要强制刷新生效。<br>    curl -XDELETE ‘<a href="http://localhost:9200/filebeat-*" target="_blank" rel="noopener">http://localhost:9200/filebeat-*</a>‘</p>
+<p><strong>中转方式导入ES模板</strong></p>
+<p>如果Filebeat没有直接连接到ES，那么可以将模板文件先导出到可以连接到ES的主机上，再通过这台去导入</p>
+<pre><code>filebeat export template &gt; filebeat.template.json
+curl -XPUT -H &apos;Content-Type: application/json&apos; http://localhost:9200/_template/filebeat-6.2.3 -d@filebeat.template.json
+</code></pre>
       
     </div>
     
@@ -612,8 +768,17 @@ var jiathis_config={
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -632,7 +797,7 @@ var jiathis_config={
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-count">31</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -643,7 +808,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">45</span>
+                  <span class="site-state-item-count">44</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -654,7 +819,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">35</span>
+                  <span class="site-state-item-count">32</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -684,6 +849,22 @@ var jiathis_config={
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Filebeat基础知识"><span class="nav-number">1.</span> <span class="nav-text">1. Filebeat基础知识</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-What-is-harvester"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 What is harvester?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-What-is-prospector"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 What is prospector?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-How-does-Filebeat-keep-the-state-of-files"><span class="nav-number">1.3.</span> <span class="nav-text">1.3 How does Filebeat keep the state of files</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-how-does-Filebeat-ensure-at-least-once-delivery"><span class="nav-number">1.4.</span> <span class="nav-text">1.4 how does Filebeat ensure at-least-once delivery?</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Filebeat安装部署配置启动"><span class="nav-number">2.</span> <span class="nav-text">2. Filebeat安装部署配置启动</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-安装"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-启动"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 启动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-编辑配置文件"><span class="nav-number">2.3.</span> <span class="nav-text">2.3 编辑配置文件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#prospectors设置"><span class="nav-number">2.3.1.</span> <span class="nav-text">prospectors设置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Outputs设置"><span class="nav-number">2.3.2.</span> <span class="nav-text">Outputs设置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Template设置"><span class="nav-number">2.3.3.</span> <span class="nav-text">Template设置</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
