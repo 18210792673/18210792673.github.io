@@ -4,8 +4,14 @@
     <title><![CDATA[Zookeeper]]></title>
     <url>%2F2018%2F04%2F17%2FZookeeper%2F</url>
     <content type="text"></content>
+      <categories>
+        <category>IT科学技术知识体系结构-Linux运维方向</category>
+        <category>大数据</category>
+        <category>大数据相关组件</category>
+        <category>Zookeeper</category>
+      </categories>
       <tags>
-        <tag>tag1</tag>
+        <tag>Zookeeper</tag>
       </tags>
   </entry>
   <entry>
@@ -16,6 +22,7 @@
         <category>IT科学技术知识体系结构-Linux运维方向</category>
         <category>大数据</category>
         <category>大数据相关组件</category>
+        <category>Logstash</category>
       </categories>
       <tags>
         <tag>Logstash</tag>
@@ -29,9 +36,10 @@
         <category>IT科学技术知识体系结构-Linux运维方向</category>
         <category>大数据</category>
         <category>大数据相关组件</category>
+        <category>Kibana</category>
       </categories>
       <tags>
-        <tag>tag1</tag>
+        <tag>Kibana</tag>
       </tags>
   </entry>
   <entry>
@@ -42,6 +50,7 @@
         <category>IT科学技术知识体系结构-Linux运维方向</category>
         <category>大数据</category>
         <category>大数据相关组件</category>
+        <category>Filebeat</category>
       </categories>
       <tags>
         <tag>Filebeat</tag>
@@ -55,6 +64,7 @@
         <category>IT科学技术知识体系结构-Linux运维方向</category>
         <category>大数据</category>
         <category>大数据相关组件</category>
+        <category>Kafka</category>
       </categories>
       <tags>
         <tag>Kafka</tag>
@@ -68,6 +78,7 @@
         <category>IT科学技术知识体系结构-Linux运维方向</category>
         <category>大数据</category>
         <category>大数据相关组件</category>
+        <category>Flume</category>
       </categories>
       <tags>
         <tag>Flume</tag>
@@ -81,6 +92,7 @@
         <category>IT科学技术知识体系结构-Linux运维方向</category>
         <category>大数据</category>
         <category>大数据相关组件</category>
+        <category>Elasticsearch</category>
       </categories>
       <tags>
         <tag>Elasticsearch</tag>
