@@ -260,6 +260,9 @@
              
               <breadCrumb title="常用软件工具" url="http://yoursite.com/categories/%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6%E5%B7%A5%E5%85%B7/"/>
           
+             
+              <breadCrumb title="常用软件激活密钥" url="http://yoursite.com/categories/%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6%E5%B7%A5%E5%85%B7/%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6%E6%BF%80%E6%B4%BB%E5%AF%86%E9%92%A5/"/>
+          
         </display>
     </data>
     </url>
@@ -717,16 +720,18 @@
         <title>Hello World</title>
         <pubTime>2018-01-23T14:08:24.000Z</pubTime>
         
-        <tag>个人知识体系</tag>
-         
-        <tag>个人博客</tag>
-         
-        <tag>Hexo</tag>
+        <tag>hexo</tag>
          
          
            
              
-              <breadCrumb title="hexo" url="http://yoursite.com/categories/hexo/"/>
+              <breadCrumb title="个人知识体系" url="http://yoursite.com/categories/%E4%B8%AA%E4%BA%BA%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/"/>
+          
+             
+              <breadCrumb title="个人博客" url="http://yoursite.com/categories/%E4%B8%AA%E4%BA%BA%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/"/>
+          
+             
+              <breadCrumb title="Hexo" url="http://yoursite.com/categories/%E4%B8%AA%E4%BA%BA%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/Hexo/"/>
           
         </display>
     </data>
