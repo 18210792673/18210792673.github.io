@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[su: cannot set user id: Resource temporarily unavailable]]></title>
+    <url>%2F2018%2F04%2F18%2Fsu-cannot-set-user-id-Resource-temporarily-unavailable%2F</url>
+    <content type="text"><![CDATA[切换用户时出现如下提示符： [root@qa3-app018 ~]# su - appqa su: cannot set user id: Resource temporarily unavailable 常见的能够控制用户资源的文件一般有两个，一是/etc/profile,二是/etc/security/limits.conf。 除此之外，在Centos6.x版本后，还有一个配置文件对ulimit设置生效，就是/etc/security/limits.d/90-nproc.conf /etc/security/limits.conf文件如下图所示： domain: 是指限制的对象，可以是个人，也可以是组，组前面要加@符号，也可以设置为除root用户外的 任何人，用*号表示； type: 是指类型，soft是当前系统生效的值，hard是系统可以设置的最大值； item: 项目，是可以对什么项目做限制，如最大进程数，文件最大值； value: 值，所设置的值的大小。 这里我的设置是： root soft nofile 65535 root hard nofile 65535 * soft nofile 65535 * hard nofile 65535 可以看到是没有问题的 /etc/security/limits.d/90-nproc.conf[appqa@qa3-app018 ~]$ cat /etc/security/limits.d/90-nproc.conf # Default limit for number of user&apos;s processes to prevent # accidental fork bombs. # See rhbz #432903 for reasoning. * soft nproc 1024 root soft nproc unlimited 这这里发现默认最大进程数只有1024 将1024修改为10240之后，再次执行su即可恢复正常，问题得到解决。]]></content>
+      <categories>
+        <category>IT科学技术知识体系结构-Linux运维方向</category>
+        <category>运维工作日常问题</category>
+      </categories>
+      <tags>
+        <tag>运维工作日常问题</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[服务器硬件知识]]></title>
     <url>%2F2018%2F04%2F18%2F%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%A1%AC%E4%BB%B6%E7%9F%A5%E8%AF%86%2F</url>
     <content type="text"><![CDATA[##]]></content>

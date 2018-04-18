@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2018-04-18T03:38:29.000Z</updated>
+  <updated>2018-04-18T03:47:17.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>su: cannot set user id: Resource temporarily unavailable</title>
+    <link href="http://yoursite.com/2018/04/18/su-cannot-set-user-id-Resource-temporarily-unavailable/"/>
+    <id>http://yoursite.com/2018/04/18/su-cannot-set-user-id-Resource-temporarily-unavailable/</id>
+    <published>2018-04-18T03:47:17.000Z</published>
+    <updated>2018-04-18T03:47:17.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>切换用户时出现如下提示符：</p><pre><code>[root@qa3-app018 ~]# su - appqasu: cannot set user id: Resource temporarily unavailable</code></pre><p>常见的能够控制用户资源的文件一般有两个，一是/etc/profile,二是/etc/security/limits.conf。</p><p>除此之外，在Centos6.x版本后，还有一个配置文件对ulimit设置生效，就是<code>/etc/security/limits.d/90-nproc.conf</code></p><h3 id="etc-security-limits-conf文件"><a href="#etc-security-limits-conf文件" class="headerlink" title="/etc/security/limits.conf文件"></a>/etc/security/limits.conf文件</h3><p>如下图所示：</p><p><img src="http://picture.watchmen.xin/problems/1.png" alt="图片"></p><p>domain: </p><p>是指限制的对象，可以是个人，也可以是组，组前面要加@符号，也可以设置为除root用户外的 任何人，用*号表示；</p><p>type:</p><p>是指类型，soft是当前系统生效的值，hard是系统可以设置的最大值；</p><p>item:</p><p>项目，是可以对什么项目做限制，如最大进程数，文件最大值；</p><p>value:</p><p>值，所设置的值的大小。</p><p><strong>这里我的设置是：</strong></p><pre><code>root soft nofile 65535root hard nofile 65535* soft nofile 65535* hard nofile 65535</code></pre><p>可以看到是没有问题的</p><h3 id="etc-security-limits-d-90-nproc-conf"><a href="#etc-security-limits-d-90-nproc-conf" class="headerlink" title="/etc/security/limits.d/90-nproc.conf"></a>/etc/security/limits.d/90-nproc.conf</h3><pre><code>[appqa@qa3-app018 ~]$ cat /etc/security/limits.d/90-nproc.conf# Default limit for number of user&apos;s processes to prevent# accidental fork bombs.# See rhbz #432903 for reasoning.*          soft    nproc     1024root       soft    nproc     unlimited</code></pre><p>这这里发现默认最大进程数只有1024</p><p>将1024修改为10240之后，再次执行su即可恢复正常，问题得到解决。</p>]]></content>
+    
+    <summary type="html">
+    
+      切换用户时提示资源不可用问题解决
+    
+    </summary>
+    
+      <category term="IT科学技术知识体系结构-Linux运维方向" scheme="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/"/>
+    
+      <category term="运维工作日常问题" scheme="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E8%BF%90%E7%BB%B4%E5%B7%A5%E4%BD%9C%E6%97%A5%E5%B8%B8%E9%97%AE%E9%A2%98/"/>
+    
+    
+      <category term="运维工作日常问题" scheme="http://yoursite.com/tags/%E8%BF%90%E7%BB%B4%E5%B7%A5%E4%BD%9C%E6%97%A5%E5%B8%B8%E9%97%AE%E9%A2%98/"/>
+    
+  </entry>
   
   <entry>
     <title>服务器硬件知识</title>
@@ -505,30 +529,6 @@
     
     
       <category term="Grafana" scheme="http://yoursite.com/tags/Grafana/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>ditto常用操作</title>
-    <link href="http://yoursite.com/2018/04/04/ditto%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C/"/>
-    <id>http://yoursite.com/2018/04/04/ditto常用操作/</id>
-    <published>2018-04-04T09:11:37.000Z</published>
-    <updated>2018-04-04T09:11:37.000Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><p>Ditto 是一款开源、免费、强大的剪贴板增强工具。可以把复制过的所有内容保存起来（可以设定保存日期或条目总数），快捷地供后续调用。还可以合并粘贴，纯文本粘贴，支持分组、置顶、快速搜索、热键粘贴功能。并且，还可以通过网络共享剪贴板内容。</p><p>主页：<a href="http://ditto-cp.sourceforge.net/" target="_blank" rel="noopener">http://ditto-cp.sourceforge.net/</a></p><p>教程：<a href="http://xbeta.info/ditto.htm" target="_blank" rel="noopener">http://xbeta.info/ditto.htm</a></p><h1 id="操作"><a href="#操作" class="headerlink" title="操作"></a>操作</h1><p>平常情况下，Ditto只是系统托盘中的图标。按下热键（默认 ctrl+`）后，会出现的粘贴主界面；再点击右键会弹出功能丰富的菜单。</p><p>详细请参看教程</p>]]></content>
-    
-    <summary type="html">
-    
-      Ditto是一款免费剪贴板增强软件，能有效提高工作效率。
-    
-    </summary>
-    
-      <category term="常用软件工具" scheme="http://yoursite.com/categories/%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6%E5%B7%A5%E5%85%B7/"/>
-    
-      <category term="Ditto" scheme="http://yoursite.com/categories/%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6%E5%B7%A5%E5%85%B7/Ditto/"/>
-    
-    
-      <category term="Ditto" scheme="http://yoursite.com/tags/Ditto/"/>
     
   </entry>
   
