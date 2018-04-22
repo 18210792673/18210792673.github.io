@@ -90,6 +90,7 @@
 <meta property="og:description" content="《Python编程从入门到实践》-Django入门">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://picture.watchmen.xin/python-django/project.png">
+<meta property="og:image" content="http://picture.watchmen.xin/python-django/apps.png">
 <meta property="og:updated_time" content="2018-04-17T12:07:03.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Python-django项目">
@@ -450,6 +451,7 @@
 <li>pip3(pip2不支持Python3.x，因此我们要安装pip来支持python3)<ul>
 <li>sudo apt-get install python3-pip</li>
 <li>ln -s /usr/bin/pip3 /usr/bin/pip</li>
+<li>pip的升级：pip install –upgrade pip</li>
 </ul>
 </li>
 </ul>
@@ -498,6 +500,42 @@ wxh@wxh-virtual-machine:/opt$ python -m venv ll_env
 <h3 id="创建数据库"><a href="#创建数据库" class="headerlink" title="创建数据库"></a>创建数据库</h3><p>django将大部分与项目有关的信息都存储在数据库中，因此我们需要创建一个供django使用的数据库。为给项目“学习笔记”创建数据库，在处于活动虚拟环境中的情况下执行下面的命令：</p>
 <pre><code>(ll_env) wxh@wxh-virtual-machine:/opt$ sudo python manage.py migrate
 </code></pre><h3 id="启动-停止项目"><a href="#启动-停止项目" class="headerlink" title="启动/停止项目"></a>启动/停止项目</h3><p>核实django项目是否正确的创建，执行下面的命令启动：</p>
+<pre><code>python manage.py runserver [port]
+</code></pre><h2 id="创建应用程序"><a href="#创建应用程序" class="headerlink" title="创建应用程序"></a>创建应用程序</h2><p>django由一系列应用程序组成（也可以看成是一系列的功能组件），他们协同工作，让项目成为一个整体。现在我们暂时只创建一个应用程序，它将完成项目的大部分工作。在后面，我们还将再添加一个管理用户账户的应用程序</p>
+<pre><code>(ll_env) wxh@wxh-virtual-machine:/opt$ sudo python manage.py  startapp learning_logs
+</code></pre><p>命令startapp让django创建应用程序所需的基础设施。如果现在查看项目目录，将看到其中新增了一个文件夹learning_logs</p>
+<p><img src="http://picture.watchmen.xin/python-django/apps.png" alt="apps"></p>
+<p>其中最重要的文件是<strong>models、admin和views</strong>，我们将使用models来定义我们要在应用程序中管理的数据</p>
+<p><strong><font color="blue">注意：learning_logs是learning_log项目中的一个应用程序，这个概念要分清。</font></strong></p>
+<h3 id="定义模型"><a href="#定义模型" class="headerlink" title="定义模型"></a>定义模型</h3><p>每位用户都需要在学习笔记中创建很多的主题（例如：数学、英语、语文等等）。用户输入的每个条目（文章，每篇笔记）都要与特定的主题相关联。这些条目将以文本的形式显示。我们还需要存储每个目录的时间戳，以便能够告诉用户每个条目都是什么时候创建的。</p>
+<pre><code>(ll_env) wxh@wxh-virtual-machine:/opt$ cat learning_logs/models.py 
+from django.db import models
+
+# Create your models here.
+</code></pre><p>我们可以看到这个文件的内容。django事先导入了模块models，让我们自己创建模型。</p>
+<p>模型告诉django如何处理应用程序中存储的数据。<strong>在代码层面，模型就是一个类，就像前面讨论的每个类一样，包含属性和方法。</strong></p>
+<p><strong>我们编写完毕之后的代码如下：</strong></p>
+<pre><code>(ll_env) wxh@wxh-virtual-machine:/opt/learning_logs$ sudo vim models.py
+
+from django.db import models
+
+class Topic(models.Model):
+    &quot;&quot;&quot;用户学习的主题&quot;&quot;&quot;
+    text = models.CharField(max_length=200)
+    date_added = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        &quot;&quot;&quot;返回模型的字符串表示&quot;&quot;&quot;
+        return self.text
+</code></pre><p>我们创建了一个名为Topic的类，它继承了models模块中的类Model-django中一个定义了模型基本功能的类。新建的这个Topic类中，我们只定义了两个属性：text和data_added（也就是拿来保存主题和时间戳）</p>
+<ul>
+<li>属性text是一个CharField——由字符或文本组成的数据（见）。需要存储少量的文本，如名称、标题或城市时，可使用CharField。定义CharField属性时，必须告诉Django该在数据库中预留多少空间。在这里，我们将max_length设置成了200（即200个字符），这对存储大多数主题名来说足够了。</li>
+</ul>
+<ul>
+<li>属性date_added是一个DateTimeField——记录日期和时间的数据（见）。我们传递了实参auto_add_now=True，每当用户创建新主题时，这都让Django将这个属性自动设置成当前日期和时间</li>
+</ul>
+<p>我们需要告诉django，默认应该使用哪个属性来显示有关主题的信息。django调用方法<strong>str</strong>()来显示模型的简单表示，在这里，我们编写了方法<strong>str</strong>(),它返回存储在属性text中的字符串。</p>
+<h3 id="激活模型"><a href="#激活模型" class="headerlink" title="激活模型"></a>激活模型</h3><p>要使用模型，必须让Django将应用程序包含到项目中。为此，打开settings.py（它位于目录<br>learning_log/learning_log中），你将看到一个这样的片段，即告诉Django哪些应用程序安装在项<br>目中：</p>
 
       
     </div>
@@ -681,7 +719,7 @@ var jiathis_config={
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">39</span>
+                  <span class="site-state-item-count">40</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -692,7 +730,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">62</span>
+                  <span class="site-state-item-count">58</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -703,7 +741,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">42</span>
+                  <span class="site-state-item-count">43</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -743,7 +781,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#环境准备"><span class="nav-number">1.</span> <span class="nav-text">环境准备</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#创建激活虚拟环境"><span class="nav-number">1.1.</span> <span class="nav-text">创建激活虚拟环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装django"><span class="nav-number">1.2.</span> <span class="nav-text">安装django</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置django"><span class="nav-number">1.3.</span> <span class="nav-text">配置django</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建项目："><span class="nav-number">1.3.1.</span> <span class="nav-text">创建项目：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建数据库"><span class="nav-number">1.3.2.</span> <span class="nav-text">创建数据库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#启动-停止项目"><span class="nav-number">1.3.3.</span> <span class="nav-text">启动/停止项目</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#环境准备"><span class="nav-number">1.</span> <span class="nav-text">环境准备</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#创建激活虚拟环境"><span class="nav-number">1.1.</span> <span class="nav-text">创建激活虚拟环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装django"><span class="nav-number">1.2.</span> <span class="nav-text">安装django</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置django"><span class="nav-number">1.3.</span> <span class="nav-text">配置django</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建项目："><span class="nav-number">1.3.1.</span> <span class="nav-text">创建项目：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建数据库"><span class="nav-number">1.3.2.</span> <span class="nav-text">创建数据库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#启动-停止项目"><span class="nav-number">1.3.3.</span> <span class="nav-text">启动/停止项目</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建应用程序"><span class="nav-number">1.4.</span> <span class="nav-text">创建应用程序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#定义模型"><span class="nav-number">1.4.1.</span> <span class="nav-text">定义模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#激活模型"><span class="nav-number">1.4.2.</span> <span class="nav-text">激活模型</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
