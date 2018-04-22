@@ -91,6 +91,9 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://picture.watchmen.xin/python-django/project.png">
 <meta property="og:image" content="http://picture.watchmen.xin/python-django/apps.png">
+<meta property="og:image" content="http://picture.watchmen.xin/python-django/addapps.png">
+<meta property="og:image" content="http://picture.watchmen.xin/python-django/login.png">
+<meta property="og:image" content="http://picture.watchmen.xin/python-django/addtopic.png">
 <meta property="og:updated_time" content="2018-04-17T12:07:03.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Python-django项目">
@@ -535,7 +538,118 @@ class Topic(models.Model):
 <li>属性date_added是一个DateTimeField——记录日期和时间的数据（见）。我们传递了实参auto_add_now=True，每当用户创建新主题时，这都让Django将这个属性自动设置成当前日期和时间</li>
 </ul>
 <p>我们需要告诉django，默认应该使用哪个属性来显示有关主题的信息。django调用方法<strong>str</strong>()来显示模型的简单表示，在这里，我们编写了方法<strong>str</strong>(),它返回存储在属性text中的字符串。</p>
-<h3 id="激活模型"><a href="#激活模型" class="headerlink" title="激活模型"></a>激活模型</h3><p>要使用模型，必须让Django将应用程序包含到项目中。为此，打开settings.py（它位于目录<br>learning_log/learning_log中），你将看到一个这样的片段，即告诉Django哪些应用程序安装在项<br>目中：</p>
+<h3 id="激活模型"><a href="#激活模型" class="headerlink" title="激活模型"></a>激活模型</h3><p>要使用模型，必须让Django将应用程序包含到项目中。为此，打开settings.py（它位于项目learning_log目录下），你将看到一个这样的片段，<strong>这一段的配置告诉Django使用哪些应用程序安装在项目中：</strong></p>
+<pre><code>(ll_env) wxh@wxh-virtual-machine:/opt$ sudo vim learning_log/settings.py
+
+ 33 INSTALLED_APPS = [
+ 34     &apos;django.contrib.admin&apos;,
+ 35     &apos;django.contrib.auth&apos;,
+ 36     &apos;django.contrib.contenttypes&apos;,
+ 37     &apos;django.contrib.sessions&apos;,
+ 38     &apos;django.contrib.messages&apos;,
+ 39     &apos;django.contrib.staticfiles&apos;,
+ 40 ] 
+</code></pre><p>我们将新建的应用程序加载进项目之中，修改之后的配置如下所示：</p>
+<pre><code>33 INSTALLED_APPS = [
+34     &apos;django.contrib.admin&apos;,
+35     &apos;django.contrib.auth&apos;,
+36     &apos;django.contrib.contenttypes&apos;,
+37     &apos;django.contrib.sessions&apos;,
+38     &apos;django.contrib.messages&apos;,
+39     &apos;django.contrib.staticfiles&apos;,
+40         # my appalication
+41     &apos;learning_logs&apos;
+42 ]
+</code></pre><p><img src="http://picture.watchmen.xin/python-django/addapps.png" alt="addapps"></p>
+<p>通过这种将应用程序编组的方式，在项目不断增大，包含更多的应用程序时，可以有效的对应用程序进行跟踪。</p>
+<p><strong>数据库配置：</strong></p>
+<p>接下来，需要让django修改数据库，使其能够存储与模型Topic相关的信息，执行以下命令：</p>
+<pre><code>(ll_env) wxh@wxh-virtual-machine:/opt$ sudo python manage.py makemigrations learning_logs
+Migrations for &apos;learning_logs&apos;:
+  learning_logs/migrations/0001_initial.py
+    - Create model Topic
+(ll_env) wxh@wxh-virtual-machine:/opt$ 
+</code></pre><p>命令makemigrations让Django确定该如何修改数据库，使其能够存储与我们定义的新模型相关联的数据。</p>
+<p>输出表明Django创建了一个名为0001_initial.py的迁移文件，这个文件将在数据库中为模型Topic创建一个表。</p>
+<p>下面来应用这种迁移，让Django替我们修改数据库：</p>
+<pre><code>(ll_env) wxh@wxh-virtual-machine:/opt$ sudo python manage.py  migrate
+Operations to perform:
+  Apply all migrations: admin, auth, contenttypes, learning_logs, sessions
+Running migrations:
+  Applying learning_logs.0001_initial... OK
+</code></pre><blockquote>
+<p><strong>注意：每当需要修改该应用程序管理的数据时（在这里是learning_logs应用程序），都采取如下三个步骤：</strong></p>
+<ul>
+<li>修改models.py；</li>
+<li>对learning_logs调用makemigrations;</li>
+<li>让django迁移项目**</li>
+</ul>
+</blockquote>
+<h3 id="django管理网站"><a href="#django管理网站" class="headerlink" title="django管理网站"></a>django管理网站</h3><p>一个网站，需要有管理员来管理网站，django提供的管理网站（admin site）能够轻松的实现。</p>
+<p>接下来，我们将建立管理网站，并通过它使用模型Topic来添加一些主题</p>
+<h4 id="创建超级用户"><a href="#创建超级用户" class="headerlink" title="创建超级用户"></a>创建超级用户</h4><p>创建具备所有权限的用户—超级用户，执行以下命令：</p>
+<pre><code>(ll_env) wxh@wxh-virtual-machine:/opt$ sudo python manage.py  createsuperuser
+Username (leave blank to use &apos;root&apos;): ll_admin
+Email address: 
+Password: 
+Password (again): 
+Superuser created successfully.
+</code></pre><p>注意：django并不存储实际输入的明文密码，而是存储该密码的散列值，每当你输入密码的时候，django都将计算其散列值，并将结果与存储的散列值进行比较。</p>
+<h4 id="向管理网站注册模型"><a href="#向管理网站注册模型" class="headerlink" title="向管理网站注册模型"></a>向管理网站注册模型</h4><p>Django自动在管理网站中添加了一些模型，如User和Group，但对于我们创建的模型，必须手工进行注册。</p>
+<p>我们创建应用程序learning_logs时， Django在models.py所在的目录中创建了一个名为admin.py的文件：</p>
+<pre><code>(ll_env) wxh@wxh-virtual-machine:/opt$ cat learning_logs/admin.py 
+from django.contrib import admin
+
+# Register your models here.
+</code></pre><p>修改之后的文件为：</p>
+<pre><code>(ll_env) wxh@wxh-virtual-machine:/opt/learning_logs$ sudo vim admin.py 
+
+from django.contrib import admin
+
+from learning_logs.models import Topic
+
+admin.site.register(Topic)
+</code></pre><p>导入我们要注册的模型Topic，再使用admin.site.register方法让django通过管理网站管理我们的模型</p>
+<p>接下来访问：<a href="http://127.0.0.1:8000/admin，可以直接使用我们刚才创建的超级管理员用户的用户名和密码进行登录。" target="_blank" rel="noopener">http://127.0.0.1:8000/admin，可以直接使用我们刚才创建的超级管理员用户的用户名和密码进行登录。</a></p>
+<p>登录之后的页面如下所示：<br><img src="http://picture.watchmen.xin/python-django/login.png" alt="login"></p>
+<p>这个网页能够让你添加和修改用户和用户组，还可以管理刚才定义的模型Topic相关的数据。</p>
+<p>我们能够看到刚才定义的模型Topic及其相关的数据（当前没有数据）</p>
+<h4 id="添加主题"><a href="#添加主题" class="headerlink" title="添加主题"></a>添加主题</h4><p>向管理网站注册了topic之后，我们需要添加主题，这里添加Chess和Rock Climbing主题。添加完毕之后，如下图所示：</p>
+<p><img src="http://picture.watchmen.xin/python-django/addtopic.png" alt="login"></p>
+<h3 id="定义模型Entry"><a href="#定义模型Entry" class="headerlink" title="定义模型Entry"></a>定义模型Entry</h3><p>当前的模型只是定义了2个属性（主题和时间戳），并不能实际的保存数据，因此我们需要添加模型Entry</p>
+<p><strong>关系：每个条目都会与特定的主题相关联，即多对一的关系。</strong></p>
+<p>修改之后的代码如下图所示：</p>
+<pre><code>(ll_env) wxh@wxh-virtual-machine:/opt/learning_logs$ sudo vim models.py
+
+from django.db import models
+
+class Topic(models.Model):
+    &quot;&quot;&quot;用户学习的主题&quot;&quot;&quot;
+    text = models.CharField(max_length=200)
+    date_added = models.DateTimeField(auto_now_add=True)
+
+class Entry(models.Model):
+    &quot;&quot;&quot;学到的有关某个主题的具体知识&quot;&quot;&quot;
+    topic = models.ForeignKey(Topic)
+    text = models.CharField()
+        date_added = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name_plural = &apos;entries&apos;
+
+
+    def __str__(self):                            
+        &quot;&quot;&quot;返回模型的字符串表示&quot;&quot;&quot;                
+        return self.text[:50] + &quot;...&quot;
+</code></pre><p>像Topic一样， Entry也继承了Django基类Model。</p>
+<p>第一个属性topic是一个ForeignKey实例。外键是一个数据库术语，它引用了数据库中的另一条记录；这些代码将每个条目关联到特定的主题。每个主题创建时，都给它分配了一个键（或ID）。需要在两项数据之间建立联系时，Django使用与每项信息相关联的键。稍后我们将根据这些联系获取与特定主题相关联的所有条目。</p>
+<p>接下来是属性text，它是一个TextField实例（见）。这种字段不需要长度限制，因为我们不想限制条目的长度。</p>
+<p>属性date_added让我们能够按创建顺序呈现条目，并在每个条目旁边放置时间戳。</p>
+<p>我们在Entry类中嵌套了Meta类。 </p>
+<p>Meta存储用于管理模型的额外信息，在这里，它让我们能够设置一个特殊属性，让Django在需要时使用Entries来表示多个条目。如果没有这个类，Django将使用Entrys来表示多个条目。</p>
+<p>最后，方法<strong>str</strong>()告诉Django，呈现条目时应显示哪些信息。由于条目包含的文本可能很长，我们让Django只显示text的前50个字符（见）。我们还添加了一个省略号，指出显示的并非整个条目。</p>
+<h3 id="迁移模型Entry"><a href="#迁移模型Entry" class="headerlink" title="迁移模型Entry"></a>迁移模型Entry</h3><p>由于我们添加了一个新模型，因此需要再次迁移数据库</p>
+<p>命令及输出如下所示：</p>
 
       
     </div>
@@ -781,7 +895,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#环境准备"><span class="nav-number">1.</span> <span class="nav-text">环境准备</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#创建激活虚拟环境"><span class="nav-number">1.1.</span> <span class="nav-text">创建激活虚拟环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装django"><span class="nav-number">1.2.</span> <span class="nav-text">安装django</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置django"><span class="nav-number">1.3.</span> <span class="nav-text">配置django</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建项目："><span class="nav-number">1.3.1.</span> <span class="nav-text">创建项目：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建数据库"><span class="nav-number">1.3.2.</span> <span class="nav-text">创建数据库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#启动-停止项目"><span class="nav-number">1.3.3.</span> <span class="nav-text">启动/停止项目</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建应用程序"><span class="nav-number">1.4.</span> <span class="nav-text">创建应用程序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#定义模型"><span class="nav-number">1.4.1.</span> <span class="nav-text">定义模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#激活模型"><span class="nav-number">1.4.2.</span> <span class="nav-text">激活模型</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#环境准备"><span class="nav-number">1.</span> <span class="nav-text">环境准备</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#创建激活虚拟环境"><span class="nav-number">1.1.</span> <span class="nav-text">创建激活虚拟环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装django"><span class="nav-number">1.2.</span> <span class="nav-text">安装django</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置django"><span class="nav-number">1.3.</span> <span class="nav-text">配置django</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建项目："><span class="nav-number">1.3.1.</span> <span class="nav-text">创建项目：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建数据库"><span class="nav-number">1.3.2.</span> <span class="nav-text">创建数据库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#启动-停止项目"><span class="nav-number">1.3.3.</span> <span class="nav-text">启动/停止项目</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建应用程序"><span class="nav-number">1.4.</span> <span class="nav-text">创建应用程序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#定义模型"><span class="nav-number">1.4.1.</span> <span class="nav-text">定义模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#激活模型"><span class="nav-number">1.4.2.</span> <span class="nav-text">激活模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#django管理网站"><span class="nav-number">1.4.3.</span> <span class="nav-text">django管理网站</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#创建超级用户"><span class="nav-number">1.4.3.1.</span> <span class="nav-text">创建超级用户</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#向管理网站注册模型"><span class="nav-number">1.4.3.2.</span> <span class="nav-text">向管理网站注册模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#添加主题"><span class="nav-number">1.4.3.3.</span> <span class="nav-text">添加主题</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#定义模型Entry"><span class="nav-number">1.4.4.</span> <span class="nav-text">定义模型Entry</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#迁移模型Entry"><span class="nav-number">1.4.5.</span> <span class="nav-text">迁移模型Entry</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
