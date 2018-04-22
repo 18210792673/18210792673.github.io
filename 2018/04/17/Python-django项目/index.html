@@ -89,10 +89,12 @@
 <meta property="og:site_name" content="Watchmen1992&#39;s Blog">
 <meta property="og:description" content="《Python编程从入门到实践》-Django入门">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://picture.watchmen.xin/python-django/project.png">
 <meta property="og:updated_time" content="2018-04-17T12:07:03.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Python-django项目">
 <meta name="twitter:description" content="《Python编程从入门到实践》-Django入门">
+<meta name="twitter:image" content="http://picture.watchmen.xin/python-django/project.png">
 
 
 
@@ -438,19 +440,65 @@
       
         <p><strong>基础环境：</strong></p>
 <ul>
-<li>Python3系列（针对环境变量做好软链接）</li>
-<li>依赖关系（python3-venv）</li>
+<li>Python3系列（针对环境变量做好软链接，将python3链接为python）<ul>
+<li>sudo apt-get -y install python3</li>
+<li>ln -s /usr/bin/python3 /usr/bin/python</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>pip3(pip2不支持Python3.x，因此我们要安装pip来支持python3)<ul>
+<li>sudo apt-get install python3-pip</li>
+<li>ln -s /usr/bin/pip3 /usr/bin/pip</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>依赖关系（python3-venv）<ul>
+<li>sudo apt-get -y install python3-venv</li>
+</ul>
+</li>
 </ul>
 <h1 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h1><h2 id="创建激活虚拟环境"><a href="#创建激活虚拟环境" class="headerlink" title="创建激活虚拟环境"></a>创建激活虚拟环境</h2><p>要使用django，首先需要建立一个虚拟工作环境。虚拟环境是系统的一个位置，你可以在其中安装包，并将其与其他python包隔离。将项目的库与其他项目分离是有益的。</p>
-<pre><code>创建虚拟环境
-wxh@wxh-virtual-machine:/opt$ source ll_env/bin/activate
+<pre><code>创建虚拟环境：
+wxh@wxh-virtual-machine:/opt$ python -m venv ll_env
 
 激活虚拟环境
 (ll_env) wxh@wxh-virtual-machine:/opt$ source ll_env/bin/activate
 
 停止虚拟环境
 (ll_env) wxh@wxh-virtual-machine:/opt$ deactivate 
-</code></pre><h2 id="安装django"><a href="#安装django" class="headerlink" title="安装django"></a>安装django</h2>
+</code></pre><h2 id="安装django"><a href="#安装django" class="headerlink" title="安装django"></a>安装django</h2><p>安装django(python3之后对应的django版本为1.8.1，因此在安装的时候需要额外注意)：</p>
+<pre><code>(ll_env) wxh@wxh-virtual-machine:/opt$ pip install Django
+</code></pre><h2 id="配置django"><a href="#配置django" class="headerlink" title="配置django"></a>配置django</h2><h3 id="创建项目："><a href="#创建项目：" class="headerlink" title="创建项目："></a>创建项目：</h3><pre><code>(ll_env) wxh@wxh-virtual-machine:/opt$ sudo django-admin.py  startproject learning_log .
+</code></pre><p>创建完毕之后的目录结构如下所示：</p>
+<p><img src="http://picture.watchmen.xin/python-django/project.png" alt="目录"></p>
+<p>注意事项：</p>
+<ul>
+<li>命令末尾有有一个句点的存在，如果遗忘，可能出现一些问题。</li>
+</ul>
+<ul>
+<li><code>manage.py文件</code>是一个简单的程序，它接受命令并将其交给django的相关部分去运行，我们将会使用这些命令来管理诸如使用数据库和运行服务器等任务</li>
+</ul>
+<ul>
+<li>目录learning_log有4个文件，其中最重要的的是setting.py、urls.py、wsgi.py。</li>
+</ul>
+<ul>
+<li>setting.py指定django如何与系统交互以及如何管理项目。在开发项目的过程中，我们将修改其中的一些设置，并添加一些设置。</li>
+</ul>
+<ul>
+<li>urls.py告诉django应该创建哪些网页来响应浏览器请求。</li>
+</ul>
+<ul>
+<li><p>wsgi.py帮助django提供它创建的文件。（web server gateway interface）web服务器网关接口的缩写</p>
+</li>
+<li><p><strong><font color="red">在一个目录下，只能创建一个django项目，因为一个目录下不允许存在2个manage.py</font></strong></p>
+</li>
+</ul>
+<h3 id="创建数据库"><a href="#创建数据库" class="headerlink" title="创建数据库"></a>创建数据库</h3><p>django将大部分与项目有关的信息都存储在数据库中，因此我们需要创建一个供django使用的数据库。为给项目“学习笔记”创建数据库，在处于活动虚拟环境中的情况下执行下面的命令：</p>
+<pre><code>(ll_env) wxh@wxh-virtual-machine:/opt$ sudo python manage.py migrate
+</code></pre><h3 id="启动-停止项目"><a href="#启动-停止项目" class="headerlink" title="启动/停止项目"></a>启动/停止项目</h3><p>核实django项目是否正确的创建，执行下面的命令启动：</p>
+
       
     </div>
     
@@ -633,7 +681,7 @@ var jiathis_config={
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">36</span>
+                  <span class="site-state-item-count">39</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -644,7 +692,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">55</span>
+                  <span class="site-state-item-count">62</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -655,7 +703,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">39</span>
+                  <span class="site-state-item-count">42</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -695,7 +743,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#环境准备"><span class="nav-number">1.</span> <span class="nav-text">环境准备</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#创建激活虚拟环境"><span class="nav-number">1.1.</span> <span class="nav-text">创建激活虚拟环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装django"><span class="nav-number">1.2.</span> <span class="nav-text">安装django</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#环境准备"><span class="nav-number">1.</span> <span class="nav-text">环境准备</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#创建激活虚拟环境"><span class="nav-number">1.1.</span> <span class="nav-text">创建激活虚拟环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装django"><span class="nav-number">1.2.</span> <span class="nav-text">安装django</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置django"><span class="nav-number">1.3.</span> <span class="nav-text">配置django</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建项目："><span class="nav-number">1.3.1.</span> <span class="nav-text">创建项目：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建数据库"><span class="nav-number">1.3.2.</span> <span class="nav-text">创建数据库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#启动-停止项目"><span class="nav-number">1.3.3.</span> <span class="nav-text">启动/停止项目</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>

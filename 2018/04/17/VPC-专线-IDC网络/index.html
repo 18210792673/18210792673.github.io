@@ -89,10 +89,13 @@
 <meta property="og:site_name" content="Watchmen1992&#39;s Blog">
 <meta property="og:description" content="VPC+专线+IDC网络相关知识记录">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://picture.watchmen.xin/vpc/VswitchandVrouter.png">
+<meta property="og:image" content="http://picture.watchmen.xin/vpc/架构图.png">
 <meta property="og:updated_time" content="2018-04-17T05:57:23.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="VPC+专线+IDC网络">
 <meta name="twitter:description" content="VPC+专线+IDC网络相关知识记录">
+<meta name="twitter:image" content="http://picture.watchmen.xin/vpc/VswitchandVrouter.png">
 
 
 
@@ -447,7 +450,75 @@
       
 
       
-        
+        <p>#<font color="red">VPC</font></p>
+<p>专有网络VPC（Virtual Private Cloud）是基于阿里云构建的一个隔离的网络环境。</p>
+<p>每个专有网络（也就是每个VPC）之间逻辑上彻底隔离。</p>
+<p>专有网络是独有的的云上私有网络。用户可以完全掌控自己的专有网络，例如选择IP地址范围、配置路由表和网关等，可以在自己定义的专有网络中使用阿里云资源如ECS、RDS、SLB等。</p>
+<p>可以将专有网络连接到其他专有网络，或本地网络（这里的本地网络包括IDC和公司内部机房），形成一个按需定制的网络环境，实现应用的平滑迁移上云和对数据中心的扩展。</p>
+<h2 id="VPC中的路由器和交换机"><a href="#VPC中的路由器和交换机" class="headerlink" title="VPC中的路由器和交换机"></a>VPC中的路由器和交换机</h2><p>一个专有网络是一个大网段，例如：192.168.0.0/16<br>每一个可用区是其中的子网，例如可用区A的网段：192.168.1.0/24</p>
+<ul>
+<li>在当前的环境下，可以划分出来2^8=256个可用区（可用的为256个，0-255，剔除了256）</li>
+</ul>
+<ul>
+<li>每一个可用区的可用主机数量为：2^8=256个（可用的为254个，1-255，剔除了0和256)</li>
+</ul>
+<p>一个交换机连接的是一个可用区（也就是一个子网），路由器连接的是每个可用区，对外的网段是VPC的网段。</p>
+<p>如下图所示：</p>
+<p><img src="http://picture.watchmen.xin/vpc/VswitchandVrouter.png" alt="路由器和交换机"></p>
+<p>路由器（VRouter）是专有网络的枢纽。<br>作为专有网络中重要的功能组件，它可以连接VPC内的各个交换机，同时也是连接VPC和其他网络的网关设备。<br><strong>每个专有网络创建成功后，系统会自动创建一个路由器。每个路由器关联一张路由表。</strong></p>
+<p>交换机（VSwitch）是组成专有网络的基础网络设备，用来连接不同的云产品实例。<br>创建专有网络之后，您可以通过创建交换机为专有网络划分一个或多个子网。<br>同一专有网络内的不同交换机之间内网互通。您可以将应用部署在不同可用区的交换机内，提高应用的可用性。</p>
+<p><strong>VPC可以使用的私网地址范围：</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">网段</th>
+<th style="text-align:center">可用私网IP数量 （不包括系统保留）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">192.168.0.0/16</td>
+<td style="text-align:center">65532</td>
+</tr>
+<tr>
+<td style="text-align:center">172.16.0.0/12</td>
+<td style="text-align:center">1048572</td>
+</tr>
+<tr>
+<td style="text-align:center">10.0.0.0/8</td>
+<td style="text-align:center">16777212</td>
+</tr>
+</tbody>
+</table>
+<p>交换机的网段不能和所属的专有网络的网段重叠，可以是其子集或者相同，<code>网段大小在16位网络掩码与29位网络掩码之间</code>。</p>
+<p>注意：VPC的私网地址范围和我们实际认知的有所差异</p>
+<p>在创建VPC时，系统会自动添加一条目标网段为100.64.0.0/10的<code>系统路由</code>用于VPC内的云产品通信。</p>
+<p><strong>问题：不同可用区之间通信是直接到达还是需要路由？</strong></p>
+<p>我们也可以通过抓包来进行分析</p>
+<font color="red">总结：</font>
+
+<ul>
+<li>一个VPC有且只会分配一个路由器</li>
+<li>该路由器会关联一张路由表（其中包括不可更改的系统路由，用于VPC内部通信）</li>
+</ul>
+<h2 id="实现原理"><a href="#实现原理" class="headerlink" title="实现原理"></a>实现原理</h2><p>每个VPC都有一个独立的隧道号，一个隧道号对应着一个虚拟化网络。</p>
+<p>一个VPC内的ECS（Elastic Compute Service）实例之间的传输数据包都会加上隧道封装，带有唯一的隧道ID标识，然后送到物理网络上进行传输。</p>
+<p>不同VPC内的ECS实例因为所在的隧道ID不同，本身处于两个不同的路由平面，所以不同VPC内的ECS实例无法进行通信，天然地进行了隔离。</p>
+<p>基于隧道技术和软件定义网络（Software Defined Network，简称SDN）技术，阿里云的研发在硬件网关和自研交换机设备的基础上实现了VPC产品。</p>
+<p>以下是VPC实现的逻辑架构：</p>
+<p>VPC包含<strong>交换机、网关和控制器</strong>三个重要的组件。</p>
+<p><img src="http://picture.watchmen.xin/vpc/架构图.png" alt="实现原理"></p>
+<h2 id="VPC通信"><a href="#VPC通信" class="headerlink" title="VPC通信"></a>VPC通信</h2><ul>
+<li><p>VPC与VPC通信</p>
+</li>
+<li><p>VPC与经典网络通信</p>
+</li>
+<li><p>VPC与Internet通信</p>
+</li>
+<li><p>VPC与本地IDC通信</p>
+</li>
+</ul>
+
       
     </div>
     
@@ -605,8 +676,17 @@ var jiathis_config={
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -625,7 +705,7 @@ var jiathis_config={
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">36</span>
+                  <span class="site-state-item-count">39</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -636,7 +716,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">55</span>
+                  <span class="site-state-item-count">62</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -647,7 +727,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">39</span>
+                  <span class="site-state-item-count">42</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -677,6 +757,22 @@ var jiathis_config={
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#VPC中的路由器和交换机"><span class="nav-number">1.</span> <span class="nav-text">VPC中的路由器和交换机</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现原理"><span class="nav-number">2.</span> <span class="nav-text">实现原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#VPC通信"><span class="nav-number">3.</span> <span class="nav-text">VPC通信</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       

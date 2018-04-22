@@ -376,8 +376,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/IT科学技术知识体系结构-Linux运维方向/" itemprop="url" rel="index">
-                    <span itemprop="name">IT科学技术知识体系结构-Linux运维方向</span>
+                  <a href="/categories/IT科学技术知识体系结构-Linu/" itemprop="url" rel="index">
+                    <span itemprop="name">IT科学技术知识体系结构-Linu</span>
                   </a>
                 </span>
 
@@ -387,7 +387,18 @@
                 
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/IT科学技术知识体系结构-Linux运维方向/大数据/" itemprop="url" rel="index">
+                  <a href="/categories/IT科学技术知识体系结构-Linu/x运维方向/" itemprop="url" rel="index">
+                    <span itemprop="name">x运维方向</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/IT科学技术知识体系结构-Linu/x运维方向/大数据/" itemprop="url" rel="index">
                     <span itemprop="name">大数据</span>
                   </a>
                 </span>
@@ -398,7 +409,7 @@
                 
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/IT科学技术知识体系结构-Linux运维方向/大数据/大数据相关组件/" itemprop="url" rel="index">
+                  <a href="/categories/IT科学技术知识体系结构-Linu/x运维方向/大数据/大数据相关组件/" itemprop="url" rel="index">
                     <span itemprop="name">大数据相关组件</span>
                   </a>
                 </span>
@@ -409,7 +420,7 @@
                 
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/IT科学技术知识体系结构-Linux运维方向/大数据/大数据相关组件/Filebeat/" itemprop="url" rel="index">
+                  <a href="/categories/IT科学技术知识体系结构-Linu/x运维方向/大数据/大数据相关组件/Filebeat/" itemprop="url" rel="index">
                     <span itemprop="name">Filebeat</span>
                   </a>
                 </span>
@@ -554,6 +565,8 @@
 
 rpm -vih filebeat-6.2.3-x86_64.rpm
 </code></pre><h3 id="2-2-启动"><a href="#2-2-启动" class="headerlink" title="2.2 启动"></a>2.2 启动</h3><pre><code>service filebeat start
+
+./filebeat -e -c ./bigdata.yml
 </code></pre><h3 id="2-3-命令"><a href="#2-3-命令" class="headerlink" title="2.3 命令"></a>2.3 命令</h3><p>主要提供了8个命令API</p>
 <pre><code>[root@master ~]# filebeat --help
 Usage:
@@ -615,7 +628,13 @@ Use &quot;filebeat [command] --help&quot; for more information about a command.
 - Template                    【ES模板配置】
 - Kibana
 - Logging
-- Xpack Monitoring            【xpack监控】
+- X
+- 
+- 
+-  Monitoring            【x
+-  
+-  
+-  监控】
 - HTTP Endpoint
 </code></pre><p>让我们来配置filebeat：</p>
 <h4 id="modules模块设置"><a href="#modules模块设置" class="headerlink" title="modules模块设置"></a>modules模块设置</h4><p>filebeat的模块实现了快速部署的方式。该部分的设置是可选的，你可以选择在后面自己定义prospectors设置相关设置。<br>可以通过以下3种方式开启modules</p>
@@ -629,7 +648,39 @@ Use &quot;filebeat [command] --help&quot; for more information about a command.
 <li>Enable module configs in the filebeat.yml file</li>
 </ul>
 <p>使用了模块之后，仍然可以指定变量设置来覆盖模块中的定义【最小局部生效】。并且，可以使用高级设置来覆盖prospector中的相关设置</p>
-<h4 id="prospectors设置"><a href="#prospectors设置" class="headerlink" title="prospectors设置"></a>prospectors设置</h4><p>对于大多数的基本filebeat配置，你可以定义一个单一探测器针对一个单一的路径，例如：</p>
+<p>模块命令：</p>
+<p><strong>第一种方式：</strong></p>
+<pre><code>./filebeat modules enable apache2 mysql    开启modules.d下的指定模块
+./filebeat modules list        查看启动的模块情况
+</code></pre><p><strong>第二种方式：</strong></p>
+<pre><code>./filebeat -e --modules nginx,mysql,system    在启动filebeat的时候启动模块
+</code></pre><p><strong>第三种方式：</strong></p>
+<pre><code>filebeat.modules:
+- module: nginx
+- module: mysql
+- module: system
+</code></pre><p><strong>模块的高级设置：</strong></p>
+<p>能够覆盖prospector中的设置</p>
+<p>Behind the scenes, each module starts a Filebeat prospector. Advanced users can add or override any prospector settings. For example, you can set close_eof to true in the module configuration:</p>
+<pre><code>- module: nginx
+  access:
+    prospector:
+      close_eof: true
+</code></pre><p>Or at the command line like this:</p>
+<pre><code>./filebeat -M &quot;nginx.access.prospector.close_eof=true&quot;
+</code></pre><p>Here you see how to use the -M flag along with the –modules flag:</p>
+<pre><code>./filebeat --modules nginx -M &quot;nginx.access.prospector.close_eof=true&quot;
+</code></pre><p>You can use wildcards to change variables or settings for multiple modules/filesets at once. For example, the following command enables close_eof for all the filesets in the nginx module:</p>
+<pre><code>./filebeat -M &quot;nginx.*.prospector.close_eof=true&quot;
+</code></pre><p>The following command enables close_eof for all prospectors created by any of the modules:</p>
+<pre><code>./filebeat -M &quot;*.*.prospector.close_eof=true&quot;
+</code></pre><h4 id="Filebeat-global-options-设置"><a href="#Filebeat-global-options-设置" class="headerlink" title="Filebeat global options 设置"></a>Filebeat global options 设置</h4><p>这部分可以设置filebeat自动去探测检测文件</p>
+<pre><code>filebeat.config.prospectors:
+  enabled: true
+  path: configs/*.yml
+  reload.enabled: true
+  reload.period: 10s
+</code></pre><h4 id="prospectors设置"><a href="#prospectors设置" class="headerlink" title="prospectors设置"></a>prospectors设置</h4><p>对于大多数的基本filebeat配置，你可以定义一个单一探测器针对一个单一的路径，例如：</p>
 <pre><code>filebeat.prospectors:
 
 - input_type: log
@@ -684,7 +735,37 @@ setup.kibana：
   host：“localhost：5601”
 </code></pre><p>在配置之前请确保kibana已经处于运行状态，然后执行如下命令</p>
 <pre><code>filebeat setup --dashboards
-</code></pre>
+</code></pre><h4 id="多行日志处理"><a href="#多行日志处理" class="headerlink" title="多行日志处理"></a>多行日志处理</h4><p><strong>处理多行日志，主要包括JAVA的堆栈内存，程序语言的类似\换行功能，时间戳引导的一段日志，应用指定的start–end等日志段</strong></p>
+<p>默认情况下JAVA堆栈日志是有多行组成的，例如：</p>
+<pre><code>Exception in thread &quot;main&quot; java.lang.NullPointerException
+    at com.example.myproject.Book.getTitle(Book.java:16)
+    at com.example.myproject.Author.getBookTitles(Author.java:25)
+    at com.example.myproject.Bootstrap.main(Bootstrap.java:14)
+</code></pre><p>因此在filebeat中要把这些多行的日志组合成为一个event。这就需要以下的配置：</p>
+<pre><code>multiline.pattern: &apos;^[[:space:]]&apos;
+multiline.negate: false
+multiline.match: after
+</code></pre><p><strong>This configuration merges any line that begins with whitespace up to the previous line.</strong></p>
+<p>如果还涉及到更复杂的JAVA堆栈日志格式，例如：</p>
+<pre><code>Exception in thread &quot;main&quot; java.lang.IllegalStateException: A book has a null property
+       at com.example.myproject.Author.getBookIds(Author.java:38)
+       at com.example.myproject.Bootstrap.main(Bootstrap.java:14)
+Caused by: java.lang.NullPointerException
+       at com.example.myproject.Book.getId(Book.java:22)
+       at com.example.myproject.Author.getBookIds(Author.java:35)
+       ... 1 more
+</code></pre><p>那么需要如下的配置：</p>
+<pre><code>multiline.pattern: &apos;^[[:space:]]+(at|\.{3})\b|^Caused by:&apos;
+multiline.negate: false
+multiline.match: after
+</code></pre><p>In this example, the pattern matches the following lines:</p>
+<ul>
+<li>a line that begins with spaces followed by the word at or …</li>
+</ul>
+<ul>
+<li>a line that begins with the words Caused by:</li>
+</ul>
+
       
     </div>
     
@@ -867,7 +948,7 @@ var jiathis_config={
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">36</span>
+                  <span class="site-state-item-count">39</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -878,7 +959,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">55</span>
+                  <span class="site-state-item-count">62</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -889,7 +970,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">39</span>
+                  <span class="site-state-item-count">42</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -929,7 +1010,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Filebeat基础知识"><span class="nav-number">1.</span> <span class="nav-text">1. Filebeat基础知识</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-What-is-harvester"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 What is harvester?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-What-is-prospector"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 What is prospector?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-How-does-Filebeat-keep-the-state-of-files"><span class="nav-number">1.3.</span> <span class="nav-text">1.3 How does Filebeat keep the state of files</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-how-does-Filebeat-ensure-at-least-once-delivery"><span class="nav-number">1.4.</span> <span class="nav-text">1.4 how does Filebeat ensure at-least-once delivery?</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Filebeat安装部署配置启动"><span class="nav-number">2.</span> <span class="nav-text">2. Filebeat安装部署配置启动</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-安装"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-启动"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 启动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-命令"><span class="nav-number">2.3.</span> <span class="nav-text">2.3 命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-编辑配置文件"><span class="nav-number">2.4.</span> <span class="nav-text">2.4 编辑配置文件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#modules模块设置"><span class="nav-number">2.4.1.</span> <span class="nav-text">modules模块设置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#prospectors设置"><span class="nav-number">2.4.2.</span> <span class="nav-text">prospectors设置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Outputs设置"><span class="nav-number">2.4.3.</span> <span class="nav-text">Outputs设置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Template设置"><span class="nav-number">2.4.4.</span> <span class="nav-text">Template设置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Kibana设置"><span class="nav-number">2.4.5.</span> <span class="nav-text">Kibana设置</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Filebeat基础知识"><span class="nav-number">1.</span> <span class="nav-text">1. Filebeat基础知识</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-What-is-harvester"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 What is harvester?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-What-is-prospector"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 What is prospector?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-How-does-Filebeat-keep-the-state-of-files"><span class="nav-number">1.3.</span> <span class="nav-text">1.3 How does Filebeat keep the state of files</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-how-does-Filebeat-ensure-at-least-once-delivery"><span class="nav-number">1.4.</span> <span class="nav-text">1.4 how does Filebeat ensure at-least-once delivery?</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Filebeat安装部署配置启动"><span class="nav-number">2.</span> <span class="nav-text">2. Filebeat安装部署配置启动</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-安装"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-启动"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 启动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-命令"><span class="nav-number">2.3.</span> <span class="nav-text">2.3 命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-编辑配置文件"><span class="nav-number">2.4.</span> <span class="nav-text">2.4 编辑配置文件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#modules模块设置"><span class="nav-number">2.4.1.</span> <span class="nav-text">modules模块设置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Filebeat-global-options-设置"><span class="nav-number">2.4.2.</span> <span class="nav-text">Filebeat global options 设置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#prospectors设置"><span class="nav-number">2.4.3.</span> <span class="nav-text">prospectors设置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Outputs设置"><span class="nav-number">2.4.4.</span> <span class="nav-text">Outputs设置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Template设置"><span class="nav-number">2.4.5.</span> <span class="nav-text">Template设置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Kibana设置"><span class="nav-number">2.4.6.</span> <span class="nav-text">Kibana设置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#多行日志处理"><span class="nav-number">2.4.7.</span> <span class="nav-text">多行日志处理</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
