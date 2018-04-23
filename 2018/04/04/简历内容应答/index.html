@@ -960,6 +960,8 @@ Network Access
 <p>MaxPermSize缺省值和-server -client选项相关。<br>-server选项下默认MaxPermSize为64m。 -client选项下默认MaxPermSize为32m </p>
 </blockquote>
 <p>设置-Xms、-Xmx 相等以避免在每次GC 后调整堆的大小</p>
+<p>在jdk1.8之前之前我们将储存类信息、常量、静态变量的方法区称为持久代(Permanent Generation)，PermSize和MaxPermSize是设置持久代大小的参数，在jdk1.8中持久代被完全移除了，所以这两个参数也被移除了，多了一个元数据区(Metadata Space)，所以设置元数据区大小的参数也变成对应的MetaspaceSize和MaxMetaspaceSize了</p>
+<p>-XX:PermSize和-XX:MaxPermSize在jdk1.8中使用-XX:MetaspaceSize和-XX:MaxMetaspaceSize替代了<br>现在能兼容正常启动，没有产生影响，知悉。</p>
 <h2 id="云产品"><a href="#云产品" class="headerlink" title="云产品"></a>云产品</h2><p>说起阿里云，这期间还发生了一个人为事故。<br>当初京东金融本来是通过我们的平台发送的，但是它要我们给他拉专线直接连接运营商。<br>但是这边没有给他拉，而是买了一台阿里云服务器，暴露出一个公网IP地址让它连接，在这台服务器上面部署HAproxy，还是调整到我们的平台。【上边领导们的决定，我就不评论是非对错了 哈哈】</p>
 <p>然后有一天，突然HAProxy的web监测报警，页面打不开。马上上服务器看，CPU爆了【买的服务器配置一般】<br>检查进程。内存正常，磁盘正常，CPU爆了，然后再查看网络连接，发现有大量的CLOSE_WAIT（400个close_wait;100多个establish）</p>
 <blockquote>
@@ -1199,7 +1201,7 @@ var jiathis_config={
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">40</span>
+                  <span class="site-state-item-count">41</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1221,7 +1223,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">43</span>
+                  <span class="site-state-item-count">44</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
