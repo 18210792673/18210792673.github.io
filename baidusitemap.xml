@@ -4,6 +4,29 @@
 
     
   <url>
+    <loc>http://yoursite.com/2018/04/25/HTML/</loc>
+    <lastmod>2018-04-25T15:45:50.000Z</lastmod>
+    <data>
+        <display>
+        <title>HTML</title>
+        <pubTime>2018-04-25T15:45:50.000Z</pubTime>
+        
+        <tag>HTML</tag>
+         
+         
+           
+             
+              <breadCrumb title="编程语言" url="http://yoursite.com/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/"/>
+          
+             
+              <breadCrumb title="HTML" url="http://yoursite.com/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/HTML/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://yoursite.com/2018/04/25/disconf/</loc>
     <lastmod>2018-04-25T08:15:14.000Z</lastmod>
     <data>
@@ -114,10 +137,10 @@
               <breadCrumb title="个人知识体系" url="http://yoursite.com/categories/%E4%B8%AA%E4%BA%BA%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/"/>
           
              
-              <breadCrumb title="及简身体之道" url="http://yoursite.com/categories/%E4%B8%AA%E4%BA%BA%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/%E5%8F%8A%E7%AE%80%E8%BA%AB%E4%BD%93%E4%B9%8B%E9%81%93/"/>
+              <breadCrumb title="极简身体之道" url="http://yoursite.com/categories/%E4%B8%AA%E4%BA%BA%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/%E6%9E%81%E7%AE%80%E8%BA%AB%E4%BD%93%E4%B9%8B%E9%81%93/"/>
           
              
-              <breadCrumb title="湿气" url="http://yoursite.com/categories/%E4%B8%AA%E4%BA%BA%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/%E5%8F%8A%E7%AE%80%E8%BA%AB%E4%BD%93%E4%B9%8B%E9%81%93/%E6%B9%BF%E6%B0%94/"/>
+              <breadCrumb title="湿气" url="http://yoursite.com/categories/%E4%B8%AA%E4%BA%BA%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/%E6%9E%81%E7%AE%80%E8%BA%AB%E4%BD%93%E4%B9%8B%E9%81%93/%E6%B9%BF%E6%B0%94/"/>
           
         </display>
     </data>
@@ -1032,29 +1055,6 @@
 
     
   <url>
-    <loc>http://yoursite.com/2018/01/25/Markdown%E8%AF%AD%E6%B3%95/</loc>
-    <lastmod>2018-02-04T08:31:24.000Z</lastmod>
-    <data>
-        <display>
-        <title>Markdown语法</title>
-        <pubTime>2018-01-25T14:08:24.000Z</pubTime>
-        
-        <tag>markdown</tag>
-         
-         
-           
-             
-              <breadCrumb title="常用软件工具" url="http://yoursite.com/categories/%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6%E5%B7%A5%E5%85%B7/"/>
-          
-             
-              <breadCrumb title="Markdown" url="http://yoursite.com/categories/%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6%E5%B7%A5%E5%85%B7/Markdown/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>http://yoursite.com/2018/01/23/hello-world/</loc>
     <lastmod>2018-02-04T08:31:24.000Z</lastmod>
     <data>
@@ -1074,6 +1074,29 @@
           
              
               <breadCrumb title="Hexo" url="http://yoursite.com/categories/%E4%B8%AA%E4%BA%BA%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/Hexo/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://yoursite.com/2018/01/25/Markdown%E8%AF%AD%E6%B3%95/</loc>
+    <lastmod>2018-02-04T08:31:24.000Z</lastmod>
+    <data>
+        <display>
+        <title>Markdown语法</title>
+        <pubTime>2018-01-25T14:08:24.000Z</pubTime>
+        
+        <tag>markdown</tag>
+         
+         
+           
+             
+              <breadCrumb title="常用软件工具" url="http://yoursite.com/categories/%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6%E5%B7%A5%E5%85%B7/"/>
+          
+             
+              <breadCrumb title="Markdown" url="http://yoursite.com/categories/%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6%E5%B7%A5%E5%85%B7/Markdown/"/>
           
         </display>
     </data>
