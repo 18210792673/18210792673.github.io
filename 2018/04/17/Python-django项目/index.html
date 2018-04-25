@@ -94,6 +94,8 @@
 <meta property="og:image" content="http://picture.watchmen.xin/python-django/addapps.png">
 <meta property="og:image" content="http://picture.watchmen.xin/python-django/login.png">
 <meta property="og:image" content="http://picture.watchmen.xin/python-django/addtopic.png">
+<meta property="og:image" content="http://picture.watchmen.xin/python-django/entry.png">
+<meta property="og:image" content="http://picture.watchmen.xin/python-django/chess.png">
 <meta property="og:updated_time" content="2018-04-17T12:07:03.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Python-django项目">
@@ -628,10 +630,15 @@ class Topic(models.Model):
     text = models.CharField(max_length=200)
     date_added = models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        &quot;&quot;&quot;返回模型的字符串表示&quot;&quot;&quot;
+        return self.text
+
+
 class Entry(models.Model):
     &quot;&quot;&quot;学到的有关某个主题的具体知识&quot;&quot;&quot;
-    topic = models.ForeignKey(Topic)
-    text = models.CharField()
+    topic = models.ForeignKey(Topic,on_delete=models.CASCADE)
+    text = models.TextField()
         date_added = models.DateTimeField(auto_now_add=True)
 
     class Meta:
@@ -649,8 +656,40 @@ class Entry(models.Model):
 <p>Meta存储用于管理模型的额外信息，在这里，它让我们能够设置一个特殊属性，让Django在需要时使用Entries来表示多个条目。如果没有这个类，Django将使用Entrys来表示多个条目。</p>
 <p>最后，方法<strong>str</strong>()告诉Django，呈现条目时应显示哪些信息。由于条目包含的文本可能很长，我们让Django只显示text的前50个字符（见）。我们还添加了一个省略号，指出显示的并非整个条目。</p>
 <h3 id="迁移模型Entry"><a href="#迁移模型Entry" class="headerlink" title="迁移模型Entry"></a>迁移模型Entry</h3><p>由于我们添加了一个新模型，因此需要再次迁移数据库</p>
+<p>步骤：</p>
+<ul>
+<li>修改models.py</li>
+<li>makemigrations参数</li>
+<li>mkigrate参数</li>
+</ul>
 <p>命令及输出如下所示：</p>
+<pre><code>(ll_env) wxh@wxh-virtual-machine:/opt$ sudo python  manage.py  makemigrations learning_logs
+Migrations for &apos;learning_logs&apos;:
+  learning_logs/migrations/0002_entry.py
+    - Create model Entry
 
+(ll_env) wxh@wxh-virtual-machine:/opt$ sudo python manage.py migrate
+Operations to perform:
+  Apply all migrations: admin, auth, contenttypes, learning_logs, sessions
+Running migrations:
+  Applying learning_logs.0002_entry... OK
+</code></pre><p>生成了一个新的迁移文件0002_entry.py，它告诉django如何修改数据库，使其能够存储与模型Entry相关的信息。</p>
+<p>执行命令migrate，我们发现django应用了这种迁移且一切顺利。</p>
+<h3 id="向管理网站注册Entry"><a href="#向管理网站注册Entry" class="headerlink" title="向管理网站注册Entry"></a>向管理网站注册Entry</h3><p>首先需要修改admin.py</p>
+<pre><code>(ll_env) wxh@wxh-virtual-machine:/opt/learning_logs$ sudo vim admin.py
+
+from django.contrib import admin
+
+from learning_logs.models import Topic,Entry
+
+admin.site.register(Topic)
+admin.site.register(Entry)
+</code></pre><p>然后刷新页面，可以看到新的内容</p>
+<p><img src="http://picture.watchmen.xin/python-django/entry.png" alt="entry"></p>
+<p>接下来，我们添加条目</p>
+<p><img src="http://picture.watchmen.xin/python-django/chess.png" alt="entry"></p>
+<p>为当前两个主题都添加相应的条目：</p>
+<h3 id="django-shell"><a href="#django-shell" class="headerlink" title="django shell"></a>django shell</h3>
       
     </div>
     
@@ -833,7 +872,7 @@ var jiathis_config={
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">41</span>
+                  <span class="site-state-item-count">43</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -844,7 +883,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">58</span>
+                  <span class="site-state-item-count">60</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -855,7 +894,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">44</span>
+                  <span class="site-state-item-count">46</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -895,7 +934,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#环境准备"><span class="nav-number">1.</span> <span class="nav-text">环境准备</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#创建激活虚拟环境"><span class="nav-number">1.1.</span> <span class="nav-text">创建激活虚拟环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装django"><span class="nav-number">1.2.</span> <span class="nav-text">安装django</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置django"><span class="nav-number">1.3.</span> <span class="nav-text">配置django</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建项目："><span class="nav-number">1.3.1.</span> <span class="nav-text">创建项目：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建数据库"><span class="nav-number">1.3.2.</span> <span class="nav-text">创建数据库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#启动-停止项目"><span class="nav-number">1.3.3.</span> <span class="nav-text">启动/停止项目</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建应用程序"><span class="nav-number">1.4.</span> <span class="nav-text">创建应用程序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#定义模型"><span class="nav-number">1.4.1.</span> <span class="nav-text">定义模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#激活模型"><span class="nav-number">1.4.2.</span> <span class="nav-text">激活模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#django管理网站"><span class="nav-number">1.4.3.</span> <span class="nav-text">django管理网站</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#创建超级用户"><span class="nav-number">1.4.3.1.</span> <span class="nav-text">创建超级用户</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#向管理网站注册模型"><span class="nav-number">1.4.3.2.</span> <span class="nav-text">向管理网站注册模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#添加主题"><span class="nav-number">1.4.3.3.</span> <span class="nav-text">添加主题</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#定义模型Entry"><span class="nav-number">1.4.4.</span> <span class="nav-text">定义模型Entry</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#迁移模型Entry"><span class="nav-number">1.4.5.</span> <span class="nav-text">迁移模型Entry</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#环境准备"><span class="nav-number">1.</span> <span class="nav-text">环境准备</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#创建激活虚拟环境"><span class="nav-number">1.1.</span> <span class="nav-text">创建激活虚拟环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装django"><span class="nav-number">1.2.</span> <span class="nav-text">安装django</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置django"><span class="nav-number">1.3.</span> <span class="nav-text">配置django</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建项目："><span class="nav-number">1.3.1.</span> <span class="nav-text">创建项目：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建数据库"><span class="nav-number">1.3.2.</span> <span class="nav-text">创建数据库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#启动-停止项目"><span class="nav-number">1.3.3.</span> <span class="nav-text">启动/停止项目</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建应用程序"><span class="nav-number">1.4.</span> <span class="nav-text">创建应用程序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#定义模型"><span class="nav-number">1.4.1.</span> <span class="nav-text">定义模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#激活模型"><span class="nav-number">1.4.2.</span> <span class="nav-text">激活模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#django管理网站"><span class="nav-number">1.4.3.</span> <span class="nav-text">django管理网站</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#创建超级用户"><span class="nav-number">1.4.3.1.</span> <span class="nav-text">创建超级用户</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#向管理网站注册模型"><span class="nav-number">1.4.3.2.</span> <span class="nav-text">向管理网站注册模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#添加主题"><span class="nav-number">1.4.3.3.</span> <span class="nav-text">添加主题</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#定义模型Entry"><span class="nav-number">1.4.4.</span> <span class="nav-text">定义模型Entry</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#迁移模型Entry"><span class="nav-number">1.4.5.</span> <span class="nav-text">迁移模型Entry</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#向管理网站注册Entry"><span class="nav-number">1.4.6.</span> <span class="nav-text">向管理网站注册Entry</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#django-shell"><span class="nav-number">1.4.7.</span> <span class="nav-text">django shell</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>

@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/2018/04/25/disconf/</loc>
+    
+    <lastmod>2018-04-25T08:15:14.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2018/04/23/python%E9%9B%B6%E7%A2%8E%E7%9F%A5%E8%AF%86%E5%8F%8A%E7%89%88%E6%9C%AC%E5%8F%98%E5%8C%96%E8%AE%B0%E5%BD%95/</loc>
+    
+    <lastmod>2018-04-23T11:34:40.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/2018/04/23/ignoring-option-PermSize-512m-support-was-removed-in-8-0/</loc>
     
     <lastmod>2018-04-23T03:47:55.000Z</lastmod>
@@ -282,14 +296,14 @@
   </url>
   
   <url>
-    <loc>http://yoursite.com/2018/01/23/hello-world/</loc>
+    <loc>http://yoursite.com/2018/01/25/Markdown%E8%AF%AD%E6%B3%95/</loc>
     
     <lastmod>2018-02-04T08:31:24.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://yoursite.com/2018/01/25/Markdown%E8%AF%AD%E6%B3%95/</loc>
+    <loc>http://yoursite.com/2018/01/23/hello-world/</loc>
     
     <lastmod>2018-02-04T08:31:24.000Z</lastmod>
     

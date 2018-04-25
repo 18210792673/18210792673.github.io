@@ -460,6 +460,14 @@
 <p>将不同的云资源部署在不同的交换机内，可以提高服务的可用性。</p>
 <p>同一个VPC内的云资源可以相互访问，不同的VPC之间通过隧道进行隔离。</p>
 <p>可以将专有网络连接到其他专有网络，或本地网络（这里的本地网络包括IDC和公司内部机房），形成一个按需定制的网络环境，实现应用的平滑迁移上云和对数据中心的扩展。【默认情况下，VPC内主机是无法与外网连接的。这里需要借助阿里云的公网介入产品，例如弹性公网IP、NAT网关、负载均衡等】</p>
+<p>VPC网络有以下特点：</p>
+<ul>
+<li>不同用户的云服务器部署在不同的专有网络里。</li>
+<li>不同专有网络之间通过隧道ID进行隔离。专有网络内部由于交换机和路由器的存在，所以可以像传统网络环境一样划分子网，每一个子网内部的不同云服务器使用同一个交换机互联，不同子网间使用路由器互联。</li>
+<li>不同专有网络之间内部网络完全隔离，只能通过对外映射的IP（弹性公网IP和NAT IP）互联。</li>
+<li>由于使用隧道封装技术对云服务器的IP报文进行封装，所以云服务器的数据链路层（二层MAC地址）信息不会进入物理网络，实现了不同云服务器间二层网络隔离，因此也实现了不同专有网络间二层网络隔离。</li>
+<li>专有网络内的ECS使用安全组防火墙进行三层网络访问控制。</li>
+</ul>
 <h2 id="VPC中的路由器和交换机"><a href="#VPC中的路由器和交换机" class="headerlink" title="VPC中的路由器和交换机"></a>VPC中的路由器和交换机</h2><p>一个专有网络是一个大网段，例如：192.168.0.0/16<br>每一个可用区是其中的子网，例如可用区A的网段：192.168.1.0/24</p>
 <ul>
 <li>在当前的环境下，可以划分出来2^8=256个可用区（可用的为256个，0-255，剔除了256）</li>
@@ -516,7 +524,8 @@
 <p>以下是VPC实现的逻辑架构：</p>
 <p>VPC包含<strong>交换机、网关和控制器</strong>三个重要的组件。</p>
 <p><img src="http://picture.watchmen.xin/vpc/架构图.png" alt="实现原理"></p>
-<h2 id="VPC通信"><a href="#VPC通信" class="headerlink" title="VPC通信"></a>VPC通信</h2><ul>
+<h2 id="VPC通信"><a href="#VPC通信" class="headerlink" title="VPC通信"></a>VPC通信</h2><p>专有网络是完全隔离的网络环境。默认情况下，相同专有云网络内的ECS和云服务可以进行私网通信，但VPC与VPC之间、VPC与经典网络或公网不能互通。您可以使用弹性公网IP、高速通道、NAT、VPN网关或公网负载均衡等公网产品实现专有网络间的通信。</p>
+<ul>
 <li><p>VPC与VPC通信</p>
 </li>
 <li><p>VPC与经典网络通信</p>
@@ -526,7 +535,7 @@
 <li><p>VPC与本地IDC通信</p>
 </li>
 </ul>
-
+<h3 id="VPC与VPC通信"><a href="#VPC与VPC通信" class="headerlink" title="VPC与VPC通信"></a>VPC与VPC通信</h3>
       
     </div>
     
@@ -713,7 +722,7 @@ var jiathis_config={
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">41</span>
+                  <span class="site-state-item-count">43</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -724,7 +733,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">58</span>
+                  <span class="site-state-item-count">60</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -735,7 +744,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">44</span>
+                  <span class="site-state-item-count">46</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -775,7 +784,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#VPC中的路由器和交换机"><span class="nav-number">1.</span> <span class="nav-text">VPC中的路由器和交换机</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现原理"><span class="nav-number">2.</span> <span class="nav-text">实现原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#VPC通信"><span class="nav-number">3.</span> <span class="nav-text">VPC通信</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#VPC中的路由器和交换机"><span class="nav-number">1.</span> <span class="nav-text">VPC中的路由器和交换机</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现原理"><span class="nav-number">2.</span> <span class="nav-text">实现原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#VPC通信"><span class="nav-number">3.</span> <span class="nav-text">VPC通信</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#VPC与VPC通信"><span class="nav-number">3.1.</span> <span class="nav-text">VPC与VPC通信</span></a></li></ol></li></ol></div>
             
 
           </div>
