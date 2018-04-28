@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2018-04-25T15:45:50.000Z</updated>
+  <updated>2018-04-28T03:28:39.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -17,13 +17,199 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Linux下JDK的安装配置</title>
+    <link href="http://yoursite.com/2018/04/28/Linux%E4%B8%8BJDK%E7%9A%84%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE/"/>
+    <id>http://yoursite.com/2018/04/28/Linux下JDK的安装配置/</id>
+    <published>2018-04-28T03:28:39.000Z</published>
+    <updated>2018-04-28T03:28:39.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>在Linux中JDK的配置主要分为以下几个步骤：</p><ul><li><p>下载</p></li><li><p>解压</p></li><li><p>软链接</p></li><li><p>配置系统/用户环境变量</p></li></ul><h2 id="下载："><a href="#下载：" class="headerlink" title="下载："></a>下载：</h2><p>官方下载链接：<a href="http://www.oracle.com/technetwork/java/javase/downloads/index.html" target="_blank" rel="noopener">下载</a></p><p>JAVA环境的配置主要分为两种，一种是由root用户操作，针对所有用户全局生效的配置，一种是由具体普通用户操作，仅针对该用户生效的配置</p><p>因此，以下的配置根据实际需求。</p><h2 id="全局生效-管理员权限操作"><a href="#全局生效-管理员权限操作" class="headerlink" title="全局生效-管理员权限操作"></a>全局生效-管理员权限操作</h2><p><strong>解压+软链接</strong></p><pre><code># tar -zxvf jdk-7u75-linux-x64.tar.gz -C /usr/local/# cd /usr/local/# ln -s /usr/local/jdk1.7.0_75/  /usr/local/JDK        </code></pre><p>创建软链接目的：灵活的版本升级切换</p><p><strong>配置系统环境变量：</strong></p><pre><code># vim /etc/profile  在文件末尾添加以下内容export JAVA_HOME=/usr/local/JDKexport JRE_HOME=$JAVA_HOME/jreexport CLASSPATH=.:$JAVA_HOME/lib:$JRE_HOME/libexport PATH=$JAVA_HOME/bin:$JRE_HOME/bin::$CLASSPATH:$PATH# source /etc/profile</code></pre><h2 id="用户局部生效-用户环境变量"><a href="#用户局部生效-用户环境变量" class="headerlink" title="用户局部生效-用户环境变量**"></a>用户局部生效-用户环境变量**</h2><p>注意提示符的变化，这里以appdev用户为例</p><p><strong>解压+软链接</strong></p><pre><code>$ tar -zxvf jdk-7u75-linux-x64.tar.gz$ ln -s /home/appdev/jdk1.7.0_75/  /home/appdev/JDK        </code></pre><p>创建软链接目的：灵活的版本升级切换</p><p><strong>配置系统环境变量：</strong></p><pre><code>$ vim .bash_profile  在文件末尾添加以下内容export JAVA_HOME=/home/appdev/JDKexport JRE_HOME=$JAVA_HOME/jreexport CLASSPATH=.:$JAVA_HOME/lib:$JRE_HOME/libexport PATH=$JAVA_HOME/bin:$JRE_HOME/bin::$CLASSPATH:$PATH$ source .bash_profile</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      基础环境配置之JDK
+    
+    </summary>
+    
+      <category term="IT科学技术知识体系结构-Linux运维方向" scheme="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/"/>
+    
+      <category term="基础环境配置" scheme="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E5%9F%BA%E7%A1%80%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/"/>
+    
+      <category term="JDK" scheme="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E5%9F%BA%E7%A1%80%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/JDK/"/>
+    
+    
+      <category term="JDK" scheme="http://yoursite.com/tags/JDK/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Cachecloud</title>
+    <link href="http://yoursite.com/2018/04/28/Cachecloud/"/>
+    <id>http://yoursite.com/2018/04/28/Cachecloud/</id>
+    <published>2018-04-28T02:45:56.000Z</published>
+    <updated>2018-04-28T02:45:56.000Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="Cachecloud介绍"><a href="#Cachecloud介绍" class="headerlink" title="Cachecloud介绍"></a>Cachecloud介绍</h1><p>有关cachecloud的一些基础知识，官方都有非常详细的文档，这里不再花费篇幅进行复述，下面是相关的资料链接，请自行查看。</p><ul><li><p>github官网：    <a href="https://github.com/sohutv/cachecloud" target="_blank" rel="noopener">https://github.com/sohutv/cachecloud</a></p></li><li><p>Wiki:            <a href="https://github.com/sohutv/cachecloud/wiki" target="_blank" rel="noopener">https://github.com/sohutv/cachecloud/wiki</a></p></li><li><p>博客：        <a href="https://cachecloud.github.io/" target="_blank" rel="noopener">https://cachecloud.github.io/</a></p></li><li><p>官方视频：  <a href="http://my.tv.sohu.com/pl/9100280/index.shtml" target="_blank" rel="noopener">http://my.tv.sohu.com/pl/9100280/index.shtml</a></p></li></ul><p><strong>简介：</strong></p><blockquote><p>CacheCloud提供一个Redis云管理平台：实现多种类型(Redis Standalone、Redis Sentinel、Redis Cluster)自动部署、解决Redis实例碎片化现象、提供完善统计、监控、运维功能、减少开发人员的运维成本和误操作，提高机器的利用率，提供灵活的伸缩性，提供方便的接入客户端。</p></blockquote><p><strong>提供的功能：</strong></p><ul><li><p>监控统计：    提供了机器、应用、实例下各个维度数据的监控和统计界面。</p></li><li><p>一键开启：    Redis Standalone、Redis Sentinel、Redis Cluster三种类型的应用，无需手动配置初始化。</p></li><li><p>Failover：    支持哨兵,集群的高可用模式。</p></li><li><p>伸缩：    提供完善的垂直和水平在线伸缩功能。</p></li><li><p>完善运维： 提供自动运维和简化运维操作功能，避免纯手工运维出错。</p></li><li><p>方便的客户端 方便快捷的客户端接入。</p></li><li><p>元数据管理： 提供机器、应用、实例、用户信息管理。</p></li><li><p>流程化： 提供申请，运维，伸缩，修改等完善的处理流程</p></li><li><p>一键导入： 一键导入已经存在Redis </p></li></ul><p><strong>须知：</strong></p><ul><li><p>Redis集群、redis哨兵集群、Redis单实例等在CacheCloud中都是以应用的形式存在，一个应用对应一个appid</p></li><li><p>一个redis集群是一个应用，分配一个appid（不管其中有几个节点）</p></li><li><p>一个哨兵集群是一个应用，分配一个appid（不管其中有几个主从节点和哨兵节点）</p></li><li><p>一个单实例是一个应用，分配一个appid</p></li></ul><p><strong>如何使用：</strong></p><p>我们在平台上的执行任何操作都需要<code>**账号**</code>，创建的单节点、哨兵、集群等都是以<strong><code>用户申请的应用</code></strong>形式存在的。普通用户的主要工单有</p><ul><li>注册用户申请</li></ul><ul><li>应用申请</li></ul><ul><li>应用扩容</li></ul><ul><li>应用配置修改</li></ul><p>管理员的界面可操作的选项较多，此处不做详细说明。</p><p><strong>客户端如何连接：</strong></p><p>客户端在第一次启动的时候去CacheCloud通过appId拿到Redis的节点信息，之后不会与CacheCloud打交道了。</p><p>流程图如下所示：</p><p><img src="http://picture.watchmen.xin/cachecloud/client.png" alt="客户端连接"></p><h1 id="安装部署"><a href="#安装部署" class="headerlink" title="安装部署"></a>安装部署</h1><p>这里只说单机环境，高可用环境将在下面章节说明：<a href="">CacheCloud高可用架构</a></p><p><strong>环境要求：</strong></p><ul><li><p>JDK 7+</p></li><li><p>Maven 3+</p></li><li><p>MySQL 5.5+</p></li><li><p>Redis 3+</p></li></ul><h2 id="基础环境"><a href="#基础环境" class="headerlink" title="基础环境"></a>基础环境</h2><h3 id="JDK-Maven"><a href="#JDK-Maven" class="headerlink" title="JDK+Maven"></a>JDK+Maven</h3><p><strong>JDK：</strong></p><p>步骤：</p><ul><li><p>下载</p></li><li><p>解压</p></li><li><p>软链接</p></li><li><p>配置系统环境变量</p></li></ul><p>操作如下：</p><pre><code>[root@qa1-common004 local]# java -version java version &quot;1.8.0_77&quot;Java(TM) SE Runtime Environment (build 1.8.0_77-b03)Java HotSpot(TM) 64-Bit Server VM (build 25.77-b03, mixed mode)[root@qa1-common004 local]# which java/usr/local/jdk/bin/java[root@qa1-common004 local]# ll /usr/local/jdklrwxrwxrwx 1 root root 11 Apr 17 17:01 /usr/local/jdk -&gt; jdk1.8.0_77</code></pre><p>这里我使用的是1.8版本。</p><p>详细操作请看文章：<a href="">Linux下JDK的安装配置</a></p><p><strong>Maven</strong></p><p>步骤：</p><ul><li><p>下载  <a href="http://maven.apache.org/download.cgi" target="_blank" rel="noopener">下载链接</a></p></li><li><p>解压</p></li><li><p>软链接</p></li><li><p>配置系统环境变量</p></li></ul><p>操作如下：</p><pre><code># tar -zxvf apache-maven-3.5.3-bin.tar.gz -C /usr/local/# cd /usr/local/# ln -s /usr/local/apache-maven-3.5.0/ /usr/local/maven# vim /etc/profile  在文件末尾添加以下内容，保存退出M3_HOME=/usr/local/mavenexport PATH=$M3_HOME/bin:$PATH[root@host-192-168-8-37 ~]# source /etc/profile</code></pre><h3 id="下载CacheCloud项目"><a href="#下载CacheCloud项目" class="headerlink" title="下载CacheCloud项目"></a>下载CacheCloud项目</h3><pre><code># yum -y install git# git clone https://github.com/sohutv/cachecloud.git</code></pre><h3 id="MySQL"><a href="#MySQL" class="headerlink" title="MySQL"></a>MySQL</h3><p><strong>配置yum源</strong></p><p><strong>安装</strong></p><p><strong>配置</strong></p>]]></content>
+    
+    <summary type="html">
+    
+      本文主要讲述由搜狐视频开源在github上的Redis云平台产品-Cachecloud的安装部署、使用、优化等相关知识。
+    
+    </summary>
+    
+      <category term="IT科学技术知识体系结构-Linux运维方向" scheme="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/"/>
+    
+      <category term="数据库" scheme="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+    
+      <category term="Redis" scheme="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E6%95%B0%E6%8D%AE%E5%BA%93/Redis/"/>
+    
+    
+      <category term="cachecloud" scheme="http://yoursite.com/tags/cachecloud/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Dockerfile编写</title>
+    <link href="http://yoursite.com/2018/04/28/Dockerfile%E7%BC%96%E5%86%99/"/>
+    <id>http://yoursite.com/2018/04/28/Dockerfile编写/</id>
+    <published>2018-04-28T02:42:14.000Z</published>
+    <updated>2018-04-28T02:42:14.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>在docker中，创建镜像的方法主要有三种：</p><ul><li>基于已有镜像的容器创建</li><li>基于本地模板导入</li><li>基于dockerfile创建</li></ul><p>dockerfile是一个文本格式的配置文件，用户可以使用dockerfile来快速创建自定义镜像。</p>]]></content>
+    
+    <summary type="html">
+    
+      本章节主要讲述dockerfile相关知识
+    
+    </summary>
+    
+      <category term="IT科学技术知识体系结构-Linux运维方向" scheme="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/"/>
+    
+      <category term="虚拟化" scheme="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E8%99%9A%E6%8B%9F%E5%8C%96/"/>
+    
+      <category term="Docker" scheme="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E8%99%9A%E6%8B%9F%E5%8C%96/Docker/"/>
+    
+    
+      <category term="dockerfile" scheme="http://yoursite.com/tags/dockerfile/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Docker基础知识</title>
+    <link href="http://yoursite.com/2018/04/28/Docker%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/"/>
+    <id>http://yoursite.com/2018/04/28/Docker基础知识/</id>
+    <published>2018-04-28T02:40:40.000Z</published>
+    <updated>2018-04-28T02:40:40.000Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h1>]]></content>
+    
+    <summary type="html">
+    
+      Docker基础知识
+    
+    </summary>
+    
+      <category term="IT科学技术知识体系结构-Linux运维方向" scheme="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/"/>
+    
+      <category term="虚拟化" scheme="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E8%99%9A%E6%8B%9F%E5%8C%96/"/>
+    
+      <category term="Docker" scheme="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E8%99%9A%E6%8B%9F%E5%8C%96/Docker/"/>
+    
+    
+      <category term="docker" scheme="http://yoursite.com/tags/docker/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>SaltStack</title>
+    <link href="http://yoursite.com/2018/04/28/SaltStack/"/>
+    <id>http://yoursite.com/2018/04/28/SaltStack/</id>
+    <published>2018-04-28T02:10:02.000Z</published>
+    <updated>2018-04-28T02:10:02.000Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+      <category term="tag1" scheme="http://yoursite.com/tags/tag1/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Ansible</title>
+    <link href="http://yoursite.com/2018/04/28/Ansible/"/>
+    <id>http://yoursite.com/2018/04/28/Ansible/</id>
+    <published>2018-04-28T02:09:30.000Z</published>
+    <updated>2018-04-28T02:09:30.000Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+      <category term="ansible" scheme="http://yoursite.com/tags/ansible/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Dubbo</title>
+    <link href="http://yoursite.com/2018/04/26/Dubbo/"/>
+    <id>http://yoursite.com/2018/04/26/Dubbo/</id>
+    <published>2018-04-26T03:49:32.000Z</published>
+    <updated>2018-04-26T03:49:32.000Z</updated>
+    
+    <summary type="html">
+    
+      dubbo
+    
+    </summary>
+    
+      <category term="IT科学技术知识体系结构-Linux运维方向" scheme="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/"/>
+    
+      <category term="分布式" scheme="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E5%88%86%E5%B8%83%E5%BC%8F/"/>
+    
+      <category term="Dubbo" scheme="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E5%88%86%E5%B8%83%E5%BC%8F/Dubbo/"/>
+    
+    
+      <category term="dubbo" scheme="http://yoursite.com/tags/dubbo/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>RPC框架</title>
+    <link href="http://yoursite.com/2018/04/26/RPC%E6%A1%86%E6%9E%B6/"/>
+    <id>http://yoursite.com/2018/04/26/RPC框架/</id>
+    <published>2018-04-26T03:48:01.000Z</published>
+    <updated>2018-04-26T03:48:01.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>参考文献：</p><ul><li><a href="https://www.zhihu.com/question/25536695" target="_blank" rel="noopener">知乎</a></li></ul><h1 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h1><p>远程过程调用（英语：Remote Procedure Call，缩写为 RPC）是一个计算机通信协议。该协议允许运行于一台计算机的程序调用另一台计算机的子程序，而程序员无需额外地为这个交互作用编程。如果涉及的软件采用面向对象编程，那么远程过程调用亦可称作远程调用或远程方法调用，例：Java RMI。</p><p>RPC就是要像调用本地的函数一样去调远程函数。</p><p><strong>传统的本地调用方式：</strong></p><ul><li>代码文件中定义和调用</li><li>或者import的方式导入模块之后再进行调用</li></ul><p>而远程调用，指的是，我们要调用执行的函数是在远程的机器上的，</p>]]></content>
+    
+    <summary type="html">
+    
+      RPC相关知识
+    
+    </summary>
+    
+      <category term="IT科学技术知识体系结构-Linux运维方向" scheme="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/"/>
+    
+      <category term="分布式" scheme="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E5%88%86%E5%B8%83%E5%BC%8F/"/>
+    
+      <category term="RPC" scheme="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E5%88%86%E5%B8%83%E5%BC%8F/RPC/"/>
+    
+    
+      <category term="RPC" scheme="http://yoursite.com/tags/RPC/"/>
+    
+  </entry>
+  
+  <entry>
     <title>HTML</title>
     <link href="http://yoursite.com/2018/04/25/HTML/"/>
     <id>http://yoursite.com/2018/04/25/HTML/</id>
     <published>2018-04-25T15:45:50.000Z</published>
     <updated>2018-04-25T15:45:50.000Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h1><h1 id="常用指令"><a href="#常用指令" class="headerlink" title="常用指令"></a>常用指令</h1><h3 id="段落标识"><a href="#段落标识" class="headerlink" title="段落标识"></a>段落标识</h3><pre><code>标签&lt;p&gt;&lt;/p&gt;标识一整个段落；其中标签&lt;p&gt;指出了段落的开头位置，而标签&lt;/p&gt;指出了段落的结束位置。</code></pre><p><strong>代码为：</strong></p><pre><code>&lt;p&gt;&lt;/p&gt;标识段落；标签&lt;p&gt;指出了段落的开头位置，而标签&lt;/p&gt;指出了段落的结束位置。</code></pre><p><strong>效果：</strong></p><p></p><p></p>标识段落；标签<p></p><p></p><p>指出了段落的开头位置，而标签</p>指出了段落的结束位置。<p></p><h3 id="颜色标识"><a href="#颜色标识" class="headerlink" title="颜色标识"></a>颜色标识</h3><p><strong>代码为：</strong></p><pre><code>&lt;font color=red&gt;内容&lt;/font&gt;</code></pre><p><strong>效果：</strong></p><font color="red">内容</font>]]></content>
+    <content type="html"><![CDATA[<h1 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h1><h1 id="常用指令"><a href="#常用指令" class="headerlink" title="常用指令"></a>常用指令</h1><h3 id="段落标识"><a href="#段落标识" class="headerlink" title="段落标识"></a>段落标识</h3><pre><code>标签&lt;p&gt;&lt;/p&gt;标识一整个段落；其中标签&lt;p&gt;指出了段落的开头位置，而标签&lt;/p&gt;指出了段落的结束位置。</code></pre><p><strong>代码为：</strong></p><pre><code>&lt;p&gt;&lt;/p&gt;标识段落；标签&lt;p&gt;指出了段落的开头位置，而标签&lt;/p&gt;指出了段落的结束位置。</code></pre><p><strong>效果：</strong></p><p></p>标识段落；标签<br><p>指出了段落的开头位置，而标签</p>指出了段落的结束位置。<br><br><br>### 颜色标识 ###<br><br><br><strong>代码为：</strong><br><br>    <font color="red">内容</font><br><br><strong>效果：</strong><br><br><font color="red">内容</font><br><br>### 链接 ###<br><br><br><strong>在HTML页面中，链接是使用锚（mao）标签来定义了：</strong><br><br>    格式为： <a href="link_url">link text </a><br><br>这里也就是类似markdown的链接使用方式，也可以说是类似Linux中软链接的方式，可以隐藏后端真实的URL串，并且让对外的链接保持最新也要容易得多。<br><br>实际案例：<br><br>    <p><br>      <a href="{ % url 'learning_logs:index' % }">Learning Log</a><br>    </p>]]></content>
     
     <summary type="html">
     
@@ -305,220 +491,6 @@
     
     
       <category term="LVS" scheme="http://yoursite.com/tags/LVS/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Python-django项目</title>
-    <link href="http://yoursite.com/2018/04/17/Python-django%E9%A1%B9%E7%9B%AE/"/>
-    <id>http://yoursite.com/2018/04/17/Python-django项目/</id>
-    <published>2018-04-17T12:07:03.000Z</published>
-    <updated>2018-04-17T12:07:03.000Z</updated>
-    
-    <content type="html"><![CDATA[<p><strong>基础环境：</strong></p><ul><li>Python3系列（针对环境变量做好软链接，将python3链接为python）<ul><li>sudo apt-get -y install python3</li><li>ln -s /usr/bin/python3 /usr/bin/python</li></ul></li></ul><ul><li>pip3(pip2不支持Python3.x，因此我们要安装pip来支持python3)<ul><li>sudo apt-get install python3-pip</li><li>ln -s /usr/bin/pip3 /usr/bin/pip</li><li>pip的升级：pip install –upgrade pip</li></ul></li></ul><ul><li>依赖关系（python3-venv）<ul><li>sudo apt-get -y install python3-venv</li></ul></li></ul><h1 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h1><h2 id="创建激活虚拟环境"><a href="#创建激活虚拟环境" class="headerlink" title="创建激活虚拟环境"></a>创建激活虚拟环境</h2><p>要使用django，首先需要建立一个虚拟工作环境。虚拟环境是系统的一个位置，你可以在其中安装包，并将其与其他python包隔离。将项目的库与其他项目分离是有益的。</p><pre><code>创建虚拟环境：wxh@wxh-virtual-machine:/opt$ python -m venv ll_env激活虚拟环境(ll_env) wxh@wxh-virtual-machine:/opt$ source ll_env/bin/activate停止虚拟环境(ll_env) wxh@wxh-virtual-machine:/opt$ deactivate </code></pre><h2 id="安装django"><a href="#安装django" class="headerlink" title="安装django"></a>安装django</h2><p>安装django(python3之后对应的django版本为1.8.1，因此在安装的时候需要额外注意)：</p><pre><code>(ll_env) wxh@wxh-virtual-machine:/opt$ pip install Django</code></pre><h2 id="配置django"><a href="#配置django" class="headerlink" title="配置django"></a>配置django</h2><h3 id="创建项目："><a href="#创建项目：" class="headerlink" title="创建项目："></a>创建项目：</h3><pre><code>(ll_env) wxh@wxh-virtual-machine:/opt$ sudo django-admin.py  startproject learning_log .</code></pre><p>创建完毕之后的目录结构如下所示：</p><p><img src="http://picture.watchmen.xin/python-django/project.png" alt="目录"></p><p>注意事项：</p><ul><li>命令末尾有有一个句点的存在，如果遗忘，可能出现一些问题。</li></ul><ul><li><code>manage.py文件</code>是一个简单的程序，它接受命令并将其交给django的相关部分去运行，我们将会使用这些命令来管理诸如使用数据库和运行服务器等任务</li></ul><ul><li>目录learning_log有4个文件，其中最重要的的是setting.py、urls.py、wsgi.py。</li></ul><ul><li>setting.py指定django如何与系统交互以及如何管理项目。在开发项目的过程中，我们将修改其中的一些设置，并添加一些设置。</li></ul><ul><li>urls.py告诉django应该创建哪些网页来响应浏览器请求。</li></ul><ul><li><p>wsgi.py帮助django提供它创建的文件。（web server gateway interface）web服务器网关接口的缩写</p></li><li><p><strong><font color="red">在一个目录下，只能创建一个django项目，因为一个目录下不允许存在2个manage.py</font></strong></p></li></ul><h3 id="创建数据库"><a href="#创建数据库" class="headerlink" title="创建数据库"></a>创建数据库</h3><p>django将大部分与项目有关的信息都存储在数据库中，因此我们需要创建一个供django使用的数据库。为给项目“学习笔记”创建数据库，在处于活动虚拟环境中的情况下执行下面的命令：</p><pre><code>(ll_env) wxh@wxh-virtual-machine:/opt$ sudo python manage.py migrate</code></pre><h3 id="启动-停止项目"><a href="#启动-停止项目" class="headerlink" title="启动/停止项目"></a>启动/停止项目</h3><p>核实django项目是否正确的创建，执行下面的命令启动：</p><pre><code>python manage.py runserver [port]</code></pre><h2 id="创建应用程序"><a href="#创建应用程序" class="headerlink" title="创建应用程序"></a>创建应用程序</h2><p>django由一系列应用程序组成（也可以看成是一系列的功能组件），他们协同工作，让项目成为一个整体。现在我们暂时只创建一个应用程序，它将完成项目的大部分工作。在后面，我们还将再添加一个管理用户账户的应用程序</p><pre><code>(ll_env) wxh@wxh-virtual-machine:/opt$ sudo python manage.py  startapp learning_logs</code></pre><p>命令startapp让django创建应用程序所需的基础设施。如果现在查看项目目录，将看到其中新增了一个文件夹learning_logs</p><p><img src="http://picture.watchmen.xin/python-django/apps.png" alt="apps"></p><p>其中最重要的文件是<strong>models、admin和views</strong>，我们将使用models来定义我们要在应用程序中管理的数据</p><p><strong><font color="blue">注意：learning_logs是learning_log项目中的一个应用程序，这个概念要分清。</font></strong></p><h3 id="定义模型"><a href="#定义模型" class="headerlink" title="定义模型"></a>定义模型</h3><p>每位用户都需要在学习笔记中创建很多的主题（例如：数学、英语、语文等等）。用户输入的每个条目（文章，每篇笔记）都要与特定的主题相关联。这些条目将以文本的形式显示。我们还需要存储每个目录的时间戳，以便能够告诉用户每个条目都是什么时候创建的。</p><pre><code>(ll_env) wxh@wxh-virtual-machine:/opt$ cat learning_logs/models.py from django.db import models# Create your models here.</code></pre><p>我们可以看到这个文件的内容。django事先导入了模块models，让我们自己创建模型。</p><p>模型告诉django如何处理应用程序中存储的数据。<strong>在代码层面，模型就是一个类，就像前面讨论的每个类一样，包含属性和方法。</strong></p><p><strong>我们编写完毕之后的代码如下：</strong></p><pre><code>(ll_env) wxh@wxh-virtual-machine:/opt/learning_logs$ sudo vim models.pyfrom django.db import modelsclass Topic(models.Model):    &quot;&quot;&quot;用户学习的主题&quot;&quot;&quot;    text = models.CharField(max_length=200)    date_added = models.DateTimeField(auto_now_add=True)    def __str__(self):        &quot;&quot;&quot;返回模型的字符串表示&quot;&quot;&quot;        return self.text</code></pre><p>我们创建了一个名为Topic的类，它继承了models模块中的类Model-django中一个定义了模型基本功能的类。新建的这个Topic类中，我们只定义了两个属性：text和data_added（也就是拿来保存主题和时间戳）</p><ul><li>属性text是一个CharField——由字符或文本组成的数据（见）。需要存储少量的文本，如名称、标题或城市时，可使用CharField。定义CharField属性时，必须告诉Django该在数据库中预留多少空间。在这里，我们将max_length设置成了200（即200个字符），这对存储大多数主题名来说足够了。</li></ul><ul><li>属性date_added是一个DateTimeField——记录日期和时间的数据（见）。我们传递了实参auto_add_now=True，每当用户创建新主题时，这都让Django将这个属性自动设置成当前日期和时间</li></ul><p>我们需要告诉django，默认应该使用哪个属性来显示有关主题的信息。django调用方法<strong>str</strong>()来显示模型的简单表示，在这里，我们编写了方法<strong>str</strong>(),它返回存储在属性text中的字符串。</p><h3 id="激活模型"><a href="#激活模型" class="headerlink" title="激活模型"></a>激活模型</h3><p>要使用模型，必须让Django将应用程序包含到项目中。为此，打开settings.py（它位于项目learning_log目录下），你将看到一个这样的片段，<strong>这一段的配置告诉Django使用哪些应用程序安装在项目中：</strong></p><pre><code>(ll_env) wxh@wxh-virtual-machine:/opt$ sudo vim learning_log/settings.py 33 INSTALLED_APPS = [ 34     &apos;django.contrib.admin&apos;, 35     &apos;django.contrib.auth&apos;, 36     &apos;django.contrib.contenttypes&apos;, 37     &apos;django.contrib.sessions&apos;, 38     &apos;django.contrib.messages&apos;, 39     &apos;django.contrib.staticfiles&apos;, 40 ] </code></pre><p>我们将新建的应用程序加载进项目之中，修改之后的配置如下所示：</p><pre><code>33 INSTALLED_APPS = [34     &apos;django.contrib.admin&apos;,35     &apos;django.contrib.auth&apos;,36     &apos;django.contrib.contenttypes&apos;,37     &apos;django.contrib.sessions&apos;,38     &apos;django.contrib.messages&apos;,39     &apos;django.contrib.staticfiles&apos;,40         # my appalication41     &apos;learning_logs&apos;42 ]</code></pre><p><img src="http://picture.watchmen.xin/python-django/addapps.png" alt="addapps"></p><p>通过这种将应用程序编组的方式，在项目不断增大，包含更多的应用程序时，可以有效的对应用程序进行跟踪。</p><p><strong>数据库配置：</strong></p><p>接下来，需要让django修改数据库，使其能够存储与模型Topic相关的信息，执行以下命令：</p><pre><code>(ll_env) wxh@wxh-virtual-machine:/opt$ sudo python manage.py makemigrations learning_logsMigrations for &apos;learning_logs&apos;:  learning_logs/migrations/0001_initial.py    - Create model Topic(ll_env) wxh@wxh-virtual-machine:/opt$ </code></pre><p>命令makemigrations让Django确定该如何修改数据库，使其能够存储与我们定义的新模型相关联的数据。</p><p>输出表明Django创建了一个名为0001_initial.py的迁移文件，这个文件将在数据库中为模型Topic创建一个表。</p><p>下面来应用这种迁移，让Django替我们修改数据库：</p><pre><code>(ll_env) wxh@wxh-virtual-machine:/opt$ sudo python manage.py  migrateOperations to perform:  Apply all migrations: admin, auth, contenttypes, learning_logs, sessionsRunning migrations:  Applying learning_logs.0001_initial... OK</code></pre><blockquote><p><strong>注意：每当需要修改该应用程序管理的数据时（在这里是learning_logs应用程序），都采取如下三个步骤：</strong></p><ul><li>修改models.py；</li><li>对learning_logs调用makemigrations;</li><li>让django迁移项目**</li></ul></blockquote><h3 id="django管理网站"><a href="#django管理网站" class="headerlink" title="django管理网站"></a>django管理网站</h3><p>一个网站，需要有管理员来管理网站，django提供的管理网站（admin site）能够轻松的实现。</p><p>接下来，我们将建立管理网站，并通过它使用模型Topic来添加一些主题</p><h4 id="创建超级用户"><a href="#创建超级用户" class="headerlink" title="创建超级用户"></a>创建超级用户</h4><p>创建具备所有权限的用户—超级用户，执行以下命令：</p><pre><code>(ll_env) wxh@wxh-virtual-machine:/opt$ sudo python manage.py  createsuperuserUsername (leave blank to use &apos;root&apos;): ll_adminEmail address: Password: Password (again): Superuser created successfully.</code></pre><p>注意：django并不存储实际输入的明文密码，而是存储该密码的散列值，每当你输入密码的时候，django都将计算其散列值，并将结果与存储的散列值进行比较。</p><h4 id="向管理网站注册模型"><a href="#向管理网站注册模型" class="headerlink" title="向管理网站注册模型"></a>向管理网站注册模型</h4><p>Django自动在管理网站中添加了一些模型，如User和Group，但对于我们创建的模型，必须手工进行注册。</p><p>我们创建应用程序learning_logs时， Django在models.py所在的目录中创建了一个名为admin.py的文件：</p><pre><code>(ll_env) wxh@wxh-virtual-machine:/opt$ cat learning_logs/admin.py from django.contrib import admin# Register your models here.</code></pre><p>修改之后的文件为：</p><pre><code>(ll_env) wxh@wxh-virtual-machine:/opt/learning_logs$ sudo vim admin.py from django.contrib import adminfrom learning_logs.models import Topicadmin.site.register(Topic)</code></pre><p>导入我们要注册的模型Topic，再使用admin.site.register方法让django通过管理网站管理我们的模型</p><p>接下来访问：<a href="http://127.0.0.1:8000/admin" target="_blank" rel="noopener">http://127.0.0.1:8000/admin</a><br>可以直接使用我们刚才创建的超级管理员用户的用户名和密码进行登录。</p><p>登录之后的页面如下所示：<br><img src="http://picture.watchmen.xin/python-django/login.png" alt="login"></p><p>这个网页能够让你添加和修改用户和用户组，还可以管理刚才定义的模型Topic相关的数据。</p><p>我们能够看到刚才定义的模型Topic及其相关的数据（当前没有数据）</p><h4 id="添加主题"><a href="#添加主题" class="headerlink" title="添加主题"></a>添加主题</h4><p>向管理网站注册了topic之后，我们需要添加主题，这里添加Chess和Rock Climbing主题。添加完毕之后，如下图所示：</p><p><img src="http://picture.watchmen.xin/python-django/addtopic.png" alt="login"></p><h3 id="定义模型Entry"><a href="#定义模型Entry" class="headerlink" title="定义模型Entry"></a>定义模型Entry</h3><p>当前的模型只是定义了2个属性（主题和时间戳），并不能实际的保存数据，因此我们需要添加模型Entry</p><p><strong>关系：每个条目都会与特定的主题相关联，即多对一的关系。</strong></p><p>修改之后的代码如下图所示：</p><pre><code>(ll_env) wxh@wxh-virtual-machine:/opt/learning_logs$ sudo vim models.pyfrom django.db import modelsclass Topic(models.Model):    &quot;&quot;&quot;用户学习的主题&quot;&quot;&quot;    text = models.CharField(max_length=200)    date_added = models.DateTimeField(auto_now_add=True)    def __str__(self):        &quot;&quot;&quot;返回模型的字符串表示&quot;&quot;&quot;        return self.textclass Entry(models.Model):    &quot;&quot;&quot;学到的有关某个主题的具体知识&quot;&quot;&quot;    topic = models.ForeignKey(Topic,on_delete=models.CASCADE)    text = models.TextField()        date_added = models.DateTimeField(auto_now_add=True)    class Meta:        verbose_name_plural = &apos;entries&apos;    def __str__(self):                                    &quot;&quot;&quot;返回模型的字符串表示&quot;&quot;&quot;                        return self.text[:50] + &quot;...&quot;</code></pre><p>像Topic一样， Entry也继承了Django基类Model。</p><p>第一个属性topic是一个ForeignKey实例。外键是一个数据库术语，它引用了数据库中的另一条记录；这些代码将每个条目关联到特定的主题。每个主题创建时，都给它分配了一个键（或ID）。需要在两项数据之间建立联系时，Django使用与每项信息相关联的键。稍后我们将根据这些联系获取与特定主题相关联的所有条目。</p><p>接下来是属性text，它是一个TextField实例（见）。这种字段不需要长度限制，因为我们不想限制条目的长度。</p><p>属性date_added让我们能够按创建顺序呈现条目，并在每个条目旁边放置时间戳。</p><p>我们在Entry类中嵌套了Meta类。 </p><p>Meta存储用于管理模型的额外信息，在这里，它让我们能够设置一个特殊属性，让Django在需要时使用Entries来表示多个条目。如果没有这个类，Django将使用Entrys来表示多个条目。</p><p>最后，方法<strong>str</strong>()告诉Django，呈现条目时应显示哪些信息。由于条目包含的文本可能很长，我们让Django只显示text的前50个字符（见）。我们还添加了一个省略号，指出显示的并非整个条目。</p><h3 id="迁移模型Entry"><a href="#迁移模型Entry" class="headerlink" title="迁移模型Entry"></a>迁移模型Entry</h3><p>由于我们添加了一个新模型，因此需要再次迁移数据库</p><p>步骤：</p><ul><li>修改models.py</li><li>makemigrations参数</li><li>mkigrate参数</li></ul><p>命令及输出如下所示：</p><pre><code>(ll_env) wxh@wxh-virtual-machine:/opt$ sudo python  manage.py  makemigrations learning_logsMigrations for &apos;learning_logs&apos;:  learning_logs/migrations/0002_entry.py    - Create model Entry(ll_env) wxh@wxh-virtual-machine:/opt$ sudo python manage.py migrateOperations to perform:  Apply all migrations: admin, auth, contenttypes, learning_logs, sessionsRunning migrations:  Applying learning_logs.0002_entry... OK</code></pre><p>生成了一个新的迁移文件0002_entry.py，它告诉django如何修改数据库，使其能够存储与模型Entry相关的信息。</p><p>执行命令migrate，我们发现django应用了这种迁移且一切顺利。</p><h3 id="向管理网站注册Entry"><a href="#向管理网站注册Entry" class="headerlink" title="向管理网站注册Entry"></a>向管理网站注册Entry</h3><p>首先需要修改admin.py</p><pre><code>(ll_env) wxh@wxh-virtual-machine:/opt/learning_logs$ sudo vim admin.pyfrom django.contrib import adminfrom learning_logs.models import Topic,Entryadmin.site.register(Topic)admin.site.register(Entry)</code></pre><p>然后刷新页面，可以看到新的内容</p><p><img src="http://picture.watchmen.xin/python-django/entry.png" alt="entry"></p><p>接下来，我们添加条目</p><p><img src="http://picture.watchmen.xin/python-django/chess.png" alt="entry"></p><p>为当前两个主题都添加相应的条目：</p><h3 id="django-shell"><a href="#django-shell" class="headerlink" title="django shell"></a>django shell</h3><p>输入一些数据后，就可通过交互式终端会话以编程方式查看这些数据了。这种交互式环境称。为Django shell，是测试项目和排除其故障的理想之地。下面是一个交互式shell会话示例：</p><pre><code>(ll_env) wxh@wxh-virtual-machine:/opt$ sudo python manage.py  shell[sudo] password for wxh: Python 3.5.2 (default, Nov 23 2017, 16:37:01) [GCC 5.4.0 20160609] on linuxType &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.(InteractiveConsole)&gt;&gt;&gt; from learning_logs.models import Topic &gt;&gt;&gt;&gt; Topic.objects.all()&lt;QuerySet [&lt;Topic: Chess&gt;, &lt;Topic: Rock Climbing&gt;]&gt;&gt;&gt;&gt; topics = Topic.objects.all()&gt;&gt;&gt; for topic in topics:...     print (topic.id,topic)... 8 Chess9 Rock Climbing&gt;&gt;&gt; t = Topic.objects.get(id=8)&gt;&gt;&gt; t.text&apos;Chess&apos;&gt;&gt;&gt; t.date_addeddatetime.datetime(2018, 4, 23, 12, 51, 16, 430242, tzinfo=&lt;UTC&gt;)</code></pre><blockquote><blockquote><blockquote></blockquote></blockquote></blockquote><p>命令python manage.py shell启动一个Python解释器，可使用它来探索存储在项目数据库中的数据</p><p>在这里，我们导入了模块learning_logs.models中的模型Topic，然后使用方法Topic.objects.all()来获取<strong><code>模型Topic的所有实例</code></strong>；它返回的是一个列表，称为查询集（queryset）。</p><p>我们可以像遍历列表一样遍历查询集。</p><p>我们将返回的查询集存储在topics中，然后打印每个主题的id属性和字符串表示。从输出可知，主题Chess的ID为2，而Rock Climbing的ID为9。</p><p>知道对象的ID后，就可获取该对象并查看其任何属性。</p><p>我们还可以查看与主题相关联的条目。前面我们给模型Entry定义了属性topic，这是一个ForeignKey，将条目与主题关联起来。利用这种关联， Django能够获取与特定主题相关联的所有条目，如下所示：</p><pre><code>&gt;&gt;&gt; t.entry_set.all()&lt;QuerySet [&lt;Entry: The opening is the first part of the game, roughly...&gt;]&gt;</code></pre><p>为通过外键关系获取数据，可使用相关模型的小写名称、下划线和单词set。例如，假设你有模型Pizza和Topping，而Topping通过一个外键关联到Pizza；如果你有一个名为my_pizza的对象，表示一张比萨，就可使用代码my_pizza.topping_set.all()来获取这张比萨的所有配料。</p><p>编写用户可请求的网页时，我们将使用这种语法。确认代码能获取所需的数据时， shell很有帮助。如果代码在shell中的行为符合预期，那么它们在项目文件中也能正确地工作。如果代码引发了错误或获取的数据不符合预期，那么在简单的shell环境中排除</p><p>故障要比在生成网页的文件中排除故障容易得多。我们不会太多地使用shell，但应继续使用它来熟悉对存储在项目中的数据进行访问的Django语法。</p><p><strong>注意：每次修改模型后，都需要重启shell,执行Ctr + D</strong></p><h3 id="django-API"><a href="#django-API" class="headerlink" title="django API"></a>django API</h3><p>Once you’ve created your data models, Django automatically gives you a database-abstraction API that lets you <strong><code>create, retrieve, update and delete</code></strong>objects. </p><p><strong>Creating objects</strong></p><pre><code>&gt;&gt;&gt; from learning_logs.models import Topic&gt;&gt;&gt; b = Topic(text=&apos;badminton&apos;)&gt;&gt;&gt; b.save()</code></pre><font color="red">注意： </font><ul><li>This performs an INSERT SQL statement behind the scenes. Django doesn’t hit the database until you explicitly call save()</li></ul><ul><li>The save() method has no return value</li></ul><p>其他操作，查看：<a href="https://docs.djangoproject.com/en/2.0/topics/db/queries/" target="_blank" rel="noopener">官方资料</a></p><h2 id="创建网页：学习笔记主页"><a href="#创建网页：学习笔记主页" class="headerlink" title="创建网页：学习笔记主页"></a>创建网页：学习笔记主页</h2><p>使用django创建网页的过程通常分为三个阶段：</p><ul><li><p>定义URL</p><blockquote><p>URL模式描述了URL是如何设计的，让Django知道如何将浏览器请求与网站URL匹配，以确定返回哪个网页</p></blockquote></li><li><p>编写视图</p><blockquote><p>每个URL都被映射到特定的视图——视图函数获取并处理网页所需的数据。【<strong><code>也就是URL与内容的映射关系</code></strong>】</p></blockquote></li><li><p>编写模板</p><blockquote><p>视图函数通常调用一个模板，后者生成浏览器能够理解的网页。【也就是内容数据的显示方式，视图<strong><code>前端显示</code></strong>模板】</p></blockquote></li></ul><p>接下来，我们来创建学习笔记的主页。我们将定义该主页的URL、编写其视图函数并创建一个简单的模板</p><p>逻辑关系：</p><p>项目中定义调用的应用程序的模块，然后在具体应用程序中配置URL和视图</p><h3 id="映射URL"><a href="#映射URL" class="headerlink" title="映射URL"></a>映射URL</h3><p>用户通过在浏览器中输入URL以及单击链接来请求网页，因此我们需要确定项目需要哪些URL<br>主 页 的 URL 最 重 要 ， 它 是 用 户 用 来 访 问 项 目 的 基 础 URL 。 当 前 ， 基 础 URL（<a href="http://localhost:8000）返回默认的Django网站，让我们知道正确地建立了项目。我们将修改这一点，将这个基础URL映射到“学习笔记”的主页。" target="_blank" rel="noopener">http://localhost:8000）返回默认的Django网站，让我们知道正确地建立了项目。我们将修改这一点，将这个基础URL映射到“学习笔记”的主页。</a></p><p>打开项目主目录中的urls.py文件（该文件针对整个项目的url配置），默认的内容为：</p><p><img src="http://picture.watchmen.xin/python-django/url.png" alt="url"></p><p>前两行导入了为项目和管理网站管理URL的函数和模块，在这个针对整个项目的urls.py文件中，变量urlpatterns包含<code>项目中的应用程序</code>的URL。</p><p>admin.site.urls模块定义了可在管理网站中请求的所有URL。 </p><p>修改之后的配置文件如下图所示：<br><img src="http://picture.watchmen.xin/python-django/addurl.png" alt="addurl"></p><p>现在，我们需要在learning_logs目录下创建urls.py文件<br>文件内容如下：</p><p>(ll_env) wxh@wxh-virtual-machine:/opt/learning_logs$ sudo vim urls.py</p><p>(ll_env) wxh@wxh-virtual-machine:/opt/learning_logs$ cat urls.py </p><pre><code>&quot;&quot;&quot;定义learning_logs的URL模式&quot;&quot;&quot;from django.conf.urls import urlfrom . import viewsapp_name = &apos;learning_logs&apos;urlpatterns = [    #主页    url(r&apos;^$&apos;,views.index,name=&apos;index&apos;)]</code></pre><p><strong>讲解：</strong></p><p>实际的URL模式其实是对函数url()的调用，这个函数接受3个实参</p><p>这里的正则表达式让python查找开头和末尾之间没有任何东西的url。</p><p>python忽略项目基础的URL（在这里是:<a href="http://localhost:8000/），因此这个正则表达式与基础URL相匹配，其他的非基础URL都不与这个正则表达式匹配，如果请求的是其他的URL页面，django将会返回一个错误页面。" target="_blank" rel="noopener">http://localhost:8000/），因此这个正则表达式与基础URL相匹配，其他的非基础URL都不与这个正则表达式匹配，如果请求的是其他的URL页面，django将会返回一个错误页面。</a></p><p>url()的第2个实参指定了要调用的视图函数。请求的URL与前面的正则表达式匹配时，django将会调用views.index（这个index视图函数稍后编写）</p><p>第3个实参，将这个url模式的名称指定为index(相当于是alias别名的形式)，让我们在代码的其他地方引用它。每当我们需要提供这个主页的链接时，我们可以直接使用这个名称，而不用编写URL。</p><h3 id="编写视图"><a href="#编写视图" class="headerlink" title="编写视图"></a>编写视图</h3><p>每个URL都被映射到特定的视图函数——视图函数获取并处理网页所需的数据。【<strong><code>也就是URL与内容的映射关系</code></strong>】</p><p>视图函数接受请求中的信息，准备好生成网页所需的数据，再讲这些数据发送给浏览器—这通常还涉及到网页的模板</p><p>learning_logs中的文件views.py是执行命令python manage.py startapp时自动生成的，当前的文件内容如下：</p><pre><code>(ll_env) wxh@wxh-virtual-machine:/opt/learning_logs$ cat views.py from django.shortcuts import render# Create your views here.</code></pre><p>现在，这个文件只导入了函数render()，它根据视图提供的数据渲染响应。修改之后的文件内容如下如所示：</p><pre><code>from django.shortcuts import renderdef index(request):    &quot;&quot;&quot;学习笔记的主页&quot;&quot;&quot;    return render(request,&apos;learning_logs/index.html&apos;)</code></pre><p>当URL被刚才定义的模式匹配之后，django会在views.py文件中查找函数index()，<strong><code>再将请求对象传递给这个视图函数（也就是这里的request）</code></strong>。</p><p>接下来向函数render进行传2个实参，原始的请求对象以及一个用于创建网页的模板（模板目录下的learning_logs目录下的index.html文件）</p><p>下面我们来编写这个模板。</p><h3 id="编写模板"><a href="#编写模板" class="headerlink" title="编写模板"></a>编写模板</h3><p>模板定义了网页的结构，也就是说模板指定了网页是什么样子的。</p><p>每当网页被请求时，django将会填入相关的数据。模板让你能够访问视图提供的任何数据。我们主页视图没有提供任何数据，因此相应的模板非常简单。</p><p><strong>创建目录</strong><br>在目录learning_logs下创建templates目录，用户保存网页模板文件</p><p>然后创建子目录learninig_logs，并在该子目录下新建文件index.html</p><p>文件内容为：</p><p>(ll_env) wxh@wxh-virtual-machine:/opt/learning_logs$ sudo mkdir -p templates/learning_logs</p><p>(ll_env) wxh@wxh-virtual-machine:/opt/learning_logs$ cd templates/learning_logs</p><p>(ll_env) wxh@wxh-virtual-machine:/opt/learning_logs/templates/learning_logs$ sudo vim index.html</p><pre><code>&lt;p&gt;Learning Log&lt;/p&gt;&lt;p&gt;Learning Log helps you keep track of your learning, for any topic you&apos;relearning about.&lt;/p&gt;</code></pre><p>现在重新访问网站，会发现显示的是刚才自定义的这个网页，不再显示django网页。</p><p>如下图所示：</p><p><img src="http://picture.watchmen.xin/python-django/web.png" alt="web"></p><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>创建网页的过程看起来会有点复杂，但是将URL、视图和模板分离，效果实际上会更好，这让我们可以分别考虑项目的不同方面。</p><p>例如：数据库专家可以专注于模型，程序员可以专注于视图代码，而web涉及人员可以专注于模板。</p>]]></content>
-    
-    <summary type="html">
-    
-      《Python编程从入门到实践》-Django入门
-    
-    </summary>
-    
-      <category term="编程语言" scheme="http://yoursite.com/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/"/>
-    
-      <category term="Python" scheme="http://yoursite.com/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Python/"/>
-    
-    
-      <category term="django" scheme="http://yoursite.com/tags/django/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>VPC+专线+IDC网络</title>
-    <link href="http://yoursite.com/2018/04/17/VPC-%E4%B8%93%E7%BA%BF-IDC%E7%BD%91%E7%BB%9C/"/>
-    <id>http://yoursite.com/2018/04/17/VPC-专线-IDC网络/</id>
-    <published>2018-04-17T05:57:23.000Z</published>
-    <updated>2018-04-17T05:57:23.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>参考文献：</p><ul><li></li></ul><p>#<font color="red">VPC</font></p><p>专有网络VPC（Virtual Private Cloud）是基于阿里云构建的一个隔离的网络环境。每个专有网络（也就是每个VPC）之间逻辑上彻底隔离。</p><p>专有网络是独有的的云上私有网络。用户可以完全掌控自己的专有网络，例如选择IP地址范围、配置路由表和网关等，可以在自己定义的专有网络中使用阿里云资源如ECS、RDS、SLB等。</p><p>将不同的云资源部署在不同的交换机内，可以提高服务的可用性。</p><p>同一个VPC内的云资源可以相互访问，不同的VPC之间通过隧道进行隔离。</p><p>可以将专有网络连接到其他专有网络，或本地网络（这里的本地网络包括IDC和公司内部机房），形成一个按需定制的网络环境，实现应用的平滑迁移上云和对数据中心的扩展。【默认情况下，VPC内主机是无法与外网连接的。这里需要借助阿里云的公网介入产品，例如弹性公网IP、NAT网关、负载均衡等】</p><p>VPC网络有以下特点：</p><ul><li>不同用户的云服务器部署在不同的专有网络里。</li><li>不同专有网络之间通过隧道ID进行隔离。专有网络内部由于交换机和路由器的存在，所以可以像传统网络环境一样划分子网，每一个子网内部的不同云服务器使用同一个交换机互联，不同子网间使用路由器互联。</li><li>不同专有网络之间内部网络完全隔离，只能通过对外映射的IP（弹性公网IP和NAT IP）互联。</li><li>由于使用隧道封装技术对云服务器的IP报文进行封装，所以云服务器的数据链路层（二层MAC地址）信息不会进入物理网络，实现了不同云服务器间二层网络隔离，因此也实现了不同专有网络间二层网络隔离。</li><li>专有网络内的ECS使用安全组防火墙进行三层网络访问控制。</li></ul><h2 id="VPC中的路由器和交换机"><a href="#VPC中的路由器和交换机" class="headerlink" title="VPC中的路由器和交换机"></a>VPC中的路由器和交换机</h2><p>一个专有网络是一个大网段，例如：192.168.0.0/16<br>每一个可用区是其中的子网，例如可用区A的网段：192.168.1.0/24</p><ul><li>在当前的环境下，可以划分出来2^8=256个可用区（可用的为256个，0-255，剔除了256）</li></ul><ul><li>每一个可用区的可用主机数量为：2^8=256个（可用的为254个，1-255，剔除了0和256)</li></ul><p>一个交换机连接的是一个可用区（也就是一个子网），路由器连接的是每个可用区，对外的网段是VPC的网段。</p><p>如下图所示：</p><p><img src="http://picture.watchmen.xin/vpc/VswitchandVrouter.png" alt="路由器和交换机"></p><p>路由器（VRouter）是专有网络的枢纽。<br>作为专有网络中重要的功能组件，它可以连接VPC内的各个交换机，同时也是连接VPC和其他网络的网关设备。<br><strong>每个专有网络创建成功后，系统会自动创建一个路由器。每个路由器关联一张路由表。</strong></p><p>交换机（VSwitch）是组成专有网络的基础网络设备，用来连接不同的云产品实例。<br>创建专有网络之后，您可以通过创建交换机为专有网络划分一个或多个子网。<br>同一专有网络内的不同交换机之间内网互通。您可以将应用部署在不同可用区的交换机内，提高应用的可用性。</p><blockquote><p>注意：交换机不支持组播和广播。您可以通过阿里云提供的组播代理工具实现组播代理。</p></blockquote><p><strong>VPC可以使用的私网地址范围：</strong></p><table><thead><tr><th style="text-align:center">网段</th><th style="text-align:center">可用私网IP数量 （不包括系统保留）</th></tr></thead><tbody><tr><td style="text-align:center">192.168.0.0/16</td><td style="text-align:center">65532</td></tr><tr><td style="text-align:center">172.16.0.0/12</td><td style="text-align:center">1048572</td></tr><tr><td style="text-align:center">10.0.0.0/8</td><td style="text-align:center">16777212</td></tr></tbody></table><p>交换机的网段不能和所属的专有网络的网段重叠，可以是其子集或者相同，<code>网段大小在16位网络掩码与29位网络掩码之间</code>。</p><p>注意：VPC的私网地址范围和我们实际认知的有所差异</p><p>在创建VPC时，系统会自动添加一条目标网段为100.64.0.0/10的<code>系统路由</code>用于VPC内的云产品通信。</p><p><strong>问题：不同可用区之间通信是直接到达还是需要路由？</strong></p><p>我们也可以通过抓包来进行分析</p><font color="red">总结：</font><ul><li>一个VPC有且只会分配一个路由器</li><li>该路由器会关联一张路由表（其中包括不可更改的系统路由，用于VPC内部通信）</li></ul><h2 id="实现原理"><a href="#实现原理" class="headerlink" title="实现原理"></a>实现原理</h2><p>每个VPC都有一个独立的隧道号，一个隧道号对应着一个虚拟化网络。</p><p>一个VPC内的ECS（Elastic Compute Service）实例之间的传输数据包都会加上隧道封装，带有唯一的隧道ID标识，然后送到物理网络上进行传输。</p><p>不同VPC内的ECS实例因为所在的隧道ID不同，本身处于两个不同的路由平面，所以不同VPC内的ECS实例无法进行通信，天然地进行了隔离。</p><p>基于隧道技术和软件定义网络（Software Defined Network，简称SDN）技术，阿里云的研发在硬件网关和自研交换机设备的基础上实现了VPC产品。</p><p>以下是VPC实现的逻辑架构：</p><p>VPC包含<strong>交换机、网关和控制器</strong>三个重要的组件。</p><p><img src="http://picture.watchmen.xin/vpc/架构图.png" alt="实现原理"></p><h2 id="VPC通信"><a href="#VPC通信" class="headerlink" title="VPC通信"></a>VPC通信</h2><p>专有网络是完全隔离的网络环境。默认情况下，相同专有云网络内的ECS和云服务可以进行私网通信，但VPC与VPC之间、VPC与经典网络或公网不能互通。您可以使用弹性公网IP、高速通道、NAT、VPN网关或公网负载均衡等公网产品实现专有网络间的通信。</p><ul><li><p>VPC与VPC通信</p></li><li><p>VPC与经典网络通信</p></li><li><p>VPC与Internet通信</p></li><li><p>VPC与本地IDC通信</p></li></ul><h3 id="VPC与VPC通信"><a href="#VPC与VPC通信" class="headerlink" title="VPC与VPC通信"></a>VPC与VPC通信</h3>]]></content>
-    
-    <summary type="html">
-    
-      VPC+专线+IDC网络相关知识记录
-    
-    </summary>
-    
-      <category term="IT科学技术知识体系结构-Linux运维方向" scheme="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/"/>
-    
-      <category term="网络" scheme="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E7%BD%91%E7%BB%9C/"/>
-    
-      <category term="VPC+专线+IDC网络" scheme="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E7%BD%91%E7%BB%9C/VPC-%E4%B8%93%E7%BA%BF-IDC%E7%BD%91%E7%BB%9C/"/>
-    
-    
-      <category term="VPC" scheme="http://yoursite.com/tags/VPC/"/>
-    
-      <category term="专线" scheme="http://yoursite.com/tags/%E4%B8%93%E7%BA%BF/"/>
-    
-      <category term="IDC网络" scheme="http://yoursite.com/tags/IDC%E7%BD%91%E7%BB%9C/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Zookeeper</title>
-    <link href="http://yoursite.com/2018/04/17/Zookeeper/"/>
-    <id>http://yoursite.com/2018/04/17/Zookeeper/</id>
-    <published>2018-04-17T05:21:24.000Z</published>
-    <updated>2018-04-17T05:21:24.000Z</updated>
-    
-    <summary type="html">
-    
-      Zookeeper从入门到精通
-    
-    </summary>
-    
-      <category term="IT科学技术知识体系结构-Linux运维方向" scheme="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/"/>
-    
-      <category term="大数据" scheme="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E5%A4%A7%E6%95%B0%E6%8D%AE/"/>
-    
-      <category term="大数据相关组件" scheme="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E5%A4%A7%E6%95%B0%E6%8D%AE/%E5%A4%A7%E6%95%B0%E6%8D%AE%E7%9B%B8%E5%85%B3%E7%BB%84%E4%BB%B6/"/>
-    
-      <category term="Zookeeper" scheme="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E5%A4%A7%E6%95%B0%E6%8D%AE/%E5%A4%A7%E6%95%B0%E6%8D%AE%E7%9B%B8%E5%85%B3%E7%BB%84%E4%BB%B6/Zookeeper/"/>
-    
-    
-      <category term="Zookeeper" scheme="http://yoursite.com/tags/Zookeeper/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Logstash</title>
-    <link href="http://yoursite.com/2018/04/17/Logstash/"/>
-    <id>http://yoursite.com/2018/04/17/Logstash/</id>
-    <published>2018-04-17T05:21:00.000Z</published>
-    <updated>2018-04-17T05:21:00.000Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><p>logstash由以下几个部分组成</p><ul><li>input</li><li>filter</li><li>output</li></ul><h1 id="How-Logstash-Works"><a href="#How-Logstash-Works" class="headerlink" title="How Logstash Works"></a>How Logstash Works</h1><p>每个input都拥有一个线程</p><p>input生成的event存储在<code>内存或者磁盘</code>中</p>]]></content>
-    
-    <summary type="html">
-    
-      Logstash从入门到精通
-    
-    </summary>
-    
-      <category term="IT科学技术知识体系结构-Linux运维方向" scheme="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/"/>
-    
-      <category term="大数据" scheme="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E5%A4%A7%E6%95%B0%E6%8D%AE/"/>
-    
-      <category term="大数据相关组件" scheme="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E5%A4%A7%E6%95%B0%E6%8D%AE/%E5%A4%A7%E6%95%B0%E6%8D%AE%E7%9B%B8%E5%85%B3%E7%BB%84%E4%BB%B6/"/>
-    
-      <category term="Logstash" scheme="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E5%A4%A7%E6%95%B0%E6%8D%AE/%E5%A4%A7%E6%95%B0%E6%8D%AE%E7%9B%B8%E5%85%B3%E7%BB%84%E4%BB%B6/Logstash/"/>
-    
-    
-      <category term="Logstash" scheme="http://yoursite.com/tags/Logstash/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Kibana</title>
-    <link href="http://yoursite.com/2018/04/17/Kibana/"/>
-    <id>http://yoursite.com/2018/04/17/Kibana/</id>
-    <published>2018-04-17T05:20:54.000Z</published>
-    <updated>2018-04-17T05:20:54.000Z</updated>
-    
-    <summary type="html">
-    
-      Kibana从入门到精通
-    
-    </summary>
-    
-      <category term="IT科学技术知识体系结构-Linux运维方向" scheme="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/"/>
-    
-      <category term="大数据" scheme="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E5%A4%A7%E6%95%B0%E6%8D%AE/"/>
-    
-      <category term="大数据相关组件" scheme="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E5%A4%A7%E6%95%B0%E6%8D%AE/%E5%A4%A7%E6%95%B0%E6%8D%AE%E7%9B%B8%E5%85%B3%E7%BB%84%E4%BB%B6/"/>
-    
-      <category term="Kibana" scheme="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E5%A4%A7%E6%95%B0%E6%8D%AE/%E5%A4%A7%E6%95%B0%E6%8D%AE%E7%9B%B8%E5%85%B3%E7%BB%84%E4%BB%B6/Kibana/"/>
-    
-    
-      <category term="Kibana" scheme="http://yoursite.com/tags/Kibana/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Filebeat</title>
-    <link href="http://yoursite.com/2018/04/17/Filebeat/"/>
-    <id>http://yoursite.com/2018/04/17/Filebeat/</id>
-    <published>2018-04-17T05:20:23.000Z</published>
-    <updated>2018-04-17T05:20:23.000Z</updated>
-    
-    <content type="html"><![CDATA[<p><strong>本文基于Filebeat 6.2.3版本</strong></p><p>参考文献： <a href="https://www.elastic.co/guide/en/beats/filebeat/current/index.html" target="_blank" rel="noopener">官网</a></p><h2 id="1-Filebeat基础知识"><a href="#1-Filebeat基础知识" class="headerlink" title="1. Filebeat基础知识"></a>1. Filebeat基础知识</h2><blockquote><p>Filebeat consists of two main components: <code>prospectors and harvesters.</code></p><p>These components work together to <code>tail files</code> and send event data to the output that you specify.</p></blockquote><ul><li><p>prospectors:勘探者；探矿者【也就是数据变化的探测者，也就是入向配置】</p></li><li><p>harvesters：收割机；收获者【也就是数据的下游接收端，也就是出向配置】</p></li><li><p>spooler：处理程序；【处理程序会集合这些事件，最后filebeat会发送集合的数据到你指定的地点。】</p></li></ul><p>Filebeat工作流程：</p><blockquote><p>当你开启filebeat程序的时候，它会启动一个或多个探测器（prospectors）去检测你指定的日志目录或文件，对于探测器找出的每一个日志文件，filebeat启动收割进程（harvester），每一个收割进程读取一个日志文件的新内容，并发送这些新的日志数据到处理程序（spooler），处理程序会集合这些事件，最后filebeat会发送集合的数据到你指定的地点。</p></blockquote><p>流程图如下：</p><p><img src="http://picture.watchmen.xin/elk-filebeat/filebeat-2.png" alt="流程图"></p><h3 id="1-1-What-is-harvester"><a href="#1-1-What-is-harvester" class="headerlink" title="1.1 What is harvester?"></a>1.1 What is harvester?</h3><blockquote><p>A harvester is responsible for reading the content of a single file. The harvester reads each file, line by line, and sends the content to the output. One harvester is started for each file. T<code>he harvester is responsible for opening and closing the file</code>, which means that the file descriptor remains open while the harvester is running. If a file is removed or renamed while it’s being harvested, Filebeat continues to read the file. This has the side effect that the space on your disk is reserved until the harvester closes. By default, Filebeat keeps the file open until close_inactive is reached.</p><p>Closing a harvester has the following consequences:【关闭时按以下顺序依`次执行，也就是关闭顺序】</p></blockquote><ul><li><p>The file handler is closed, freeing up the underlying resources if the file was deleted while the harvester was still reading the file.<br>The</p></li><li><p>harvesting of the file will only be started again after scan_frequency has elapsed.</p></li></ul><ul><li>If the file is moved or removed while the harvester is closed, harvesting of the file will not continue.</li></ul><p>To control when a harvester is closed, use the close_* configuration options.</p><p>harvester负责打开和关闭文件</p><p>当harvester捕获到一个文件之后，这个文件被删除或者重命名，它将继续读取这个文件。【副作用是占用磁盘空间直到harvester进程关闭】</p><h3 id="1-2-What-is-prospector"><a href="#1-2-What-is-prospector" class="headerlink" title="1.2 What is prospector?"></a>1.2 What is prospector?</h3><blockquote><p>A prospector is responsible for managing the harvesters and finding all sources to read from.</p><p>If the input type is log, the prospector finds all files on the drive that match the defined glob paths and starts a harvester for each file. Each prospector runs in its own Go routine.</p><p>The following example configures Filebeat to harvest lines from all log files that match the specified glob patterns:</p></blockquote><pre><code>filebeat.prospectors:- type: log  paths:    - /var/log/*.log    - /var/path2/*.log</code></pre><p>prospector负责管理harvesters进程以及寻找需要去读取的资源（input设置）</p><p>Filebeat的input type当前有两种设置：<code>log和stdin</code></p><blockquote><p>The log prospector checks each file to see whether a harvester needs to be started, whether one is already running, or whether the file can be ignored (see ignore_older).<br><code>New lines are only picked up if the size of the file has changed since the harvester was closed.</code></p></blockquote><p>注意，Filebeat只能读取本地的文件，也就是需要在每个日志产生端都安装：<br><strong>Filebeat prospectors can only read <code>local files</code>. There is no functionality to connect to remote hosts to read stored files or logs.</strong></p><h3 id="1-3-How-does-Filebeat-keep-the-state-of-files"><a href="#1-3-How-does-Filebeat-keep-the-state-of-files" class="headerlink" title="1.3 How does Filebeat keep the state of files"></a>1.3 How does Filebeat keep the state of files</h3><p>filebeat通过定期去刷新，将状态落地到磁盘的注册文件中，以这种形式来保持文件检测状态</p><blockquote><p>Filebeat keeps the state of each file and frequently flushes the state to disk in the registry file</p><p>The state is used to remember the last offset a harvester was reading from and to ensure all log lines are sent</p></blockquote><p>filebeat的状态信息记录的是最新的读取偏移量，如果下游的接受者（ES、kafka、logstash等不可达），filebeat将会保持这种状态，当检测后可达之后将会重新发送</p><p>当filebeat重启时，将会重新构建这个注册文件</p><p>每个prospector针对每个文件都会保持一个状态，也就是一个注册文件，因为文件可能会被删除或者重命名</p><p>针对每个文件，filebeat存储一个唯一的标识符去发现该文件之前是否有被收集过</p><blockquote><p>For each file, Filebeat stores unique identifiers to detect whether a file was harvested previously.</p></blockquote><h3 id="1-4-how-does-Filebeat-ensure-at-least-once-delivery"><a href="#1-4-how-does-Filebeat-ensure-at-least-once-delivery" class="headerlink" title="1.4 how does Filebeat ensure at-least-once delivery?"></a>1.4 how does Filebeat ensure at-least-once delivery?</h3><p>Filebeat保证一个事件的完整及正确性，它将发送最少一次给设置的下游输出，以保证没有数据丢失。</p><blockquote><p>Filebeat guarantees that events will be delivered to the configured output at least once and with no data loss.</p><p>Filebeat is able to achieve this behavior because it stores the delivery state of each event in the registry file.</p></blockquote><p>Filebeat能够保证这种特性的原因是因为它将分发状态也存储在这个注册文件中。</p><p>当下游因为阻塞或者其他原因，没有对某一个事件进行确认的时候，filebeat将一直尝试去发送这个事件，直到收到ACK</p><blockquote><p>If Filebeat shuts down while it’s in the process of sending events, it does not wait for the output to acknowledge all events before shutting down. Any events that are sent to the output, but not acknowledged before Filebeat shuts down, are sent again when Filebeat is restarted. This ensures that each event is sent at least once, but you can end up with duplicate events being sent to the output. You can configure Filebeat to wait a specific amount of time before shutting down by setting the<code>shutdown_timeout</code> option.</p></blockquote><p>当Filebeat异常关闭，再次启动的时候，它将会重新发送没有接受到ACk的事件。通过这种机制来保证每个事件至少发送一次。</p><p>因此，为了减少重新发送event事件的次数，可以通过设置shutdown_timeout参数来设置当filebeat关闭时，等待多少时间之后再关闭进程，以保证收到尽量多的ACK</p><p>注意：虽然拥有这种机制来保证数据的不丢失，但还是存在一些可能的情况导致数据的丢失（日志轮转和删除文件时）</p><p>例如：</p><ul><li><p>If log files are written to disk and rotated faster than they can be processed by Filebeat 【当日志刚好触发到日志轮转条件时，并且此时filebeat还没有来得及收集的时候，原因是inode节点发生变化】</p></li><li><p>if files are deleted while the output is unavailable 【当该文件被删除时，并且输出不可用时】</p></li></ul><p><strong>总结：filebeat会维护一个注册文件【是落地到磁盘中的】，该注册文件中包含2个信息</strong></p><ul><li>所发送事件的偏移量，精确记录当前的发送情况。        下游断开时，将保持直到连接后再发送</li><li>发送事件的ACk，记录发送事件的接受情况。            没有收到，将一直持续发送。</li></ul><h2 id="2-Filebeat安装部署配置启动"><a href="#2-Filebeat安装部署配置启动" class="headerlink" title="2. Filebeat安装部署配置启动"></a>2. Filebeat安装部署配置启动</h2><h3 id="2-1-安装"><a href="#2-1-安装" class="headerlink" title="2.1 安装"></a>2.1 安装</h3><pre><code>curl -L -O https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-6.2.3-x86_64.rpmrpm -vih filebeat-6.2.3-x86_64.rpm</code></pre><h3 id="2-2-启动"><a href="#2-2-启动" class="headerlink" title="2.2 启动"></a>2.2 启动</h3><pre><code>service filebeat start./filebeat -e -c ./bigdata.yml</code></pre><h3 id="2-3-命令"><a href="#2-3-命令" class="headerlink" title="2.3 命令"></a>2.3 命令</h3><p>主要提供了8个命令API</p><pre><code>[root@master ~]# filebeat --helpUsage:  filebeat [flags]  filebeat [command]Available Commands:  export      Export current config or index template        #导出ES的索引模板  help        Help about any command  keystore    Manage secrets keystore  modules     Manage configured modules                        #Filebeat的模块相关  run         Run filebeat  setup       Setup index template, dashboards and ML jobs    #设置初始化环境，包括索引模板，kibana的仪表盘等  test        Test config  version     Show current version infoFlags:  -E, --E setting=value      Configuration overwrite  -M, --M setting=value      Module configuration overwrite  -N, --N                    Disable actual publishing for testing  -c, --c string             Configuration file, relative to path.config (default &quot;filebeat.yml&quot;)      --cpuprofile string    Write cpu profile to file  -d, --d string             Enable certain debug selectors  -e, --e                    Log to stderr and disable syslog/file output  -h, --help                 help for filebeat      --httpprof string      Start pprof http server      --memprofile string    Write memory profile to this file      --modules string       List of enabled modules (comma separated)      --once                 Run filebeat only once until all harvesters reach EOF      --path.config string   Configuration path (default &quot;&quot;)      --path.data string     Data path (default &quot;&quot;)      --path.home string     Home path (default &quot;&quot;)      --path.logs string     Logs path (default &quot;&quot;)      --plugin pluginList    Load additional plugins      --setup                Load the sample Kibana dashboards      --strict.perms         Strict permission checking on config files (default true)  -v, --v                    Log at INFO levelUse &quot;filebeat [command] --help&quot; for more information about a command.</code></pre><p>注意： filebeat有：<code>Config File Ownership and Permissions</code></p><blockquote><p>On systems with POSIX file permissions, all Beats configuration files are subject to ownership and file permission checks. The purpose of these checks is to prevent unauthorized users from providing or modifying configurations that are run by the Beat. The owner of the configuration files must be either root or the user who is executing the Beat process. The permissions on each file must disallow writes by anyone other than the owner.</p></blockquote><p>也就是说只有root用户或者文件的属主才有权限执行命令</p><h3 id="2-4-编辑配置文件"><a href="#2-4-编辑配置文件" class="headerlink" title="2.4 编辑配置文件"></a>2.4 编辑配置文件</h3><p><a href="https://www.elastic.co/guide/en/beats/filebeat/current/directory-layout.html#_docker" target="_blank" rel="noopener">配置文件生成规则</a></p><p>安装完毕之后，配置文件路径：/etc/filebeat/filebeat.yml<br>参考配置文件为：filebeat.reference.yml</p><p>这里采用的是rpm包方式安装，因此生成规则如下：</p><p><img src="http://picture.watchmen.xin/elk-filebeat/filebeat-1.png" alt="生成规则"></p><p>filebeat.yml整个配置文件分为几个部分，分别是：</p><pre><code>- Modules configuration- Filebeat prospectors        【上游输入设置。这部分包含内容为：type设置|path路径设置，】- Filebeat autodiscover- Filebeat global options- General- Elastic Cloud- Outputs                    【下游输出设置。这部分内容为：ES|kafka|logstash|】- Paths- Dashboards- Template                    【ES模板配置】- Kibana- Logging- X- - -  Monitoring            【x-  -  -  监控】- HTTP Endpoint</code></pre><p>让我们来配置filebeat：</p><h4 id="modules模块设置"><a href="#modules模块设置" class="headerlink" title="modules模块设置"></a>modules模块设置</h4><p>filebeat的模块实现了快速部署的方式。该部分的设置是可选的，你可以选择在后面自己定义prospectors设置相关设置。<br>可以通过以下3种方式开启modules</p><ul><li>Enable module configs in the modules.d directoryedit</li></ul><ul><li>Enable modules when you run Filebeatedit</li></ul><ul><li>Enable module configs in the filebeat.yml file</li></ul><p>使用了模块之后，仍然可以指定变量设置来覆盖模块中的定义【最小局部生效】。并且，可以使用高级设置来覆盖prospector中的相关设置</p><p>模块命令：</p><p><strong>第一种方式：</strong></p><pre><code>./filebeat modules enable apache2 mysql    开启modules.d下的指定模块./filebeat modules list        查看启动的模块情况</code></pre><p><strong>第二种方式：</strong></p><pre><code>./filebeat -e --modules nginx,mysql,system    在启动filebeat的时候启动模块</code></pre><p><strong>第三种方式：</strong></p><pre><code>filebeat.modules:- module: nginx- module: mysql- module: system</code></pre><p><strong>模块的高级设置：</strong></p><p>能够覆盖prospector中的设置</p><p>Behind the scenes, each module starts a Filebeat prospector. Advanced users can add or override any prospector settings. For example, you can set close_eof to true in the module configuration:</p><pre><code>- module: nginx  access:    prospector:      close_eof: true</code></pre><p>Or at the command line like this:</p><pre><code>./filebeat -M &quot;nginx.access.prospector.close_eof=true&quot;</code></pre><p>Here you see how to use the -M flag along with the –modules flag:</p><pre><code>./filebeat --modules nginx -M &quot;nginx.access.prospector.close_eof=true&quot;</code></pre><p>You can use wildcards to change variables or settings for multiple modules/filesets at once. For example, the following command enables close_eof for all the filesets in the nginx module:</p><pre><code>./filebeat -M &quot;nginx.*.prospector.close_eof=true&quot;</code></pre><p>The following command enables close_eof for all prospectors created by any of the modules:</p><pre><code>./filebeat -M &quot;*.*.prospector.close_eof=true&quot;</code></pre><h4 id="Filebeat-global-options-设置"><a href="#Filebeat-global-options-设置" class="headerlink" title="Filebeat global options 设置"></a>Filebeat global options 设置</h4><p>这部分可以设置filebeat自动去探测检测文件</p><pre><code>filebeat.config.prospectors:  enabled: true  path: configs/*.yml  reload.enabled: true  reload.period: 10s</code></pre><h4 id="prospectors设置"><a href="#prospectors设置" class="headerlink" title="prospectors设置"></a>prospectors设置</h4><p>对于大多数的基本filebeat配置，你可以定义一个单一探测器针对一个单一的路径，例如：</p><pre><code>filebeat.prospectors:- input_type: log  paths:    - /var/log/*.log</code></pre><p>在这个例子中，探测器会收集/var/log/*.log的所有匹配文件，这意味这filebeat会手机所有的/var/log下以.log结尾的文件，此处还支持Golang Glob支持的所有模式。</p><p>在预定义级别的子目录中获取所有文件，可以使用这个配置：/var/log/<em>/</em>.log，这会找到/var/log下所有子目录中所有的以.log结尾的文件。但它并不会找到/var/log文件夹下的以.log结尾的文件。现在它还不能递归的在所有子目录中获取所有的日志文件。</p><h4 id="Outputs设置"><a href="#Outputs设置" class="headerlink" title="Outputs设置"></a>Outputs设置</h4><p>如果你设置输出到elasticsearch中，那么你需要在filebeat的配置文件中设置elasticsearch的IP地址与端口。</p><pre><code>output.elasticsearch:  hosts: [&quot;192.168.1.42:9200&quot;]</code></pre><p>如果要使用Logstash对Filebeat收集的数据执行附加处理，则需要将Filebeat配置为使用Logstash。</p><pre><code>＃----------------------------- Logstash输出------------------ --------------output.logstash：  hosts：[“127.0.0.1:5044”]</code></pre><p>如果您打算使用随Filebeat提供的示例Kibana仪表板，需要配置Kibana，这段是属于kibana设置，不输出output设置</p><pre><code>#============================== Kibana =====================================setup.kibana：  host：“localhost：5601”</code></pre><p>如果设置ES和kibana的安全性设置，使用以下的配置</p><pre><code>output.elasticsearch:  hosts: [&quot;myEShost:9200&quot;]  username: &quot;elastic&quot;  password: &quot;elastic&quot;setup.kibana:  host: &quot;mykibanahost:5601&quot;  username: &quot;elastic&quot;   password: &quot;elastic&quot;</code></pre><h4 id="Template设置"><a href="#Template设置" class="headerlink" title="Template设置"></a>Template设置</h4><p><strong>这一部分主要设置ES的模板</strong></p><p>在Elasticsearch中，索引模板用于定义设置和映射，以确定如何分析字段。<br>通过使用ES模板，可以有效的减轻存储压力<br>ES模板：通过对索引中的每个字段做事先的预定义数据类型（例如ID，name等分别使用存储空间最小的数据类型）</p><p>在安装完毕Filebeat之后，会生成fields.yml这个ES模板文件<br>下游如果是ES的话，Filebeat在启动的时候会自动的加载这个模板文件<br>如果要关闭自动加载功能，则将以下参数设置为false</p><pre><code>setup.template.enabled: false</code></pre><p>注意：如果该模板已经存在，则不会覆盖它，除非您配置Filebeat来指定执行此操作。</p><p>如果下游连接的不是ES而是logstash，那么需要手动导入模板</p><pre><code>filebeat setup --template -E output.logstash.enabled=false -E &apos;output.elasticsearch.hosts=[&quot;localhost:9200&quot;]&apos;</code></pre><p><strong>强制Kibana使用最新的Filebeat索引信息</strong></p><p>如果当前ES中已经有了filebeat的索引信息，那么修改模板之后，因此模板不会被覆盖，因此需要强制刷新生效。</p><pre><code>curl -XDELETE &apos;http://localhost:9200/filebeat-*&apos;</code></pre><p><strong>中转方式导入ES模板</strong></p><p>如果Filebeat没有直接连接到ES，那么可以将模板文件先导出到可以连接到ES的主机上，再通过这台去导入</p><pre><code>filebeat export template &gt; filebeat.template.jsoncurl -XPUT -H &apos;Content-Type: application/json&apos; http://localhost:9200/_template/filebeat-6.2.3 -d@filebeat.template.json</code></pre><p><strong>相关命令</strong></p><pre><code>./filebeat setup -e    导入ES的索引末班./filebeat -e --modules system 导入模块的命令，这里是导入system模块./filebeat -e --modules system,nginx,mysql  一次运行多个模块</code></pre><h4 id="Kibana设置"><a href="#Kibana设置" class="headerlink" title="Kibana设置"></a>Kibana设置</h4><p>再kibana上显示filebeat的索引信息之前，you need to create the index pattern, <code>filebeat-*</code>， and load the dashboards into Kibana.<br>不过在filebeat的6.0.0版本之后，这部分操作通过配置文件中的kibana配置部署来实现<br>也就是上面说到的这一段的配置：</p><pre><code>#============================== Kibana =====================================setup.kibana：  host：“localhost：5601”</code></pre><p>在配置之前请确保kibana已经处于运行状态，然后执行如下命令</p><pre><code>filebeat setup --dashboards</code></pre><h4 id="多行日志处理"><a href="#多行日志处理" class="headerlink" title="多行日志处理"></a>多行日志处理</h4><p><strong>处理多行日志，主要包括JAVA的堆栈内存，程序语言的类似\换行功能，时间戳引导的一段日志，应用指定的start–end等日志段</strong></p><p>默认情况下JAVA堆栈日志是有多行组成的，例如：</p><pre><code>Exception in thread &quot;main&quot; java.lang.NullPointerException    at com.example.myproject.Book.getTitle(Book.java:16)    at com.example.myproject.Author.getBookTitles(Author.java:25)    at com.example.myproject.Bootstrap.main(Bootstrap.java:14)</code></pre><p>因此在filebeat中要把这些多行的日志组合成为一个event。这就需要以下的配置：</p><pre><code>multiline.pattern: &apos;^[[:space:]]&apos;multiline.negate: falsemultiline.match: after</code></pre><p><strong>This configuration merges any line that begins with whitespace up to the previous line.</strong></p><p>如果还涉及到更复杂的JAVA堆栈日志格式，例如：</p><pre><code>Exception in thread &quot;main&quot; java.lang.IllegalStateException: A book has a null property       at com.example.myproject.Author.getBookIds(Author.java:38)       at com.example.myproject.Bootstrap.main(Bootstrap.java:14)Caused by: java.lang.NullPointerException       at com.example.myproject.Book.getId(Book.java:22)       at com.example.myproject.Author.getBookIds(Author.java:35)       ... 1 more</code></pre><p>那么需要如下的配置：</p><pre><code>multiline.pattern: &apos;^[[:space:]]+(at|\.{3})\b|^Caused by:&apos;multiline.negate: falsemultiline.match: after</code></pre><p>In this example, the pattern matches the following lines:</p><ul><li>a line that begins with spaces followed by the word at or …</li></ul><ul><li>a line that begins with the words Caused by:</li></ul>]]></content>
-    
-    <summary type="html">
-    
-      Filebeat从入门到精通
-    
-    </summary>
-    
-      <category term="IT科学技术知识体系结构-Linux运维方向" scheme="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/"/>
-    
-      <category term="大数据" scheme="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E5%A4%A7%E6%95%B0%E6%8D%AE/"/>
-    
-      <category term="大数据相关组件" scheme="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E5%A4%A7%E6%95%B0%E6%8D%AE/%E5%A4%A7%E6%95%B0%E6%8D%AE%E7%9B%B8%E5%85%B3%E7%BB%84%E4%BB%B6/"/>
-    
-      <category term="Filebeat" scheme="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E5%A4%A7%E6%95%B0%E6%8D%AE/%E5%A4%A7%E6%95%B0%E6%8D%AE%E7%9B%B8%E5%85%B3%E7%BB%84%E4%BB%B6/Filebeat/"/>
-    
-    
-      <category term="Filebeat" scheme="http://yoursite.com/tags/Filebeat/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Kafka</title>
-    <link href="http://yoursite.com/2018/04/17/Kafka/"/>
-    <id>http://yoursite.com/2018/04/17/Kafka/</id>
-    <published>2018-04-17T05:20:18.000Z</published>
-    <updated>2018-04-17T05:20:18.000Z</updated>
-    
-    <summary type="html">
-    
-      Kafka从入门到精通
-    
-    </summary>
-    
-      <category term="IT科学技术知识体系结构-Linux运维方向" scheme="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/"/>
-    
-      <category term="大数据" scheme="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E5%A4%A7%E6%95%B0%E6%8D%AE/"/>
-    
-      <category term="大数据相关组件" scheme="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E5%A4%A7%E6%95%B0%E6%8D%AE/%E5%A4%A7%E6%95%B0%E6%8D%AE%E7%9B%B8%E5%85%B3%E7%BB%84%E4%BB%B6/"/>
-    
-      <category term="Kafka" scheme="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E5%A4%A7%E6%95%B0%E6%8D%AE/%E5%A4%A7%E6%95%B0%E6%8D%AE%E7%9B%B8%E5%85%B3%E7%BB%84%E4%BB%B6/Kafka/"/>
-    
-    
-      <category term="Kafka" scheme="http://yoursite.com/tags/Kafka/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Flume</title>
-    <link href="http://yoursite.com/2018/04/17/Flume/"/>
-    <id>http://yoursite.com/2018/04/17/Flume/</id>
-    <published>2018-04-17T05:20:12.000Z</published>
-    <updated>2018-04-17T05:20:12.000Z</updated>
-    
-    <summary type="html">
-    
-      Flume从入门到精通
-    
-    </summary>
-    
-      <category term="IT科学技术知识体系结构-Linux运维方向" scheme="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/"/>
-    
-      <category term="大数据" scheme="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E5%A4%A7%E6%95%B0%E6%8D%AE/"/>
-    
-      <category term="大数据相关组件" scheme="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E5%A4%A7%E6%95%B0%E6%8D%AE/%E5%A4%A7%E6%95%B0%E6%8D%AE%E7%9B%B8%E5%85%B3%E7%BB%84%E4%BB%B6/"/>
-    
-      <category term="Flume" scheme="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E5%A4%A7%E6%95%B0%E6%8D%AE/%E5%A4%A7%E6%95%B0%E6%8D%AE%E7%9B%B8%E5%85%B3%E7%BB%84%E4%BB%B6/Flume/"/>
-    
-    
-      <category term="Flume" scheme="http://yoursite.com/tags/Flume/"/>
     
   </entry>
   

@@ -524,6 +524,8 @@
 <p>以下是VPC实现的逻辑架构：</p>
 <p>VPC包含<strong>交换机、网关和控制器</strong>三个重要的组件。</p>
 <p><img src="http://picture.watchmen.xin/vpc/架构图.png" alt="实现原理"></p>
+<h2 id="VPC应用场景"><a href="#VPC应用场景" class="headerlink" title="VPC应用场景"></a>VPC应用场景</h2><p>SNAT：在NAT网关上操作，接受到后端ECS主机发送来的数据包时，将源IP地址，修改为自身的IP地址，堆外隐藏内部的信息</p>
+<p>DNAT：在NAT网关上操作，接受到internet发送过来的数据包时，将目的IP地址进行修改（这个时候是NAT网关的地址），修改成为内部ECS主机的IP地址。用于后端多套系统共享带宽。</p>
 <h2 id="VPC通信"><a href="#VPC通信" class="headerlink" title="VPC通信"></a>VPC通信</h2><p>专有网络是完全隔离的网络环境。默认情况下，相同专有云网络内的ECS和云服务可以进行私网通信，但VPC与VPC之间、VPC与经典网络或公网不能互通。您可以使用弹性公网IP、高速通道、NAT、VPN网关或公网负载均衡等公网产品实现专有网络间的通信。</p>
 <ul>
 <li><p>VPC与VPC通信</p>
@@ -722,7 +724,7 @@ var jiathis_config={
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">44</span>
+                  <span class="site-state-item-count">52</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -733,7 +735,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">61</span>
+                  <span class="site-state-item-count">67</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -744,7 +746,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">47</span>
+                  <span class="site-state-item-count">54</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -784,7 +786,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#VPC中的路由器和交换机"><span class="nav-number">1.</span> <span class="nav-text">VPC中的路由器和交换机</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现原理"><span class="nav-number">2.</span> <span class="nav-text">实现原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#VPC通信"><span class="nav-number">3.</span> <span class="nav-text">VPC通信</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#VPC与VPC通信"><span class="nav-number">3.1.</span> <span class="nav-text">VPC与VPC通信</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#VPC中的路由器和交换机"><span class="nav-number">1.</span> <span class="nav-text">VPC中的路由器和交换机</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现原理"><span class="nav-number">2.</span> <span class="nav-text">实现原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#VPC应用场景"><span class="nav-number">3.</span> <span class="nav-text">VPC应用场景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#VPC通信"><span class="nav-number">4.</span> <span class="nav-text">VPC通信</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#VPC与VPC通信"><span class="nav-number">4.1.</span> <span class="nav-text">VPC与VPC通信</span></a></li></ol></li></ol></div>
             
 
           </div>
