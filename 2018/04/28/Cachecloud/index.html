@@ -91,6 +91,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://picture.watchmen.xin/cachecloud/client.png">
 <meta property="og:image" content="http://picture.watchmen.xin/cachecloud/machine.png">
+<meta property="og:image" content="http://picture.watchmen.xin/cachecloud/web.png">
 <meta property="og:updated_time" content="2018-04-28T02:45:56.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Cachecloud">
@@ -628,7 +629,8 @@ spring-file=classpath:spring/spring-online.xml
 log_base=/opt/cachecloud-web/logs
 web.port=8585
 log.level=WARN
-</code></pre><p><strong>开启机器管理显示</strong></p>
+</code></pre><p>注意这里需要提前在数据库中删除匿名用户</p>
+<p><strong>开启机器管理显示</strong></p>
 <pre><code># pwd
 /root/software/cachecloud/cachecloud-open-web/src/main/java/com/sohu/cache/schedule/jobs
 
@@ -645,7 +647,9 @@ log.level=WARN
 [root@host-192-168-8-37 script]# sh deploy.sh /root/software/
 </code></pre><p><strong>启动</strong></p>
 <pre><code># sh /opt/cachecloud-web/start.sh
-</code></pre>
+</code></pre><p>启动成功之后的web页面如下图所示：</p>
+<p><img src="http://picture.watchmen.xin/cachecloud/web.png" alt="web"></p>
+
       
     </div>
     
