@@ -4,6 +4,87 @@
 
     
   <url>
+    <loc>http://yoursite.com/2018/05/02/Zookeeper%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</loc>
+    <lastmod>2018-05-02T11:43:32.000Z</lastmod>
+    <data>
+        <display>
+        <title>Zookeeper常用命令</title>
+        <pubTime>2018-05-02T11:43:32.000Z</pubTime>
+        
+        <tag>Zookeeper常用命令</tag>
+         
+         
+           
+             
+              <breadCrumb title="IT科学技术知识体系结构-Linux运维方向" url="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/"/>
+          
+             
+              <breadCrumb title="大数据" url="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E5%A4%A7%E6%95%B0%E6%8D%AE/"/>
+          
+             
+              <breadCrumb title="大数据相关组件" url="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E5%A4%A7%E6%95%B0%E6%8D%AE/%E5%A4%A7%E6%95%B0%E6%8D%AE%E7%9B%B8%E5%85%B3%E7%BB%84%E4%BB%B6/"/>
+          
+             
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://yoursite.com/2018/05/02/MySQL%E6%99%AE%E9%80%9A%E7%94%A8%E6%88%B7%E6%97%A0%E6%B3%95%E6%9C%AC%E5%9C%B0%E7%99%BB%E5%BD%95%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95%E5%8F%8AMySQL%E7%9A%84%E7%94%A8%E6%88%B7%E8%AE%A4%E8%AF%81%E7%AE%97%E6%B3%95/</loc>
+    <lastmod>2018-05-02T10:00:00.000Z</lastmod>
+    <data>
+        <display>
+        <title>MySQL普通用户无法本地登录的解决方法及MySQL的用户认证算法</title>
+        <pubTime>2018-05-02T10:00:00.000Z</pubTime>
+        
+        <tag>MySQL</tag>
+         
+         
+           
+             
+              <breadCrumb title="IT科学技术知识体系结构-Linux运维方向" url="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/"/>
+          
+             
+              <breadCrumb title="数据库" url="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+          
+             
+              <breadCrumb title="MySQL" url="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL/"/>
+          
+             
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://yoursite.com/2018/05/02/Mysql%E5%AF%86%E7%A0%81%E8%AE%BE%E7%BD%AE%E4%BF%AE%E6%94%B9%E5%8F%8A%E6%81%A2%E5%A4%8D/</loc>
+    <lastmod>2018-05-02T06:24:22.000Z</lastmod>
+    <data>
+        <display>
+        <title>Mysql密码设置修改及恢复</title>
+        <pubTime>2018-05-02T06:24:22.000Z</pubTime>
+        
+        <tag>mysql</tag>
+         
+         
+           
+             
+              <breadCrumb title="IT科学技术知识体系结构-Linux运维方向" url="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/"/>
+          
+             
+              <breadCrumb title="数据库" url="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+          
+             
+              <breadCrumb title="MySQL" url="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL/"/>
+          
+             
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://yoursite.com/2018/04/28/Linux%E4%B8%8BJDK%E7%9A%84%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE/</loc>
     <lastmod>2018-04-28T03:28:39.000Z</lastmod>
     <data>
@@ -541,7 +622,7 @@
     <lastmod>2018-04-17T05:21:24.000Z</lastmod>
     <data>
         <display>
-        <title>Zookeeper</title>
+        <title>Zookeeper从入门到精通</title>
         <pubTime>2018-04-17T05:21:24.000Z</pubTime>
         
         <tag>Zookeeper</tag>
@@ -1245,6 +1326,29 @@
 
     
   <url>
+    <loc>http://yoursite.com/2018/01/25/Markdown%E8%AF%AD%E6%B3%95/</loc>
+    <lastmod>2018-02-04T08:31:24.000Z</lastmod>
+    <data>
+        <display>
+        <title>Markdown语法</title>
+        <pubTime>2018-01-25T14:08:24.000Z</pubTime>
+        
+        <tag>markdown</tag>
+         
+         
+           
+             
+              <breadCrumb title="常用软件工具" url="http://yoursite.com/categories/%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6%E5%B7%A5%E5%85%B7/"/>
+          
+             
+              <breadCrumb title="Markdown" url="http://yoursite.com/categories/%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6%E5%B7%A5%E5%85%B7/Markdown/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://yoursite.com/2018/01/23/hello-world/</loc>
     <lastmod>2018-02-04T08:31:24.000Z</lastmod>
     <data>
@@ -1264,29 +1368,6 @@
           
              
               <breadCrumb title="Hexo" url="http://yoursite.com/categories/%E4%B8%AA%E4%BA%BA%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/Hexo/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://yoursite.com/2018/01/25/Markdown%E8%AF%AD%E6%B3%95/</loc>
-    <lastmod>2018-02-04T08:31:24.000Z</lastmod>
-    <data>
-        <display>
-        <title>Markdown语法</title>
-        <pubTime>2018-01-25T14:08:24.000Z</pubTime>
-        
-        <tag>markdown</tag>
-         
-         
-           
-             
-              <breadCrumb title="常用软件工具" url="http://yoursite.com/categories/%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6%E5%B7%A5%E5%85%B7/"/>
-          
-             
-              <breadCrumb title="Markdown" url="http://yoursite.com/categories/%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6%E5%B7%A5%E5%85%B7/Markdown/"/>
           
         </display>
     </data>

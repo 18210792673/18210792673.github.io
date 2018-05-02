@@ -96,6 +96,9 @@
 <meta property="og:image" content="http://picture.watchmen.xin/python-django/addtopic.png">
 <meta property="og:image" content="http://picture.watchmen.xin/python-django/entry.png">
 <meta property="og:image" content="http://picture.watchmen.xin/python-django/chess.png">
+<meta property="og:image" content="http://picture.watchmen.xin/python-django/url.png">
+<meta property="og:image" content="http://picture.watchmen.xin/python-django/addurl.png">
+<meta property="og:image" content="http://picture.watchmen.xin/python-django/web.png">
 <meta property="og:updated_time" content="2018-04-17T12:07:03.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Python-django项目">
@@ -769,7 +772,183 @@ datetime.datetime(2018, 4, 23, 12, 51, 16, 430242, tzinfo=&lt;UTC&gt;)
 <p>接下来，我们来创建学习笔记的主页。我们将定义该主页的URL、编写其视图函数并创建一个简单的模板</p>
 <p>逻辑关系：</p>
 <p>项目中定义调用的应用程序的模块，然后在具体应用程序中配置URL和视图</p>
+<h3 id="映射URL"><a href="#映射URL" class="headerlink" title="映射URL"></a>映射URL</h3><p>用户通过在浏览器中输入URL以及单击链接来请求网页，因此我们需要确定项目需要哪些URL<br>主 页 的 URL 最 重 要 ， 它 是 用 户 用 来 访 问 项 目 的 基 础 URL 。 当 前 ， 基 础 URL（<a href="http://localhost:8000）返回默认的Django网站，让我们知道正确地建立了项目。我们将修改这一点，将这个基础URL映射到“学习笔记”的主页。" target="_blank" rel="noopener">http://localhost:8000）返回默认的Django网站，让我们知道正确地建立了项目。我们将修改这一点，将这个基础URL映射到“学习笔记”的主页。</a></p>
+<p>打开项目主目录中的urls.py文件（该文件针对整个项目的url配置），默认的内容为：</p>
+<p><img src="http://picture.watchmen.xin/python-django/url.png" alt="url"></p>
+<p>前两行导入了为项目和管理网站管理URL的函数和模块，在这个针对整个项目的urls.py文件中，变量urlpatterns包含<code>项目中的应用程序</code>的URL。</p>
+<p>admin.site.urls模块定义了可在管理网站中请求的所有URL。 </p>
+<p>修改之后的配置文件如下图所示：<br><img src="http://picture.watchmen.xin/python-django/addurl.png" alt="addurl"></p>
+<p>现在，我们需要在learning_logs目录下创建urls.py文件<br>文件内容如下：</p>
+<p>(ll_env) wxh@wxh-virtual-machine:/opt/learning_logs$ sudo vim urls.py</p>
+<p>(ll_env) wxh@wxh-virtual-machine:/opt/learning_logs$ cat urls.py </p>
+<pre><code>&quot;&quot;&quot;定义learning_logs的URL模式&quot;&quot;&quot;
 
+from django.conf.urls import url
+
+from . import views
+
+app_name = &apos;learning_logs&apos;
+urlpatterns = [
+    #主页
+    url(r&apos;^$&apos;,views.index,name=&apos;index&apos;)
+]
+</code></pre><p><strong>讲解：</strong></p>
+<p>实际的URL模式其实是对函数url()的调用，这个函数接受3个实参</p>
+<p>这里的正则表达式让python查找开头和末尾之间没有任何东西的url。</p>
+<p>python忽略项目基础的URL（在这里是:<a href="http://localhost:8000/），因此这个正则表达式与基础URL相匹配，其他的非基础URL都不与这个正则表达式匹配，如果请求的是其他的URL页面，django将会返回一个错误页面。" target="_blank" rel="noopener">http://localhost:8000/），因此这个正则表达式与基础URL相匹配，其他的非基础URL都不与这个正则表达式匹配，如果请求的是其他的URL页面，django将会返回一个错误页面。</a></p>
+<p>url()的第2个实参指定了要调用的视图函数。请求的URL与前面的正则表达式匹配时，django将会调用views.index（这个index视图函数稍后编写）</p>
+<p>第3个实参，将这个url模式的名称指定为index(相当于是alias别名的形式)，让我们在代码的其他地方引用它。每当我们需要提供这个主页的链接时，我们可以直接使用这个名称，而不用编写URL。</p>
+<h3 id="编写视图"><a href="#编写视图" class="headerlink" title="编写视图"></a>编写视图</h3><p>每个URL都被映射到特定的视图函数——视图函数获取并处理网页所需的数据。【<strong><code>也就是URL与内容的映射关系</code></strong>】</p>
+<p>视图函数接受请求中的信息，准备好生成网页所需的数据，再讲这些数据发送给浏览器—这通常还涉及到网页的模板</p>
+<p>learning_logs中的文件views.py是执行命令python manage.py startapp时自动生成的，当前的文件内容如下：</p>
+<pre><code>(ll_env) wxh@wxh-virtual-machine:/opt/learning_logs$ cat views.py 
+from django.shortcuts import render
+
+# Create your views here.
+</code></pre><p>现在，这个文件只导入了函数render()，它根据视图提供的数据渲染响应。修改之后的文件内容如下如所示：</p>
+<pre><code>from django.shortcuts import render
+
+def index(request):
+    &quot;&quot;&quot;学习笔记的主页&quot;&quot;&quot;
+    return render(request,&apos;learning_logs/index.html&apos;)
+</code></pre><p>当URL被刚才定义的模式匹配之后，django会在views.py文件中查找函数index()，<strong><code>再将请求对象传递给这个视图函数（也就是这里的request）</code></strong>。</p>
+<p>接下来向函数render进行传2个实参，原始的请求对象以及一个用于创建网页的模板（模板目录下的learning_logs目录下的index.html文件）</p>
+<p>下面我们来编写这个模板。</p>
+<h3 id="编写模板"><a href="#编写模板" class="headerlink" title="编写模板"></a>编写模板</h3><p>模板定义了网页的结构，也就是说模板指定了网页是什么样子的。</p>
+<p>每当网页被请求时，django将会填入相关的数据。模板让你能够访问视图提供的任何数据。我们主页视图没有提供任何数据，因此相应的模板非常简单。</p>
+<p><strong>创建目录</strong><br>在目录learning_logs下创建templates目录，用户保存网页模板文件</p>
+<p>然后创建子目录learninig_logs，并在该子目录下新建文件index.html</p>
+<p>文件内容为：</p>
+<p>(ll_env) wxh@wxh-virtual-machine:/opt/learning_logs$ sudo mkdir -p templates/learning_logs</p>
+<p>(ll_env) wxh@wxh-virtual-machine:/opt/learning_logs$ cd templates/learning_logs</p>
+<p>(ll_env) wxh@wxh-virtual-machine:/opt/learning_logs/templates/learning_logs$ sudo vim index.html</p>
+<pre><code>&lt;p&gt;Learning Log&lt;/p&gt;
+&lt;p&gt;Learning Log helps you keep track of your learning, for any topic you&apos;re
+learning about.&lt;/p&gt;
+</code></pre><p>现在重新访问网站，会发现显示的是刚才自定义的这个网页，不再显示django网页。</p>
+<p>如下图所示：</p>
+<p><img src="http://picture.watchmen.xin/python-django/web.png" alt="web"></p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>创建网页的过程看起来会有点复杂，但是将URL、视图和模板分离，效果实际上会更好，这让我们可以分别考虑项目的不同方面。</p>
+<p>例如：数据库专家可以专注于模型，程序员可以专注于视图代码，而web涉及人员可以专注于模板。</p>
+<p><strong>关系：</strong></p>
+<p>访问请求–&gt;url（入：定义url匹配规则，出：视图函数。同时还定义这个url的调用别名）</p>
+<p>–&gt;视图（入：url请求对象，出：创建网页的模板，包含路径和名称信息。动态内容在这里生成）</p>
+<p>–&gt;模板（html网页，其中包含具体的网页内容，这里只是静态内容，接受视图中的动态数据然后组装显示）</p>
+<h2 id="创建其他网页"><a href="#创建其他网页" class="headerlink" title="创建其他网页"></a>创建其他网页</h2><p>接下来，我们创建两个显示数据的网页。</p>
+<ul>
+<li>其中一个列出所有的主题</li>
+<li>另一个显示特定主题的所有条目</li>
+</ul>
+<p>对于每一个网页，我们都将指定URL模式，编写一个视图函数，并编写一个模板。</p>
+<p>为了效率，我们可以先编写一个父模板</p>
+<h3 id="模板继承"><a href="#模板继承" class="headerlink" title="模板继承"></a>模板继承</h3><p><strong>父模板：base.html</strong></p>
+<p>我们在/opt/learning_logs/templates/learning_logs目录下创建base.html【在项目中，每个网页都将继承base.html】</p>
+<p>内容如下：</p>
+<pre><code>&lt;p&gt;
+  &lt;a href=&quot;{ % url &apos;learning_logs:index&apos;% }&quot;&gt;Learning Log&lt;/a&gt;
+&lt;/p&gt;
+
+{ % block content % }{ % endblock content % }
+</code></pre><p>实际效果为：</p>
+<p><br>  <a href="{ % url 'learning_logs:index' % }">Learning Log</a><br></p>
+
+<p>{ % block content % }{ % endblock content % }</p>
+<p><strong>说明：</strong></p>
+<blockquote>
+<p>在当前，所有页面都包含的元素只有顶端的标题。我们将在每个页面中包含这个模板，<strong><code>因此我们将这个标题设置到主页的链接。</code></strong></p>
+<p><strong><code>模板标签</code></strong>是用大括号和百分号{ %% }表示的。模板标签是一小段代码，生成要在网页中显示的信息。</p>
+</blockquote>
+<p>在这里，模板标签{ % url ‘learning_logs:index’% }生成一个URL，该URL与learning_logs/urls.py中定义的名为index的URL模式匹配，也就是说learning_logs是一个命名空间，而index是该命名空间中一个名称独特的URL模式。</p>
+<p><strong>在HTML页面中，链接是使用锚（mao）标签来定义了：</strong></p>
+<pre><code>格式为： &lt;a href=&quot;link_url&quot;&gt;link text &lt;/a&gt;
+</code></pre><p>这里也就是类似markdown的链接使用方式，也可以说是类似Linux中软链接的方式，可以隐藏后端真实的URL串，并且让对外的链接保持最新也要容易得多。</p>
+<h3 id="子模板"><a href="#子模板" class="headerlink" title="子模板"></a>子模板</h3><p>现在我们需要重新编写index.html，使其继承base.html，修改之后的代码如下：</p>
+<pre><code>(ll_env) wxh@wxh-virtual-machine:/opt/learning_logs/templates/learning_logs$ sudo vim index.html 
+
+{ % extends &quot;learning_logs/base.html&quot; % }
+
+{ % block content % }
+&lt;p&gt;Learning Log helps you keep track of your learning, for any topic you&apos;re
+learning about.&lt;/p&gt;
+{ % endblock content % }
+</code></pre><p>子模板的第一行必须包含标签{ % extends % }，让Django知道它继承了哪个父模板。 </p>
+<p>注意：这时候虽然两个文件的目录结构都是一样，但是还是需要制定目录learning_logs。</p>
+<p>这行代码导入了base.html页面的所有内容，让index.html能够指定要在content块中预留的空间中添加的内容。</p>
+<p>在子模板中，只需要包含当前网页特有的内容，这不仅简化了每个模板，还使得网站修改起来容易得多，要修改很多网页都包含的元素，只需要在父模板中修改该元素。</p>
+<p>在大型项目中，我们可以定义多级父模板，有一个用于整个网站的父模板，并且网站的每个主要部分都有一个父模板，每个部分中又去继承这个模板。</p>
+<hr>
+<p><strong>接下来，我们专注于另外两个网页：</strong></p>
+<ul>
+<li>显示全部所有主题的网页</li>
+<li>显示也定主题中条目的网页</li>
+</ul>
+<hr>
+<h3 id="显示所有主题的页面"><a href="#显示所有主题的页面" class="headerlink" title="显示所有主题的页面"></a>显示所有主题的页面</h3><h4 id="URL模式"><a href="#URL模式" class="headerlink" title="URL模式"></a>URL模式</h4><p>首先定义显示所有主题页面的URL。在这里我们使用topics来表示</p>
+<p>完整的URL应该是：<a href="http://localhost:8000/topics" target="_blank" rel="noopener">http://localhost:8000/topics</a></p>
+<p>我们修改urls.py</p>
+<pre><code>&quot;&quot;&quot;定义learning_logs的URL模式&quot;&quot;&quot;
+
+from django.conf.urls import url
+
+from . import views
+
+app_name = &apos;learning_logs&apos;
+urlpatterns = [
+    #主页
+    url(r&apos;^$&apos;,views.index,name=&apos;index&apos;),
+    url(r&apos;^topics/$&apos;,views.topics,name=&apos;topics&apos;)
+]
+</code></pre><h4 id="视图函数"><a href="#视图函数" class="headerlink" title="视图函数"></a>视图函数</h4><p>修改views.py，添加上面指定的topics视图函数</p>
+<pre><code>from django.shortcuts import render
+from .models import Topic
+
+def index(request):
+    &quot;&quot;&quot;学习笔记的主页&quot;&quot;&quot;
+    return render(request,&apos;learning_logs/index.html&apos;)
+
+def topics(request):
+    &quot;&quot;&quot;显示所有的主题&quot;&quot;&quot;
+    topics = Topic.object.order_by(&apos;date_added&apos;)
+    context = {&apos;topics&apos;:topics}
+    return render(request,&apos;learning_logs/topics.html&apos;,context)
+</code></pre><p><strong>说明：</strong></p>
+<blockquote>
+<p>需要导入与所需数据相关联的模型，也就是导入Topic类 </p>
+<p>视图函数中包含一个形参（django从服务器收到的访问request对象）</p>
+<p>第一行中，我们查询数据库，请求提供Topic对象，并且按照属性date_added进行排序，然后将返回的查询集存储在topics中</p>
+<p>context定义了一个将要发送给模板的上下文。上下文是一个字典类型，其中的键是我们将在模板中用来访问数据的名称，而值是我们要发送给模板的数据。在这里，我们暂时只是定义了一个键值对，包含我们将要在网页中显示的主题。</p>
+<p>创建使用数据的网页时，除了对象request和模板的路径之外，我们还将变量context传递给render()</p>
+</blockquote>
+<h4 id="模板"><a href="#模板" class="headerlink" title="模板"></a>模板</h4><p>在这里，我们需要定义上面指定的topics网页。页面接受字典context，以便能使用topics()提供的数据。</p>
+<p>创建的topics.html页面内容如下：</p>
+<p>(ll_env) wxh@wxh-virtual-machine:/opt/learning_logs/templates/learning_logs$ sudo vim topics.html</p>
+<pre><code>{ % extends &quot;learning_logs/base.html&quot; % }
+
+{ % block content % }
+
+  &lt;p&gt;Topics&lt;/p&gt;
+
+  &lt;ul&gt;
+    { % for topic in topics % }
+      &lt;li&gt;{{ topic }}&lt;/li&gt;
+    { % empty % }
+      &lt;li&gt; No topics have been added yet.&lt;/li&gt;
+    { % endfor % }
+  &lt;/ul&gt;
+
+
+{ % endblock content % }
+</code></pre><p><strong>说明：</strong></p>
+<blockquote>
+<p>就像index.html一样，我们首先使用标签{ % extends % }来继承base.html，再开始定义content块。这个网页的主体是一个项目列表，其中列出了用户输入的主题。在标准的HTML中，项目列表被称为无序列表，用标签<code>&lt;ul&gt;&lt;/ul&gt;</code>表示。</p>
+<p>我们使用了一个for循环的模板标签【注意：pytho使用缩进来指出哪些代码是for循环的组成部分，而在模板中，每个for循环都必须使用{ % endfor %标签来显示地指出其结束位置}】</p>
+<p>在这里topics这个变量是从视图函数中传递过来的，因此不需要我们再指定</p>
+</blockquote>
+<p>在HTML中，for循环的格式为：</p>
+<pre><code>{ % for item in list % }
+do something with each item
+{ % endfor % }
+</code></pre>
       
     </div>
     
@@ -952,7 +1131,7 @@ var jiathis_config={
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">52</span>
+                  <span class="site-state-item-count">55</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -963,7 +1142,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">67</span>
+                  <span class="site-state-item-count">70</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -974,7 +1153,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">54</span>
+                  <span class="site-state-item-count">57</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -1014,7 +1193,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#环境准备"><span class="nav-number">1.</span> <span class="nav-text">环境准备</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#创建激活虚拟环境"><span class="nav-number">1.1.</span> <span class="nav-text">创建激活虚拟环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装django"><span class="nav-number">1.2.</span> <span class="nav-text">安装django</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置django"><span class="nav-number">1.3.</span> <span class="nav-text">配置django</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建项目："><span class="nav-number">1.3.1.</span> <span class="nav-text">创建项目：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建数据库"><span class="nav-number">1.3.2.</span> <span class="nav-text">创建数据库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#启动-停止项目"><span class="nav-number">1.3.3.</span> <span class="nav-text">启动/停止项目</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建应用程序"><span class="nav-number">1.4.</span> <span class="nav-text">创建应用程序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#定义模型"><span class="nav-number">1.4.1.</span> <span class="nav-text">定义模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#激活模型"><span class="nav-number">1.4.2.</span> <span class="nav-text">激活模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#django管理网站"><span class="nav-number">1.4.3.</span> <span class="nav-text">django管理网站</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#创建超级用户"><span class="nav-number">1.4.3.1.</span> <span class="nav-text">创建超级用户</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#向管理网站注册模型"><span class="nav-number">1.4.3.2.</span> <span class="nav-text">向管理网站注册模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#添加主题"><span class="nav-number">1.4.3.3.</span> <span class="nav-text">添加主题</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#定义模型Entry"><span class="nav-number">1.4.4.</span> <span class="nav-text">定义模型Entry</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#迁移模型Entry"><span class="nav-number">1.4.5.</span> <span class="nav-text">迁移模型Entry</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#向管理网站注册Entry"><span class="nav-number">1.4.6.</span> <span class="nav-text">向管理网站注册Entry</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#django-shell"><span class="nav-number">1.4.7.</span> <span class="nav-text">django shell</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#django-API"><span class="nav-number">1.4.8.</span> <span class="nav-text">django API</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建网页：学习笔记主页"><span class="nav-number">1.5.</span> <span class="nav-text">创建网页：学习笔记主页</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#环境准备"><span class="nav-number">1.</span> <span class="nav-text">环境准备</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#创建激活虚拟环境"><span class="nav-number">1.1.</span> <span class="nav-text">创建激活虚拟环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装django"><span class="nav-number">1.2.</span> <span class="nav-text">安装django</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置django"><span class="nav-number">1.3.</span> <span class="nav-text">配置django</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建项目："><span class="nav-number">1.3.1.</span> <span class="nav-text">创建项目：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建数据库"><span class="nav-number">1.3.2.</span> <span class="nav-text">创建数据库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#启动-停止项目"><span class="nav-number">1.3.3.</span> <span class="nav-text">启动/停止项目</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建应用程序"><span class="nav-number">1.4.</span> <span class="nav-text">创建应用程序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#定义模型"><span class="nav-number">1.4.1.</span> <span class="nav-text">定义模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#激活模型"><span class="nav-number">1.4.2.</span> <span class="nav-text">激活模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#django管理网站"><span class="nav-number">1.4.3.</span> <span class="nav-text">django管理网站</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#创建超级用户"><span class="nav-number">1.4.3.1.</span> <span class="nav-text">创建超级用户</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#向管理网站注册模型"><span class="nav-number">1.4.3.2.</span> <span class="nav-text">向管理网站注册模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#添加主题"><span class="nav-number">1.4.3.3.</span> <span class="nav-text">添加主题</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#定义模型Entry"><span class="nav-number">1.4.4.</span> <span class="nav-text">定义模型Entry</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#迁移模型Entry"><span class="nav-number">1.4.5.</span> <span class="nav-text">迁移模型Entry</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#向管理网站注册Entry"><span class="nav-number">1.4.6.</span> <span class="nav-text">向管理网站注册Entry</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#django-shell"><span class="nav-number">1.4.7.</span> <span class="nav-text">django shell</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#django-API"><span class="nav-number">1.4.8.</span> <span class="nav-text">django API</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建网页：学习笔记主页"><span class="nav-number">1.5.</span> <span class="nav-text">创建网页：学习笔记主页</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#映射URL"><span class="nav-number">1.5.1.</span> <span class="nav-text">映射URL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编写视图"><span class="nav-number">1.5.2.</span> <span class="nav-text">编写视图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编写模板"><span class="nav-number">1.5.3.</span> <span class="nav-text">编写模板</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">1.5.4.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建其他网页"><span class="nav-number">1.6.</span> <span class="nav-text">创建其他网页</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#模板继承"><span class="nav-number">1.6.1.</span> <span class="nav-text">模板继承</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#子模板"><span class="nav-number">1.6.2.</span> <span class="nav-text">子模板</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#显示所有主题的页面"><span class="nav-number">1.6.3.</span> <span class="nav-text">显示所有主题的页面</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#URL模式"><span class="nav-number">1.6.3.1.</span> <span class="nav-text">URL模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#视图函数"><span class="nav-number">1.6.3.2.</span> <span class="nav-text">视图函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#模板"><span class="nav-number">1.6.3.3.</span> <span class="nav-text">模板</span></a></li></ol></li></ol></li></ol></li></ol></div>
             
 
           </div>

@@ -90,6 +90,7 @@
 <meta property="og:description" content="本文主要讲述由搜狐视频开源在github上的Redis云平台产品-Cachecloud的安装部署、使用、优化等相关知识。">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://picture.watchmen.xin/cachecloud/client.png">
+<meta property="og:image" content="http://picture.watchmen.xin/cachecloud/machine.png">
 <meta property="og:updated_time" content="2018-04-28T02:45:56.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Cachecloud">
@@ -577,10 +578,74 @@ export PATH=$M3_HOME/bin:$PATH
 [root@host-192-168-8-37 ~]# source /etc/profile
 </code></pre><h3 id="下载CacheCloud项目"><a href="#下载CacheCloud项目" class="headerlink" title="下载CacheCloud项目"></a>下载CacheCloud项目</h3><pre><code># yum -y install git
 # git clone https://github.com/sohutv/cachecloud.git
-</code></pre><h3 id="MySQL"><a href="#MySQL" class="headerlink" title="MySQL"></a>MySQL</h3><p><strong>配置yum源</strong></p>
-<p><strong>安装</strong></p>
-<p><strong>配置</strong></p>
 
+# ls cachecloud/
+cachecloud-open-client  cachecloud-open-common  cachecloud-open-web  LICENSE  pom.xml  README.md  script
+</code></pre><h3 id="MySQL"><a href="#MySQL" class="headerlink" title="MySQL"></a>MySQL</h3><p>这里安装mysql5.7版本</p>
+<p><strong>配置yum源并安装</strong></p>
+<p>centos6.8 【6.8安装5.6版本，安装5.7时涉及依赖关系过多】</p>
+<pre><code># wget http://repo.mysql.com/mysql-community-release-el6-5.noarch.rpm
+# rpm -ivh mysql-community-release-el6-5.noarch.rpm
+
+# yum -y install  mysql-community-server
+</code></pre><p>centos 7.x 【5.7版本】</p>
+<pre><code># wget https://dev.mysql.com/get/mysql57-community-release-el7-11.noarch.rpm
+# rpm -ivh mysql57-community-release-el7-11.noarch.rpm
+# yum -y install mysql-server
+</code></pre><p><strong>修改mysql配置文件</strong></p>
+<pre><code># vim /etc/my.cnf
+
+[mysqld]
+character-set-server=utf8 
+</code></pre><p><strong>启动</strong></p>
+<pre><code># /etc/init.d/mysqld start
+</code></pre><h4 id="数据库配置"><a href="#数据库配置" class="headerlink" title="数据库配置"></a>数据库配置</h4><p><strong>创建数据库</strong></p>
+<pre><code>mysql&gt; create database cache_cloud default charset utf8;
+Query OK, 1 row affected (0.00 sec)
+</code></pre><p><strong>创建cachecloud用户</strong></p>
+<pre><code>mysql&gt; grant all privileges on cache_cloud.* to &apos;cachecloud&apos;@&apos;%&apos; identified by &apos;Cache_cloud123&apos;;
+Query OK, 0 rows affected (0.00 sec)
+</code></pre><p><strong>导入初始化数据</strong><br>注意，这里已经不是在数据库中了</p>
+<pre><code>[root@qa1-common004 script]# pwd
+/root/software/cachecloud/script
+
+[root@qa1-common004 script]# mysql -u root -p cache_cloud &lt; cachecloud.sql 
+Enter password: 
+</code></pre><h2 id="修改cachecloud配置"><a href="#修改cachecloud配置" class="headerlink" title="修改cachecloud配置"></a>修改cachecloud配置</h2><p><strong>数据库设置</strong></p>
+<pre><code>[root@qa1-common004 swap]# pwd
+/root/software/cachecloud/cachecloud-open-web/src/main/swap
+
+
+[root@qa1-common004 swap]# cat online.properties 
+cachecloud.db.url = jdbc:mysql://172.24.64.132:3306/cache_cloud?useUnicode=true&amp;amp;characterEncoding=UTF-8
+cachecloud.db.user = cachecloud
+cachecloud.db.password = Cache_cloud123 
+cachecloud.maxPoolSize = 20
+
+isClustered = true
+isDebug = false
+spring-file=classpath:spring/spring-online.xml
+log_base=/opt/cachecloud-web/logs
+web.port=8585
+log.level=WARN
+</code></pre><p><strong>开启机器管理显示</strong></p>
+<pre><code># pwd
+/root/software/cachecloud/cachecloud-open-web/src/main/java/com/sohu/cache/schedule/jobs
+
+# vim ServerJob.java    将稳中的注释去掉，修改之后的文件如下所示：
+</code></pre><p><img src="http://picture.watchmen.xin/cachecloud/machine.png" alt=""></p>
+<h2 id="cachecloud构建及启动"><a href="#cachecloud构建及启动" class="headerlink" title="cachecloud构建及启动"></a>cachecloud构建及启动</h2><p><strong>项目构建</strong></p>
+<p>在cachecloud的根目录下执行以下maven命令，该命令会进行项目的构建</p>
+<pre><code>[root@qa1-common004 cachecloud]# pwd
+/root/software/cachecloud
+[root@qa1-common004 cachecloud]#
+
+[root@host-192-168-8-37 cachecloud]# mvn clean compile install -Ponline
+[root@host-192-168-8-37 cachecloud]# cd script/ 
+[root@host-192-168-8-37 script]# sh deploy.sh /root/software/
+</code></pre><p><strong>启动</strong></p>
+<pre><code># sh /opt/cachecloud-web/start.sh
+</code></pre>
       
     </div>
     
@@ -763,7 +828,7 @@ var jiathis_config={
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">52</span>
+                  <span class="site-state-item-count">55</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -774,7 +839,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">67</span>
+                  <span class="site-state-item-count">70</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -785,7 +850,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">54</span>
+                  <span class="site-state-item-count">57</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -825,7 +890,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Cachecloud介绍"><span class="nav-number">1.</span> <span class="nav-text">Cachecloud介绍</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装部署"><span class="nav-number">2.</span> <span class="nav-text">安装部署</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基础环境"><span class="nav-number">2.1.</span> <span class="nav-text">基础环境</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#JDK-Maven"><span class="nav-number">2.1.1.</span> <span class="nav-text">JDK+Maven</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#下载CacheCloud项目"><span class="nav-number">2.1.2.</span> <span class="nav-text">下载CacheCloud项目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL"><span class="nav-number">2.1.3.</span> <span class="nav-text">MySQL</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Cachecloud介绍"><span class="nav-number">1.</span> <span class="nav-text">Cachecloud介绍</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装部署"><span class="nav-number">2.</span> <span class="nav-text">安装部署</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基础环境"><span class="nav-number">2.1.</span> <span class="nav-text">基础环境</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#JDK-Maven"><span class="nav-number">2.1.1.</span> <span class="nav-text">JDK+Maven</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#下载CacheCloud项目"><span class="nav-number">2.1.2.</span> <span class="nav-text">下载CacheCloud项目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL"><span class="nav-number">2.1.3.</span> <span class="nav-text">MySQL</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#数据库配置"><span class="nav-number">2.1.3.1.</span> <span class="nav-text">数据库配置</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修改cachecloud配置"><span class="nav-number">2.2.</span> <span class="nav-text">修改cachecloud配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cachecloud构建及启动"><span class="nav-number">2.3.</span> <span class="nav-text">cachecloud构建及启动</span></a></li></ol></li></ol></div>
             
 
           </div>
