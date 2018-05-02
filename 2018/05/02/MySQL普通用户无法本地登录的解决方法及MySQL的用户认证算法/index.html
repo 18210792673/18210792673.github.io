@@ -89,10 +89,12 @@
 <meta property="og:site_name" content="Watchmen1992&#39;s Blog">
 <meta property="og:description" content="MySQL普通用户无法本地登录的解决方法及MySQL的用户认证算法">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://picture.watchmen.xin/mysql/cachecloud.png">
 <meta property="og:updated_time" content="2018-05-02T10:00:00.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MySQL普通用户无法本地登录的解决方法及MySQL的用户认证算法">
 <meta name="twitter:description" content="MySQL普通用户无法本地登录的解决方法及MySQL的用户认证算法">
+<meta name="twitter:image" content="http://picture.watchmen.xin/mysql/cachecloud.png">
 
 
 
@@ -458,8 +460,122 @@
       
 
       
-        <p>在部署cachecloud的时候，</p>
-<p>Zookeeper常用命令</p>
+        <p><strong>参考文献：</strong></p>
+<ul>
+<li><a href="http://www.cnblogs.com/linuxnote/p/3780244.html" target="_blank" rel="noopener">MySQL普通用户无法本地登录的解决方法及MySQL的用户认证算法</a></li>
+</ul>
+<h2 id="—"><a href="#—" class="headerlink" title="—"></a>—</h2><h1 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h1><p>在启动cachecloud项目的时候，发现日志中出现大量的连接数据库报错</p>
+<p>我的授权命令为：</p>
+<pre><code>mysql&gt; grant all privileges on cache_cloud.* to &apos;cachecloud&apos;@&apos;%&apos; identified by &apos;Cache_cloud123&apos;;
+Query OK, 0 rows affected (0.00 sec)
+</code></pre><p>这样的配置，按道理来说，是不应该出现连不上的（%代表任意的主机来源，并且已经排查了防火墙等因素）</p>
+<p>在本地登录发现发现存在如下问题：</p>
+<p><img src="http://picture.watchmen.xin/mysql/cachecloud.png" alt=""></p>
+<p>当输入之前设置的密码时，将会一直提示：“ERROR 1045 (28000): Access denied”，而当我们不输入密码，也就是说输入密码为空时则能正常进入数据库。</p>
+<p>我们使用USER()和CURRENT_USER()两个函数查看所使用的用户。</p>
+<pre><code>mysql&gt; SELECT USER(), CURRENT_USER();
++----------------------+----------------+
+| USER()               | CURRENT_USER() |
++----------------------+----------------+
+| cachecloud@localhost | @localhost     |
++----------------------+----------------+
+1 row in set (0.00 sec)
+
+mysql&gt; 
+</code></pre><blockquote>
+<p>USER()函数返回你在客户端登陆时指定的用户名和主机名。</p>
+<p>CURRENT_USER()函数返回的是MySQL使用授权表中的哪个用户来认证你的登录请求。</p>
+</blockquote>
+<p>这里发现，之前设置的授权规则并没有生效，是数据库使用的是’’@’localhost’这个来源信息来进行登录认证，而’’@’localhost’这个匿名用户是没有密码的，因此我输入空密码登录成功了。但是登录后，所对应的用户的匿名用户。</p>
+<p><strong>一般在MySQL在安装完毕后，我们使用mysql_install_db这个脚本生成<font color="red"><code>授权表</code></font>，会默认创建’’@’localhost’这个匿名用户。正是因为这个匿名用户，影响了其他用户从本地登录的认证。</strong></p>
+<h1 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h1><p>那么MySQL是如何进行用户身份认证呢？</p>
+<p>MySQL的简要认证算法如下：</p>
+<ul>
+<li>当用户从客户端请求登陆时，MySQL将授权表中的条目与客户端所提供的条目进行比较，包括用户的用户名，密码和主机。</li>
+</ul>
+<ul>
+<li>授权表中的Host字段是可以使用通配符作为模式进行匹配的，如test.example.com, %.example.com, %.com和%都可以匹配test.example.com这个主机。</li>
+</ul>
+<ul>
+<li>授权表中的User字段不允许使用模式匹配，但是可以有一个空字符的用户名代表匿名用户，并且空字符串可以匹配所有的用户名，就像通配符一样。</li>
+</ul>
+<ul>
+<li>当user表中的Host和User有多个值可以匹配客户端提供的主机和用户名时，MySQL将user表读入内存，并且按照一定规则排序，按照排序规则读取到的第一个匹配客户端用户名和主机名的条目对客户端进行身份验证。</li>
+</ul>
+<p><strong>排序规则：</strong></p>
+<ul>
+<li>对于Host字段，按照匹配的精确程度进行排序，越精确的排序越前，例如当匹配test.example.com这个主机时, %.example.com比%.com更精确，而test.example.com比%.example.com更精确。</li>
+</ul>
+<ul>
+<li>对于User字段，非空的字符串用户名比空字符串匹配的用户名排序更靠前。</li>
+</ul>
+<ul>
+<li>User和Host字段都有多个匹配值，MySQL使用主机名排序最前的条目，在主机名字段相同时再选取用户名排序更前的条目。</li>
+</ul>
+<ul>
+<li>因此，如果User和Host字段都有多个匹配值，主机名最精确匹配的条目被用户对用户进行认证。</li>
+</ul>
+<p>了解了这个规则之后，我们就知道为什么cachecloud登录失败了。</p>
+<p>在使用该用户进行本机登录的时候，mysql中有2个匹配条目</p>
+<ol>
+<li>‘cachecloud’@’%’ </li>
+<li>‘’@’localhost’</li>
+</ol>
+<p>匿名用户能够匹配的原因上面说过，空字符串可以匹配所有的用户名，就像通配符一样。</p>
+<p>根据MySQL认证时的排序规则，第一个条目的用户名排序更前，第二个条目的主机名更精确，排序更前。</p>
+<p>而MySQL会优先使用主机名排序第一的条目进行身份认证，因此’’@’localhost’被用户对客户端进行认证。因此，只有使用匿名用户的空密码才能登录进数据库。就会出现刚才上面的情况了。</p>
+<h1 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h1><p>删除匿名用户【仅仅是为了安全也有这个必要】</p>
+<p><strong>为什么root用户不会受影响，而只有普通用户不能从本地登录？</strong></p>
+<p>因为mysql_install_db脚本会在授权表中生成’root’@’localhost’这个账户。同样的，使用root登录MySQL时，’root’@’localhost’和’’@’localhost’都能匹配登录的账户，但是根据排序规则，主机名相同，而用户名非空字符串优先，因此’roo’@’localhost’这个条目的排序更靠前。使用root本地登录是不会被匿名用户遮盖。</p>
+<pre><code>[root@qa1-common004 ~]# mysql -u root -p 
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 942
+Server version: 5.6.40 MySQL Community Server (GPL)
+
+Copyright (c) 2000, 2018, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type &apos;help;&apos; or &apos;\h&apos; for help. Type &apos;\c&apos; to clear the current input statement.
+
+mysql&gt; 
+mysql&gt; select user,host from mysql.user;
++------------+---------------------------+
+| user       | host                      |
++------------+---------------------------+
+| cachecloud | %                         |
+| root       | 127.0.0.1                 |
+| root       | ::1                       |
+|            | localhost                 |
+| root       | localhost                 |
+|            | qa1-common004.ecs.east1-b |
+| root       | qa1-common004.ecs.east1-b |
++------------+---------------------------+
+7 rows in set (0.00 sec)
+
+mysql&gt; delete from mysql.user where user=&apos;&apos;;　
+Query OK, 2 rows affected (0.00 sec)
+
+mysql&gt; select user,host from mysql.user;　
++------------+---------------------------+
+| user       | host                      |
++------------+---------------------------+
+| cachecloud | %                         |
+| root       | 127.0.0.1                 |
+| root       | ::1                       |
+| root       | localhost                 |
+| root       | qa1-common004.ecs.east1-b |
++------------+---------------------------+
+5 rows in set (0.00 sec)
+
+mysql&gt; flush privileges;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql&gt; exit
+</code></pre><p>退出之后再次登录，问题得到解决。</p>
 
       
     </div>
@@ -614,8 +730,17 @@ var jiathis_config={
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -686,6 +811,22 @@ var jiathis_config={
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#—"><span class="nav-number">1.</span> <span class="nav-text">—</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#问题"><span class="nav-number"></span> <span class="nav-text">问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#原因"><span class="nav-number"></span> <span class="nav-text">原因</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#解决"><span class="nav-number"></span> <span class="nav-text">解决</span></a></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
