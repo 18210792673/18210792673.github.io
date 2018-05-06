@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2018-05-06T06:10:24.000Z</updated>
+  <updated>2018-05-03T09:01:56.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,62 +15,6 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
-  
-  <entry>
-    <title>xmind</title>
-    <link href="http://yoursite.com/2018/05/06/xmind/"/>
-    <id>http://yoursite.com/2018/05/06/xmind/</id>
-    <published>2018-05-06T06:10:24.000Z</published>
-    <updated>2018-05-06T06:10:24.000Z</updated>
-    
-    <summary type="html">
-    
-    </summary>
-    
-    
-      <category term="tag1" scheme="http://yoursite.com/tags/tag1/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>keepass</title>
-    <link href="http://yoursite.com/2018/05/06/keepass/"/>
-    <id>http://yoursite.com/2018/05/06/keepass/</id>
-    <published>2018-05-06T06:04:52.000Z</published>
-    <updated>2018-05-06T06:04:52.000Z</updated>
-    
-    <summary type="html">
-    
-    </summary>
-    
-    
-      <category term="tag1" scheme="http://yoursite.com/tags/tag1/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>wireshark</title>
-    <link href="http://yoursite.com/2018/05/06/wireshark/"/>
-    <id>http://yoursite.com/2018/05/06/wireshark/</id>
-    <published>2018-05-06T05:53:39.000Z</published>
-    <updated>2018-05-06T05:53:39.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>[de][3]</p><p><a href="http://" target="_blank" rel="noopener">3</a></p>]]></content>
-    
-    <summary type="html">
-    
-      wireshark使用
-    
-    </summary>
-    
-      <category term="常用软件工具" scheme="http://yoursite.com/categories/%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6%E5%B7%A5%E5%85%B7/"/>
-    
-      <category term="wireshark" scheme="http://yoursite.com/categories/%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6%E5%B7%A5%E5%85%B7/wireshark/"/>
-    
-    
-      <category term="wireshark" scheme="http://yoursite.com/tags/wireshark/"/>
-    
-  </entry>
   
   <entry>
     <title>Redis持久化</title>
@@ -443,6 +387,80 @@
     
     
       <category term="HTML" scheme="http://yoursite.com/tags/HTML/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>disconf</title>
+    <link href="http://yoursite.com/2018/04/25/disconf/"/>
+    <id>http://yoursite.com/2018/04/25/disconf/</id>
+    <published>2018-04-25T08:15:14.000Z</published>
+    <updated>2018-04-25T08:15:14.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>官方资料：</p><p><a href="https://github.com/knightliao/disconf" target="_blank" rel="noopener">github主页</a></p><h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>disconf专注于各种「分布式系统配置管理」的「通用组件」和「通用平台」, 提供统一的「配置管理服务」</p><p>工作流程如下图所示：</p><p><img src="http://picture.watchmen.xin/disconf/disconf.jpg" alt="disconf"></p><p><strong>实现目标：</strong></p><ul><li>部署极其简单：同一个上线包，无须改动配置，即可在 多个环境中(RD/QA/PRODUCTION) 上线 【每个应用中只需要配置相关的参数即可。】</li></ul><ul><li>部署动态化：更改配置，无需重新打包或重启，即可 实时生效</li></ul><ul><li>统一管理：提供web平台，统一管理 多个环境(RD/QA/PRODUCTION)、多个产品 的所有配置</li></ul><ul><li>核心目标：一个jar包，到处运行</li></ul><h1 id="部署及使用"><a href="#部署及使用" class="headerlink" title="部署及使用"></a>部署及使用</h1>]]></content>
+    
+    <summary type="html">
+    
+      Distributed Configuration Management Platform(分布式配置管理平台)
+    
+    </summary>
+    
+      <category term="IT科学技术知识体系结构-Linux运维方向" scheme="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/"/>
+    
+      <category term="分布式" scheme="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E5%88%86%E5%B8%83%E5%BC%8F/"/>
+    
+      <category term="disconf" scheme="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E5%88%86%E5%B8%83%E5%BC%8F/disconf/"/>
+    
+    
+      <category term="disconf" scheme="http://yoursite.com/tags/disconf/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>python零碎知识及版本变化记录</title>
+    <link href="http://yoursite.com/2018/04/23/python%E9%9B%B6%E7%A2%8E%E7%9F%A5%E8%AF%86%E5%8F%8A%E7%89%88%E6%9C%AC%E5%8F%98%E5%8C%96%E8%AE%B0%E5%BD%95/"/>
+    <id>http://yoursite.com/2018/04/23/python零碎知识及版本变化记录/</id>
+    <published>2018-04-23T11:34:40.000Z</published>
+    <updated>2018-04-23T11:34:40.000Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="零碎知识"><a href="#零碎知识" class="headerlink" title="零碎知识"></a>零碎知识</h1><ul><li>CharField类型必须添加max_length来指定长度上限，如果要想没有限制，则考虑使用TextField类型</li></ul><h1 id="版本变化"><a href="#版本变化" class="headerlink" title="版本变化"></a>版本变化</h1><p>##django##</p><p><strong>外键：</strong></p><p>Django2.0版本之后，创建外键时需要在后面加上on_delete</p><pre><code>topic = models.ForeignKey(Topic) </code></pre><p>应该修改为：</p><pre><code>topic = models.ForeignKey(Topic,on_delete=models.CASCADE)</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      python零碎知识及版本变化记录
+    
+    </summary>
+    
+      <category term="编程语言" scheme="http://yoursite.com/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="Python" scheme="http://yoursite.com/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Python/"/>
+    
+    
+      <category term="python版本" scheme="http://yoursite.com/tags/python%E7%89%88%E6%9C%AC/"/>
+    
+  </entry>
+  
+  <entry>
+    <title> ignoring option PermSize=512m; support was removed in 8.0 </title>
+    <link href="http://yoursite.com/2018/04/23/ignoring-option-PermSize-512m-support-was-removed-in-8-0/"/>
+    <id>http://yoursite.com/2018/04/23/ignoring-option-PermSize-512m-support-was-removed-in-8-0/</id>
+    <published>2018-04-23T03:47:55.000Z</published>
+    <updated>2018-04-23T03:47:55.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>使用jdk1.8的时候设置了vm参数：-Xmx2048m -XX:PermSize=512m -XX:MaxPermSize=768m -Xss2m<br>此时运行java程序时VM提示如下警告：</p><pre><code>Java HotSpot(TM) 64-Bit Server VM warning: ignoring option PermSize=512m; support was removed in 8.0 Java HotSpot(TM) 64-Bit Server VM warning: ignoring option MaxPermSize=768m; support was removed in 8.0</code></pre><p>程序能正常兼容启动，不会产生影响，但这个提示还是引起了注意</p><p><strong>问题原因：</strong></p><p>-XX:PermSize和-XX:MaxPermSize在jdk1.8中被弃用了，使用-XX:MetaspaceSize和-XX:MaxMetaspaceSize替代。 </p><p>所以此时VM参数正确应为：-Xmx2048m -XX:MetaspaceSize=512m -XX:MaxMetaspaceSize=768m -Xss2m</p><p><strong>根本原因：</strong></p><p>在jdk1.8之前之前我们将储存类信息、常量、静态变量的方法区称为持久代(Permanent Generation)，PermSize和MaxPermSize是设置持久代大小的参数。</p><p>但是<strong><code>在jdk1.8中，持久代被完全移除了</code></strong>，所以这两个参数也被移除了，多了一个元数据区(Metadata Space)，所以设置元数据区大小的参数也变成对应的MetaspaceSize和MaxMetaspaceSize了。</p>]]></content>
+    
+    <summary type="html">
+    
+      JDK1.8环境后废弃了持久代
+    
+    </summary>
+    
+      <category term="IT科学技术知识体系结构-Linux运维方向" scheme="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/"/>
+    
+      <category term="运维工作日常问题" scheme="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E8%BF%90%E7%BB%B4%E5%B7%A5%E4%BD%9C%E6%97%A5%E5%B8%B8%E9%97%AE%E9%A2%98/"/>
+    
+    
+      <category term="持久代被废弃" scheme="http://yoursite.com/tags/%E6%8C%81%E4%B9%85%E4%BB%A3%E8%A2%AB%E5%BA%9F%E5%BC%83/"/>
     
   </entry>
   
