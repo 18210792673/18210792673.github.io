@@ -91,6 +91,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://wx.qq.com/cgi-bin/mmwebwx-bin/webwxgetmsgimg?&MsgID=8846728644224548056&skey=%40crypt_3aad545e_f8f9d80a432ec322c448ea6290a51471">
 <meta property="og:image" content="https://wx.qq.com/cgi-bin/mmwebwx-bin/webwxgetmsgimg?&MsgID=4157379658549535621&skey=%40crypt_3aad545e_61507897f53a933b8d7f63ab6e57571f">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?\prod%20(n_{i})+1">
 <meta property="og:image" content="https://wx.qq.com/cgi-bin/mmwebwx-bin/webwxgetmsgimg?&MsgID=7516049821783003139&skey=%40crypt_3aad545e_8e930e2d952c602f918163c6d82c2d5d">
 <meta property="og:updated_time" content="2018-02-04T08:31:24.000Z">
 <meta name="twitter:card" content="summary">
@@ -522,7 +523,8 @@ _Coding，让开发更简单_
 <li>list1</li>
 <li>list2</li>
 </ol>
-<h2 id="区块引用（MarkdownPad中快捷键为Ctrl-q）"><a href="#区块引用（MarkdownPad中快捷键为Ctrl-q）" class="headerlink" title="区块引用（MarkdownPad中快捷键为Ctrl+q）"></a>区块引用（MarkdownPad中快捷键为Ctrl+q）</h2><pre><code>&gt; 数据1    使用&gt;号
+<h2 id="区块引用（MarkdownPad中快捷键为Ctrl-q）"><a href="#区块引用（MarkdownPad中快捷键为Ctrl-q）" class="headerlink" title="区块引用（MarkdownPad中快捷键为Ctrl+q）"></a>区块引用（MarkdownPad中快捷键为Ctrl+q）</h2><p>在我们写作的时候经常需要引用他人的文字，这个时候引用这个格式就很有必要了，在 Markdown 中，你只需要在你希望引用的文字前面加上 &gt; 就好了。<strong>注意&gt;和文本之间要保留一个字符的空格。</strong></p>
+<pre><code>&gt; 数据1    使用&gt;号
 &gt; 数据2
 &gt; &gt; 二级引用  注意区块引用可以包含多级引用
 &gt; 
@@ -580,6 +582,11 @@ _Coding，让开发更简单_
 「id」是图片参考的名称，图片参考的定义方式则和连结参考一样：
 
 参考案例：[id]: url/to/image  &quot;Optional title attribute&quot;
+</code></pre><p>这种方式将URL路径与标题分开，因此可以实现一些特殊的需求，例如：<strong>显示链接中带括号的图片</strong><br>如果要显示下面这个效果</p>
+<p><img src="http://latex.codecogs.com/gif.latex?\prod%20(n_{i})+1" alt=""></p>
+<p>那么代码如下：</p>
+<pre><code>![][1]
+[1]: http://latex.codecogs.com/gif.latex?\prod%20\(n_{i}\)+1
 </code></pre><h2 id="表格"><a href="#表格" class="headerlink" title="表格"></a>表格</h2><pre><code>普通表格：
 
 First Header | Second Header | Third Header
@@ -639,6 +646,7 @@ Left         | Center        | Right
 <p>例如将字体颜色修改为红色：</p>
 <pre><code>代码为：&lt;font color=red&gt;内容&lt;/font&gt;
 </code></pre><font color="red">内容</font>
+
 
       
     </div>
@@ -822,7 +830,7 @@ var jiathis_config={
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">55</span>
+                  <span class="site-state-item-count">63</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -833,7 +841,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">70</span>
+                  <span class="site-state-item-count">71</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -844,7 +852,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">57</span>
+                  <span class="site-state-item-count">58</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

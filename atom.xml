@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2018-05-02T11:43:32.000Z</updated>
+  <updated>2018-05-06T06:10:24.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,142 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>xmind</title>
+    <link href="http://yoursite.com/2018/05/06/xmind/"/>
+    <id>http://yoursite.com/2018/05/06/xmind/</id>
+    <published>2018-05-06T06:10:24.000Z</published>
+    <updated>2018-05-06T06:10:24.000Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+      <category term="tag1" scheme="http://yoursite.com/tags/tag1/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>keepass</title>
+    <link href="http://yoursite.com/2018/05/06/keepass/"/>
+    <id>http://yoursite.com/2018/05/06/keepass/</id>
+    <published>2018-05-06T06:04:52.000Z</published>
+    <updated>2018-05-06T06:04:52.000Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+      <category term="tag1" scheme="http://yoursite.com/tags/tag1/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>wireshark</title>
+    <link href="http://yoursite.com/2018/05/06/wireshark/"/>
+    <id>http://yoursite.com/2018/05/06/wireshark/</id>
+    <published>2018-05-06T05:53:39.000Z</published>
+    <updated>2018-05-06T05:53:39.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>[de][3]</p><p><a href="http://" target="_blank" rel="noopener">3</a></p>]]></content>
+    
+    <summary type="html">
+    
+      wireshark使用
+    
+    </summary>
+    
+      <category term="常用软件工具" scheme="http://yoursite.com/categories/%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6%E5%B7%A5%E5%85%B7/"/>
+    
+      <category term="wireshark" scheme="http://yoursite.com/categories/%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6%E5%B7%A5%E5%85%B7/wireshark/"/>
+    
+    
+      <category term="wireshark" scheme="http://yoursite.com/tags/wireshark/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Redis持久化</title>
+    <link href="http://yoursite.com/2018/05/03/Redis%E6%8C%81%E4%B9%85%E5%8C%96/"/>
+    <id>http://yoursite.com/2018/05/03/Redis持久化/</id>
+    <published>2018-05-03T09:01:56.000Z</published>
+    <updated>2018-05-03T09:01:56.000Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+      <category term="tag1" scheme="http://yoursite.com/tags/tag1/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Redis调优</title>
+    <link href="http://yoursite.com/2018/05/03/Redis%E8%B0%83%E4%BC%98/"/>
+    <id>http://yoursite.com/2018/05/03/Redis调优/</id>
+    <published>2018-05-03T08:59:25.000Z</published>
+    <updated>2018-05-03T08:59:25.000Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+      <category term="tag1" scheme="http://yoursite.com/tags/tag1/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Redis集群</title>
+    <link href="http://yoursite.com/2018/05/03/Redis%E9%9B%86%E7%BE%A4/"/>
+    <id>http://yoursite.com/2018/05/03/Redis集群/</id>
+    <published>2018-05-03T08:58:15.000Z</published>
+    <updated>2018-05-03T08:58:15.000Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+      <category term="tag1" scheme="http://yoursite.com/tags/tag1/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Redis哨兵集群</title>
+    <link href="http://yoursite.com/2018/05/03/Redis%E5%93%A8%E5%85%B5%E9%9B%86%E7%BE%A4/"/>
+    <id>http://yoursite.com/2018/05/03/Redis哨兵集群/</id>
+    <published>2018-05-03T08:58:03.000Z</published>
+    <updated>2018-05-03T08:58:03.000Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+      <category term="tag1" scheme="http://yoursite.com/tags/tag1/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Redis基础知识</title>
+    <link href="http://yoursite.com/2018/05/03/Redis%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/"/>
+    <id>http://yoursite.com/2018/05/03/Redis基础知识/</id>
+    <published>2018-05-03T08:57:46.000Z</published>
+    <updated>2018-05-03T08:57:46.000Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+      <category term="tag1" scheme="http://yoursite.com/tags/tag1/"/>
+    
+  </entry>
   
   <entry>
     <title>Zookeeper常用命令</title>
@@ -127,13 +263,13 @@
   </entry>
   
   <entry>
-    <title>Cachecloud</title>
+    <title>Cachecloud-Redis云平台</title>
     <link href="http://yoursite.com/2018/04/28/Cachecloud/"/>
     <id>http://yoursite.com/2018/04/28/Cachecloud/</id>
     <published>2018-04-28T02:45:56.000Z</published>
     <updated>2018-04-28T02:45:56.000Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="Cachecloud介绍"><a href="#Cachecloud介绍" class="headerlink" title="Cachecloud介绍"></a>Cachecloud介绍</h1><p>有关cachecloud的一些基础知识，官方都有非常详细的文档，这里不再花费篇幅进行复述，下面是相关的资料链接，请自行查看。</p><ul><li><p>github官网：    <a href="https://github.com/sohutv/cachecloud" target="_blank" rel="noopener">https://github.com/sohutv/cachecloud</a></p></li><li><p>Wiki:            <a href="https://github.com/sohutv/cachecloud/wiki" target="_blank" rel="noopener">https://github.com/sohutv/cachecloud/wiki</a></p></li><li><p>博客：        <a href="https://cachecloud.github.io/" target="_blank" rel="noopener">https://cachecloud.github.io/</a></p></li><li><p>官方视频：  <a href="http://my.tv.sohu.com/pl/9100280/index.shtml" target="_blank" rel="noopener">http://my.tv.sohu.com/pl/9100280/index.shtml</a></p></li></ul><p><strong>简介：</strong></p><blockquote><p>CacheCloud提供一个Redis云管理平台：实现多种类型(Redis Standalone、Redis Sentinel、Redis Cluster)自动部署、解决Redis实例碎片化现象、提供完善统计、监控、运维功能、减少开发人员的运维成本和误操作，提高机器的利用率，提供灵活的伸缩性，提供方便的接入客户端。</p></blockquote><p><strong>提供的功能：</strong></p><ul><li><p>监控统计：    提供了机器、应用、实例下各个维度数据的监控和统计界面。</p></li><li><p>一键开启：    Redis Standalone、Redis Sentinel、Redis Cluster三种类型的应用，无需手动配置初始化。</p></li><li><p>Failover：    支持哨兵,集群的高可用模式。</p></li><li><p>伸缩：    提供完善的垂直和水平在线伸缩功能。</p></li><li><p>完善运维： 提供自动运维和简化运维操作功能，避免纯手工运维出错。</p></li><li><p>方便的客户端 方便快捷的客户端接入。</p></li><li><p>元数据管理： 提供机器、应用、实例、用户信息管理。</p></li><li><p>流程化： 提供申请，运维，伸缩，修改等完善的处理流程</p></li><li><p>一键导入： 一键导入已经存在Redis </p></li></ul><p><strong>须知：</strong></p><ul><li><p>Redis集群、redis哨兵集群、Redis单实例等在CacheCloud中都是以应用的形式存在，一个应用对应一个appid</p></li><li><p>一个redis集群是一个应用，分配一个appid（不管其中有几个节点）</p></li><li><p>一个哨兵集群是一个应用，分配一个appid（不管其中有几个主从节点和哨兵节点）</p></li><li><p>一个单实例是一个应用，分配一个appid</p></li></ul><p><strong>如何使用：</strong></p><p>我们在平台上的执行任何操作都需要<code>**账号**</code>，创建的单节点、哨兵、集群等都是以<strong><code>用户申请的应用</code></strong>形式存在的。普通用户的主要工单有</p><ul><li>注册用户申请</li></ul><ul><li>应用申请</li></ul><ul><li>应用扩容</li></ul><ul><li>应用配置修改</li></ul><p>管理员的界面可操作的选项较多，此处不做详细说明。</p><p><strong>客户端如何连接：</strong></p><p>客户端在第一次启动的时候去CacheCloud通过appId拿到Redis的节点信息，之后不会与CacheCloud打交道了。</p><p>流程图如下所示：</p><p><img src="http://picture.watchmen.xin/cachecloud/client.png" alt="客户端连接"></p><h1 id="安装部署"><a href="#安装部署" class="headerlink" title="安装部署"></a>安装部署</h1><p>这里只说单机环境，高可用环境将在下面章节说明：<a href="">CacheCloud高可用架构</a></p><p><strong>环境要求：</strong></p><ul><li><p>JDK 7+</p></li><li><p>Maven 3+</p></li><li><p>MySQL 5.5+</p></li><li><p>Redis 3+</p></li></ul><h2 id="基础环境"><a href="#基础环境" class="headerlink" title="基础环境"></a>基础环境</h2><h3 id="JDK-Maven"><a href="#JDK-Maven" class="headerlink" title="JDK+Maven"></a>JDK+Maven</h3><p><strong>JDK：</strong></p><p>步骤：</p><ul><li><p>下载</p></li><li><p>解压</p></li><li><p>软链接</p></li><li><p>配置系统环境变量</p></li></ul><p>操作如下：</p><pre><code>[root@qa1-common004 local]# java -version java version &quot;1.8.0_77&quot;Java(TM) SE Runtime Environment (build 1.8.0_77-b03)Java HotSpot(TM) 64-Bit Server VM (build 25.77-b03, mixed mode)[root@qa1-common004 local]# which java/usr/local/jdk/bin/java[root@qa1-common004 local]# ll /usr/local/jdklrwxrwxrwx 1 root root 11 Apr 17 17:01 /usr/local/jdk -&gt; jdk1.8.0_77</code></pre><p>这里我使用的是1.8版本。</p><p>详细操作请看文章：<a href="">Linux下JDK的安装配置</a></p><p><strong>Maven</strong></p><p>步骤：</p><ul><li><p>下载  <a href="http://maven.apache.org/download.cgi" target="_blank" rel="noopener">下载链接</a></p></li><li><p>解压</p></li><li><p>软链接</p></li><li><p>配置系统环境变量</p></li></ul><p>操作如下：</p><pre><code># tar -zxvf apache-maven-3.5.3-bin.tar.gz -C /usr/local/# cd /usr/local/# ln -s /usr/local/apache-maven-3.5.0/ /usr/local/maven# vim /etc/profile  在文件末尾添加以下内容，保存退出M3_HOME=/usr/local/mavenexport PATH=$M3_HOME/bin:$PATH[root@host-192-168-8-37 ~]# source /etc/profile</code></pre><h3 id="下载CacheCloud项目"><a href="#下载CacheCloud项目" class="headerlink" title="下载CacheCloud项目"></a>下载CacheCloud项目</h3><pre><code># yum -y install git# git clone https://github.com/sohutv/cachecloud.git# ls cachecloud/cachecloud-open-client  cachecloud-open-common  cachecloud-open-web  LICENSE  pom.xml  README.md  script</code></pre><h3 id="MySQL"><a href="#MySQL" class="headerlink" title="MySQL"></a>MySQL</h3><p>这里安装mysql5.7版本</p><p><strong>配置yum源并安装</strong></p><p>centos6.8 【6.8安装5.6版本，安装5.7时涉及依赖关系过多】</p><pre><code># wget http://repo.mysql.com/mysql-community-release-el6-5.noarch.rpm# rpm -ivh mysql-community-release-el6-5.noarch.rpm# yum -y install  mysql-community-server</code></pre><p>centos 7.x 【5.7版本】</p><pre><code># wget https://dev.mysql.com/get/mysql57-community-release-el7-11.noarch.rpm# rpm -ivh mysql57-community-release-el7-11.noarch.rpm# yum -y install mysql-server</code></pre><p><strong>修改mysql配置文件</strong></p><pre><code># vim /etc/my.cnf[mysqld]character-set-server=utf8 </code></pre><p><strong>启动</strong></p><pre><code># /etc/init.d/mysqld start</code></pre><h4 id="数据库配置"><a href="#数据库配置" class="headerlink" title="数据库配置"></a>数据库配置</h4><p><strong>创建数据库</strong></p><pre><code>mysql&gt; create database cache_cloud default charset utf8;Query OK, 1 row affected (0.00 sec)</code></pre><p><strong>创建cachecloud用户</strong></p><pre><code>mysql&gt; grant all privileges on cache_cloud.* to &apos;cachecloud&apos;@&apos;%&apos; identified by &apos;Cache_cloud123&apos;;Query OK, 0 rows affected (0.00 sec)</code></pre><p><strong>导入初始化数据</strong><br>注意，这里已经不是在数据库中了</p><pre><code>[root@qa1-common004 script]# pwd/root/software/cachecloud/script[root@qa1-common004 script]# mysql -u root -p cache_cloud &lt; cachecloud.sql Enter password: </code></pre><h2 id="修改cachecloud配置"><a href="#修改cachecloud配置" class="headerlink" title="修改cachecloud配置"></a>修改cachecloud配置</h2><p><strong>数据库设置</strong></p><pre><code>[root@qa1-common004 swap]# pwd/root/software/cachecloud/cachecloud-open-web/src/main/swap[root@qa1-common004 swap]# cat online.properties cachecloud.db.url = jdbc:mysql://172.24.64.132:3306/cache_cloud?useUnicode=true&amp;amp;characterEncoding=UTF-8cachecloud.db.user = cachecloudcachecloud.db.password = Cache_cloud123 cachecloud.maxPoolSize = 20isClustered = trueisDebug = falsespring-file=classpath:spring/spring-online.xmllog_base=/opt/cachecloud-web/logsweb.port=8585log.level=WARN</code></pre><p>注意这里需要提前在数据库中删除匿名用户</p><p><strong>开启机器管理显示</strong></p><pre><code># pwd/root/software/cachecloud/cachecloud-open-web/src/main/java/com/sohu/cache/schedule/jobs# vim ServerJob.java    将稳中的注释去掉，修改之后的文件如下所示：</code></pre><p><img src="http://picture.watchmen.xin/cachecloud/machine.png" alt=""></p><h2 id="cachecloud构建及启动"><a href="#cachecloud构建及启动" class="headerlink" title="cachecloud构建及启动"></a>cachecloud构建及启动</h2><p><strong>项目构建</strong></p><p>在cachecloud的根目录下执行以下maven命令，该命令会进行项目的构建</p><pre><code>[root@qa1-common004 cachecloud]# pwd/root/software/cachecloud[root@qa1-common004 cachecloud]#[root@host-192-168-8-37 cachecloud]# mvn clean compile install -Ponline[root@host-192-168-8-37 cachecloud]# cd script/ [root@host-192-168-8-37 script]# sh deploy.sh /root/software/</code></pre><p><strong>启动</strong></p><pre><code># sh /opt/cachecloud-web/start.sh</code></pre><p>启动成功之后的web页面如下图所示：</p><p><img src="http://picture.watchmen.xin/cachecloud/web.png" alt="web"></p>]]></content>
+    <content type="html"><![CDATA[<h1 id="Cachecloud介绍"><a href="#Cachecloud介绍" class="headerlink" title="Cachecloud介绍"></a>Cachecloud介绍</h1><p>有关cachecloud的一些基础知识，官方都有非常详细的文档，这里不再花费篇幅进行复述，下面是相关的资料链接，请自行查看。</p><ul><li>github官网：    <a href="https://github.com/sohutv/cachecloud" target="_blank" rel="noopener">https://github.com/sohutv/cachecloud</a></li><li>Wiki:            <a href="https://github.com/sohutv/cachecloud/wiki" target="_blank" rel="noopener">https://github.com/sohutv/cachecloud/wiki</a></li><li>博客：        <a href="https://cachecloud.github.io/" target="_blank" rel="noopener">https://cachecloud.github.io/</a></li><li>官方视频：  <a href="http://my.tv.sohu.com/pl/9100280/index.shtml" target="_blank" rel="noopener">http://my.tv.sohu.com/pl/9100280/index.shtml</a></li></ul><p><strong>简介：</strong></p><blockquote><p>CacheCloud提供一个Redis云管理平台：实现多种类型(Redis Standalone、Redis Sentinel、Redis Cluster)自动部署、解决Redis实例碎片化现象、提供完善统计、监控、运维功能、减少开发人员的运维成本和误操作，提高机器的利用率，提供灵活的伸缩性，提供方便的接入客户端。</p></blockquote><p><strong>提供的功能：</strong></p><ul><li>监控统计：    提供了机器、应用、实例下各个维度数据的监控和统计界面。</li><li>一键开启：    Redis Standalone、Redis Sentinel、Redis Cluster三种类型的应用，无需手动配置初始化。</li><li>Failover：    支持哨兵,集群的高可用模式。</li><li>伸缩：    提供完善的垂直和水平在线伸缩功能。</li><li>完善运维： 提供自动运维和简化运维操作功能，避免纯手工运维出错。</li><li>方便的客户端 方便快捷的客户端接入。</li><li>元数据管理： 提供机器、应用、实例、用户信息管理。</li><li>流程化： 提供申请，运维，伸缩，修改等完善的处理流程</li><li>一键导入： 一键导入已经存在Redis </li></ul><p><strong>须知：</strong></p><ul><li>Redis集群、redis哨兵集群、Redis单实例等在CacheCloud中都是以应用的形式存在，一个应用对应一个appid</li><li>一个redis集群是一个应用，分配一个appid（不管其中有几个节点）</li><li>一个哨兵集群是一个应用，分配一个appid（不管其中有几个主从节点和哨兵节点）</li><li>一个单实例是一个应用，分配一个appid</li></ul><p><strong>如何使用：</strong></p><p>我们在平台上的执行任何操作都需要<code>**账号**</code>，创建的单节点、哨兵、集群等都是以<strong><code>用户申请的应用</code></strong>形式存在的。普通用户的主要工单有</p><ul><li>注册用户申请</li><li>应用申请</li><li>应用扩容</li><li>应用配置修改</li></ul><p>管理员的界面可操作的选项较多，此处不做详细说明。</p><p><strong>客户端如何连接：</strong></p><p>客户端在第一次启动的时候去CacheCloud通过appId拿到Redis的节点信息，之后不会与CacheCloud打交道了。</p><p>流程图如下所示：</p><p><img src="http://picture.watchmen.xin/cachecloud/client.png" alt="客户端连接"></p><h1 id="安装部署"><a href="#安装部署" class="headerlink" title="安装部署"></a>安装部署</h1><p>这里只说单机环境，高可用环境将在下面章节说明：<a href="">CacheCloud高可用架构</a></p><p><strong>环境要求：</strong></p><ul><li>JDK 7+</li><li>Maven 3+</li><li>MySQL 5.5+</li><li>Redis 3+</li></ul><h2 id="基础环境"><a href="#基础环境" class="headerlink" title="基础环境"></a>基础环境</h2><h3 id="JDK-Maven"><a href="#JDK-Maven" class="headerlink" title="JDK+Maven"></a>JDK+Maven</h3><p><strong>JDK：</strong></p><p>步骤：</p><ul><li>下载</li><li>解压</li><li>软链接</li><li>配置系统环境变量</li></ul><p>操作如下：</p><pre><code>[root@qa1-common004 local]# java -version java version &quot;1.8.0_77&quot;Java(TM) SE Runtime Environment (build 1.8.0_77-b03)Java HotSpot(TM) 64-Bit Server VM (build 25.77-b03, mixed mode)[root@qa1-common004 local]# which java/usr/local/jdk/bin/java[root@qa1-common004 local]# ll /usr/local/jdklrwxrwxrwx 1 root root 11 Apr 17 17:01 /usr/local/jdk -&gt; jdk1.8.0_77</code></pre><p>这里我使用的是1.8版本。</p><p>详细操作请看文章：<a href="">Linux下JDK的安装配置</a></p><p><strong>Maven</strong></p><p>步骤：</p><ul><li>下载  <a href="http://maven.apache.org/download.cgi" target="_blank" rel="noopener">下载链接</a></li><li>解压</li><li>软链接</li><li>配置系统环境变量</li></ul><p>操作如下：</p><pre><code># wget http://www-eu.apache.org/dist/maven/maven-3/3.5.3/binaries/apache-maven-3.5.3-bin.tar.gz# tar -zxvf apache-maven-3.5.3-bin.tar.gz -C /usr/local/# cd /usr/local/# ln -s /usr/local/apache-maven-3.5.3/ /usr/local/maven# vim /etc/profile  在文件末尾添加以下内容，保存退出M3_HOME=/usr/local/mavenexport PATH=$M3_HOME/bin:$PATH[root@host-192-168-8-37 ~]# source /etc/profile</code></pre><h3 id="下载CacheCloud项目"><a href="#下载CacheCloud项目" class="headerlink" title="下载CacheCloud项目"></a>下载CacheCloud项目</h3><pre><code># yum -y install git# git clone https://github.com/sohutv/cachecloud.git# ls cachecloud/cachecloud-open-client  cachecloud-open-common  cachecloud-open-web  LICENSE  pom.xml  README.md  script</code></pre><h3 id="MySQL"><a href="#MySQL" class="headerlink" title="MySQL"></a>MySQL</h3><p>这里安装mysql5.7版本</p><p><strong>配置yum源并安装</strong></p><p>centos6.8 【6.8安装5.6版本，安装5.7时涉及依赖关系过多】</p><pre><code># wget http://repo.mysql.com/mysql-community-release-el6-5.noarch.rpm# rpm -ivh mysql-community-release-el6-5.noarch.rpm# yum -y install  mysql-community-server</code></pre><p>centos 7.x 【5.7版本】</p><pre><code># wget https://dev.mysql.com/get/mysql57-community-release-el7-11.noarch.rpm# rpm -ivh mysql57-community-release-el7-11.noarch.rpm# yum -y install mysql-server</code></pre><p><strong>修改mysql配置文件</strong></p><pre><code># vim /etc/my.cnf[mysqld]character-set-server=utf8 </code></pre><p><strong>启动</strong></p><pre><code># /etc/init.d/mysqld start</code></pre><h4 id="数据库配置"><a href="#数据库配置" class="headerlink" title="数据库配置"></a>数据库配置</h4><p><strong>创建数据库</strong></p><pre><code>mysql&gt; create database cache_cloud default charset utf8;Query OK, 1 row affected (0.00 sec)</code></pre><p><strong>创建cachecloud用户</strong></p><pre><code>mysql&gt; grant all privileges on cache_cloud.* to &apos;cachecloud&apos;@&apos;%&apos; identified by &apos;Cache_cloud123&apos;;Query OK, 0 rows affected (0.00 sec)</code></pre><p><strong>导入初始化数据</strong><br>注意，这里已经不是在数据库中了</p><pre><code>[root@qa1-common004 script]# pwd/root/software/cachecloud/script[root@qa1-common004 script]# mysql -u root -p cache_cloud &lt; cachecloud.sql Enter password: </code></pre><h2 id="修改cachecloud配置"><a href="#修改cachecloud配置" class="headerlink" title="修改cachecloud配置"></a>修改cachecloud配置</h2><p><strong>数据库设置</strong></p><pre><code>[root@qa1-common004 swap]# pwd/root/software/cachecloud/cachecloud-open-web/src/main/swap[root@qa1-common004 swap]# cat online.properties cachecloud.db.url = jdbc:mysql://172.24.64.132:3306/cache_cloud?useUnicode=true&amp;amp;characterEncoding=UTF-8cachecloud.db.user = cachecloudcachecloud.db.password = Cache_cloud123 cachecloud.maxPoolSize = 20isClustered = trueisDebug = falsespring-file=classpath:spring/spring-online.xmllog_base=/opt/cachecloud-web/logsweb.port=8585log.level=WARN</code></pre><p>注意这里需要提前在数据库中删除匿名用户</p><p><strong>开启机器监控功能</strong></p><pre><code># pwd/root/software/cachecloud/cachecloud-open-web/src/main/java/com/sohu/cache/schedule/jobs# vim ServerJob.java    将稳中的注释去掉，修改之后的文件如下所示：</code></pre><p><img src="http://picture.watchmen.xin/cachecloud/machine.png" alt=""></p><p>如果公司已经有完善的监控，那么不建议开启机器监控，能够一定程度上减小数据库的压力。</p><h2 id="cachecloud构建及启动"><a href="#cachecloud构建及启动" class="headerlink" title="cachecloud构建及启动"></a>cachecloud构建及启动</h2><p><strong>项目构建</strong></p><p>在cachecloud的根目录下执行以下maven命令，该命令会进行项目的构建</p><pre><code>[root@qa1-common004 cachecloud]# pwd/root/software/cachecloud[root@qa1-common004 cachecloud]#[root@host-192-168-8-37 cachecloud]# mvn clean compile install -Ponline[root@host-192-168-8-37 cachecloud]# cd script/ [root@host-192-168-8-37 script]# sh deploy.sh /root/software/</code></pre><p><strong>启动</strong></p><pre><code># sh /opt/cachecloud-web/start.sh</code></pre><p>启动成功之后的web页面如下图所示：</p><p><img src="http://picture.watchmen.xin/cachecloud/web.png" alt="web"></p><h1 id="实际使用"><a href="#实际使用" class="headerlink" title="实际使用"></a>实际使用</h1><h2 id="redis数据节点初始化"><a href="#redis数据节点初始化" class="headerlink" title="redis数据节点初始化"></a>redis数据节点初始化</h2><p>执行初始化脚本</p><pre><code>sh cachecloud-init.sh cachecloud</code></pre><h2 id="添加主机"><a href="#添加主机" class="headerlink" title="添加主机"></a>添加主机</h2><h2 id="redis应用模板配置"><a href="#redis应用模板配置" class="headerlink" title="redis应用模板配置"></a>redis应用模板配置</h2><p><strong>注意：</strong>在部署redis相关应用之前，一定要先进行模板的配置，因为默认配置下，redis的守护进程模式为关系，保护模式也是开启的</p><p><strong>修改配置：</strong></p><ul><li>配置名称：daemonize；配置值：yes;配置说明：是否守护进程</li></ul><p><strong>新增配置：</strong></p><ul><li><p>配置名称：protected-mode；配置值：no;配置说明：保护模式</p></li><li><p>配置名称：bind；配置值：0.0.0.0;配置说明：绑定ip</p></li></ul><font color="red"> 注意：哨兵的配置模板中只需要新增protected-mode参数即可。</font><h2 id="部署哨兵应用"><a href="#部署哨兵应用" class="headerlink" title="部署哨兵应用"></a>部署哨兵应用</h2><h2 id="导入已经存在的redis实例"><a href="#导入已经存在的redis实例" class="headerlink" title="导入已经存在的redis实例"></a>导入已经存在的redis实例</h2><h3 id="redis哨兵"><a href="#redis哨兵" class="headerlink" title="redis哨兵"></a>redis哨兵</h3><h1 id="cachecloud使用优化"><a href="#cachecloud使用优化" class="headerlink" title="cachecloud使用优化"></a>cachecloud使用优化</h1><p><strong>哨兵复用问题：</strong></p><p>使用cachecloud部署哨兵集群时，每次生成的哨兵节点都是不一样的，这种情况，会造成一定的资源浪费（每一对主从都需要至少3个哨兵节点，对服务器的端口资源、内存资源等都会造成一定的浪费）</p><p>因此，我们采取复用哨兵节点的方式来实现redis的主从高可用</p><p>实现步骤：</p><ul><li><ol><li>哨兵模板中设置端口，将端口固定，为了后续的配置方便</li></ol></li><li><ol><li>手动创建主从节点</li></ol></li><li><ol><li>哨兵中添加新建的主从节点</li></ol></li><li><ol><li>在cachecloud平台上导入这个应用</li></ol></li></ul><p>相当于其实是导入redis哨兵的方式</p><p>哨兵配置：</p><pre><code>redis-cli -p 6388 sentinel monitor master-test-qa1 172.24.64.134 6385 2&amp;&amp;redis-cli -p 6388 SENTINEL set master-test-qa1 auth-pass redis123&amp;&amp;redis-cli -p 6388 sentinel set master-test-qa1 down-after-milliseconds 20000&amp;&amp;redis-cli -p 6388 sentinel set master-test-qa1 failover-timeout 60000</code></pre><p><strong>关闭master节点的持久化</strong></p><p>AOF持久化：appendonly  配置为no</p><h1 id="cachecloud坑-CacheCloud安装部署及使用常见问题及注意事项"><a href="#cachecloud坑-CacheCloud安装部署及使用常见问题及注意事项" class="headerlink" title="cachecloud坑- CacheCloud安装部署及使用常见问题及注意事项"></a>cachecloud坑- CacheCloud安装部署及使用常见问题及注意事项</h1><ul><li><p><strong>数据库版本问题：</strong> 如果使用mysql5.7，则需要进行针对sql文件做一些设置（only_full_group_by模式设置等）</p></li><li><p><strong>cachecloud平台乱码问题：</strong> 需要修改online.properties配置文件中的连接串（使用这种方式：jdbc:mysql://127.0.0.1:3306/cache_cloud?useUnicode=true&amp;characterEncoding=UTF-8）</p></li><li><p><strong>cachecloud后台配置模板：</strong>默认配置下，redis没有开启守护进程运行方式、开启了保护模式等，需要做一些配置修改之后才可以正常启动</p></li><li><p><strong>机器监控数据无法展示问题：</strong>除了在程序文件中去掉相应的代码注释，还需要将cachecloud-open-web/nmon下指定系统版本的nmon文件放到/opt/cachecloud/soft/目录下</p></li><li><p><strong>密码配置问题：</strong>密码配置栏中，输入密码之后，还需要点击更新才可以生效</p></li><li><p><strong>Jedis支持redis版本问题：</strong>Jedis暂时无法稳定支持redis4.x版本，因此涉及到的集群水平扩容等功能是无法实现的（集群创建等还是可以支持的），因此我们建议使用3版本，后续关注Jedis的版本发布情况。</p></li><li><p><strong>应用导入时提示：节点不是存活的</strong> cachecloud节点上需要安装redis，因为他会使用redis-cli 去ping指定的节点，没有返回pong时，则会报错</p></li><li><p><strong>哨兵导入问题：</strong> 如果哨兵是复用的，也就是说一组哨兵节点监听了多对主从节点，那么在导入的时候回出现问题，目前导入功能只支持一个mastername</p></li><li><p><strong>主机名设置问题：</strong>  注意hosts文件需要进行配置</p></li></ul>]]></content>
     
     <summary type="html">
     
@@ -307,198 +443,6 @@
     
     
       <category term="HTML" scheme="http://yoursite.com/tags/HTML/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>disconf</title>
-    <link href="http://yoursite.com/2018/04/25/disconf/"/>
-    <id>http://yoursite.com/2018/04/25/disconf/</id>
-    <published>2018-04-25T08:15:14.000Z</published>
-    <updated>2018-04-25T08:15:14.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>官方资料：</p><p><a href="https://github.com/knightliao/disconf" target="_blank" rel="noopener">github主页</a></p><h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>disconf专注于各种「分布式系统配置管理」的「通用组件」和「通用平台」, 提供统一的「配置管理服务」</p><p>工作流程如下图所示：</p><p><img src="http://picture.watchmen.xin/disconf/disconf.jpg" alt="disconf"></p><p><strong>实现目标：</strong></p><ul><li>部署极其简单：同一个上线包，无须改动配置，即可在 多个环境中(RD/QA/PRODUCTION) 上线 【每个应用中只需要配置相关的参数即可。】</li></ul><ul><li>部署动态化：更改配置，无需重新打包或重启，即可 实时生效</li></ul><ul><li>统一管理：提供web平台，统一管理 多个环境(RD/QA/PRODUCTION)、多个产品 的所有配置</li></ul><ul><li>核心目标：一个jar包，到处运行</li></ul><h1 id="部署及使用"><a href="#部署及使用" class="headerlink" title="部署及使用"></a>部署及使用</h1>]]></content>
-    
-    <summary type="html">
-    
-      Distributed Configuration Management Platform(分布式配置管理平台)
-    
-    </summary>
-    
-      <category term="IT科学技术知识体系结构-Linux运维方向" scheme="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/"/>
-    
-      <category term="分布式" scheme="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E5%88%86%E5%B8%83%E5%BC%8F/"/>
-    
-      <category term="disconf" scheme="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E5%88%86%E5%B8%83%E5%BC%8F/disconf/"/>
-    
-    
-      <category term="disconf" scheme="http://yoursite.com/tags/disconf/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>python零碎知识及版本变化记录</title>
-    <link href="http://yoursite.com/2018/04/23/python%E9%9B%B6%E7%A2%8E%E7%9F%A5%E8%AF%86%E5%8F%8A%E7%89%88%E6%9C%AC%E5%8F%98%E5%8C%96%E8%AE%B0%E5%BD%95/"/>
-    <id>http://yoursite.com/2018/04/23/python零碎知识及版本变化记录/</id>
-    <published>2018-04-23T11:34:40.000Z</published>
-    <updated>2018-04-23T11:34:40.000Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="零碎知识"><a href="#零碎知识" class="headerlink" title="零碎知识"></a>零碎知识</h1><ul><li>CharField类型必须添加max_length来指定长度上限，如果要想没有限制，则考虑使用TextField类型</li></ul><h1 id="版本变化"><a href="#版本变化" class="headerlink" title="版本变化"></a>版本变化</h1><p>##django##</p><p><strong>外键：</strong></p><p>Django2.0版本之后，创建外键时需要在后面加上on_delete</p><pre><code>topic = models.ForeignKey(Topic) </code></pre><p>应该修改为：</p><pre><code>topic = models.ForeignKey(Topic,on_delete=models.CASCADE)</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      python零碎知识及版本变化记录
-    
-    </summary>
-    
-      <category term="编程语言" scheme="http://yoursite.com/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/"/>
-    
-      <category term="Python" scheme="http://yoursite.com/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Python/"/>
-    
-    
-      <category term="python版本" scheme="http://yoursite.com/tags/python%E7%89%88%E6%9C%AC/"/>
-    
-  </entry>
-  
-  <entry>
-    <title> ignoring option PermSize=512m; support was removed in 8.0 </title>
-    <link href="http://yoursite.com/2018/04/23/ignoring-option-PermSize-512m-support-was-removed-in-8-0/"/>
-    <id>http://yoursite.com/2018/04/23/ignoring-option-PermSize-512m-support-was-removed-in-8-0/</id>
-    <published>2018-04-23T03:47:55.000Z</published>
-    <updated>2018-04-23T03:47:55.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>使用jdk1.8的时候设置了vm参数：-Xmx2048m -XX:PermSize=512m -XX:MaxPermSize=768m -Xss2m<br>此时运行java程序时VM提示如下警告：</p><pre><code>Java HotSpot(TM) 64-Bit Server VM warning: ignoring option PermSize=512m; support was removed in 8.0 Java HotSpot(TM) 64-Bit Server VM warning: ignoring option MaxPermSize=768m; support was removed in 8.0</code></pre><p>程序能正常兼容启动，不会产生影响，但这个提示还是引起了注意</p><p><strong>问题原因：</strong></p><p>-XX:PermSize和-XX:MaxPermSize在jdk1.8中被弃用了，使用-XX:MetaspaceSize和-XX:MaxMetaspaceSize替代。 </p><p>所以此时VM参数正确应为：-Xmx2048m -XX:MetaspaceSize=512m -XX:MaxMetaspaceSize=768m -Xss2m</p><p><strong>根本原因：</strong></p><p>在jdk1.8之前之前我们将储存类信息、常量、静态变量的方法区称为持久代(Permanent Generation)，PermSize和MaxPermSize是设置持久代大小的参数。</p><p>但是<strong><code>在jdk1.8中，持久代被完全移除了</code></strong>，所以这两个参数也被移除了，多了一个元数据区(Metadata Space)，所以设置元数据区大小的参数也变成对应的MetaspaceSize和MaxMetaspaceSize了。</p>]]></content>
-    
-    <summary type="html">
-    
-      JDK1.8环境后废弃了持久代
-    
-    </summary>
-    
-      <category term="IT科学技术知识体系结构-Linux运维方向" scheme="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/"/>
-    
-      <category term="运维工作日常问题" scheme="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E8%BF%90%E7%BB%B4%E5%B7%A5%E4%BD%9C%E6%97%A5%E5%B8%B8%E9%97%AE%E9%A2%98/"/>
-    
-    
-      <category term="持久代被废弃" scheme="http://yoursite.com/tags/%E6%8C%81%E4%B9%85%E4%BB%A3%E8%A2%AB%E5%BA%9F%E5%BC%83/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>python中方法与函数的区别</title>
-    <link href="http://yoursite.com/2018/04/22/python%E4%B8%AD%E5%B1%9E%E6%80%A7%E4%B8%8E%E6%96%B9%E6%B3%95%E7%9A%84%E5%8C%BA%E5%88%AB/"/>
-    <id>http://yoursite.com/2018/04/22/python中属性与方法的区别/</id>
-    <published>2018-04-22T07:08:05.000Z</published>
-    <updated>2018-04-22T07:08:05.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>定义:</p><ul><li>function(函数) —— A series of statements which returns some value toa caller. It can also be passed zero or more arguments which may beused in the execution of the body.</li></ul><ul><li>method(方法) —— A function which is defined inside a class body. Ifcalled as an attribute of an instance of that class, the methodwill get the instance object as its first argument (which isusually called self).</li></ul><blockquote><p>Function包含一个函数头和一个函数体, 支持0到n个形参</p><p>而Method则是在function的基础上, 多了一层类的关系, 正因为这一层类, 所以区分了 function 和 method.而这个过程是通过 PyMethod_New实现的</p></blockquote><p>也就是说，函数可以脱离于类单独存在，在使用的时候，需要往函数中传入参数（实参）</p><p>而方法是与某个对象紧密联系的，不能脱离于类而存在方法的作用域只是在一个类中，只能在该类实例化后被该类使用</p><p>方法的绑定, 肯定是伴随着class的实例化而发生,我们都知道, 在class里定义方法, 需要显示传入self参数, 因为这个self是代表即将被实例化的对象。</p><p><strong>定义角度：</strong></p><p>从定义的角度上看，我们知道函数(function)就相当于一个数学公式，它理论上不与其它东西关系，它只需要相关的参数就可以。所以普通的在module中定义的称谓函数是很有道理的。</p><p>那么方法的意思就很明确了，它是与某个对象相互关联的，也就是说它的实现与某个对象有关联关系。这就是方法。虽然它的定义方式和函数是一样的。也就是说，在Class定义的函数就是方法。</p><p><strong>总结：</strong></p><pre><code>函数是一段代码，通过名字来进行调用。它能将一些数据（参数）传递进去进行处理，然后返回一些数据（返回值），也可以没有返回值。所有传递给函数的数据都是显式传递的。方法也是一段代码，也通过名字来进行调用，但它跟一个对象相关联。方法和函数大致上是相同的，但有两个主要的不同之处：方法中的数据是隐式传递的；方法可以操作类内部的数据（请记住，对象是类的实例化–类定义了一个数据类型，而对象是该数据类型的一个实例化）</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      python中方法与函数的区别
-    
-    </summary>
-    
-      <category term="编程语言" scheme="http://yoursite.com/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/"/>
-    
-      <category term="Python" scheme="http://yoursite.com/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Python/"/>
-    
-    
-      <category term="python方法与函数" scheme="http://yoursite.com/tags/python%E6%96%B9%E6%B3%95%E4%B8%8E%E5%87%BD%E6%95%B0/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>湿气的产生及预防治疗</title>
-    <link href="http://yoursite.com/2018/04/22/%E6%B9%BF%E6%B0%94%E7%9A%84%E4%BA%A7%E7%94%9F%E5%8F%8A%E9%A2%84%E9%98%B2%E6%B2%BB%E7%96%97/"/>
-    <id>http://yoursite.com/2018/04/22/湿气的产生及预防治疗/</id>
-    <published>2018-04-22T01:20:34.000Z</published>
-    <updated>2018-04-22T01:20:34.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>文章结构：</p><ul><li>第一部分：是什么-湿气的概念  &amp;&amp; 为什么-湿气的产生原因</li><li>第二部分：怎么做-如何预防及治疗</li></ul><p>参考文献：</p><ul><li><a href="https://www.zhihu.com/question/20368808" target="_blank" rel="noopener">知乎-湿气是怎么回事，人为什么会有湿气？</a></li><li><a href="https://baike.baidu.com/item/%E6%B9%BF%E6%B0%94/2050090" target="_blank" rel="noopener">湿气（中医理论概念）</a></li></ul><h1 id="1-湿气概念及产生原因"><a href="#1-湿气概念及产生原因" class="headerlink" title=" 1. 湿气概念及产生原因 "></a><font color="red"> 1. 湿气概念及产生原因 </font></h1><h2 id="1-1-概念"><a href="#1-1-概念" class="headerlink" title="1.1 概念"></a>1.1 概念</h2><p><strong>1.1.1 湿</strong></p><blockquote><p>我们在日常生活中，感受到湿的时候一般是物体含水量超出一定范围，这个水分可以依附到很多物体上，比如湿巾、湿木头、湿衣服等等（无法正常排出的水）。</p><p>但含水量也不能超过一定限度，依附不住的水就不叫做湿，而是自由的水，比如湿衣服滴下来的水，这就不称为湿。</p></blockquote><p><strong>1.1.2 湿气</strong></p><blockquote><p>湿气是一种中医理论中的概念。通俗的来说，就是人体内有多余的水份无法正常代谢排出，堆积在身体之内，从而影响身体健康。（具体原因可能是个人体质、疾病或生活习惯不良，造成体内水分调控系统失衡）</p><p>就像我们日常生活中所看见的：食物放在潮湿的地方相比干燥的地方，很快就会发霉，类比到人上，当人的湿气较重之后，会产生一系列疾病。</p><p>一般也把湿气称之为：<strong><code>湿邪</code></strong></p></blockquote><p><strong>在致病的风、寒、暑、湿、燥、火这“六淫邪气” 中，中医最怕湿邪。</strong></p><p>湿是最容易渗透的。湿邪从来不孤军奋战，总是要与别的邪气狼狈为奸。</p><p>湿气遇寒则成为寒湿，这就好比冬天的时候，如果气候干燥，不管怎么冷，人都还是能接受的，但如果湿气重，人就很难受了。南方的冬天比北方的冬天更令人难受，就是因为南方湿气比较重，寒湿袭人。</p><p>湿气遇热则成为湿热，这就好比夏天的桑拿天，又热又湿，让人喘不过气来，明显不如烈日当空、气候干燥的时候来得痛快。</p><p>湿气遇风则成为风湿，驱风很容易，但一旦成了风湿，就往往是慢性疾病，一时半会儿治不好了。</p><p>湿气在皮下，就形成肥胖，也是不好处理的健康问题……</p><p>为什么现代人的病那么复杂，那么难治？因为他们体内有湿，体外的邪气总是和体内的湿气里应外合，纠缠不清！以前仅仅盛行于我国西南的川菜，风行全国，就是因为川味是辛辣的，以前只有生活在湿邪比较重的西南一带人需要用它来化解体内的湿气；全国人体内都有湿气了，这就需要辛辣来化解。</p><font color="blue"> <strong>主导湿气的人体器官是：<code>脾</code></strong> </font><blockquote><p>因此，湿气问题的根本原因是各种原因导致的脾功能下降（也有可能是其他器官导致，因为脾在工作时要需要借助胃肝肾等器官），具体见下文。</p></blockquote><h2 id="1-2-产生原因-湿气是怎么来的？"><a href="#1-2-产生原因-湿气是怎么来的？" class="headerlink" title="1.2 产生原因-湿气是怎么来的？"></a>1.2 产生原因-湿气是怎么来的？</h2><p><strong>1.2.1 外在原因</strong></p><blockquote><p>一个是因为外在的环境，也就是湿邪进入到了身体。</p><p>比如长期居住在湿气重的地方，比如淋了雨还不及时擦干，比如晚上洗头没吹干就睡觉，让外界的湿气进入到体内。</p><p>湿气进入身体后常常奔着脾胃去，导致脾的运化能力下降，而这又会容易导致体内生湿。</p></blockquote><p><strong>1.2.2 内因</strong></p><blockquote><p> 另外一个就是饮食习惯差，导致脾运化能力下降而生湿。【饮食不当，伤害脾胃，这是产生湿气的罪归祸首】</p><p>此外夏天的时候狂开空调，狂吃冷饮，硬生生的把要出来的水份给逼回去了。还有缺乏运动，没有及时的增强脾的工作能力。</p><p>脾主运化，吃进来的食物通过它来运化出精微物质，剩下的糟粕排出体外。当因为各种原因导致脾虚、运化能力下降的时候，精微物质就没法完全提炼出来。</p></blockquote><p><strong>1.2.3 原因解析</strong></p><blockquote><p> 从微观的角度讲，物质没有完全被消化时，就成了携带营养物质的“垃圾”，成分复杂且分子比较大，没法被人体吸收，但又不像糟粕那么大块头好分辨，那么容易把它们驱逐。</p><p>它们的分子量和体积远大于水分子，潜伏着，聚集起来，极其容易把周围的水分子吸附住、束缚住，使含水量超出正常的生理水平，于是形成了湿。</p></blockquote><font color="blue"> 脾被湿气困住，更加影响它的运化工作，导致湿气加重。湿一直凝聚不化，时间长了就成为痰，身体出于自保自救，把其中一部分水、二氧化碳和营养垃圾打包成了脂肪。所以中医常说胖人多痰湿，就是这个道理。【So，减肥先去湿气】</font><h2 id="1-3-湿气的特点"><a href="#1-3-湿气的特点" class="headerlink" title="1.3 湿气的特点"></a>1.3 湿气的特点</h2><p><strong>1.3.1 笨重并且混浊</strong></p><blockquote><p>湿气依附在身体某些地方，和身边的物体紧紧结合，难舍难离。物体湿的状态时会比干燥的时候重很多,所以体内有湿气的时候，我们往往觉得身体或头部沉重；湿气浊会导致身体气血流通不畅，长期聚集身体又没法整治它,导致有湿气的地方脏乱差，滋生各种毒害。</p></blockquote><p><strong>1.3.2 难缠粘人</strong></p><blockquote><p>什么东西被湿邪盯上，就好像被缠上了粘液，各种不爽，比如小便不畅，大便黏腻不爽等。此外它还很难去除，经常和你缠缠绵绵，病程较长，比如风湿病、温湿病。</p></blockquote><p><strong>1.3.3 阻遏气机、损伤阳气</strong></p><blockquote><p>湿气本质上属于阴邪，靠着它黏腻难缠的劲头，赖在脏腑经络上不走，导致气机升降无能，于是阳气就没法正常生发了。所以一般被湿邪困住的人，阳气都不太旺，会有脸色淡白，精力不济的现象。</p></blockquote><h2 id="1-4-湿气重的表现"><a href="#1-4-湿气重的表现" class="headerlink" title="1.4 湿气重的表现"></a>1.4 湿气重的表现</h2><ul><li><p>头发爱出油、面部油亮, 小肚子大(常有胀气)，身体浮肿。</p></li><li><p>身体发沉、发重，浑身无力。</p></li><li><p>皮肤上会有湿疹，胃口不好，嘴里发黏。</p></li><li><p>常感到疲倦，精力不集中睡觉打呼噜，痰多，咳嗽,睡觉留口水、口臭、身体有异味，耳内湿（耳禅湿）毛发粗糙，易脱落。</p></li><li><p>舌质很胖，颜色偏淡。症状严重的，舌头边上会有齿痕，这叫“裙边舌”。</p></li><li><p>眼袋下垂，黑圆圈严重，肥胖，减肥后反弹，机能衰退，对房事不感兴趣质量不高等。</p></li><li><p>大便溏稀不成型，正常的大便是光滑的呈圆柱体，每次大便之后，不会粘在光滑的马桶壁上，如果你每次上完厕所，大便冲不干净，那么一定是体内湿气在作怪。而且，湿气会让便秘如影随形。下一次，当你大便的时候，很可能就会出现便秘。</p></li><li><p>等等等等</p></li></ul><p>当湿气演变成为顽固性湿气的时候，身体会出现数十种不适：</p><p><img src="http://picture.watchmen.xin/湿气/1.jpg" alt="湿气"></p><p>以上症状，如果你占了2种以上，要引起注意了，这说明体内有湿气。湿气不除，是引发及恶化疾病的关键。</p><p>并且现代人由于工作强度、压力等都更大，因此运动量也原来越小，体内阴盛阳虚从而湿邪内郁。这也是当前越来越多的年轻人有湿气相关疾病的原因。</p><h1 id="2-如何预防及治疗"><a href="#2-如何预防及治疗" class="headerlink" title="2. 如何预防及治疗 "></a><font color="red">2. 如何预防及治疗 </font></h1><p>在这里，我们将预防和治疗两者结合在一起说明，因为光靠预防不能完全杜绝，或多或少肯定都还是会产生湿气。</p><p>湿气很重，不要只会傻傻拔罐。</p><h2 id="2-1-药物"><a href="#2-1-药物" class="headerlink" title="2.1 药物"></a>2.1 药物</h2><p>目前没有什么比较好的药物，一般采用饮食结合运动的方式来预防和治疗湿气。</p><h2 id="2-2-饮食"><a href="#2-2-饮食" class="headerlink" title="2.2 饮食"></a>2.2 饮食</h2><p>这里只说该吃什么，至于不该吃什么，请看<code>日常生活</code>章节</p><ul><li>薏米赤小豆桂圆粥<ul><li>薏米：性寒。因此要用赤小豆来中和，并且每次的量不宜太多</li><li>赤小豆：性，。注意赤小豆是扁的，红豆是圆的</li><li>桂圆/枣：桂圆甘温。有的人体质偏寒，里面可以加一点温补的食物，像桂圆、大枣都可以</li></ul></li></ul><p>如果着凉感冒了，或是体内有寒，胃中寒痛，食欲不佳，可在薏米赤小豆汤中加几片生姜。生姜性温，能温中祛寒，健脾和胃。</p><p>肾虚的人，可在薏米赤小豆汤中加一些黑豆。因为黑色入肾，豆的形状也跟肾十分相似，以形补形，是补肾的佳品。</p><p>人们常说的脚气病，是典型的湿热下注。可在薏米赤小豆汤中加点碎黄豆，用熬出来的汤泡脚，这是治脚气的一个小秘方。</p><p>学会薏米赤小豆汤的加减变化，使用得当可以对生活中大部分常见病起到很好的治疗效果。</p><p><strong>如下图所示：</strong></p><p><img src="http://picture.watchmen.xin/湿气/2.png" alt="加减法"></p><h2 id="2-3-运动"><a href="#2-3-运动" class="headerlink" title="2.3 运动"></a>2.3 运动</h2><p>现代人动脑多、体力消耗少，加上长期待在密闭空调内，很少流汗，身体调控湿度的能力变差。因此这也为产生湿气创造了条件。</p><p>运动出汗是很好的去湿气方式</p><h2 id="2-4-日常生活"><a href="#2-4-日常生活" class="headerlink" title="2.4 日常生活"></a>2.4 日常生活</h2><p><strong>2.4.1 不宜</strong></p><ul><li>不过食生冷肥甘厚腻甜辛辣，</li><li>避开生冷食物。这里说的生冷食物指的是冷饮、凉拌菜等，而不是水果。【这一点在夏天的时候最为明显，一些人在夏天时喝冷饮、和冰镇啤酒、吃冰镇西瓜、吃凉菜等毫无节制】</li><li>夏天尽量不吹空调</li><li>睡前务必吹干头发</li><li>饮食口味重，日常饮食口味经常过重的话，由于细胞渗透压的作用，浓度低的会向浓度高的一方渗透，力求平衡，从而会使身体处于不正常状态</li><li>不宜久坐，一小时不动两小时不动三小时不动，身体以为你不会动了，它的运行也会慢下来慢下来</li><li>不宜大量吃水果。</li></ul><p><strong>2.4.2 宜</strong></p><ul><li>晚上用热水泡脚。<ul><li>每天晚上坚持用热水泡脚半小时（<strong>注意：时间是半小时</strong>），泡到微微出汗。</li><li>泡脚的同时敲打肘窝、腘和腋窝各5分钟。这三个地方是排湿气的重要部位。腋窝都知道，肘窝就是手肘后面弯曲部位，腘就是膝盖后面弯曲部位。</li></ul></li></ul><ul><li><p>天气好的日子，勤晒衣物和被子，减少病菌，降低生病的可能。</p></li><li><p>夏天时家中易闷热潮湿，每天要适度开窗换气，新鲜的空气可以减少细菌病毒的滋生，以傍晚最适宜。</p></li><li><p>清淡饮食</p></li><li>保持衣物干爽,不要穿潮湿未干的衣服、盖潮湿的被子，被子(垫絮)要经常晒。</li><li>夏天不要贪凉睡地板</li></ul><h2 id="2-5-总结"><a href="#2-5-总结" class="headerlink" title="2.5 总结"></a>2.5 总结</h2><p>食疗、运动最多只能暂时缓解症状，找到自身湿气产生的原因，才能从根上断绝它。</p><p>我们不能怪罪脾胃太虚弱，吃那么多它累死也消化不完啊；不要怪它懒罢工不干活，湿气困着它，它也很无奈；别说它工作不到位，身体消耗少，营养物质只能不断堆积。</p><p>不形成良好的生活习惯，喝再多薏米粥、吃再多健脾祛湿的方药都是白搭！所以与其总是寻医问药寻找除湿气的方法，不如老老实实先好好吃饭、合理饮食、不贪凉不贪酒、加强体育锻炼.多动少吃清淡平衡饮食,这才是正确的姿势。</p>]]></content>
-    
-    <summary type="html">
-    
-      湿气是我们日常生活中经常听到的一个概念，在医院看病的时候，医生可能会来上一句：&quot;湿气有点重&quot;，那么到底什么事湿气呢，我们在日常生活中又该如何预防及治疗呢？
-    
-    </summary>
-    
-      <category term="个人知识体系" scheme="http://yoursite.com/categories/%E4%B8%AA%E4%BA%BA%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/"/>
-    
-      <category term="极简身体之道" scheme="http://yoursite.com/categories/%E4%B8%AA%E4%BA%BA%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/%E6%9E%81%E7%AE%80%E8%BA%AB%E4%BD%93%E4%B9%8B%E9%81%93/"/>
-    
-      <category term="湿气" scheme="http://yoursite.com/categories/%E4%B8%AA%E4%BA%BA%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/%E6%9E%81%E7%AE%80%E8%BA%AB%E4%BD%93%E4%B9%8B%E9%81%93/%E6%B9%BF%E6%B0%94/"/>
-    
-    
-      <category term="湿气" scheme="http://yoursite.com/tags/%E6%B9%BF%E6%B0%94/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>keepass常用操作</title>
-    <link href="http://yoursite.com/2018/04/20/keepass%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C/"/>
-    <id>http://yoursite.com/2018/04/20/keepass常用操作/</id>
-    <published>2018-04-20T02:27:55.000Z</published>
-    <updated>2018-04-20T02:27:55.000Z</updated>
-    
-    <summary type="html">
-    
-    </summary>
-    
-    
-      <category term="tag1" scheme="http://yoursite.com/tags/tag1/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>X-Pack</title>
-    <link href="http://yoursite.com/2018/04/19/X-Pack/"/>
-    <id>http://yoursite.com/2018/04/19/X-Pack/</id>
-    <published>2018-04-19T03:35:55.000Z</published>
-    <updated>2018-04-19T03:35:55.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>参考资料：</p><p><a href="https://www.elastic.co/guide/en/x-pack/current/index.html" target="_blank" rel="noopener">官网</a></p><h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><p>x-pack是Elastic Stack的扩展包，实现了如下的一系列功能：</p><ul><li>Security</li><li>Monitoring</li><li>Alerting and Notification</li><li>Reporting</li><li>Graph</li><li>Machine Learning</li></ul><h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1>]]></content>
-    
-    <summary type="html">
-    
-      X-Pack从入门到精通
-    
-    </summary>
-    
-      <category term="IT科学技术知识体系结构-Linux运维方向" scheme="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/"/>
-    
-      <category term="大数据" scheme="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E5%A4%A7%E6%95%B0%E6%8D%AE/"/>
-    
-      <category term="大数据相关组件" scheme="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E5%A4%A7%E6%95%B0%E6%8D%AE/%E5%A4%A7%E6%95%B0%E6%8D%AE%E7%9B%B8%E5%85%B3%E7%BB%84%E4%BB%B6/"/>
-    
-      <category term="X-Pack" scheme="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E5%A4%A7%E6%95%B0%E6%8D%AE/%E5%A4%A7%E6%95%B0%E6%8D%AE%E7%9B%B8%E5%85%B3%E7%BB%84%E4%BB%B6/X-Pack/"/>
-    
-    
-      <category term="X-Pack" scheme="http://yoursite.com/tags/X-Pack/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>su: cannot set user id: Resource temporarily unavailable</title>
-    <link href="http://yoursite.com/2018/04/18/su-cannot-set-user-id-Resource-temporarily-unavailable/"/>
-    <id>http://yoursite.com/2018/04/18/su-cannot-set-user-id-Resource-temporarily-unavailable/</id>
-    <published>2018-04-18T03:47:17.000Z</published>
-    <updated>2018-04-18T03:47:17.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>切换用户时出现如下提示符：</p><pre><code>[root@qa3-app018 ~]# su - appqasu: cannot set user id: Resource temporarily unavailable</code></pre><p>常见的能够控制用户资源的文件一般有两个，一是/etc/profile,二是/etc/security/limits.conf。</p><p>除此之外，在Centos6.x版本后，还有一个配置文件对ulimit设置生效，就是<code>/etc/security/limits.d/90-nproc.conf</code></p><h3 id="etc-security-limits-conf文件"><a href="#etc-security-limits-conf文件" class="headerlink" title="/etc/security/limits.conf文件"></a>/etc/security/limits.conf文件</h3><p>如下图所示：</p><p><img src="http://picture.watchmen.xin/problems/1.png" alt="图片"></p><p>domain: </p><p>是指限制的对象，可以是个人，也可以是组，组前面要加@符号，也可以设置为除root用户外的 任何人，用*号表示；</p><p>type:</p><p>是指类型，soft是当前系统生效的值，hard是系统可以设置的最大值；</p><p>item:</p><p>项目，是可以对什么项目做限制，如最大进程数，文件最大值；</p><p>value:</p><p>值，所设置的值的大小。</p><p><strong>这里我的设置是：</strong></p><pre><code>root soft nofile 65535root hard nofile 65535* soft nofile 65535* hard nofile 65535</code></pre><p>可以看到是没有问题的</p><h3 id="etc-security-limits-d-90-nproc-conf"><a href="#etc-security-limits-d-90-nproc-conf" class="headerlink" title="/etc/security/limits.d/90-nproc.conf"></a>/etc/security/limits.d/90-nproc.conf</h3><pre><code>[appqa@qa3-app018 ~]$ cat /etc/security/limits.d/90-nproc.conf# Default limit for number of user&apos;s processes to prevent# accidental fork bombs.# See rhbz #432903 for reasoning.*          soft    nproc     1024root       soft    nproc     unlimited</code></pre><p>这这里发现默认最大进程数只有1024</p><p>将1024修改为10240之后，再次执行su即可恢复正常，问题得到解决。</p>]]></content>
-    
-    <summary type="html">
-    
-      切换用户时提示资源不可用问题解决
-    
-    </summary>
-    
-      <category term="IT科学技术知识体系结构-Linux运维方向" scheme="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/"/>
-    
-      <category term="运维工作日常问题" scheme="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E8%BF%90%E7%BB%B4%E5%B7%A5%E4%BD%9C%E6%97%A5%E5%B8%B8%E9%97%AE%E9%A2%98/"/>
-    
-    
-      <category term="运维工作日常问题" scheme="http://yoursite.com/tags/%E8%BF%90%E7%BB%B4%E5%B7%A5%E4%BD%9C%E6%97%A5%E5%B8%B8%E9%97%AE%E9%A2%98/"/>
     
   </entry>
   

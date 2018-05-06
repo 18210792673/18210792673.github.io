@@ -90,6 +90,7 @@
 <meta property="og:description" content="Jumpserver是全球首款完全开源的堡垒机，使用GNU GPL v2.0开源协议，是符合 4A 的专业运维审计系统。它使用Python / Django 进行开发，遵循 Web 2.0 规范，配备了业界领先的 Web Terminal 解决方案，交互界面美观、用户体验好。并且采纳分布式架构，支持多机房跨区域部署，中心节点提供 API，各机房部署登录节点，可横向扩展、无并发限制。">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://picture.watchmen.xin/jumpserver/jumpserver-1.png">
+<meta property="og:image" content="http://picture.watchmen.xin/jumpserver/push.png">
 <meta property="og:updated_time" content="2018-04-13T07:13:23.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="jumpserver安装部署及使用">
@@ -542,6 +543,11 @@ nav_sort_by = ip
 <p>步骤2：SSH登录跳板机，进入home目录下的对应用户名称目录下，编辑/home/wangping/.ssh/authorized_keys文件</p>
 <p>步骤3：将事先生成好的公钥追加如该文件之中，授权完成。</p>
 <h2 id="添加备注信息"><a href="#添加备注信息" class="headerlink" title="添加备注信息"></a>添加备注信息</h2><p>控制台–&gt;资产管理–&gt;查看资产–&gt;输入主机名称点击搜索–&gt;编辑–&gt;页面末尾–&gt;备注（多个名称之间以/进行分割）–&gt;提交</p>
+<h1 id="jumpserver常见问题"><a href="#jumpserver常见问题" class="headerlink" title="jumpserver常见问题"></a>jumpserver常见问题</h1><p>##用户推送失败## </p>
+<p><strong>问题</strong></p>
+<p>报错:”系统用户 ops 推送失败 [ redis037_cachecloud ], 推送成功 [ ] 进入系统用户详情，查看失败原因”<br>如下图所示：</p>
+<p><img src="http://picture.watchmen.xin/jumpserver/push.png" alt="终端页面"></p>
+<p><strong>问题解决：</strong></p>
 
       
     </div>
@@ -725,7 +731,7 @@ var jiathis_config={
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">55</span>
+                  <span class="site-state-item-count">63</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -736,7 +742,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">70</span>
+                  <span class="site-state-item-count">71</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -747,7 +753,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">57</span>
+                  <span class="site-state-item-count">58</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -787,7 +793,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-安装部署"><span class="nav-number">1.</span> <span class="nav-text">1. 安装部署</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-环境准备"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 环境准备</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-1-安装依赖关系"><span class="nav-number">1.1.1.</span> <span class="nav-text">1.1.1 安装依赖关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-2-建立python虚拟环境"><span class="nav-number">1.1.2.</span> <span class="nav-text">1.1.2 建立python虚拟环境</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-安装启动-jumpserver"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 安装启动 jumpserver</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-1-下载jumpserver"><span class="nav-number">1.2.1.</span> <span class="nav-text">1.2.1 下载jumpserver</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-2-安装RPM依赖包"><span class="nav-number">1.2.2.</span> <span class="nav-text">1.2.2 安装RPM依赖包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-3-安装python库依赖"><span class="nav-number">1.2.3.</span> <span class="nav-text">1.2.3 安装python库依赖</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-4-安装-Redis-Jumpserver-使用-Redis-做-cache-和-celery-broke"><span class="nav-number">1.2.4.</span> <span class="nav-text">1.2.4 安装 Redis, Jumpserver 使用 Redis 做 cache 和 celery broke</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-5-安装配置MySQL"><span class="nav-number">1.2.5.</span> <span class="nav-text">1.2.5 安装配置MySQL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-6-修改jumpserver配置文件"><span class="nav-number">1.2.6.</span> <span class="nav-text">1.2.6 修改jumpserver配置文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-7-生成数据库表结构和初始化结构"><span class="nav-number">1.2.7.</span> <span class="nav-text">1.2.7 生成数据库表结构和初始化结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-8-运行jumpserver"><span class="nav-number">1.2.8.</span> <span class="nav-text">1.2.8 运行jumpserver</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-jumpserver配置"><span class="nav-number">2.</span> <span class="nav-text">2. jumpserver配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-安装-SSH-Server-和-WebSocket-Server-Coco"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 安装 SSH Server 和 WebSocket Server: Coco</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-安装-Web-Terminal-前端-Luna"><span class="nav-number">2.2.</span> <span class="nav-text">2.2  安装 Web Terminal 前端: Luna</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-常用命令"><span class="nav-number">3.</span> <span class="nav-text">3. 常用命令</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-配置优化-注意事项"><span class="nav-number">4.</span> <span class="nav-text">4. 配置优化/注意事项</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#问题-总结"><span class="nav-number">4.1.</span> <span class="nav-text">问题/总结</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-使用"><span class="nav-number">5.</span> <span class="nav-text">5. 使用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#添加用户并为之授权"><span class="nav-number">5.1.</span> <span class="nav-text">添加用户并为之授权</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#添加备注信息"><span class="nav-number">5.2.</span> <span class="nav-text">添加备注信息</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-安装部署"><span class="nav-number">1.</span> <span class="nav-text">1. 安装部署</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-环境准备"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 环境准备</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-1-安装依赖关系"><span class="nav-number">1.1.1.</span> <span class="nav-text">1.1.1 安装依赖关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-2-建立python虚拟环境"><span class="nav-number">1.1.2.</span> <span class="nav-text">1.1.2 建立python虚拟环境</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-安装启动-jumpserver"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 安装启动 jumpserver</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-1-下载jumpserver"><span class="nav-number">1.2.1.</span> <span class="nav-text">1.2.1 下载jumpserver</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-2-安装RPM依赖包"><span class="nav-number">1.2.2.</span> <span class="nav-text">1.2.2 安装RPM依赖包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-3-安装python库依赖"><span class="nav-number">1.2.3.</span> <span class="nav-text">1.2.3 安装python库依赖</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-4-安装-Redis-Jumpserver-使用-Redis-做-cache-和-celery-broke"><span class="nav-number">1.2.4.</span> <span class="nav-text">1.2.4 安装 Redis, Jumpserver 使用 Redis 做 cache 和 celery broke</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-5-安装配置MySQL"><span class="nav-number">1.2.5.</span> <span class="nav-text">1.2.5 安装配置MySQL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-6-修改jumpserver配置文件"><span class="nav-number">1.2.6.</span> <span class="nav-text">1.2.6 修改jumpserver配置文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-7-生成数据库表结构和初始化结构"><span class="nav-number">1.2.7.</span> <span class="nav-text">1.2.7 生成数据库表结构和初始化结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-8-运行jumpserver"><span class="nav-number">1.2.8.</span> <span class="nav-text">1.2.8 运行jumpserver</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-jumpserver配置"><span class="nav-number">2.</span> <span class="nav-text">2. jumpserver配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-安装-SSH-Server-和-WebSocket-Server-Coco"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 安装 SSH Server 和 WebSocket Server: Coco</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-安装-Web-Terminal-前端-Luna"><span class="nav-number">2.2.</span> <span class="nav-text">2.2  安装 Web Terminal 前端: Luna</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-常用命令"><span class="nav-number">3.</span> <span class="nav-text">3. 常用命令</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-配置优化-注意事项"><span class="nav-number">4.</span> <span class="nav-text">4. 配置优化/注意事项</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#问题-总结"><span class="nav-number">4.1.</span> <span class="nav-text">问题/总结</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-使用"><span class="nav-number">5.</span> <span class="nav-text">5. 使用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#添加用户并为之授权"><span class="nav-number">5.1.</span> <span class="nav-text">添加用户并为之授权</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#添加备注信息"><span class="nav-number">5.2.</span> <span class="nav-text">添加备注信息</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#jumpserver常见问题"><span class="nav-number">6.</span> <span class="nav-text">jumpserver常见问题</span></a></li></ol></div>
             
 
           </div>
