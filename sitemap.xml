@@ -2,41 +2,6 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://yoursite.com/2018/05/03/Redis%E6%8C%81%E4%B9%85%E5%8C%96/</loc>
-    
-    <lastmod>2018-05-03T09:01:56.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/2018/05/03/Redis%E8%B0%83%E4%BC%98/</loc>
-    
-    <lastmod>2018-05-03T08:59:25.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/2018/05/03/Redis%E9%9B%86%E7%BE%A4/</loc>
-    
-    <lastmod>2018-05-03T08:58:15.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/2018/05/03/Redis%E5%93%A8%E5%85%B5%E9%9B%86%E7%BE%A4/</loc>
-    
-    <lastmod>2018-05-03T08:58:03.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/2018/05/03/Redis%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/</loc>
-    
-    <lastmod>2018-05-03T08:57:46.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://yoursite.com/2018/05/02/Zookeeper%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</loc>
     
     <lastmod>2018-05-02T11:43:32.000Z</lastmod>
