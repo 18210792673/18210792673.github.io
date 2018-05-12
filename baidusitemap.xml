@@ -189,40 +189,6 @@
 
     
   <url>
-    <loc>http://yoursite.com/2018/04/28/SaltStack/</loc>
-    <lastmod>2018-04-28T02:10:02.000Z</lastmod>
-    <data>
-        <display>
-        <title>SaltStack</title>
-        <pubTime>2018-04-28T02:10:02.000Z</pubTime>
-        
-        <tag>tag1</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://yoursite.com/2018/04/28/Ansible/</loc>
-    <lastmod>2018-04-28T02:09:30.000Z</lastmod>
-    <data>
-        <display>
-        <title>Ansible</title>
-        <pubTime>2018-04-28T02:09:30.000Z</pubTime>
-        
-        <tag>ansible</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>http://yoursite.com/2018/04/26/Dubbo/</loc>
     <lastmod>2018-04-26T03:49:32.000Z</lastmod>
     <data>
@@ -413,23 +379,6 @@
              
               <breadCrumb title="湿气" url="http://yoursite.com/categories/%E4%B8%AA%E4%BA%BA%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/%E6%9E%81%E7%AE%80%E8%BA%AB%E4%BD%93%E4%B9%8B%E9%81%93/%E6%B9%BF%E6%B0%94/"/>
           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://yoursite.com/2018/04/20/keepass%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C/</loc>
-    <lastmod>2018-04-20T02:27:55.000Z</lastmod>
-    <data>
-        <display>
-        <title>keepass常用操作</title>
-        <pubTime>2018-04-20T02:27:55.000Z</pubTime>
-        
-        <tag>tag1</tag>
-         
-         
-           
         </display>
     </data>
     </url>
@@ -883,7 +832,7 @@
 
     
   <url>
-    <loc>http://yoursite.com/2018/04/16/Linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</loc>
+    <loc>http://yoursite.com/2018/04/16/Linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E4%B9%8Bcurl%E5%91%BD%E4%BB%A4/</loc>
     <lastmod>2018-04-16T02:57:34.000Z</lastmod>
     <data>
         <display>

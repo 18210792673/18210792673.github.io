@@ -447,7 +447,7 @@
       
 
       
-        <h1 id="IT基础知识（偏linux）"><a href="#IT基础知识（偏linux）" class="headerlink" title="IT基础知识（偏linux）"></a>IT基础知识（偏linux）</h1><h2 id="redhat、centos、suse、ubuntu等发行版本的区别"><a href="#redhat、centos、suse、ubuntu等发行版本的区别" class="headerlink" title="redhat、centos、suse、ubuntu等发行版本的区别"></a>redhat、centos、suse、ubuntu等发行版本的区别</h2><p>这些发行版本本质上没有什么区别，都是类unix系统。<br>redhat的系统本身是免费的，但是它的服务和一些特定的组件是收费的<br>而centos是redhat社区版本，国内使用较多，社区相当活跃。<br>SUSE也是分为两种，一种企业版本的SLES，一种是opensuse，sles主要是一些金融国企在使用，安全性较好，opensuse是社区版本，suse使用起来和centos相差不多，软件包形式使用源自redhat的rpm，但是管理工具使用的是zypper。<br>ubuntu源自于debain，国外使用的较多，也是相当热门的一个发型版本，在桌面领域有绝对技术优势，适合开发人员使用。</p>
+        <h2 id="redhat、centos、suse、ubuntu等发行版本的区别"><a href="#redhat、centos、suse、ubuntu等发行版本的区别" class="headerlink" title="redhat、centos、suse、ubuntu等发行版本的区别"></a>redhat、centos、suse、ubuntu等发行版本的区别</h2><p>这些发行版本本质上没有什么区别，都是类unix系统。<br>redhat的系统本身是免费的，但是它的服务和一些特定的组件是收费的<br>而centos是redhat社区版本，国内使用较多，社区相当活跃。<br>SUSE也是分为两种，一种企业版本的SLES，一种是opensuse，sles主要是一些金融国企在使用，安全性较好，opensuse是社区版本，suse使用起来和centos相差不多，软件包形式使用源自redhat的rpm，但是管理工具使用的是zypper。<br>ubuntu源自于debain，国外使用的较多，也是相当热门的一个发型版本，在桌面领域有绝对技术优势，适合开发人员使用。</p>
 <h2 id="OSI7层模型和TCP-IP模型的区别联系"><a href="#OSI7层模型和TCP-IP模型的区别联系" class="headerlink" title="OSI7层模型和TCP/IP模型的区别联系"></a>OSI7层模型和TCP/IP模型的区别联系</h2><h3 id="OSI7层模型"><a href="#OSI7层模型" class="headerlink" title="OSI7层模型"></a>OSI7层模型</h3><p>OSI 7层模式主要是由国际标准化组织（ISO）创建的，是一个国际通用的标准，它被开发出作为一个参照标准，用于指导如何设计网络通信系统。说的简单一点就是统一网络设备商的协议标准，实现多网络设备商环境（主机，路由器，交换机等等都是网络设置，都要遵循同一套的通信标准）<br>它一共分为7层，每一层在网络通信数据传输过程中都定义了不同的功能。</p>
 <p>OSI7层模型主要分为(从下到上)：物理层，数据链路层，网络层，传输层，会话层，表示层，应用层。<br>每一层说明：</p>
 <table>
@@ -582,24 +582,7 @@ Network Access
 <p>注意：在一个广播域内的数据流动是依靠二层MAC来实现的，因为在第一次会涉及到ARP，有了记录之后，交换机会记录他的MAC地址表，后续的速度就会非常快</p>
 </blockquote>
 <p><strong>PS：有关网络模型和路由技术可以结合一个小案例在白板上演示一下，效果会更好，也就是将上述两部分的内容有机的整合成为一个整体</strong></p>
-<h2 id="运维角度看软件开发生命周期"><a href="#运维角度看软件开发生命周期" class="headerlink" title="运维角度看软件开发生命周期"></a>运维角度看软件开发生命周期</h2><p>软件开发生命周期的本源是人的需求以及满足需求的关系。<br>人的抽象产品就是需求。而开发出来的产品运行态的进程就是具体的具象表达。</p>
-<p>问题定义及规划，需求分析，软件设计，软件开发，测试，部署</p>
-<ul>
-<li>问题定义及规划</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">确定软件的开发目标及可行性</span><br></pre></td></tr></table></figure>
-<ul>
-<li>需求分析    </li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">前提：确定软件开发可行</span><br><span class="line">对软件需要实现的各个功能进行详细分析</span><br></pre></td></tr></table></figure>
-<ul>
-<li>软件设计<pre><code class="bash">主要依据需求分析的结果
-对整个软件系统进行设计，例如系统框架设计，数据库设计等。
-软件设计一般分为总体设计和详细设计
-</code></pre>
-</li>
-</ul>
-<h1 id="脚本部分"><a href="#脚本部分" class="headerlink" title="脚本部分"></a>脚本部分</h1><h1 id="运维知识"><a href="#运维知识" class="headerlink" title="运维知识"></a>运维知识</h1><h1 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h1><h1 id="运维思想"><a href="#运维思想" class="headerlink" title="运维思想"></a>运维思想</h1><h2 id="运维核心"><a href="#运维核心" class="headerlink" title="运维核心"></a>运维核心</h2><h3 id="稳定性-网站-平台不宕机【核心】"><a href="#稳定性-网站-平台不宕机【核心】" class="headerlink" title="稳定性-网站/平台不宕机【核心】"></a>稳定性-网站/平台不宕机【核心】</h3><p>集群</p>
+<h1 id="脚本部分"><a href="#脚本部分" class="headerlink" title="脚本部分"></a>脚本部分</h1><h1 id="运维知识"><a href="#运维知识" class="headerlink" title="运维知识"></a>运维知识</h1><h1 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h1><h1 id="运维思想"><a href="#运维思想" class="headerlink" title="运维思想"></a>运维思想</h1><h2 id="运维核心是什么"><a href="#运维核心是什么" class="headerlink" title="运维核心是什么"></a>运维核心是什么</h2><h3 id="稳定性-网站-平台不宕机【核心】"><a href="#稳定性-网站-平台不宕机【核心】" class="headerlink" title="稳定性-网站/平台不宕机【核心】"></a>稳定性-网站/平台不宕机【核心】</h3><p>集群</p>
 <p>负载均衡</p>
 <p>高可用</p>
 <p>解耦，微服务</p>
@@ -612,13 +595,7 @@ Network Access
 </li>
 </ol>
 <h3 id="运维效率"><a href="#运维效率" class="headerlink" title="运维效率"></a>运维效率</h3><p>管理平台<br>运维脚本化，工具化，自动化，人工智能化</p>
-<h2 id="如何做好运维工作-运维核心"><a href="#如何做好运维工作-运维核心" class="headerlink" title="如何做好运维工作-运维核心"></a>如何做好运维工作-运维核心</h2><h3 id="主动性"><a href="#主动性" class="headerlink" title="主动性"></a>主动性</h3><h1 id="运维职业规划"><a href="#运维职业规划" class="headerlink" title="运维职业规划"></a>运维职业规划</h1><h2 id="问题解析"><a href="#问题解析" class="headerlink" title="问题解析"></a>问题解析</h2><p>面试官主要想了解的是个人定位问题。从事IT这一行，只有有非常清晰的目标，才能保证持续高效的产出。</p>
-<p>因此，回答这种问题，主要从以下几点来回应</p>
-<ul>
-<li>的</li>
-<li></li>
-</ul>
-<h2 id="范例"><a href="#范例" class="headerlink" title="范例"></a>范例</h2><h1 id="其他相关问题"><a href="#其他相关问题" class="headerlink" title="其他相关问题"></a>其他相关问题</h1><h2 id="你为什么离职"><a href="#你为什么离职" class="headerlink" title="你为什么离职"></a>你为什么离职</h2><h2 id="你对加班的看法"><a href="#你对加班的看法" class="headerlink" title="你对加班的看法"></a>你对加班的看法</h2><h2 id="个人最大的优点和缺点"><a href="#个人最大的优点和缺点" class="headerlink" title="个人最大的优点和缺点"></a>个人最大的优点和缺点</h2>
+<h2 id="如何做好运维工作"><a href="#如何做好运维工作" class="headerlink" title="如何做好运维工作"></a>如何做好运维工作</h2><h2 id="运维职业规划"><a href="#运维职业规划" class="headerlink" title="运维职业规划"></a>运维职业规划</h2><h2 id="你为什么离职"><a href="#你为什么离职" class="headerlink" title="你为什么离职"></a>你为什么离职</h2><h2 id="你对加班的看法"><a href="#你对加班的看法" class="headerlink" title="你对加班的看法"></a>你对加班的看法</h2><h2 id="个人最大的优点和缺点"><a href="#个人最大的优点和缺点" class="headerlink" title="个人最大的优点和缺点"></a>个人最大的优点和缺点</h2>
       
     </div>
     
@@ -801,7 +778,7 @@ var jiathis_config={
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">55</span>
+                  <span class="site-state-item-count">52</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -812,7 +789,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">73</span>
+                  <span class="site-state-item-count">70</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -823,7 +800,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">60</span>
+                  <span class="site-state-item-count">55</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -863,7 +840,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#IT基础知识（偏linux）"><span class="nav-number">1.</span> <span class="nav-text">IT基础知识（偏linux）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#redhat、centos、suse、ubuntu等发行版本的区别"><span class="nav-number">1.1.</span> <span class="nav-text">redhat、centos、suse、ubuntu等发行版本的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#OSI7层模型和TCP-IP模型的区别联系"><span class="nav-number">1.2.</span> <span class="nav-text">OSI7层模型和TCP/IP模型的区别联系</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#OSI7层模型"><span class="nav-number">1.2.1.</span> <span class="nav-text">OSI7层模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TCP-IP协议族"><span class="nav-number">1.2.2.</span> <span class="nav-text">TCP/IP协议族</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#区别"><span class="nav-number">1.2.3.</span> <span class="nav-text">区别</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#路由，交换技术的基本原理"><span class="nav-number">1.3.</span> <span class="nav-text">路由，交换技术的基本原理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#路由技术"><span class="nav-number">1.3.1.</span> <span class="nav-text">路由技术</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#交换技术"><span class="nav-number">1.3.2.</span> <span class="nav-text">交换技术</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#运维角度看软件开发生命周期"><span class="nav-number">1.4.</span> <span class="nav-text">运维角度看软件开发生命周期</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#脚本部分"><span class="nav-number">2.</span> <span class="nav-text">脚本部分</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#运维知识"><span class="nav-number">3.</span> <span class="nav-text">运维知识</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#优化"><span class="nav-number">4.</span> <span class="nav-text">优化</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#运维思想"><span class="nav-number">5.</span> <span class="nav-text">运维思想</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#运维核心"><span class="nav-number">5.1.</span> <span class="nav-text">运维核心</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#稳定性-网站-平台不宕机【核心】"><span class="nav-number">5.1.1.</span> <span class="nav-text">稳定性-网站/平台不宕机【核心】</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据不丢失【核心】"><span class="nav-number">5.1.2.</span> <span class="nav-text">数据不丢失【核心】</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#避免人为错误"><span class="nav-number">5.1.3.</span> <span class="nav-text">避免人为错误</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#运维效率"><span class="nav-number">5.1.4.</span> <span class="nav-text">运维效率</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何做好运维工作-运维核心"><span class="nav-number">5.2.</span> <span class="nav-text">如何做好运维工作-运维核心</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#主动性"><span class="nav-number">5.2.1.</span> <span class="nav-text">主动性</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#运维职业规划"><span class="nav-number">6.</span> <span class="nav-text">运维职业规划</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#问题解析"><span class="nav-number">6.1.</span> <span class="nav-text">问题解析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#范例"><span class="nav-number">6.2.</span> <span class="nav-text">范例</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#其他相关问题"><span class="nav-number">7.</span> <span class="nav-text">其他相关问题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#你为什么离职"><span class="nav-number">7.1.</span> <span class="nav-text">你为什么离职</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#你对加班的看法"><span class="nav-number">7.2.</span> <span class="nav-text">你对加班的看法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#个人最大的优点和缺点"><span class="nav-number">7.3.</span> <span class="nav-text">个人最大的优点和缺点</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#redhat、centos、suse、ubuntu等发行版本的区别"><span class="nav-number">1.</span> <span class="nav-text">redhat、centos、suse、ubuntu等发行版本的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#OSI7层模型和TCP-IP模型的区别联系"><span class="nav-number">2.</span> <span class="nav-text">OSI7层模型和TCP/IP模型的区别联系</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#OSI7层模型"><span class="nav-number">2.1.</span> <span class="nav-text">OSI7层模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TCP-IP协议族"><span class="nav-number">2.2.</span> <span class="nav-text">TCP/IP协议族</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#区别"><span class="nav-number">2.3.</span> <span class="nav-text">区别</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#路由，交换技术的基本原理"><span class="nav-number">3.</span> <span class="nav-text">路由，交换技术的基本原理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#路由技术"><span class="nav-number">3.1.</span> <span class="nav-text">路由技术</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#交换技术"><span class="nav-number">3.2.</span> <span class="nav-text">交换技术</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#脚本部分"><span class="nav-number"></span> <span class="nav-text">脚本部分</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#运维知识"><span class="nav-number"></span> <span class="nav-text">运维知识</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#优化"><span class="nav-number"></span> <span class="nav-text">优化</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#运维思想"><span class="nav-number"></span> <span class="nav-text">运维思想</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#运维核心是什么"><span class="nav-number">1.</span> <span class="nav-text">运维核心是什么</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#稳定性-网站-平台不宕机【核心】"><span class="nav-number">1.1.</span> <span class="nav-text">稳定性-网站/平台不宕机【核心】</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据不丢失【核心】"><span class="nav-number">1.2.</span> <span class="nav-text">数据不丢失【核心】</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#避免人为错误"><span class="nav-number">1.3.</span> <span class="nav-text">避免人为错误</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#运维效率"><span class="nav-number">1.4.</span> <span class="nav-text">运维效率</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何做好运维工作"><span class="nav-number">2.</span> <span class="nav-text">如何做好运维工作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#运维职业规划"><span class="nav-number">3.</span> <span class="nav-text">运维职业规划</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#你为什么离职"><span class="nav-number">4.</span> <span class="nav-text">你为什么离职</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#你对加班的看法"><span class="nav-number">5.</span> <span class="nav-text">你对加班的看法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#个人最大的优点和缺点"><span class="nav-number">6.</span> <span class="nav-text">个人最大的优点和缺点</span></a></li></ol></div>
             
 
           </div>

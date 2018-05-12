@@ -51,20 +51,6 @@
   </url>
   
   <url>
-    <loc>http://yoursite.com/2018/04/28/SaltStack/</loc>
-    
-    <lastmod>2018-04-28T02:10:02.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/2018/04/28/Ansible/</loc>
-    
-    <lastmod>2018-04-28T02:09:30.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://yoursite.com/2018/04/26/Dubbo/</loc>
     
     <lastmod>2018-04-26T03:49:32.000Z</lastmod>
@@ -117,13 +103,6 @@
     <loc>http://yoursite.com/2018/04/22/%E6%B9%BF%E6%B0%94%E7%9A%84%E4%BA%A7%E7%94%9F%E5%8F%8A%E9%A2%84%E9%98%B2%E6%B2%BB%E7%96%97/</loc>
     
     <lastmod>2018-04-22T01:20:34.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/2018/04/20/keepass%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C/</loc>
-    
-    <lastmod>2018-04-20T02:27:55.000Z</lastmod>
     
   </url>
   
@@ -254,7 +233,7 @@
   </url>
   
   <url>
-    <loc>http://yoursite.com/2018/04/16/Linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</loc>
+    <loc>http://yoursite.com/2018/04/16/Linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E4%B9%8Bcurl%E5%91%BD%E4%BB%A4/</loc>
     
     <lastmod>2018-04-16T02:57:34.000Z</lastmod>
     
