@@ -445,7 +445,9 @@
 <pre><code>topic = models.ForeignKey(Topic) 
 </code></pre><p>应该修改为：</p>
 <pre><code>topic = models.ForeignKey(Topic,on_delete=models.CASCADE)
-</code></pre>
+</code></pre><p><strong>django.core.urlresolvers变化</strong></p>
+<p>Django 2.0 removes the django.core.urlresolvers module, which was moved to django.urls in version 1.10. You should change any import to use django.urls instead.</p>
+
       
     </div>
     

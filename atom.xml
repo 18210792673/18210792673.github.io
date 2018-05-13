@@ -311,7 +311,7 @@
     <published>2018-04-23T11:34:40.000Z</published>
     <updated>2018-04-23T11:34:40.000Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="零碎知识"><a href="#零碎知识" class="headerlink" title="零碎知识"></a>零碎知识</h1><ul><li>CharField类型必须添加max_length来指定长度上限，如果要想没有限制，则考虑使用TextField类型</li></ul><h1 id="版本变化"><a href="#版本变化" class="headerlink" title="版本变化"></a>版本变化</h1><p>##django##</p><p><strong>外键：</strong></p><p>Django2.0版本之后，创建外键时需要在后面加上on_delete</p><pre><code>topic = models.ForeignKey(Topic) </code></pre><p>应该修改为：</p><pre><code>topic = models.ForeignKey(Topic,on_delete=models.CASCADE)</code></pre>]]></content>
+    <content type="html"><![CDATA[<h1 id="零碎知识"><a href="#零碎知识" class="headerlink" title="零碎知识"></a>零碎知识</h1><ul><li>CharField类型必须添加max_length来指定长度上限，如果要想没有限制，则考虑使用TextField类型</li></ul><h1 id="版本变化"><a href="#版本变化" class="headerlink" title="版本变化"></a>版本变化</h1><p>##django##</p><p><strong>外键：</strong></p><p>Django2.0版本之后，创建外键时需要在后面加上on_delete</p><pre><code>topic = models.ForeignKey(Topic) </code></pre><p>应该修改为：</p><pre><code>topic = models.ForeignKey(Topic,on_delete=models.CASCADE)</code></pre><p><strong>django.core.urlresolvers变化</strong></p><p>Django 2.0 removes the django.core.urlresolvers module, which was moved to django.urls in version 1.10. You should change any import to use django.urls instead.</p>]]></content>
     
     <summary type="html">
     
