@@ -99,7 +99,6 @@
 <meta property="og:image" content="http://picture.watchmen.xin/python-django/url.png">
 <meta property="og:image" content="http://picture.watchmen.xin/python-django/addurl.png">
 <meta property="og:image" content="http://picture.watchmen.xin/python-django/web.png">
-<meta property="og:image" content="http://picture.watchmen.xin/python-django/alltopics.png">
 <meta property="og:updated_time" content="2018-04-17T12:07:03.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Python-django项目">
@@ -959,9 +958,134 @@ do something with each item
 &lt;/p&gt;
 
 {% block content%}{% endblock content%}
-</code></pre><p>这个时候刷新页面，显示如下：</p>
-<p><img src="http://picture.watchmen.xin/python-django/alltopics.png" alt="topics"></p>
-<h3 id="显示特定主题主所有条目的页面"><a href="#显示特定主题主所有条目的页面" class="headerlink" title="显示特定主题主所有条目的页面"></a>显示特定主题主所有条目的页面</h3>
+
+
+这个时候刷新页面，显示如下：
+
+![topics](http://picture.watchmen.xin/python-django/alltopics.png)
+
+
+
+### 显示特定主题主所有条目的页面 ###
+
+接下来，我们需要创建一个专注于显示特定主题的页面-**`显示该主题的名称以及该主题的所有条目`**
+
+同样，我们的顺序还是：
+1. 定义URL模式
+2. 编写视图函数
+3. 创建网页模板
+
+此外，我们还需要修改上一个网页（显示所有主题的网页），让每个项目列表都是一个链接，点击之后可以显示相应主题的所有条目
+
+#### URL模式 ####
+
+
+(ll_env) wxh@wxh-virtual-machine:/opt/learning_logs$ sudo  vim urls.py
+
+	"""定义learning_logs的URL模式"""
+	
+	from django.conf.urls import url
+	
+	from . import views
+	
+	app_name = 'learning_logs'
+	urlpatterns = [
+	    #主页
+	    url(r'^$',views.index,name='index'),
+	    url(r'^topics/$',views.topics,name='topics'),
+	    url(r'^topics/(?P<topic_id>\d+)/$',views.topic,name='topic')
+	]
+
+
+**说明：**
+
+r让django将这个字符串视为原始字符串，并指出正则表达式包含在引号内。这个表达式的第二部分**`/(?P<topic_id>\d+)/`**与包含在两个//内的整数内容进行匹配，并将这个整数存储在一个名为topic_id的实参中，这部分表达式捕获URL中的值；
+
+?P<topic_id>将匹配到的值存储到topic_id中，而表达式\d+与包含在两个斜杆内的任何数字都匹配，不管这个数字为多少位
+
+当发现URL与这个模式匹配的时候，django将会调用视图函数topiic()，并将存储在topic_id中的值作为实参传递给它。在这个函数中，我们使用topic_id的值来获取相应的主题
+
+#### 视图 ####
+
+视图topic()需要从数据库中获取指定的主题以及与之相关联的所有条目。如下所示：
+	
+
+
+(ll_env) wxh@wxh-virtual-machine:/opt/learning_logs$ sudo vim views.py 
+
+	from django.shortcuts import render
+	from .models import Topic
+	
+	def index(request):
+	    """学习笔记的主页"""
+	    return render(request,'learning_logs/index.html')
+	
+	def topics(request):
+	    """显示所有的主题"""
+	    topics = Topic.objects.order_by('date_added')
+	    context = {'topics':topics}
+	    return render(request,'learning_logs/topics.html',context)
+	
+	def topic(request,topic_id):
+	    """显示单个主题及其所有的条目"""
+	    topic = Topic.objects.get(id=topic_id)
+	    entries = topic.entry_set.order_by('-date_added')
+	    context = {'topic':topic,'entries':entries}
+	    return render(request,'learning_logs/topic.html',context)
+
+
+在这个视图函数中，我们有两个形参。这个函数接受正则表达式(?P<topic_id>\d+)捕获的值，并将其存储到topic_id这个形参当中
+
+接下来，我们使用get()来获取指定的主题
+
+下一行中，我们获取与该主题相关联的条目并将它们按照date_add进行排序：date_added前面的减号（-）指定按照降序进行排序，也就是先显示最近的条目，我们将主题和条目都存储在字典context当中，再将这个字典发送给模板topic.html。
+
+
+注意：
+> 第一行和第二行（get和order_by）的代码都被称之为查询，因为它们会向数据中查询特定的信息，在自己的项目中编写这样的查询时，可以现在django shell中先进行试验
+
+> 相比于直接编写视图和网页模板，再在浏览器中检查结果，在shell中执行代码可以更加快速的获得反馈
+
+#### 模板 ####
+
+这个模板需要显示每个主题的名称和其对应条目的内容，如果当前主题不包含任何条目，我们还需要向用户指出这一点。
+
+代码如下：
+
+
+(ll_env) wxh@wxh-virtual-machine:/opt/learning_logs/templates/learning_logs$ sudo vim topic.html
+
+	{% extends "learning_logs/base.html" %}
+	
+	{% block content %}
+	  <p>Topic:{{ topic }}</p>
+	
+	  <p>Entries:</p>
+	  <ul>
+	  {% for entry in entries%}
+	    <li>
+	      <p>{{ entry.date_added|date:'M d, Y H:i'}}</p>
+	      <p>{{ entry.text|linebreaks }}</p>
+	    </li><li>
+	  { % empty % }
+	    </li><li>
+	      There are no entries for this topic yet.
+	    </li><li>
+	  {% endfor %}
+	  </li></ul>
+	
+	{% endblock content %}
+</topic_id></topic_id></topic_id></topic_id></code></pre><p><strong>说明：</strong></p>
+<p>是一个模板变量，在这里变量都是这种表示方式，这里的变量topic，是存储在字典context中的</p>
+<p>在<strong><code>&lt;ul&gt;&lt;/ul&gt;</code></strong>中我们利用for循环定义一个显示每个条目的项目列表（无序列表）</p>
+<blockquote>
+<p>每个列表项目都将列出两项信息：条目的时间戳和完整的文本。</p>
+<p>第一行时间戳：在django中的模板中，竖线（|）表示模板过滤器–【对模板变量的值进行修改的函数】。后面的部分我们称之为：<strong><code>过滤器</code></strong></p>
+<p>过滤之后的时间戳显示格式将是：’M d, Y H:i’以这样的格式显示时间戳： January 1, 2015 23:00</p>
+<p>第二行显示text的完整值，而不仅仅是entry的前50个字符。过滤器linebreaks将包含换行符的长条目转换为浏览器能够理解的格式，避免显示一个不间断的文本块。</p>
+<p>在最后，我们使用模板标签{ % empty % }打印一条消息，告诉用户当前主题还没有条目</p>
+</blockquote>
+<h4 id=""><a href="#" class="headerlink" title="#"></a>#</h4>
       
     </div>
     
@@ -1206,7 +1330,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#环境准备"><span class="nav-number">1.</span> <span class="nav-text">环境准备</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#创建激活虚拟环境"><span class="nav-number">1.1.</span> <span class="nav-text">创建激活虚拟环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装django"><span class="nav-number">1.2.</span> <span class="nav-text">安装django</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置django"><span class="nav-number">1.3.</span> <span class="nav-text">配置django</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建项目："><span class="nav-number">1.3.1.</span> <span class="nav-text">创建项目：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建数据库"><span class="nav-number">1.3.2.</span> <span class="nav-text">创建数据库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#启动-停止项目"><span class="nav-number">1.3.3.</span> <span class="nav-text">启动/停止项目</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建应用程序"><span class="nav-number">1.4.</span> <span class="nav-text">创建应用程序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#定义模型"><span class="nav-number">1.4.1.</span> <span class="nav-text">定义模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#激活模型"><span class="nav-number">1.4.2.</span> <span class="nav-text">激活模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#django管理网站"><span class="nav-number">1.4.3.</span> <span class="nav-text">django管理网站</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#创建超级用户"><span class="nav-number">1.4.3.1.</span> <span class="nav-text">创建超级用户</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#向管理网站注册模型"><span class="nav-number">1.4.3.2.</span> <span class="nav-text">向管理网站注册模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#添加主题"><span class="nav-number">1.4.3.3.</span> <span class="nav-text">添加主题</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#定义模型Entry"><span class="nav-number">1.4.4.</span> <span class="nav-text">定义模型Entry</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#迁移模型Entry"><span class="nav-number">1.4.5.</span> <span class="nav-text">迁移模型Entry</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#向管理网站注册Entry"><span class="nav-number">1.4.6.</span> <span class="nav-text">向管理网站注册Entry</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#django-shell"><span class="nav-number">1.4.7.</span> <span class="nav-text">django shell</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#django-API"><span class="nav-number">1.4.8.</span> <span class="nav-text">django API</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建网页：学习笔记主页"><span class="nav-number">1.5.</span> <span class="nav-text">创建网页：学习笔记主页</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#映射URL"><span class="nav-number">1.5.1.</span> <span class="nav-text">映射URL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编写视图"><span class="nav-number">1.5.2.</span> <span class="nav-text">编写视图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编写模板"><span class="nav-number">1.5.3.</span> <span class="nav-text">编写模板</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">1.5.4.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建其他网页"><span class="nav-number">1.6.</span> <span class="nav-text">创建其他网页</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#模板继承"><span class="nav-number">1.6.1.</span> <span class="nav-text">模板继承</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#子模板"><span class="nav-number">1.6.2.</span> <span class="nav-text">子模板</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#显示所有主题的页面"><span class="nav-number">1.6.3.</span> <span class="nav-text">显示所有主题的页面</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#URL模式"><span class="nav-number">1.6.3.1.</span> <span class="nav-text">URL模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#视图函数"><span class="nav-number">1.6.3.2.</span> <span class="nav-text">视图函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#模板"><span class="nav-number">1.6.3.3.</span> <span class="nav-text">模板</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#显示特定主题主所有条目的页面"><span class="nav-number">1.6.4.</span> <span class="nav-text">显示特定主题主所有条目的页面</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#环境准备"><span class="nav-number">1.</span> <span class="nav-text">环境准备</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#创建激活虚拟环境"><span class="nav-number">1.1.</span> <span class="nav-text">创建激活虚拟环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装django"><span class="nav-number">1.2.</span> <span class="nav-text">安装django</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置django"><span class="nav-number">1.3.</span> <span class="nav-text">配置django</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建项目："><span class="nav-number">1.3.1.</span> <span class="nav-text">创建项目：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建数据库"><span class="nav-number">1.3.2.</span> <span class="nav-text">创建数据库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#启动-停止项目"><span class="nav-number">1.3.3.</span> <span class="nav-text">启动/停止项目</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建应用程序"><span class="nav-number">1.4.</span> <span class="nav-text">创建应用程序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#定义模型"><span class="nav-number">1.4.1.</span> <span class="nav-text">定义模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#激活模型"><span class="nav-number">1.4.2.</span> <span class="nav-text">激活模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#django管理网站"><span class="nav-number">1.4.3.</span> <span class="nav-text">django管理网站</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#创建超级用户"><span class="nav-number">1.4.3.1.</span> <span class="nav-text">创建超级用户</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#向管理网站注册模型"><span class="nav-number">1.4.3.2.</span> <span class="nav-text">向管理网站注册模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#添加主题"><span class="nav-number">1.4.3.3.</span> <span class="nav-text">添加主题</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#定义模型Entry"><span class="nav-number">1.4.4.</span> <span class="nav-text">定义模型Entry</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#迁移模型Entry"><span class="nav-number">1.4.5.</span> <span class="nav-text">迁移模型Entry</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#向管理网站注册Entry"><span class="nav-number">1.4.6.</span> <span class="nav-text">向管理网站注册Entry</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#django-shell"><span class="nav-number">1.4.7.</span> <span class="nav-text">django shell</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#django-API"><span class="nav-number">1.4.8.</span> <span class="nav-text">django API</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建网页：学习笔记主页"><span class="nav-number">1.5.</span> <span class="nav-text">创建网页：学习笔记主页</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#映射URL"><span class="nav-number">1.5.1.</span> <span class="nav-text">映射URL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编写视图"><span class="nav-number">1.5.2.</span> <span class="nav-text">编写视图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编写模板"><span class="nav-number">1.5.3.</span> <span class="nav-text">编写模板</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">1.5.4.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建其他网页"><span class="nav-number">1.6.</span> <span class="nav-text">创建其他网页</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#模板继承"><span class="nav-number">1.6.1.</span> <span class="nav-text">模板继承</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#子模板"><span class="nav-number">1.6.2.</span> <span class="nav-text">子模板</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#显示所有主题的页面"><span class="nav-number">1.6.3.</span> <span class="nav-text">显示所有主题的页面</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#URL模式"><span class="nav-number">1.6.3.1.</span> <span class="nav-text">URL模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#视图函数"><span class="nav-number">1.6.3.2.</span> <span class="nav-text">视图函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#模板"><span class="nav-number">1.6.3.3.</span> <span class="nav-text">模板</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#"><span class="nav-number">1.6.3.4.</span> <span class="nav-text">#</span></a></li></ol></li></ol></li></ol></li></ol></div>
             
 
           </div>
