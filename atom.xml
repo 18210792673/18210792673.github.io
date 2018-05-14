@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2018-05-13T11:44:23.000Z</updated>
+  <updated>2018-05-14T03:36:33.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>RDS</title>
+    <link href="http://yoursite.com/2018/05/14/RDS/"/>
+    <id>http://yoursite.com/2018/05/14/RDS/</id>
+    <published>2018-05-14T03:36:33.000Z</published>
+    <updated>2018-05-14T03:36:33.000Z</updated>
+    
+    <content type="html"><![CDATA[<p><a href="https://www.alibabacloud.com/help/zh/product/26090.htm" target="_blank" rel="noopener">官方文档</a></p><h1 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h1><p>阿里云关系型数据库（Relational Database Service，简称 RDS）是一种稳定可靠、可弹性伸缩的在线数据库服务。基于阿里云分布式文件系统和SSD盘高性能存储，RDS 支持 MySQL、SQL Server、PostgreSQL 和 PPAS（Postgre Plus Advanced Server，一种高度兼容 Oracle 的数据库）引擎，并且提供了容灾、备份、恢复、监控、迁移等方面的全套解决方案，彻底解决数据库运维的烦恼。</p><h2 id="RDS的特点"><a href="#RDS的特点" class="headerlink" title="RDS的特点"></a>RDS的特点</h2><p>云数据库RDS作为一个公共的关系型数据库，高可用和高安全是其首要优势，其次才是高性能，因为没人会使用既不稳定又不安全的服务。RDS的优势主要体现在如下几点：</p><ul><li>RDS提供了主备双节点的实例，双节点可以在同一地域的不同可用区，MySQL实例的双节点还可以在不同地域，当主实例出现故障时可快速切换到备实例，保障了RDS的稳定性。</li></ul><ul><li>RDS在数据的存取上加入了中间层，所有请求都会经过中间层，而且有SQL注入的请求都会被中间层拦截掉。在底层数据写入上，RDS采用了最高安全级别的写入，保证在主机异常掉电的情况下数据不会出现丢失。以此来保障数据库的高安全性。</li></ul><p>RDS源码团队持续对MySQL进行源码优化，在标准的基准测试中性能和稳定性上都是高于社区版本的。</p><p>关于这部分内容可以查看：<a href="https://www.alibabacloud.com/help/zh/doc-detail/55823.htm?spm=a2c63.p38356.a3.4.563d5e74FcHTfi" target="_blank" rel="noopener">对比ECS自建数据库与RDS性能时的注意事项</a></p><h2 id="访问控制"><a href="#访问控制" class="headerlink" title="访问控制"></a>访问控制</h2><p><strong>数据库账号</strong></p><p>当用户创建实例后，RDS并不会为用户创建任何初始的数据库账号。</p><p>有如下两种方式来创建数据库帐号：</p><ul><li><p>用户可以通过控制台或者API来创建普通数据库账号，并设置数据库级别的读写权限。</p></li><li><p>如果用户需要更细粒度的权限控制，比如表、视图，字段级别的权限，也可以通过控制台或者API先创建高权限数据库账号，并使用数据库客户端和高权限数据库账号来创建普通数据库账号。高权限数据库账号可以为普通数据库账号设置表级别的读写权限。</p></li></ul><blockquote><p>说明：通过高权限数据库账号创建的普通数据库账号，无法通过控制台或者API进行管理。</p></blockquote><p><strong>IP白名单</strong></p><p>虽然RDS不支持ECS的安全组功能，但是RDS提供了IP白名单来实现网络安全访问控制。</p><p>默认情况下，RDS实例被设置为不允许任何IP访问，即127.0.0.1。用户可以通过控制台的数据安全性模块或者API来添加IP白名单规则。IP白名单的更新无需重启RDS实例，因此不会影响用户的使用。</p><p>IP白名单可以设置多个分组，每个分组可配置1000个IP或IP段。</p><h2 id="系统安全"><a href="#系统安全" class="headerlink" title="系统安全"></a>系统安全</h2><ul><li><p>RDS 处于多层防火墙的保护之下，可以有力地抗击各种恶意攻击，保证数据的安全。</p></li><li><p>RDS 服务器不允许直接登录，只开放特定的数据库服务所需要的端口。</p></li><li><p>RDS 服务器不允许主动向外发起连接，只能接受被动访问。</p></li></ul><h2 id="数据链路服务"><a href="#数据链路服务" class="headerlink" title="数据链路服务"></a>数据链路服务</h2><p>阿里云数据库提供全数据链路服务，包括 DNS、负载均衡、Proxy 等。因为 RDS 使用原生的 DB Engine，对数据库的操作高度类似，基本没有学习成本。</p><p><strong>DNS</strong></p><p>DNS 模块提供域名到 IP 的动态解析功能，以便规避 RDS 实例 IP 地址改变带来的影响。在连接池中设置域名后，即使对应的IP地址发生了变化，仍然可以正常访问 RDS 实例。</p><p>例如，某 RDS 实例的域名为 test.rds.aliyun.com，对应的 IP 地址为 10.10.10.1。某程序连接池中设置为 test.rds.aliyun.com 或 10.10.10.1 都可以正常访问 RDS 实例。</p><p>一旦该 RDS 实例发生了可用区迁移或者版本升级后，IP 地址可能变为 10.10.10.2。如果程序连接池中设置的是域名 test.rds.aliyun.com，则仍然可以正常访问 RDS 实例。但是如果程序连接池中设置的是IP地址 10.10.10.1，就无法访问 RDS 实例了。</p><p><strong>负载均衡</strong></p><p>负载均衡 模块提供实例 IP 地址（包括内网 IP 和外网 IP），以便屏蔽物理服务器变化带来的影响。</p><p>例如，某 RDS 实例的内网 IP 地址为 10.1.1.1，对应的 Proxy 或者 DB Engine 运行在 192.168.0.1 上。在正常情况下，负载均衡 模块会将访问 10.1.1.1 的流量重定向到 192.168.0.1 上。当 192.168.0.1 发生了故障，处于热备状态的 192.168.0.2 接替了 192.168.0.1 的工作。此时 负载均衡 模块会将访问 10.1.1.1 的流量重定向到 192.168.0.2 上，RDS 实例仍旧正常提供服务。</p><p><strong>Proxy</strong></p><p>Proxy 模块提供数据路由、流量探测和会话保持等功能。</p><ul><li>数据路由功能：支持大数据场景下的分布式复杂查询聚合和相应的容量管理。</li><li>流量探测功能：降低 SQL 注入的风险，在必要情况下支持 SQL 日志的回溯。</li><li>会话保持功能：解决故障场景下的数据库连接中断问题。</li></ul><h2 id="高可用服务"><a href="#高可用服务" class="headerlink" title="高可用服务"></a>高可用服务</h2><p>高可用服务由 <strong><code>Detection、Repair、Notice</code></strong> 等模块组成，主要保障<strong><code>数据链路服务</code></strong>的可用性，除此之外还负责处理数据库内部的异常。</p><p>另外，RDS 还通过迁移到支持多可用区的地域和采用适当的高可用策略，提升 RDS 的高可用服务。</p><p><strong>Detection</strong></p><blockquote><p>Detection 模块负责检测 DB Engine 的主节点和备节点是否提供了正常的服务。通过间隔为 8~10 秒的心跳信息，HA 节点可以轻易获得主节点的健康情况，结合备节点的健康情况和其它 HA 节点的心跳信息，Detection 模块可以排除网络抖动等异常引入的误判风险，在 30 秒内完成异常切换操作。</p></blockquote><p><strong>Repair</strong></p><p>Repair 模块负责维护 DB Engine 的主节点和备节点之间的复制关系，还会修复主节点或者备节点在日常运行中出现的错误。</p><p>例如：</p><ul><li>主备复制异常断开的自动修复</li><li>主备节点表级别损坏的自动修复</li><li>主备节点 Crash 的现场保存和自动修复</li></ul><p><strong>Notice</strong></p><p>Notice 模块负责将主备节点的状态变动通知到 负载均衡 或者 Proxy，保证用户访问正确的节点。</p><p>例如：Detection 模块发现主节点异常，并通知 Repair 模块进行修复。Repair 模块进行了尝试后无法修复主节点，通知 Notice 进行流量切换。Notice 模块将切换请求转发至 负载均衡 或者Proxy，此时用户流量全部指向备节点。与此同时，Repair 在别的物理服务器上重建了新的备节点，并将变动同步给 Detection 模块。Detection 模块开始重新检测实例的健康状态。</p><p><strong>多可用区</strong></p><p>RDS在特定地域提供了多可用区部署的能力，也就是将RDS的主备实例分别部署于同一地域的不同可用区。相对于单可用区 RDS 实例，多可用区 RDS 实例可以承受更高级别的灾难。</p><p>目前多可用区 RDS 不额外收取任何费用，用户可以直接在已开通多可用区的地域购买多可用区 RDS 实例，也可以通过跨可用区迁移将单可用区 RDS 实例转化成多可用区 RDS 实例。</p><p>注意： 因为多可用区之间存在一定的网络延迟，因此多可用区 RDS 实例在采用半同步数据复制方案的时候，对于单个更新的响应时间会比单可用区实例长。这种情况最好通过提高并发量的方式来实现整体吞吐量的提高。</p><p><strong>高可用策略</strong></p><p>高可用策略是根据用户自身业务的特点，采用服务优先级和数据复制方式之间的不同组合，以组合出适合自身业务特点的高可用策略。</p><p>服务优先级有以下两个级别：</p><ul><li><p>RTO（Recovery Time Objective）优先：数据库应该尽快恢复服务，即可用时间最长。对于数据库在线时间要求比较高的用户应该使用 RTO 优先策略。</p></li><li><p>RPO（Recovery Point Objective）优先：数据库应该尽可能保障数据的可靠性，即数据丢失量最少。对于数据一致性要求比较高的用户应该使用 RPO 优先策略。</p></li></ul><p>数据复制方式有以下三种方式：</p><ul><li><p>异步复制（Async）：应用发起更新（含增加、删除、修改操作）请求，Master 完成相应操作后立即响应应用，Master 向 Slave 异步复制数据。因此异步复制方式下，Slave 不可用不影响主库上的操作，而 Master 不可用有较小概率会引起数据不一致。</p></li><li><p>强同步复制（Sync）：应用发起更新（含增加、删除、修改操作）请求，Master 完成操作后向 Slave 复制数据，Slave 接收到数据后向 Master 返回成功信息，Master 接到 Slave 的反馈后再响应应用。Master 向 Slave 复制数据是同步进行的，因此 Slave 不可用会影响 Master 上的操作，而 Master 不可用不会引起数据不一致。</p></li><li><p>半同步复制（Semi-Sync）：正常情况下数据复制方式采用强同步复制方式，当 Master 向 Slave 复制数据出现异常的时候（Slave 不可用或者双节点间的网络异常），Master 会暂停对应用的响应，直到复制方式超时退化成异步复制。如果允许应用在此时更新数据，则 Master 不可用会引起数据不一致。当双节点间的数据复制恢复正常（Slave 恢复或者网络恢复），异步复制会恢复成强同步复制。恢复成强同步复制的时间取决于半同步复制的实现方式，阿里云数据库 MySQL 5.5 版和 MySQL 5.6 版有所不同。</p></li></ul><h1 id="实际操作"><a href="#实际操作" class="headerlink" title="实际操作"></a>实际操作</h1><h2 id="MySQL数据库"><a href="#MySQL数据库" class="headerlink" title="MySQL数据库"></a>MySQL数据库</h2>]]></content>
+    
+    <summary type="html">
+    
+      RDS知识
+    
+    </summary>
+    
+      <category term="IT科学技术知识体系结构-Linux运维方向" scheme="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/"/>
+    
+      <category term="公有云产品" scheme="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E5%85%AC%E6%9C%89%E4%BA%91%E4%BA%A7%E5%93%81/"/>
+    
+      <category term="阿里云" scheme="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E5%85%AC%E6%9C%89%E4%BA%91%E4%BA%A7%E5%93%81/%E9%98%BF%E9%87%8C%E4%BA%91/"/>
+    
+    
+      <category term="RDS" scheme="http://yoursite.com/tags/RDS/"/>
+    
+  </entry>
   
   <entry>
     <title>HTTP请求</title>
@@ -503,32 +529,6 @@
     
     
       <category term="服务器硬件" scheme="http://yoursite.com/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%A1%AC%E4%BB%B6/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>进程管理-进程性能分析</title>
-    <link href="http://yoursite.com/2018/04/18/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86-%E8%BF%9B%E7%A8%8B%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90/"/>
-    <id>http://yoursite.com/2018/04/18/进程管理-进程性能分析/</id>
-    <published>2018-04-18T02:49:51.000Z</published>
-    <updated>2018-04-18T02:49:51.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>分为两部分</p><ul><li><p>服务器即时数据查看</p></li><li><p>监控趋势数据查看</p></li></ul><p>主要分为以下4个部分</p><pre><code>- CPU        系统整体CPU情况，具体进程占用CPU情况，需要精确进程或者线程调用的系统调用，过去5次/5秒等时间内的进程占用情况- 内存        系统整体占用情况，具体进程占用内存情况，需要精确进程或者线程调用的系统调用- 磁盘        整体磁盘IO情况，具体进程占用磁盘IO情况，需要精确进程或者线程调用的系统调用- 网络        系统整体网络IO情况，带宽使用情况；具体进程占用的网络IO情况，需要精确进程或者线程调用的系统调用- 系统- 系统负载    系统整体占用情况</code></pre><p>本文主要讲述在服务器端的即时数据查看。</p><p>#CPU性能分析#</p><h2 id="即时数据查看"><a href="#即时数据查看" class="headerlink" title="即时数据查看"></a>即时数据查看</h2><h1 id="磁盘"><a href="#磁盘" class="headerlink" title="磁盘"></a>磁盘</h1><p><strong>磁盘IO</strong></p><h1 id="网络"><a href="#网络" class="headerlink" title="网络"></a>网络</h1><p>端口</p><h1 id="系统"><a href="#系统" class="headerlink" title="系统"></a>系统</h1><p>应用进程</p>]]></content>
-    
-    <summary type="html">
-    
-      进程管理之进程性能分析
-    
-    </summary>
-    
-      <category term="IT科学技术知识体系结构-Linux运维方向" scheme="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/"/>
-    
-      <category term="进程管理" scheme="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/"/>
-    
-      <category term="进程性能分析" scheme="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/%E8%BF%9B%E7%A8%8B%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90/"/>
-    
-    
-      <category term="进程管理" scheme="http://yoursite.com/tags/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/"/>
     
   </entry>
   

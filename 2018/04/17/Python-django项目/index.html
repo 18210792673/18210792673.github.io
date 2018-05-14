@@ -1102,6 +1102,7 @@ r让django将这个字符串视为原始字符串，并指出正则表达式包�
 <p><img src="http://picture.watchmen.xin/python-django/topics.png" alt="topics"></p>
 <p>这个时候我们再次刷新页面，再单击其中的一个主题，将会看到类似于下图的页面：</p>
 <p><img src="http://picture.watchmen.xin/python-django/topiccontent.png" alt="topics"></p>
+<hr>
 <h1 id="用户账户"><a href="#用户账户" class="headerlink" title="用户账户"></a>用户账户</h1><p>在这一章节，我们将创建对用户友好而直观的网页，让用户无需通过管理网站就能添加新的主题和条目，以及编辑既有的条目。</p>
 <p>我们还将添加一个用户注册系统，让用户能够创建账户和自己的学习笔记。让任意数量的用户都能与之交互，是Web应用程序的核心所在。</p>
 <h2 id="让用户能够输入数据"><a href="#让用户能够输入数据" class="headerlink" title="让用户能够输入数据"></a>让用户能够输入数据</h2><p>当前，只有超级用户能够通过管理网站输入数据。我们不想让用户与管理网站进行交互，因此我们将使用django的表单创建工具来创建工具让用户能够输入数据的页面</p>
@@ -1221,6 +1222,50 @@ def new_topic(request):
 <p>这个时候访问指定页面，可以看到有输入框出现</p>
 <p><img src="http://picture.watchmen.xin/python-django/newtopic.png" alt="topics"></p>
 <h3 id="添加新条目"><a href="#添加新条目" class="headerlink" title="添加新条目"></a>添加新条目</h3><p>现在用户可以添加新主题了，但是他们还想添加新的条目。</p>
+<p>我们再次定义URL，编写视图函数和模板，并连接到添加新条目的网页，但在此之前，我们需要好在forms.py中再添加一个类</p>
+<p><strong>1. 用于添加新条目的表单</strong></p>
+<p>我们需要创建一个与模型Entry相关联的表单，但是这个表单的定制程度比TopicForm要高些</p>
+<p>(ll_env) wxh@wxh-virtual-machine:/opt/learning_logs$ sudo vim forms.py</p>
+<pre><code>from django import forms
+
+from .models import Topic,Entry
+
+class TopicForm(forms.ModelForm):
+    class Meta:
+        model = Topic
+        fields = [&apos;text&apos;]
+        labels = {&apos;text&apos;:&apos;&apos;}
+
+class EntryForm(forms.ModelForm):
+    class Meta:
+        model = Entry
+        fields = [&apos;text&apos;]
+        labels = {&apos;text&apos;:&apos;&apos;}
+        widgets = {&apos;text&apos;:forms.Textarea(attrs={&apos;cols&apos;:80})}
+</code></pre><p><strong>说明：</strong></p>
+<p>在这里，再导入了Entry。我们定义了属性widgets。小部件（widgets）是一个HTML表单元素，例如单行文本框、多行文本区域或者下拉列表。</p>
+<p>通过设置属性widgets，可覆盖Django选择的默认小部件。通过让Django使用forms.Textarea，我们定制了字段’text’的输入小部件，将文本区域的宽度设置为80列，而不是默认的40列。这给用户提供了足够的空间，可以编写有意义的条目。</p>
+<p><strong>2. URL模式new_entry</strong></p>
+<p>在用户添加新条目的页面的URL模式中，需要包含实参topic_id,因为条目必须与特定的主题相关联。该URL模式如下：</p>
+<p>(ll_env) wxh@wxh-virtual-machine:/opt/learning_logs$ sudo vim urls.py </p>
+<pre><code>&quot;&quot;&quot;定义learning_logs的URL模式&quot;&quot;&quot;
+
+from django.conf.urls import url
+
+from . import views
+
+app_name = &apos;learning_logs&apos;
+urlpatterns = [
+    #主页
+    url(r&apos;^$&apos;,views.index,name=&apos;index&apos;),
+    url(r&apos;^topics/$&apos;,views.topics,name=&apos;topics&apos;),
+    url(r&apos;^topics/(?P&lt;topic_id&gt;\d+)/$&apos;,views.topic,name=&apos;topic&apos;),
+    # 用户添加新主题的网页
+    url(r&apos;^new_topic/$&apos;,views.new_topic,name=&apos;new_topic&apos;),
+    #  用户添加新条目的页面
+    url(r&apos;^new_entry/(?P&lt;topic_id&gt;\d+)/$&apos;,views.new_entry,name=&apos;new_entry&apos;)
+]
+</code></pre><p><strong>3. 视图函数new_entry</strong></p>
 
       
     </div>
@@ -1404,7 +1449,7 @@ var jiathis_config={
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">53</span>
+                  <span class="site-state-item-count">54</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1426,7 +1471,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">56</span>
+                  <span class="site-state-item-count">57</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
