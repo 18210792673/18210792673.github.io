@@ -89,10 +89,12 @@
 <meta property="og:site_name" content="Watchmen1992&#39;s Blog">
 <meta property="og:description" content="RDS知识">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://picture.watchmen.xin/RDS/RDS.png">
 <meta property="og:updated_time" content="2018-05-14T03:36:33.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="RDS">
 <meta name="twitter:description" content="RDS知识">
+<meta name="twitter:image" content="http://picture.watchmen.xin/RDS/RDS.png">
 
 
 
@@ -472,8 +474,36 @@
 </blockquote>
 <p><strong>IP白名单</strong></p>
 <p>虽然RDS不支持ECS的安全组功能，但是RDS提供了IP白名单来实现网络安全访问控制。</p>
-<p>默认情况下，RDS实例被设置为不允许任何IP访问，即127.0.0.1。用户可以通过控制台的数据安全性模块或者API来添加IP白名单规则。IP白名单的更新无需重启RDS实例，因此不会影响用户的使用。</p>
+<p>默认情况下，RDS实例被设置为不允许任何IP访问，即127.0.0.1。</p>
+<p>用户可以通过控制台的数据安全性模块或者API来添加IP白名单规则。IP白名单的更新无需重启RDS实例，因此不会影响用户的使用。</p>
 <p>IP白名单可以设置多个分组，每个分组可配置1000个IP或IP段。</p>
+<p>设置白名单后，只有以下服务器才能访问RDS实例：</p>
+<ul>
+<li>白名单中 IP 地址所属的服务器</li>
+</ul>
+<ul>
+<li>白名单中 ECS 安全组内的 ECS 实例</li>
+</ul>
+<p>注意事项：</p>
+<ul>
+<li>系统会给每个实例创建一个默认的default白名单分组，该白名单分组只能被修改或清空，但不能被删除。</li>
+</ul>
+<ul>
+<li>对于新建的RDS实例，系统默认会将回送地址127.0.0.1添加到default白名单分组中，IP地址127.0.0.1代表禁止所有IP地址或IP段访问该RDS实例。所以，在您设置白名单时，需要先将127.0.0.1删除，然后再添加您允许访问该RDS实例的IP地址或IP段。</li>
+</ul>
+<ul>
+<li>若将白名单设置为%或者0.0.0.0/0，代表允许任何IP访问RDS实例。该设置将极大降低数据库的安全性，如非必要请勿使用。</li>
+</ul>
+<p><strong>安全组</strong></p>
+<ul>
+<li>目前仅杭州、青岛、香港地域支持 ECS 安全组。</li>
+</ul>
+<ul>
+<li>目前仅支持添加一个安全组。</li>
+</ul>
+<ul>
+<li>对白名单中的 ECS 安全组的更新将实时应用到白名单中。</li>
+</ul>
 <h2 id="系统安全"><a href="#系统安全" class="headerlink" title="系统安全"></a>系统安全</h2><ul>
 <li><p>RDS 处于多层防火墙的保护之下，可以有力地抗击各种恶意攻击，保证数据的安全。</p>
 </li>
@@ -536,7 +566,78 @@
 <li><p>半同步复制（Semi-Sync）：正常情况下数据复制方式采用强同步复制方式，当 Master 向 Slave 复制数据出现异常的时候（Slave 不可用或者双节点间的网络异常），Master 会暂停对应用的响应，直到复制方式超时退化成异步复制。如果允许应用在此时更新数据，则 Master 不可用会引起数据不一致。当双节点间的数据复制恢复正常（Slave 恢复或者网络恢复），异步复制会恢复成强同步复制。恢复成强同步复制的时间取决于半同步复制的实现方式，阿里云数据库 MySQL 5.5 版和 MySQL 5.6 版有所不同。</p>
 </li>
 </ul>
-<h1 id="实际操作"><a href="#实际操作" class="headerlink" title="实际操作"></a>实际操作</h1><h2 id="MySQL数据库"><a href="#MySQL数据库" class="headerlink" title="MySQL数据库"></a>MySQL数据库</h2>
+<h1 id="实际操作"><a href="#实际操作" class="headerlink" title="实际操作"></a>实际操作</h1><h2 id="MySQL数据库"><a href="#MySQL数据库" class="headerlink" title="MySQL数据库"></a>MySQL数据库</h2><h3 id="版本"><a href="#版本" class="headerlink" title="版本"></a>版本</h3><p>阿里云上的MySQL提供基础版、高可用版和金融版三种版本</p>
+<blockquote>
+<p>基础版一般就是用于个人学习、或开发测试时使用。目前基础版只提供MySQL 5.7版本，并且只提供单节点部署，性价比非常高。基础版采用计算节点与存储分离的实现方式，也就是说假如计算节点宕机，MySQL就不可用啦，但数据都存在云盘里面不会丢，数据一致性还是可以得到保证，不用担心数据丢失。可用性不高这是基础版的最大问题，反正只是用于不重要的场景，生产环境大家是不会选用基础版的。</p>
+<p>高可用版顾名思义，为应用提供了数据库的高可用保障，也就是说至少要用双节点。RDS MySQL高可用版采用一主一备的经典高可用架构，采用基于binlog的数据复制技术维护数据库的可用性和数据一致性。同时，高可用版从性能上也可以保障业务生产环境的需求，配置上采用物理服务器部署，本地SSD硬盘，提供最佳性能，各方面表现均衡。</p>
+<p>最高级的是金融版，针对像金融、证券、保险等行业的核心数据库，他们对数据安全性、可用性要求非常高。金融版采用三节点，实现一主两备的部署架构，通过binlog日志多副本多级别复制，确保数据的强一致性，可提供金融级的数据可靠性和跨机房容灾能力。</p>
+</blockquote>
+<h3 id="规格"><a href="#规格" class="headerlink" title="规格"></a>规格</h3><p>阿里云上MySQL有三种规格类型：通用型、独享型和独占型。</p>
+<blockquote>
+<p>其中通用型和独享型都是在一台物理服务器上划分多个资源隔离的区域，为不同用户提供MySQL数据库实例。他们的不同点在于，通用型对于CPU和存储空间采用了复用的技术。当部署在同一台服务器上的所有MySQL 实例都很繁忙的情况下，有可能会出现实例间的CPU争抢，或存储的争抢；而独享型虽然也是多个数据库实例共享一台物理服务器，但资源隔离策略上确保每个用户都可以独享所分配到的CPU、内存、I/O、存储，不会出现多个实例发生资源争抢的情况。</p>
+<p>最高级别的一种是独占型，是指一个MySQL实例独占一台服务器，会获得最好的性能，当然价格也最贵。最求极致性能但对价格不敏感的客户一般会在重要业务系统采用独占型实例。</p>
+</blockquote>
+<h3 id="使用流程"><a href="#使用流程" class="headerlink" title="使用流程"></a>使用流程</h3><p>通常，从新购实例到可以开始使用实例，需要完成如下操作：</p>
+<p><img src="http://picture.watchmen.xin/RDS/RDS.png" alt="RDS"></p>
+<h3 id="使用限制"><a href="#使用限制" class="headerlink" title="使用限制"></a>使用限制</h3><h3 id="高权限账号"><a href="#高权限账号" class="headerlink" title="高权限账号"></a>高权限账号</h3><h3 id="数据库连接"><a href="#数据库连接" class="headerlink" title="数据库连接"></a>数据库连接</h3><p>注意：目前只支持同一个可用区的连接，不同可用区无法连接，如果需要跨越可用区，需要进行设置</p>
+<p>目前RDS连接可以使用DMS连接或者第三方工具连接</p>
+<h3 id="跨可用区访问"><a href="#跨可用区访问" class="headerlink" title="跨可用区访问"></a>跨可用区访问</h3><h3 id="管理工具-DMS"><a href="#管理工具-DMS" class="headerlink" title="管理工具-DMS"></a>管理工具-DMS</h3><p>DMS 是一款访问管理云端数据库的Web服务，支持Redis、 MySQL、SQL Server、PostgreSQL和MongoDB等数据源。DMS提供了数据管理、对象管理、数据流转和实例管理四部分功能。DMS使用也非常简单：</p>
+<h3 id="数据迁移-DTS"><a href="#数据迁移-DTS" class="headerlink" title="数据迁移-DTS"></a>数据迁移-DTS</h3><p><strong>相关资料：</strong></p>
+<ul>
+<li><a href="https://www.alibabacloud.com/help/zh/doc-detail/26592.htm?spm=a2c63.l28256.b99.2.7f4a179d8ncgjh" target="_blank" rel="noopener">文档中心</a></li>
+<li><a href="https://help.aliyun.com/product/26590.html" target="_blank" rel="noopener">帮助中心</a></li>
+<li><a href="https://help.aliyun.com/document_detail/26627.html?spm=a2c4g.11186623.6.593.iT6gzz" target="_blank" rel="noopener">ECS自建数据库迁移到RDS</a></li>
+</ul>
+<h4 id="DTS概述"><a href="#DTS概述" class="headerlink" title="DTS概述"></a>DTS概述</h4><p>数据传输(Data Transmission)服务DTS是阿里云提供的一种支持RDBMS(关系型数据库)、NoSQL、OLAP等多种数据源之间数据交互的数据服务。它提供了数据迁移、实时数据订阅及数据实时同步等多种数据传输能力。通过数据传输可实现不停服数据迁移、数据异地灾备、跨境数据同步、缓存更新策略等多种业务应用场景，助您构建安全、可扩展、高可用的数据架构。</p>
+<ul>
+<li>数据传输服务DTS的目标是帮用户将复杂的数据交互工作承担下来，让用户可以专注于上层的业务开发，数据传输服务承诺99.95%的链路稳定性。</li>
+</ul>
+<ul>
+<li>数据传输服务DTS支持多种数据源类型，例如：<ul>
+<li>关系型数据库：Oracle、MySQL、SQLServer、PostgreSQL</li>
+<li>NoSQL: Redis </li>
+<li>OLAP: 分析型数据库AnalyticDB </li>
+</ul>
+</li>
+</ul>
+<p>迁移服务主要帮助用户把数据从本地数据库迁移到阿里云数据库，或者把阿里云数据库的一个实例迁移到另一实例中。阿里云数据库提供了数据传输服务DTS（Data Transfer Service）工具，方便用户快速的迁移数据库。</p>
+<p>DTS是一个云上的数据传输服务，能快速的将本地数据库或者RDS中的实例迁移到另一个RDS实例中。关于DTS简介，请参见DTS产品概述。</p>
+<p>DTS提供了三种迁移模式，分别为结构迁移、全量迁移和增量迁移：</p>
+<ul>
+<li>结构迁移：DTS会将迁移对象的结构定义迁移到目标实例，目前支持结构迁移的对象有表、视图、触发器、存储过程和存储函数。</li>
+</ul>
+<ul>
+<li>全量迁移：DTS会将源数据库迁移对象已有数据全部迁移到目标实例中。</li>
+</ul>
+<blockquote>
+<p>注意：在全量迁移过程中，为了保证数据一致性，无主键的非事务表会被锁定。锁定期间这些表无法写入，锁定时长依赖于这些表的数据量大小。在这些无主键非事务表迁移完成后，锁才会释放。</p>
+</blockquote>
+<ul>
+<li>增量迁移：DTS会将迁移过程中数据变更同步到目标实例。</li>
+</ul>
+<p>,</p>
+<blockquote>
+<p>注意：如果迁移期间进行了DDL操作，这些结构变更不会同步到目标实例。</p>
+</blockquote>
+<h4 id="源及目标"><a href="#源及目标" class="headerlink" title="源及目标"></a>源及目标</h4><p><strong>数据迁移支持的源实例类型包括:</strong></p>
+<p>(1) RDS实例</p>
+<p>(2) 本地自建数据库</p>
+<p>(3) ECS自建数据库</p>
+<p><strong>数据迁移支持的目标实例包括：</strong></p>
+<p>(1) RDS实例</p>
+<p>(2) ECS自建数据库</p>
+<p>(3) Redis实例</p>
+<h4 id="Mysql迁移限制"><a href="#Mysql迁移限制" class="headerlink" title="Mysql迁移限制"></a>Mysql迁移限制</h4><p>对于本地 MySQL-&gt;RDS for MySQL 的数据迁移，DTS 支持结构迁移、全量数据迁移及增量数据迁移，各迁移类型的功能及限制如下：</p>
+<ul>
+<li>迁移过程中，不支持 DDL 操作。</li>
+<li>结构迁移不支持 event 的迁移。</li>
+<li>如果使用了对象名映射功能后，依赖这个对象的其他对象可能迁移失败。</li>
+<li>当选择增量迁移时，源端的本地 MySQL 实例需要按照要求开启 binlog。</li>
+<li>当选择增量迁移时，源库的 binlog_format 需要设置为 row。</li>
+<li>当选择增量迁移且源 MySQL 实例如果为 5.6 或以上版本时，它的 binlog_row_image 必须为 full。</li>
+</ul>
+<h4 id="数据同步"><a href="#数据同步" class="headerlink" title="数据同步"></a>数据同步</h4><p>数据实时同步功能旨在帮助用户实现两个数据源之间的数据实时同步。通过数据实时同步功能可实现数据异地灾备、本地数据灾备、跨境数据同步及在线离线数据打通(OLTP-&gt;OLAP数据同步)等多种业务场景。</p>
+
       
     </div>
     
@@ -604,6 +705,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/05/17/zabbix清理历史数据/" rel="prev" title="zabbix清理历史数据">
+                zabbix清理历史数据 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -715,7 +820,7 @@ var jiathis_config={
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">54</span>
+                  <span class="site-state-item-count">55</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -777,7 +882,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#基础知识"><span class="nav-number">1.</span> <span class="nav-text">基础知识</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#RDS的特点"><span class="nav-number">1.1.</span> <span class="nav-text">RDS的特点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#访问控制"><span class="nav-number">1.2.</span> <span class="nav-text">访问控制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#系统安全"><span class="nav-number">1.3.</span> <span class="nav-text">系统安全</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据链路服务"><span class="nav-number">1.4.</span> <span class="nav-text">数据链路服务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#高可用服务"><span class="nav-number">1.5.</span> <span class="nav-text">高可用服务</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实际操作"><span class="nav-number">2.</span> <span class="nav-text">实际操作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL数据库"><span class="nav-number">2.1.</span> <span class="nav-text">MySQL数据库</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#基础知识"><span class="nav-number">1.</span> <span class="nav-text">基础知识</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#RDS的特点"><span class="nav-number">1.1.</span> <span class="nav-text">RDS的特点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#访问控制"><span class="nav-number">1.2.</span> <span class="nav-text">访问控制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#系统安全"><span class="nav-number">1.3.</span> <span class="nav-text">系统安全</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据链路服务"><span class="nav-number">1.4.</span> <span class="nav-text">数据链路服务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#高可用服务"><span class="nav-number">1.5.</span> <span class="nav-text">高可用服务</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实际操作"><span class="nav-number">2.</span> <span class="nav-text">实际操作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL数据库"><span class="nav-number">2.1.</span> <span class="nav-text">MySQL数据库</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#版本"><span class="nav-number">2.1.1.</span> <span class="nav-text">版本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#规格"><span class="nav-number">2.1.2.</span> <span class="nav-text">规格</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用流程"><span class="nav-number">2.1.3.</span> <span class="nav-text">使用流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用限制"><span class="nav-number">2.1.4.</span> <span class="nav-text">使用限制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#高权限账号"><span class="nav-number">2.1.5.</span> <span class="nav-text">高权限账号</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据库连接"><span class="nav-number">2.1.6.</span> <span class="nav-text">数据库连接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#跨可用区访问"><span class="nav-number">2.1.7.</span> <span class="nav-text">跨可用区访问</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#管理工具-DMS"><span class="nav-number">2.1.8.</span> <span class="nav-text">管理工具-DMS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据迁移-DTS"><span class="nav-number">2.1.9.</span> <span class="nav-text">数据迁移-DTS</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#DTS概述"><span class="nav-number">2.1.9.1.</span> <span class="nav-text">DTS概述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#源及目标"><span class="nav-number">2.1.9.2.</span> <span class="nav-text">源及目标</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Mysql迁移限制"><span class="nav-number">2.1.9.3.</span> <span class="nav-text">Mysql迁移限制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数据同步"><span class="nav-number">2.1.9.4.</span> <span class="nav-text">数据同步</span></a></li></ol></li></ol></li></ol></li></ol></div>
             
 
           </div>
