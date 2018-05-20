@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2018-05-17T11:00:59.000Z</updated>
+  <updated>2018-05-20T06:17:38.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,58 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Centos7安装Python3</title>
+    <link href="http://yoursite.com/2018/05/20/Centos7%E5%AE%89%E8%A3%85Python3/"/>
+    <id>http://yoursite.com/2018/05/20/Centos7安装Python3/</id>
+    <published>2018-05-20T06:17:38.000Z</published>
+    <updated>2018-05-20T06:17:38.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>在centos 7中，默认安装的python版本为2.7,一般情况下，我们都需要对python进行升级</p><pre><code>[root@master ~]# cat /etc/redhat-release CentOS Linux release 7.3.1611 (Core)[root@master ~]# python --version Python 2.7.5</code></pre><h1 id="环境说明"><a href="#环境说明" class="headerlink" title="环境说明"></a>环境说明</h1><pre><code>[root@master ~]# which python /usr/bin/python[root@master ~]# ll /usr/bin/pythonlrwxrwxrwx 1 root root 7 Apr 13 16:50 /usr/bin/python -&gt; python2[root@master ~]# ll /usr/bin/python2lrwxrwxrwx 1 root root 9 Apr 13 16:50 /usr/bin/python2 -&gt; python2.7[root@master ~]# ll /usr/bin/python2.7-rwxr-xr-x 1 root root 7136 Aug  4  2017 /usr/bin/python2.7</code></pre><p>我们知道我们的python命令是在/usr/bin目录下</p><p>可以看到，python指向的是python2，python2指向的是python2.7</p><p>因此我们可以装个python3，然后将python指向python3，然后python2指向python2.7，那么两个版本的python就能共存了。</p><h1 id="正式安装"><a href="#正式安装" class="headerlink" title="正式安装"></a>正式安装</h1><p><strong>下载python3的源码包</strong></p><pre><code>wget https://www.python.org/ftp/python/3.6.5/Python-3.6.5.tgz</code></pre><p><strong>解压编译安装</strong></p><pre><code>[root@master software]# tar -zxvf Python-3.6.5.tgz [root@master software]# cd Python-3.6.5</code></pre><p>[root@master Python-3.6.5]# ./configure  –prefix=/usr/local/python3<br>[root@master Python-3.6.5]# make &amp;&amp; make install</p><p><strong>添加软链接</strong></p><p>[root@master Python-3.6.5]# mv /usr/bin/python /usr/bin/python.bak</p><p>[root@master Python-3.6.5]# ln -s /usr/local/python3/bin/python3.6 /usr/bin/python</p><p>[root@master Python-3.6.5]# python –version<br>Python 3.6.5</p><h1 id="补充操作"><a href="#补充操作" class="headerlink" title="补充操作"></a>补充操作</h1><h2 id="更改yum配置"><a href="#更改yum配置" class="headerlink" title="更改yum配置"></a>更改yum配置</h2><p>安装完毕之后，我们需要修改yum的配置，因为其要使用python2执行，此时我们修改了python的指向路径，不修改则会导致yum无法正常使用。</p><p><strong>vim /usr/bin/yum</strong></p><pre><code>把#! /usr/bin/python修改为#! /usr/bin/python2</code></pre><p><strong>vim /usr/libexec/urlgrabber-ext-down</strong></p><pre><code>把#! /usr/bin/python 修改为#! /usr/bin/python2</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      Centos7安装Python3
+    
+    </summary>
+    
+      <category term="IT科学技术知识体系结构-Linux运维方向" scheme="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/"/>
+    
+      <category term="基础环境配置" scheme="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E5%9F%BA%E7%A1%80%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/"/>
+    
+      <category term="Python" scheme="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E5%9F%BA%E7%A1%80%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/Python/"/>
+    
+    
+      <category term="python" scheme="http://yoursite.com/tags/python/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>SaltStack技术入门与实践</title>
+    <link href="http://yoursite.com/2018/05/20/SaltStack%E6%8A%80%E6%9C%AF%E5%85%A5%E9%97%A8%E4%B8%8E%E5%AE%9E%E8%B7%B5/"/>
+    <id>http://yoursite.com/2018/05/20/SaltStack技术入门与实践/</id>
+    <published>2018-05-20T03:38:35.000Z</published>
+    <updated>2018-05-20T03:38:35.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>参考文件：</p><ul><li>书籍：《SaltStack技术入门与实践》</li></ul><h1 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h1><p>SlatStack是基于python开发的一套C/S架构配置管理工具，底层使用zeroMQ消息队列pub/sub的方式通信，使用SSL证书签发的方式进行认证管理，采用RSA Key方式确认身份，传输采用AES加密，这使得它的安全性有了一定的保障。</p><p>并且，SaltStack不止是一个配置管理工具，它还是一个做云计算与数据中心架构编排的利器-</p><p>重点：</p><ul><li>Python</li><li>C/S架构</li><li>Server和Client之间的通信采用ZeroMQ pub/sub通信方式</li><li>SSL证书提供加密传输</li></ul><h2 id="服务架构"><a href="#服务架构" class="headerlink" title="服务架构"></a>服务架构</h2><p>在slatstack架构中，服务端叫做Master，客户端叫做Minion（英文翻译为：奴才；仆从；宠臣）</p><p>在我们理解的C/S架构中，工作流程为：</p><blockquote><p>客户端发送请求给服务器端</p><p>服务器端接受请求并处理</p><p>处理完成之后，返回客户端</p></blockquote><p>在slatstack中，不仅有这种传统的C/S架构服务模式，而且还有消息队列中的发布/订阅(pub/sub)服务模式，这就使得saltstack的应用场景更加丰富。</p><p>目前在实际的环境中，一般使用C/S架构进行配置管理</p><p><strong>工作机制</strong></p><blockquote><p>Master和Minion端都是以守护进程的模式运行的，一直监听配置文件中定义的<strong><code>ret_port(接受minion请求)和publish_port（发布消息）的端口</code></strong></p><p>当Minion运行时会自动连接到配置文件里面定义的Master地址和ret_port端口进行连接认证。</p></blockquote><p>saltstack除了传统的的C/S架构，还有Masterless架构，如果采用该架构，我们就不需要单独安装一台salt-master机器，只需要在每台机器上安装Minion。然后采用本机只负责本机的配置管理工作机制服务模式。</p><h2 id="Saltstack架构安装"><a href="#Saltstack架构安装" class="headerlink" title="Saltstack架构安装"></a>Saltstack架构安装</h2><p>当前salt的安装一共有4四种方式：</p><ul><li>yum方式安装</li><li>pip方式安装</li><li>源码包方式安装</li><li>salt-bootstrap方式安装</li></ul><p>在这里，我们使用yum方式进行安装</p><h3 id="master端安装"><a href="#master端安装" class="headerlink" title="master端安装"></a>master端安装</h3><h3 id="minion端安装配置"><a href="#minion端安装配置" class="headerlink" title="minion端安装配置"></a>minion端安装配置</h3><p>注意：minion端在安装之后还需要进行配置（在配置文件中添加Master端的相关信息）</p><h1 id="开启SaltStack之旅"><a href="#开启SaltStack之旅" class="headerlink" title="开启SaltStack之旅"></a>开启SaltStack之旅</h1>]]></content>
+    
+    <summary type="html">
+    
+      SaltStack技术入门与实践
+    
+    </summary>
+    
+      <category term="IT科学技术知识体系结构-Linux运维方向" scheme="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/"/>
+    
+      <category term="运维自动化" scheme="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E8%BF%90%E7%BB%B4%E8%87%AA%E5%8A%A8%E5%8C%96/"/>
+    
+      <category term="SaltStack" scheme="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E8%BF%90%E7%BB%B4%E8%87%AA%E5%8A%A8%E5%8C%96/SaltStack/"/>
+    
+    
+      <category term="tag1" scheme="http://yoursite.com/tags/tag1/"/>
+    
+  </entry>
   
   <entry>
     <title>zabbix清理历史数据</title>
@@ -413,7 +465,7 @@
     <published>2018-04-23T03:47:55.000Z</published>
     <updated>2018-04-23T03:47:55.000Z</updated>
     
-    <content type="html"><![CDATA[<p><strong>问题目录：</strong></p><ol><li>su: cannot set user id: Resource temporarily unavailable</li><li>ignoring option PermSize=512m; support was removed in 8.0</li><li>DTS迁移问题</li></ol><hr><h1 id="su-cannot-set-user-id-Resource-temporarily-unavailable"><a href="#su-cannot-set-user-id-Resource-temporarily-unavailable" class="headerlink" title="su: cannot set user id: Resource temporarily unavailable"></a>su: cannot set user id: Resource temporarily unavailable</h1><p><strong>问题描述：</strong></p><blockquote><p>切换用户时提示资源不可用问题解决</p></blockquote><p>切换用户时出现如下提示符：</p><pre><code>[root@qa3-app018 ~]# su - appqasu: cannot set user id: Resource temporarily unavailable</code></pre><p>常见的能够控制用户资源的文件一般有两个，一是/etc/profile,二是/etc/security/limits.conf。</p><p>除此之外，在Centos6.x版本后，还有一个配置文件对ulimit设置生效，就是<code>/etc/security/limits.d/90-nproc.conf</code></p><h2 id="etc-security-limits-conf文件"><a href="#etc-security-limits-conf文件" class="headerlink" title="/etc/security/limits.conf文件"></a>/etc/security/limits.conf文件</h2><p>如下图所示：</p><p><img src="http://picture.watchmen.xin/problems/1.png" alt="图片"></p><p>domain: </p><p>是指限制的对象，可以是个人，也可以是组，组前面要加@符号，也可以设置为除root用户外的 任何人，用*号表示；</p><p>type:</p><p>是指类型，soft是当前系统生效的值，hard是系统可以设置的最大值；</p><p>item:</p><p>项目，是可以对什么项目做限制，如最大进程数，文件最大值；</p><p>value:</p><p>值，所设置的值的大小。</p><p><strong>这里我的设置是：</strong></p><pre><code>root soft nofile 65535root hard nofile 65535* soft nofile 65535* hard nofile 65535</code></pre><p>可以看到是没有问题的</p><h2 id="etc-security-limits-d-90-nproc-conf"><a href="#etc-security-limits-d-90-nproc-conf" class="headerlink" title="/etc/security/limits.d/90-nproc.conf"></a>/etc/security/limits.d/90-nproc.conf</h2><pre><code>[appqa@qa3-app018 ~]$ cat /etc/security/limits.d/90-nproc.conf# Default limit for number of user&apos;s processes to prevent# accidental fork bombs.# See rhbz #432903 for reasoning.*          soft    nproc     1024root       soft    nproc     unlimited</code></pre><p>这这里发现默认最大进程数只有1024</p><p>将1024修改为10240之后，再次执行su即可恢复正常，问题得到解决。</p><hr><h1 id="ignoring-option-PermSize-512m-support-was-removed-in-8-0"><a href="#ignoring-option-PermSize-512m-support-was-removed-in-8-0" class="headerlink" title="ignoring option PermSize=512m; support was removed in 8.0"></a>ignoring option PermSize=512m; support was removed in 8.0</h1><p><strong>问题描述：</strong></p><blockquote><p>java1.8之后持久代被废弃</p></blockquote><p>使用jdk1.8的时候设置了vm参数：-Xmx2048m -XX:PermSize=512m -XX:MaxPermSize=768m -Xss2m<br>此时运行java程序时VM提示如下警告：</p><pre><code>Java HotSpot(TM) 64-Bit Server VM warning: ignoring option PermSize=512m; support was removed in 8.0 Java HotSpot(TM) 64-Bit Server VM warning: ignoring option MaxPermSize=768m; support was removed in 8.0</code></pre><p>程序能正常兼容启动，不会产生影响，但这个提示还是引起了注意</p><p><strong>问题原因：</strong></p><p>-XX:PermSize和-XX:MaxPermSize在jdk1.8中被弃用了，使用-XX:MetaspaceSize和-XX:MaxMetaspaceSize替代。 </p><p>所以此时VM参数正确应为：-Xmx2048m -XX:MetaspaceSize=512m -XX:MaxMetaspaceSize=768m -Xss2m</p><p><strong>根本原因：</strong></p><p>在jdk1.8之前之前我们将储存类信息、常量、静态变量的方法区称为持久代(Permanent Generation)，PermSize和MaxPermSize是设置持久代大小的参数。</p><p>但是<strong><code>在jdk1.8中，持久代被完全移除了</code></strong>，所以这两个参数也被移除了，多了一个元数据区(Metadata Space)，所以设置元数据区大小的参数也变成对应的MetaspaceSize和MaxMetaspaceSize了。</p><hr><h1 id="DTS迁移问题"><a href="#DTS迁移问题" class="headerlink" title="DTS迁移问题"></a>DTS迁移问题</h1><p><strong>问题描述：</strong></p><blockquote><p>使用DTS进行迁移的时候，页面不出现数据库等信息。</p></blockquote><p><strong>问题解决：</strong></p><p>前端一个控件缓存的问题。</p><p>显示迁移列表的树形控件是单独引用的，连接上没有添加版本号，浏览器缓存未更新。</p><p>后面我们会再url带上版本信息，强制浏览器重新获取。</p><p>把这个js加上版本号 强制刷新</p><p>不用清缓存 会自动获取新的。<br>这样就不会有问题了</p>]]></content>
+    <content type="html"><![CDATA[<p><strong>问题目录：</strong></p><ol><li>su: cannot set user id: Resource temporarily unavailable</li><li>ignoring option PermSize=512m; support was removed in 8.0</li><li>DTS迁移问题</li></ol><hr><p>#su: cannot set user id: Resource temporarily unavailable#</p><p><strong>问题描述：</strong></p><blockquote><p>切换用户时提示资源不可用问题解决</p></blockquote><p>切换用户时出现如下提示符：</p><pre><code>[root@qa3-app018 ~]# su - appqasu: cannot set user id: Resource temporarily unavailable</code></pre><p>常见的能够控制用户资源的文件一般有两个，一是/etc/profile,二是/etc/security/limits.conf。</p><p>除此之外，在Centos6.x版本后，还有一个配置文件对ulimit设置生效，就是<code>/etc/security/limits.d/90-nproc.conf</code></p><h2 id="etc-security-limits-conf文件"><a href="#etc-security-limits-conf文件" class="headerlink" title="/etc/security/limits.conf文件"></a>/etc/security/limits.conf文件</h2><p>如下图所示：</p><p><img src="http://picture.watchmen.xin/problems/1.png" alt="图片"></p><p>domain: </p><p>是指限制的对象，可以是个人，也可以是组，组前面要加@符号，也可以设置为除root用户外的 任何人，用*号表示；</p><p>type:</p><p>是指类型，soft是当前系统生效的值，hard是系统可以设置的最大值；</p><p>item:</p><p>项目，是可以对什么项目做限制，如最大进程数，文件最大值；</p><p>value:</p><p>值，所设置的值的大小。</p><p><strong>这里我的设置是：</strong></p><pre><code>root soft nofile 65535root hard nofile 65535* soft nofile 65535* hard nofile 65535</code></pre><p>可以看到是没有问题的</p><h2 id="etc-security-limits-d-90-nproc-conf"><a href="#etc-security-limits-d-90-nproc-conf" class="headerlink" title="/etc/security/limits.d/90-nproc.conf"></a>/etc/security/limits.d/90-nproc.conf</h2><pre><code>[appqa@qa3-app018 ~]$ cat /etc/security/limits.d/90-nproc.conf# Default limit for number of user&apos;s processes to prevent# accidental fork bombs.# See rhbz #432903 for reasoning.*          soft    nproc     1024root       soft    nproc     unlimited</code></pre><p>这这里发现默认最大进程数只有1024</p><p>将1024修改为10240之后，再次执行su即可恢复正常，问题得到解决。</p><hr><h1 id="ignoring-option-PermSize-512m-support-was-removed-in-8-0"><a href="#ignoring-option-PermSize-512m-support-was-removed-in-8-0" class="headerlink" title="ignoring option PermSize=512m; support was removed in 8.0"></a>ignoring option PermSize=512m; support was removed in 8.0</h1><p><strong>问题描述：</strong></p><blockquote><p>java1.8之后持久代被废弃</p></blockquote><p>使用jdk1.8的时候设置了vm参数：-Xmx2048m -XX:PermSize=512m -XX:MaxPermSize=768m -Xss2m<br>此时运行java程序时VM提示如下警告：</p><pre><code>Java HotSpot(TM) 64-Bit Server VM warning: ignoring option PermSize=512m; support was removed in 8.0 Java HotSpot(TM) 64-Bit Server VM warning: ignoring option MaxPermSize=768m; support was removed in 8.0</code></pre><p>程序能正常兼容启动，不会产生影响，但这个提示还是引起了注意</p><p><strong>问题原因：</strong></p><p>-XX:PermSize和-XX:MaxPermSize在jdk1.8中被弃用了，使用-XX:MetaspaceSize和-XX:MaxMetaspaceSize替代。 </p><p>所以此时VM参数正确应为：-Xmx2048m -XX:MetaspaceSize=512m -XX:MaxMetaspaceSize=768m -Xss2m</p><p><strong>根本原因：</strong></p><p>在jdk1.8之前之前我们将储存类信息、常量、静态变量的方法区称为持久代(Permanent Generation)，PermSize和MaxPermSize是设置持久代大小的参数。</p><p>但是<strong><code>在jdk1.8中，持久代被完全移除了</code></strong>，所以这两个参数也被移除了，多了一个元数据区(Metadata Space)，所以设置元数据区大小的参数也变成对应的MetaspaceSize和MaxMetaspaceSize了。</p><hr><h1 id="DTS迁移问题"><a href="#DTS迁移问题" class="headerlink" title="DTS迁移问题"></a>DTS迁移问题</h1><p><strong>问题描述：</strong></p><blockquote><p>使用DTS进行迁移的时候，页面不出现数据库等信息。</p></blockquote><p><strong>问题解决：</strong></p><p>前端一个控件缓存的问题。</p><p>显示迁移列表的树形控件是单独引用的，连接上没有添加版本号，浏览器缓存未更新。</p><p>后面我们会再url带上版本信息，强制浏览器重新获取。</p><p>把这个js加上版本号 强制刷新</p><p>不用清缓存 会自动获取新的。<br>这样就不会有问题了</p>]]></content>
     
     <summary type="html">
     
@@ -477,60 +529,6 @@
     
     
       <category term="湿气" scheme="http://yoursite.com/tags/%E6%B9%BF%E6%B0%94/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>X-Pack</title>
-    <link href="http://yoursite.com/2018/04/19/X-Pack/"/>
-    <id>http://yoursite.com/2018/04/19/X-Pack/</id>
-    <published>2018-04-19T03:35:55.000Z</published>
-    <updated>2018-04-19T03:35:55.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>参考资料：</p><p><a href="https://www.elastic.co/guide/en/x-pack/current/index.html" target="_blank" rel="noopener">官网</a></p><h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><p>x-pack是Elastic Stack的扩展包，实现了如下的一系列功能：</p><ul><li>Security</li><li>Monitoring</li><li>Alerting and Notification</li><li>Reporting</li><li>Graph</li><li>Machine Learning</li></ul><h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1>]]></content>
-    
-    <summary type="html">
-    
-      X-Pack从入门到精通
-    
-    </summary>
-    
-      <category term="IT科学技术知识体系结构-Linux运维方向" scheme="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/"/>
-    
-      <category term="大数据" scheme="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E5%A4%A7%E6%95%B0%E6%8D%AE/"/>
-    
-      <category term="大数据相关组件" scheme="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E5%A4%A7%E6%95%B0%E6%8D%AE/%E5%A4%A7%E6%95%B0%E6%8D%AE%E7%9B%B8%E5%85%B3%E7%BB%84%E4%BB%B6/"/>
-    
-      <category term="X-Pack" scheme="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E5%A4%A7%E6%95%B0%E6%8D%AE/%E5%A4%A7%E6%95%B0%E6%8D%AE%E7%9B%B8%E5%85%B3%E7%BB%84%E4%BB%B6/X-Pack/"/>
-    
-    
-      <category term="X-Pack" scheme="http://yoursite.com/tags/X-Pack/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>服务器硬件知识</title>
-    <link href="http://yoursite.com/2018/04/18/%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%A1%AC%E4%BB%B6%E7%9F%A5%E8%AF%86/"/>
-    <id>http://yoursite.com/2018/04/18/服务器硬件知识/</id>
-    <published>2018-04-18T03:38:29.000Z</published>
-    <updated>2018-04-18T03:38:29.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>##</p>]]></content>
-    
-    <summary type="html">
-    
-      服务器硬件知识
-    
-    </summary>
-    
-      <category term="IT科学技术知识体系结构-Linux运维方向" scheme="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/"/>
-    
-      <category term="服务器硬件" scheme="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%A1%AC%E4%BB%B6/"/>
-    
-      <category term="服务器硬件知识" scheme="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%A1%AC%E4%BB%B6/%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%A1%AC%E4%BB%B6%E7%9F%A5%E8%AF%86/"/>
-    
-    
-      <category term="服务器硬件" scheme="http://yoursite.com/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%A1%AC%E4%BB%B6/"/>
     
   </entry>
   

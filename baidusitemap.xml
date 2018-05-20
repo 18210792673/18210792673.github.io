@@ -4,6 +4,58 @@
 
     
   <url>
+    <loc>http://yoursite.com/2018/05/20/Centos7%E5%AE%89%E8%A3%85Python3/</loc>
+    <lastmod>2018-05-20T06:17:38.000Z</lastmod>
+    <data>
+        <display>
+        <title>Centos7安装Python3</title>
+        <pubTime>2018-05-20T06:17:38.000Z</pubTime>
+        
+        <tag>python</tag>
+         
+         
+           
+             
+              <breadCrumb title="IT科学技术知识体系结构-Linux运维方向" url="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/"/>
+          
+             
+              <breadCrumb title="基础环境配置" url="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E5%9F%BA%E7%A1%80%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/"/>
+          
+             
+              <breadCrumb title="Python" url="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E5%9F%BA%E7%A1%80%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/Python/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://yoursite.com/2018/05/20/SaltStack%E6%8A%80%E6%9C%AF%E5%85%A5%E9%97%A8%E4%B8%8E%E5%AE%9E%E8%B7%B5/</loc>
+    <lastmod>2018-05-20T03:38:35.000Z</lastmod>
+    <data>
+        <display>
+        <title>SaltStack技术入门与实践</title>
+        <pubTime>2018-05-20T03:38:35.000Z</pubTime>
+        
+        <tag>tag1</tag>
+         
+         
+           
+             
+              <breadCrumb title="IT科学技术知识体系结构-Linux运维方向" url="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/"/>
+          
+             
+              <breadCrumb title="运维自动化" url="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E8%BF%90%E7%BB%B4%E8%87%AA%E5%8A%A8%E5%8C%96/"/>
+          
+             
+              <breadCrumb title="SaltStack" url="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E8%BF%90%E7%BB%B4%E8%87%AA%E5%8A%A8%E5%8C%96/SaltStack/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://yoursite.com/2018/05/17/zabbix%E6%B8%85%E7%90%86%E5%8E%86%E5%8F%B2%E6%95%B0%E6%8D%AE/</loc>
     <lastmod>2018-05-17T11:00:59.000Z</lastmod>
     <data>
@@ -1330,6 +1382,29 @@
 
     
   <url>
+    <loc>http://yoursite.com/2018/01/25/Markdown%E8%AF%AD%E6%B3%95/</loc>
+    <lastmod>2018-02-04T08:31:24.000Z</lastmod>
+    <data>
+        <display>
+        <title>Markdown语法</title>
+        <pubTime>2018-01-25T14:08:24.000Z</pubTime>
+        
+        <tag>markdown</tag>
+         
+         
+           
+             
+              <breadCrumb title="常用软件工具" url="http://yoursite.com/categories/%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6%E5%B7%A5%E5%85%B7/"/>
+          
+             
+              <breadCrumb title="Markdown" url="http://yoursite.com/categories/%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6%E5%B7%A5%E5%85%B7/Markdown/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://yoursite.com/2018/01/23/hello-world/</loc>
     <lastmod>2018-02-04T08:31:24.000Z</lastmod>
     <data>
@@ -1349,29 +1424,6 @@
           
              
               <breadCrumb title="Hexo" url="http://yoursite.com/categories/%E4%B8%AA%E4%BA%BA%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/Hexo/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://yoursite.com/2018/01/25/Markdown%E8%AF%AD%E6%B3%95/</loc>
-    <lastmod>2018-02-04T08:31:24.000Z</lastmod>
-    <data>
-        <display>
-        <title>Markdown语法</title>
-        <pubTime>2018-01-25T14:08:24.000Z</pubTime>
-        
-        <tag>markdown</tag>
-         
-         
-           
-             
-              <breadCrumb title="常用软件工具" url="http://yoursite.com/categories/%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6%E5%B7%A5%E5%85%B7/"/>
-          
-             
-              <breadCrumb title="Markdown" url="http://yoursite.com/categories/%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6%E5%B7%A5%E5%85%B7/Markdown/"/>
           
         </display>
     </data>

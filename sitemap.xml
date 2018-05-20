@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/2018/05/20/Centos7%E5%AE%89%E8%A3%85Python3/</loc>
+    
+    <lastmod>2018-05-20T06:17:38.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2018/05/20/SaltStack%E6%8A%80%E6%9C%AF%E5%85%A5%E9%97%A8%E4%B8%8E%E5%AE%9E%E8%B7%B5/</loc>
+    
+    <lastmod>2018-05-20T03:38:35.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/2018/05/17/zabbix%E6%B8%85%E7%90%86%E5%8E%86%E5%8F%B2%E6%95%B0%E6%8D%AE/</loc>
     
     <lastmod>2018-05-17T11:00:59.000Z</lastmod>
@@ -373,14 +387,14 @@
   </url>
   
   <url>
-    <loc>http://yoursite.com/2018/01/23/hello-world/</loc>
+    <loc>http://yoursite.com/2018/01/25/Markdown%E8%AF%AD%E6%B3%95/</loc>
     
     <lastmod>2018-02-04T08:31:24.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://yoursite.com/2018/01/25/Markdown%E8%AF%AD%E6%B3%95/</loc>
+    <loc>http://yoursite.com/2018/01/23/hello-world/</loc>
     
     <lastmod>2018-02-04T08:31:24.000Z</lastmod>
     
