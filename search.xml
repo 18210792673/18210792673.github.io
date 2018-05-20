@@ -1,9 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[常见应用程序/命令-协议/端口号对照表]]></title>
+    <url>%2F2018%2F05%2F20%2F%E5%B8%B8%E8%A7%81%E7%BD%91%E7%BB%9C%E5%BA%94%E7%94%A8%E7%AB%AF%E5%8F%A3%E5%8F%B7%E5%AF%B9%E7%85%A7%E8%A1%A8%2F</url>
+    <content type="text"><![CDATA[网络服务-端口对照关系表 应用程序API（命令） 主流程序 程序类别 3层协议 4层协议 5层协议 6层协议 7层协议 默认服务端口 程序说明 其他信息 FTP数据端口 vsftpd 网络程序 IP TCP FTP 20 文件传输 FTP连接控制认证 vsftpd 网络程序 IP TCP FTP 21 文件传输 ssh openssh 22 加固的远程连接 sallt-key salt-master 网络程序 IP TCP 4505 SaltStack-master端监听端口 sallt-key salt-master 网络程序 IP TCP 4506 SaltStack-master端监听端口 系统服务-协议对照关系表 应用程序/命令 主流程序 程序类别 3层协议 4层协议 5层协议 6层协议 7层协议 默认服务端口 程序说明 其他信息 ping命令 iputils 系统程序 icmp 探测主机到主机之间是否可通信]]></content>
+      <categories>
+        <category>IT基础知识</category>
+        <category>应用协议端口对照表</category>
+      </categories>
+      <tags>
+        <tag>常见应用程序/命令-协议/端口号对照表</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[Centos7安装Python3]]></title>
     <url>%2F2018%2F05%2F20%2FCentos7%E5%AE%89%E8%A3%85Python3%2F</url>
-    <content type="text"><![CDATA[在centos 7中，默认安装的python版本为2.7,一般情况下，我们都需要对python进行升级 [root@master ~]# cat /etc/redhat-release CentOS Linux release 7.3.1611 (Core) [root@master ~]# python --version Python 2.7.5 环境说明[root@master ~]# which python /usr/bin/python [root@master ~]# ll /usr/bin/python lrwxrwxrwx 1 root root 7 Apr 13 16:50 /usr/bin/python -&gt; python2 [root@master ~]# ll /usr/bin/python2 lrwxrwxrwx 1 root root 9 Apr 13 16:50 /usr/bin/python2 -&gt; python2.7 [root@master ~]# ll /usr/bin/python2.7 -rwxr-xr-x 1 root root 7136 Aug 4 2017 /usr/bin/python2.7 我们知道我们的python命令是在/usr/bin目录下 可以看到，python指向的是python2，python2指向的是python2.7 因此我们可以装个python3，然后将python指向python3，然后python2指向python2.7，那么两个版本的python就能共存了。 正式安装下载python3的源码包 wget https://www.python.org/ftp/python/3.6.5/Python-3.6.5.tgz 解压编译安装 [root@master software]# tar -zxvf Python-3.6.5.tgz [root@master software]# cd Python-3.6.5 [root@master Python-3.6.5]# ./configure –prefix=/usr/local/python3[root@master Python-3.6.5]# make &amp;&amp; make install 添加软链接 [root@master Python-3.6.5]# mv /usr/bin/python /usr/bin/python.bak [root@master Python-3.6.5]# ln -s /usr/local/python3/bin/python3.6 /usr/bin/python [root@master Python-3.6.5]# python –versionPython 3.6.5 补充操作更改yum配置安装完毕之后，我们需要修改yum的配置，因为其要使用python2执行，此时我们修改了python的指向路径，不修改则会导致yum无法正常使用。 vim /usr/bin/yum 把#! /usr/bin/python修改为#! /usr/bin/python2 vim /usr/libexec/urlgrabber-ext-down 把#! /usr/bin/python 修改为#! /usr/bin/python2]]></content>
+    <content type="text"><![CDATA[在centos 7中，默认安装的python版本为2.7,一般情况下，我们都需要对python进行升级 [root@master ~]# cat /etc/redhat-release CentOS Linux release 7.3.1611 (Core) [root@master ~]# python --version Python 2.7.5 环境说明[root@master ~]# which python /usr/bin/python [root@master ~]# ll /usr/bin/python lrwxrwxrwx 1 root root 7 Apr 13 16:50 /usr/bin/python -&gt; python2 [root@master ~]# ll /usr/bin/python2 lrwxrwxrwx 1 root root 9 Apr 13 16:50 /usr/bin/python2 -&gt; python2.7 [root@master ~]# ll /usr/bin/python2.7 -rwxr-xr-x 1 root root 7136 Aug 4 2017 /usr/bin/python2.7 我们知道我们的python命令是在/usr/bin目录下 可以看到，python指向的是python2，python2指向的是python2.7 因此我们可以装个python3，然后将python指向python3，然后python2指向python2.7，那么两个版本的python就能共存了。 正式安装下载python3的源码包 wget https://www.python.org/ftp/python/3.6.5/Python-3.6.5.tgz 解压编译安装 [root@master software]# tar -zxvf Python-3.6.5.tgz [root@master software]# cd Python-3.6.5 [root@master Python-3.6.5]# ./configure --prefix=/usr/local/python3 [root@master Python-3.6.5]# make &amp;&amp; make install 添加软链接 [root@master Python-3.6.5]# mv /usr/bin/python /usr/bin/python.bak [root@master Python-3.6.5]# ln -s /usr/local/python3/bin/python3.6 /usr/bin/python [root@master Python-3.6.5]# python --version Python 3.6.5 补充操作更改yum配置安装完毕之后，我们需要修改yum的配置，因为其要使用python2执行，此时我们修改了python的指向路径，不修改则会导致yum无法正常使用。 vim /usr/bin/yum 把#! /usr/bin/python修改为#! /usr/bin/python2 vim /usr/libexec/urlgrabber-ext-down 把#! /usr/bin/python 修改为#! /usr/bin/python2]]></content>
       <categories>
         <category>IT科学技术知识体系结构-Linux运维方向</category>
         <category>基础环境配置</category>
@@ -16,7 +28,7 @@
   <entry>
     <title><![CDATA[SaltStack技术入门与实践]]></title>
     <url>%2F2018%2F05%2F20%2FSaltStack%E6%8A%80%E6%9C%AF%E5%85%A5%E9%97%A8%E4%B8%8E%E5%AE%9E%E8%B7%B5%2F</url>
-    <content type="text"><![CDATA[参考文件： 书籍：《SaltStack技术入门与实践》 基础知识SlatStack是基于python开发的一套C/S架构配置管理工具，底层使用zeroMQ消息队列pub/sub的方式通信，使用SSL证书签发的方式进行认证管理，采用RSA Key方式确认身份，传输采用AES加密，这使得它的安全性有了一定的保障。 并且，SaltStack不止是一个配置管理工具，它还是一个做云计算与数据中心架构编排的利器- 重点： Python C/S架构 Server和Client之间的通信采用ZeroMQ pub/sub通信方式 SSL证书提供加密传输 服务架构在slatstack架构中，服务端叫做Master，客户端叫做Minion（英文翻译为：奴才；仆从；宠臣） 在我们理解的C/S架构中，工作流程为： 客户端发送请求给服务器端 服务器端接受请求并处理 处理完成之后，返回客户端 在slatstack中，不仅有这种传统的C/S架构服务模式，而且还有消息队列中的发布/订阅(pub/sub)服务模式，这就使得saltstack的应用场景更加丰富。 目前在实际的环境中，一般使用C/S架构进行配置管理 工作机制 Master和Minion端都是以守护进程的模式运行的，一直监听配置文件中定义的ret_port(接受minion请求)和publish_port（发布消息）的端口 当Minion运行时会自动连接到配置文件里面定义的Master地址和ret_port端口进行连接认证。 saltstack除了传统的的C/S架构，还有Masterless架构，如果采用该架构，我们就不需要单独安装一台salt-master机器，只需要在每台机器上安装Minion。然后采用本机只负责本机的配置管理工作机制服务模式。 Saltstack架构安装当前salt的安装一共有4四种方式： yum方式安装 pip方式安装 源码包方式安装 salt-bootstrap方式安装 在这里，我们使用yum方式进行安装 master端安装minion端安装配置注意：minion端在安装之后还需要进行配置（在配置文件中添加Master端的相关信息） 开启SaltStack之旅]]></content>
+    <content type="text"><![CDATA[参考文件： 书籍：《SaltStack技术入门与实践》 SaltStack基础入门SlatStack是基于python开发的一套C/S架构配置管理工具，底层使用zeroMQ消息队列pub/sub的方式通信，使用SSL证书签发的方式进行认证管理，采用RSA Key方式确认身份，传输采用AES加密，这使得它的安全性有了一定的保障。 并且，SaltStack不止是一个配置管理工具，它还是一个做云计算与数据中心架构编排的利器- 重点： Python C/S架构 Server和Client之间的通信采用ZeroMQ pub/sub通信方式 SSL证书提供加密传输 服务架构在slatstack架构中，服务端叫做Master，客户端叫做Minion（英文翻译为：奴才；仆从；宠臣） 在我们理解的C/S架构中，工作流程为： 客户端发送请求给服务器端 服务器端接受请求并处理 处理完成之后，返回客户端 在slatstack中，不仅有这种传统的C/S架构服务模式，而且还有消息队列中的发布/订阅(pub/sub)服务模式，这就使得saltstack的应用场景更加丰富。 目前在实际的环境中，一般使用C/S架构进行配置管理 工作机制 Master和Minion端都是以守护进程的模式运行的，一直监听配置文件中定义的ret_port(接受minion请求)和publish_port（发布消息）的端口 当Minion运行时会自动连接到配置文件里面定义的Master地址和ret_port端口进行连接认证。 saltstack除了传统的的C/S架构，还有Masterless架构，如果采用该架构，我们就不需要单独安装一台salt-master机器，只需要在每台机器上安装Minion。然后采用本机只负责本机的配置管理工作机制服务模式。 Saltstack架构安装当前salt的安装一共有4四种方式： yum方式安装 pip方式安装 源码包方式安装 salt-bootstrap方式安装 在这里，我们使用yum方式进行安装,另外3种方式可以参见书籍：《SaltStack技术入门与实践》 安装环境为：centos7+python3，如果不知道如何升级python，可以看我的另一篇文章：Centos7安装Python3 参考文献： 官方安装指南 yum源安装# yum -y install https://repo.saltstack.com/py3/redhat/salt-py3-repo-latest-2.el7.noarch.rpm master端安装安装 # yum -y install salt-master 启动服务 # systemctl start salt-master 额外操作 如果是阿里云服务器，我们还要在安全组中开放4505和4505端口 minion端安装配置安装 # yum -y install salt-minion 注意：minion端在安装之后还需要进行配置（在配置文件中添加Master端的相关信息） # sed -i &apos;s/#master: salt/master: 47.93.54.101/g&apos; /etc/salt/minion 启动服务 # systemctl start salt-minion 补充是否将服务设置为开机自动启动，请根据实际情况决定： 查看： # systemctl is-enabled salt-master/salt-minion disabled 设置： # systemctl enable salt-master/salt-minion 开启SaltStack之旅证书管理在前面的介绍中我们知道了saltstack使用SSL签证的方式进行安全认证，接下来我们就开始进行证书的管理]]></content>
       <categories>
         <category>IT科学技术知识体系结构-Linux运维方向</category>
         <category>运维自动化</category>
@@ -491,11 +503,11 @@
   </entry>
   <entry>
     <title><![CDATA[IT常用英语记录]]></title>
-    <url>%2F2018%2F04%2F16%2F%E5%B8%B8%E7%94%A8%E8%8B%B1%E8%AF%AD%E8%AE%B0%E5%BD%95%2F</url>
+    <url>%2F2018%2F04%2F16%2FIT%E5%B8%B8%E7%94%A8%E8%8B%B1%E8%AF%AD%E8%AE%B0%E5%BD%95%2F</url>
     <content type="text"><![CDATA[术语对照表 单词短语 释义 CURD CRUD (创建：Create， 读取：Read，更新：Update，删除： Delete) 是对于存储的信息可以进行操作的同义词。是一个对四种操作持久化信息的基本操作的助记符。CRUD 通常是指适用于存于数据库或数据存储器上的信息的操作，不过也可以应用在高层级的应用操作，例如通过在设置状态字段并标记删除的而并非移除数据的伪删除。 SDK RDS Remote Data Services。远程数据服务。云数据库 ECS 云服务器 ECS（Elastic Compute Service）是一种弹性可伸缩的计算服务 VPC 专有网络VPC（Virtual Private Cloud）是基于阿里云构建的一个隔离的网络环境，专有网络之间逻辑上彻底隔离。 PM Product Manager，产品经理 RD Research and Development 研究与开发 QA Qualtiy Assurance 品质保证。QA的主要职责就是质量保证工作。 OP Operator，操作员，管理员。 href hypertext reference 超文本连接 DML 数据变更是指DML(包含insert/delete/update) DDL 结构变更是指DDL(例如：create/drop/alter table) 单词对照表 英语 释义 side effect 副作用 properties 性能，属性，性质，特性，财产 involves 包含，牵涉 at-least-once 至少一次 deprecated 弃用，废弃，不赞成的 shipper 托运人；发货人；货主 prospectors 勘探者；探矿者 harvesters 收割机；收获者 layout 布局；设计；安排；陈列 keystore 密钥库;文件;密码;签名文件 permitted 被允许的；允许 individual 个人的；个别的；独特的；个体 seamlessly 无缝地 compatibility 兼容性 capabilities 能力；权限；功能；责任 migration 迁移；移民；移动 plural 复数 retrieve 检索，重新得到 Throughout 自始至终，到处；全部；贯穿，遍及 represent 代表；表现；描绘；回忆；再赠送 high-performance 高性能的；高效能的 objective 客观 Subjective 主观]]></content>
       <categories>
-        <category>个人知识体系</category>
-        <category>英语</category>
+        <category>IT基础知识</category>
+        <category>IT英语</category>
       </categories>
       <tags>
         <tag>IT常用英语</tag>

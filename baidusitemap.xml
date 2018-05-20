@@ -4,6 +4,29 @@
 
     
   <url>
+    <loc>http://yoursite.com/2018/05/20/%E5%B8%B8%E8%A7%81%E7%BD%91%E7%BB%9C%E5%BA%94%E7%94%A8%E7%AB%AF%E5%8F%A3%E5%8F%B7%E5%AF%B9%E7%85%A7%E8%A1%A8/</loc>
+    <lastmod>2018-05-20T08:36:46.000Z</lastmod>
+    <data>
+        <display>
+        <title>常见应用程序/命令-协议/端口号对照表</title>
+        <pubTime>2018-05-20T08:36:46.000Z</pubTime>
+        
+        <tag>常见应用程序/命令-协议/端口号对照表</tag>
+         
+         
+           
+             
+              <breadCrumb title="IT基础知识" url="http://yoursite.com/categories/IT%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/"/>
+          
+             
+              <breadCrumb title="应用协议端口对照表" url="http://yoursite.com/categories/IT%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/%E5%BA%94%E7%94%A8%E5%8D%8F%E8%AE%AE%E7%AB%AF%E5%8F%A3%E5%AF%B9%E7%85%A7%E8%A1%A8/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://yoursite.com/2018/05/20/Centos7%E5%AE%89%E8%A3%85Python3/</loc>
     <lastmod>2018-05-20T06:17:38.000Z</lastmod>
     <data>
@@ -965,7 +988,7 @@
 
     
   <url>
-    <loc>http://yoursite.com/2018/04/16/%E5%B8%B8%E7%94%A8%E8%8B%B1%E8%AF%AD%E8%AE%B0%E5%BD%95/</loc>
+    <loc>http://yoursite.com/2018/04/16/IT%E5%B8%B8%E7%94%A8%E8%8B%B1%E8%AF%AD%E8%AE%B0%E5%BD%95/</loc>
     <lastmod>2018-04-16T01:23:49.000Z</lastmod>
     <data>
         <display>
@@ -977,10 +1000,10 @@
          
            
              
-              <breadCrumb title="个人知识体系" url="http://yoursite.com/categories/%E4%B8%AA%E4%BA%BA%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/"/>
+              <breadCrumb title="IT基础知识" url="http://yoursite.com/categories/IT%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/"/>
           
              
-              <breadCrumb title="英语" url="http://yoursite.com/categories/%E4%B8%AA%E4%BA%BA%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/%E8%8B%B1%E8%AF%AD/"/>
+              <breadCrumb title="IT英语" url="http://yoursite.com/categories/IT%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/IT%E8%8B%B1%E8%AF%AD/"/>
           
         </display>
     </data>
@@ -1382,29 +1405,6 @@
 
     
   <url>
-    <loc>http://yoursite.com/2018/01/25/Markdown%E8%AF%AD%E6%B3%95/</loc>
-    <lastmod>2018-02-04T08:31:24.000Z</lastmod>
-    <data>
-        <display>
-        <title>Markdown语法</title>
-        <pubTime>2018-01-25T14:08:24.000Z</pubTime>
-        
-        <tag>markdown</tag>
-         
-         
-           
-             
-              <breadCrumb title="常用软件工具" url="http://yoursite.com/categories/%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6%E5%B7%A5%E5%85%B7/"/>
-          
-             
-              <breadCrumb title="Markdown" url="http://yoursite.com/categories/%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6%E5%B7%A5%E5%85%B7/Markdown/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>http://yoursite.com/2018/01/23/hello-world/</loc>
     <lastmod>2018-02-04T08:31:24.000Z</lastmod>
     <data>
@@ -1424,6 +1424,29 @@
           
              
               <breadCrumb title="Hexo" url="http://yoursite.com/categories/%E4%B8%AA%E4%BA%BA%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/Hexo/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://yoursite.com/2018/01/25/Markdown%E8%AF%AD%E6%B3%95/</loc>
+    <lastmod>2018-02-04T08:31:24.000Z</lastmod>
+    <data>
+        <display>
+        <title>Markdown语法</title>
+        <pubTime>2018-01-25T14:08:24.000Z</pubTime>
+        
+        <tag>markdown</tag>
+         
+         
+           
+             
+              <breadCrumb title="常用软件工具" url="http://yoursite.com/categories/%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6%E5%B7%A5%E5%85%B7/"/>
+          
+             
+              <breadCrumb title="Markdown" url="http://yoursite.com/categories/%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6%E5%B7%A5%E5%85%B7/Markdown/"/>
           
         </display>
     </data>

@@ -451,7 +451,7 @@
 <ul>
 <li>书籍：《SaltStack技术入门与实践》</li>
 </ul>
-<h1 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h1><p>SlatStack是基于python开发的一套C/S架构配置管理工具，底层使用zeroMQ消息队列pub/sub的方式通信，使用SSL证书签发的方式进行认证管理，采用RSA Key方式确认身份，传输采用AES加密，这使得它的安全性有了一定的保障。</p>
+<h1 id="SaltStack基础入门"><a href="#SaltStack基础入门" class="headerlink" title="SaltStack基础入门"></a>SaltStack基础入门</h1><p>SlatStack是基于python开发的一套C/S架构配置管理工具，底层使用zeroMQ消息队列pub/sub的方式通信，使用SSL证书签发的方式进行认证管理，采用RSA Key方式确认身份，传输采用AES加密，这使得它的安全性有了一定的保障。</p>
 <p>并且，SaltStack不止是一个配置管理工具，它还是一个做云计算与数据中心架构编排的利器-</p>
 <p>重点：</p>
 <ul>
@@ -482,9 +482,34 @@
 <li>源码包方式安装</li>
 <li>salt-bootstrap方式安装</li>
 </ul>
-<p>在这里，我们使用yum方式进行安装</p>
-<h3 id="master端安装"><a href="#master端安装" class="headerlink" title="master端安装"></a>master端安装</h3><h3 id="minion端安装配置"><a href="#minion端安装配置" class="headerlink" title="minion端安装配置"></a>minion端安装配置</h3><p>注意：minion端在安装之后还需要进行配置（在配置文件中添加Master端的相关信息）</p>
-<h1 id="开启SaltStack之旅"><a href="#开启SaltStack之旅" class="headerlink" title="开启SaltStack之旅"></a>开启SaltStack之旅</h1>
+<p>在这里，我们使用yum方式进行安装,另外3种方式可以参见书籍：《SaltStack技术入门与实践》</p>
+<p>安装环境为：centos7+python3，如果不知道如何升级python，可以看我的另一篇文章：<a href="http://watchmen.xin/2018/05/20/Centos7%E5%AE%89%E8%A3%85Python3/" target="_blank" rel="noopener">Centos7安装Python3</a></p>
+<p><strong>参考文献：</strong></p>
+<ul>
+<li><a href="https://repo.saltstack.com/#rhel" target="_blank" rel="noopener">官方安装指南</a></li>
+</ul>
+<h3 id="yum源安装"><a href="#yum源安装" class="headerlink" title="yum源安装"></a>yum源安装</h3><pre><code># yum -y install https://repo.saltstack.com/py3/redhat/salt-py3-repo-latest-2.el7.noarch.rpm 
+</code></pre><h3 id="master端安装"><a href="#master端安装" class="headerlink" title="master端安装"></a>master端安装</h3><p><strong>安装</strong></p>
+<pre><code># yum -y install salt-master
+</code></pre><p><strong>启动服务</strong></p>
+<pre><code># systemctl start salt-master
+</code></pre><p><strong>额外操作</strong></p>
+<p>如果是阿里云服务器，我们还要在安全组中开放4505和4505端口</p>
+<h3 id="minion端安装配置"><a href="#minion端安装配置" class="headerlink" title="minion端安装配置"></a>minion端安装配置</h3><p><strong>安装</strong></p>
+<pre><code># yum -y install salt-minion
+</code></pre><p>注意：minion端在安装之后还需要进行配置（在配置文件中添加Master端的相关信息）</p>
+<pre><code># sed -i &apos;s/#master: salt/master: 47.93.54.101/g&apos; /etc/salt/minion
+</code></pre><p><strong>启动服务</strong></p>
+<pre><code># systemctl  start salt-minion
+</code></pre><h3 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h3><p>是否将服务设置为开机自动启动，请根据实际情况决定：</p>
+<p>查看：</p>
+<pre><code># systemctl is-enabled salt-master/salt-minion
+disabled
+</code></pre><p>设置：</p>
+<pre><code># systemctl enable salt-master/salt-minion
+</code></pre><hr>
+<h2 id="开启SaltStack之旅"><a href="#开启SaltStack之旅" class="headerlink" title="开启SaltStack之旅"></a>开启SaltStack之旅</h2><h3 id="证书管理"><a href="#证书管理" class="headerlink" title="证书管理"></a>证书管理</h3><p>在前面的介绍中我们知道了saltstack使用SSL签证的方式进行安全认证，接下来我们就开始进行证书的管理</p>
+
       
     </div>
     
@@ -667,7 +692,7 @@ var jiathis_config={
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">56</span>
+                  <span class="site-state-item-count">57</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -678,7 +703,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">75</span>
+                  <span class="site-state-item-count">76</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -689,7 +714,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">58</span>
+                  <span class="site-state-item-count">59</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -729,7 +754,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#基础知识"><span class="nav-number">1.</span> <span class="nav-text">基础知识</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#服务架构"><span class="nav-number">1.1.</span> <span class="nav-text">服务架构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Saltstack架构安装"><span class="nav-number">1.2.</span> <span class="nav-text">Saltstack架构安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#master端安装"><span class="nav-number">1.2.1.</span> <span class="nav-text">master端安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#minion端安装配置"><span class="nav-number">1.2.2.</span> <span class="nav-text">minion端安装配置</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#开启SaltStack之旅"><span class="nav-number">2.</span> <span class="nav-text">开启SaltStack之旅</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#SaltStack基础入门"><span class="nav-number">1.</span> <span class="nav-text">SaltStack基础入门</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#服务架构"><span class="nav-number">1.1.</span> <span class="nav-text">服务架构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Saltstack架构安装"><span class="nav-number">1.2.</span> <span class="nav-text">Saltstack架构安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#yum源安装"><span class="nav-number">1.2.1.</span> <span class="nav-text">yum源安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#master端安装"><span class="nav-number">1.2.2.</span> <span class="nav-text">master端安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#minion端安装配置"><span class="nav-number">1.2.3.</span> <span class="nav-text">minion端安装配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#补充"><span class="nav-number">1.2.4.</span> <span class="nav-text">补充</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#开启SaltStack之旅"><span class="nav-number">1.3.</span> <span class="nav-text">开启SaltStack之旅</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#证书管理"><span class="nav-number">1.3.1.</span> <span class="nav-text">证书管理</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
