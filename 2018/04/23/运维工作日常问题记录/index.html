@@ -439,20 +439,11 @@
 
       
         <p><strong>问题目录：</strong></p>
-<ul>
-<li><ol>
+<ol>
 <li>su: cannot set user id: Resource temporarily unavailable</li>
-</ol>
-</li>
-<li><ol>
 <li>ignoring option PermSize=512m; support was removed in 8.0</li>
-</ol>
-</li>
-<li><ol>
 <li>DTS迁移问题</li>
 </ol>
-</li>
-</ul>
 <hr>
 <h1 id="su-cannot-set-user-id-Resource-temporarily-unavailable"><a href="#su-cannot-set-user-id-Resource-temporarily-unavailable" class="headerlink" title="su: cannot set user id: Resource temporarily unavailable"></a>su: cannot set user id: Resource temporarily unavailable</h1><p><strong>问题描述：</strong></p>
 <blockquote>
@@ -463,7 +454,7 @@
 su: cannot set user id: Resource temporarily unavailable
 </code></pre><p>常见的能够控制用户资源的文件一般有两个，一是/etc/profile,二是/etc/security/limits.conf。</p>
 <p>除此之外，在Centos6.x版本后，还有一个配置文件对ulimit设置生效，就是<code>/etc/security/limits.d/90-nproc.conf</code></p>
-<h3 id="etc-security-limits-conf文件"><a href="#etc-security-limits-conf文件" class="headerlink" title="/etc/security/limits.conf文件"></a>/etc/security/limits.conf文件</h3><p>如下图所示：</p>
+<h2 id="etc-security-limits-conf文件"><a href="#etc-security-limits-conf文件" class="headerlink" title="/etc/security/limits.conf文件"></a>/etc/security/limits.conf文件</h2><p>如下图所示：</p>
 <p><img src="http://picture.watchmen.xin/problems/1.png" alt="图片"></p>
 <p>domain: </p>
 <p>是指限制的对象，可以是个人，也可以是组，组前面要加@符号，也可以设置为除root用户外的 任何人，用*号表示；</p>
@@ -479,7 +470,7 @@ root hard nofile 65535
 * soft nofile 65535
 * hard nofile 65535
 </code></pre><p>可以看到是没有问题的</p>
-<h3 id="etc-security-limits-d-90-nproc-conf"><a href="#etc-security-limits-d-90-nproc-conf" class="headerlink" title="/etc/security/limits.d/90-nproc.conf"></a>/etc/security/limits.d/90-nproc.conf</h3><pre><code>[appqa@qa3-app018 ~]$ cat /etc/security/limits.d/90-nproc.conf
+<h2 id="etc-security-limits-d-90-nproc-conf"><a href="#etc-security-limits-d-90-nproc-conf" class="headerlink" title="/etc/security/limits.d/90-nproc.conf"></a>/etc/security/limits.d/90-nproc.conf</h2><pre><code>[appqa@qa3-app018 ~]$ cat /etc/security/limits.d/90-nproc.conf
 # Default limit for number of user&apos;s processes to prevent
 # accidental fork bombs.
 # See rhbz #432903 for reasoning.
@@ -719,7 +710,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">58</span>
+                  <span class="site-state-item-count">56</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -759,7 +750,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#su-cannot-set-user-id-Resource-temporarily-unavailable"><span class="nav-number">1.</span> <span class="nav-text">su: cannot set user id: Resource temporarily unavailable</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#etc-security-limits-conf文件"><span class="nav-number">1.0.1.</span> <span class="nav-text">/etc/security/limits.conf文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#etc-security-limits-d-90-nproc-conf"><span class="nav-number">1.0.2.</span> <span class="nav-text">/etc/security/limits.d/90-nproc.conf</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ignoring-option-PermSize-512m-support-was-removed-in-8-0"><span class="nav-number">2.</span> <span class="nav-text">ignoring option PermSize=512m; support was removed in 8.0</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#DTS迁移问题"><span class="nav-number">3.</span> <span class="nav-text">DTS迁移问题</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#su-cannot-set-user-id-Resource-temporarily-unavailable"><span class="nav-number">1.</span> <span class="nav-text">su: cannot set user id: Resource temporarily unavailable</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#etc-security-limits-conf文件"><span class="nav-number">1.1.</span> <span class="nav-text">/etc/security/limits.conf文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#etc-security-limits-d-90-nproc-conf"><span class="nav-number">1.2.</span> <span class="nav-text">/etc/security/limits.d/90-nproc.conf</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ignoring-option-PermSize-512m-support-was-removed-in-8-0"><span class="nav-number">2.</span> <span class="nav-text">ignoring option PermSize=512m; support was removed in 8.0</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#DTS迁移问题"><span class="nav-number">3.</span> <span class="nav-text">DTS迁移问题</span></a></li></ol></div>
             
 
           </div>
