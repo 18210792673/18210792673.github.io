@@ -438,7 +438,23 @@
       
 
       
-        <h1 id="su-cannot-set-user-id-Resource-temporarily-unavailable"><a href="#su-cannot-set-user-id-Resource-temporarily-unavailable" class="headerlink" title="su: cannot set user id: Resource temporarily unavailable"></a>su: cannot set user id: Resource temporarily unavailable</h1><p><strong>问题描述：</strong></p>
+        <p><strong>问题目录：</strong></p>
+<ul>
+<li><ol>
+<li>su: cannot set user id: Resource temporarily unavailable</li>
+</ol>
+</li>
+<li><ol>
+<li>ignoring option PermSize=512m; support was removed in 8.0</li>
+</ol>
+</li>
+<li><ol>
+<li>DTS迁移问题</li>
+</ol>
+</li>
+</ul>
+<hr>
+<h1 id="su-cannot-set-user-id-Resource-temporarily-unavailable"><a href="#su-cannot-set-user-id-Resource-temporarily-unavailable" class="headerlink" title="su: cannot set user id: Resource temporarily unavailable"></a>su: cannot set user id: Resource temporarily unavailable</h1><p><strong>问题描述：</strong></p>
 <blockquote>
 <p>切换用户时提示资源不可用问题解决</p>
 </blockquote>
@@ -472,6 +488,7 @@ root hard nofile 65535
 root       soft    nproc     unlimited
 </code></pre><p>这这里发现默认最大进程数只有1024</p>
 <p>将1024修改为10240之后，再次执行su即可恢复正常，问题得到解决。</p>
+<hr>
 <h1 id="ignoring-option-PermSize-512m-support-was-removed-in-8-0"><a href="#ignoring-option-PermSize-512m-support-was-removed-in-8-0" class="headerlink" title="ignoring option PermSize=512m; support was removed in 8.0"></a>ignoring option PermSize=512m; support was removed in 8.0</h1><p><strong>问题描述：</strong></p>
 <blockquote>
 <p>java1.8之后持久代被废弃</p>
@@ -486,6 +503,7 @@ Java HotSpot(TM) 64-Bit Server VM warning: ignoring option MaxPermSize=768m; sup
 <p><strong>根本原因：</strong></p>
 <p>在jdk1.8之前之前我们将储存类信息、常量、静态变量的方法区称为持久代(Permanent Generation)，PermSize和MaxPermSize是设置持久代大小的参数。</p>
 <p>但是<strong><code>在jdk1.8中，持久代被完全移除了</code></strong>，所以这两个参数也被移除了，多了一个元数据区(Metadata Space)，所以设置元数据区大小的参数也变成对应的MetaspaceSize和MaxMetaspaceSize了。</p>
+<hr>
 <h1 id="DTS迁移问题"><a href="#DTS迁移问题" class="headerlink" title="DTS迁移问题"></a>DTS迁移问题</h1><p><strong>问题描述：</strong></p>
 <blockquote>
 <p>使用DTS进行迁移的时候，页面不出现数据库等信息。</p>
