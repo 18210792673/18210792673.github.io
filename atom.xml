@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2018-05-20T08:36:46.000Z</updated>
+  <updated>2018-05-20T09:19:09.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,56 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>IT类书籍资料</title>
+    <link href="http://yoursite.com/2018/05/20/IT%E7%B1%BB%E4%B9%A6%E7%B1%8D%E8%B5%84%E6%96%99/"/>
+    <id>http://yoursite.com/2018/05/20/IT类书籍资料/</id>
+    <published>2018-05-20T09:19:09.000Z</published>
+    <updated>2018-05-20T09:19:09.000Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="科普读物"><a href="#科普读物" class="headerlink" title="科普读物"></a>科普读物</h1><table><thead><tr><th style="text-align:center">名称</th><th style="text-align:center">类型</th><th style="text-align:center">作者</th><th style="text-align:center">阅读状态</th><th>备注</th></tr></thead><tbody><tr><td style="text-align:center">浪潮之巅</td><td style="text-align:center">书籍</td><td style="text-align:center">吴军</td><td style="text-align:center">未读</td><td></td></tr><tr><td style="text-align:center">数学之美</td><td style="text-align:center">书籍</td><td style="text-align:center">吴军</td><td style="text-align:center">未读</td><td></td></tr></tbody></table><h1 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h1><p><strong>Mysql：</strong></p><table><thead><tr><th style="text-align:center">名称</th><th style="text-align:center">类型</th><th style="text-align:center">作者</th><th style="text-align:center">备注</th></tr></thead><tbody><tr><td style="text-align:center">MySQL技术内幕_InnoDB存储引擎.第2版</td><td style="text-align:center">书籍</td><td style="text-align:center"></td></tr><tr><td style="text-align:center">高性能mysql</td><td style="text-align:center">书籍</td><td style="text-align:center"></td></tr><tr><td style="text-align:center">MySQL 5.5从零开始学</td><td style="text-align:center">书籍</td></tr></tbody></table>]]></content>
+    
+    <summary type="html">
+    
+      IT类书籍资料
+    
+    </summary>
+    
+      <category term="IT基础知识" scheme="http://yoursite.com/categories/IT%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/"/>
+    
+      <category term="IT类书籍资料" scheme="http://yoursite.com/categories/IT%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/IT%E7%B1%BB%E4%B9%A6%E7%B1%8D%E8%B5%84%E6%96%99/"/>
+    
+    
+      <category term="IT书籍资料" scheme="http://yoursite.com/tags/IT%E4%B9%A6%E7%B1%8D%E8%B5%84%E6%96%99/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Salt常用命令</title>
+    <link href="http://yoursite.com/2018/05/20/Salt%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/"/>
+    <id>http://yoursite.com/2018/05/20/Salt常用命令/</id>
+    <published>2018-05-20T09:08:43.000Z</published>
+    <updated>2018-05-20T09:08:43.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>有关SaltStack相关知识，可以看另一篇文章，本文只是记录常用命令，便于日常使用检索</p><p><a href="http://watchmen.xin/2018/05/20/SaltStack%E6%8A%80%E6%9C%AF%E5%85%A5%E9%97%A8%E4%B8%8E%E5%AE%9E%E8%B7%B5/" target="_blank" rel="noopener">SaltStack技术入门与实践</a></p><h1 id="Salt-master端命令"><a href="#Salt-master端命令" class="headerlink" title="Salt-master端命令"></a>Salt-master端命令</h1><ul><li><p><strong>查看证书签证情况</strong></p><p>  [root@master ~]# salt-key  -L </p></li><li><p><strong>同意签证所有没有接受的签证请求</strong></p></li></ul><pre><code>[root@master ~]# salt-key  -A -y </code></pre>]]></content>
+    
+    <summary type="html">
+    
+      Salt常用命令
+    
+    </summary>
+    
+      <category term="IT科学技术知识体系结构-Linux运维方向" scheme="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/"/>
+    
+      <category term="运维自动化" scheme="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E8%BF%90%E7%BB%B4%E8%87%AA%E5%8A%A8%E5%8C%96/"/>
+    
+      <category term="SaltStack" scheme="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E8%BF%90%E7%BB%B4%E8%87%AA%E5%8A%A8%E5%8C%96/SaltStack/"/>
+    
+    
+      <category term="SaltStack" scheme="http://yoursite.com/tags/SaltStack/"/>
+    
+  </entry>
   
   <entry>
     <title>常见应用程序/命令-协议/端口号对照表</title>
@@ -73,7 +123,7 @@
     <published>2018-05-20T03:38:35.000Z</published>
     <updated>2018-05-20T03:38:35.000Z</updated>
     
-    <content type="html"><![CDATA[<p>参考文件：</p><ul><li>书籍：《SaltStack技术入门与实践》</li></ul><h1 id="SaltStack基础入门"><a href="#SaltStack基础入门" class="headerlink" title="SaltStack基础入门"></a>SaltStack基础入门</h1><p>SlatStack是基于python开发的一套C/S架构配置管理工具，底层使用zeroMQ消息队列pub/sub的方式通信，使用SSL证书签发的方式进行认证管理，采用RSA Key方式确认身份，传输采用AES加密，这使得它的安全性有了一定的保障。</p><p>并且，SaltStack不止是一个配置管理工具，它还是一个做云计算与数据中心架构编排的利器-</p><p>重点：</p><ul><li>Python</li><li>C/S架构</li><li>Server和Client之间的通信采用ZeroMQ pub/sub通信方式</li><li>SSL证书提供加密传输</li></ul><h2 id="服务架构"><a href="#服务架构" class="headerlink" title="服务架构"></a>服务架构</h2><p>在slatstack架构中，服务端叫做Master，客户端叫做Minion（英文翻译为：奴才；仆从；宠臣）</p><p>在我们理解的C/S架构中，工作流程为：</p><blockquote><p>客户端发送请求给服务器端</p><p>服务器端接受请求并处理</p><p>处理完成之后，返回客户端</p></blockquote><p>在slatstack中，不仅有这种传统的C/S架构服务模式，而且还有消息队列中的发布/订阅(pub/sub)服务模式，这就使得saltstack的应用场景更加丰富。</p><p>目前在实际的环境中，一般使用C/S架构进行配置管理</p><p><strong>工作机制</strong></p><blockquote><p>Master和Minion端都是以守护进程的模式运行的，一直监听配置文件中定义的<strong><code>ret_port(接受minion请求)和publish_port（发布消息）的端口</code></strong></p><p>当Minion运行时会自动连接到配置文件里面定义的Master地址和ret_port端口进行连接认证。</p></blockquote><p>saltstack除了传统的的C/S架构，还有Masterless架构，如果采用该架构，我们就不需要单独安装一台salt-master机器，只需要在每台机器上安装Minion。然后采用本机只负责本机的配置管理工作机制服务模式。</p><h2 id="Saltstack架构安装"><a href="#Saltstack架构安装" class="headerlink" title="Saltstack架构安装"></a>Saltstack架构安装</h2><p>当前salt的安装一共有4四种方式：</p><ul><li>yum方式安装</li><li>pip方式安装</li><li>源码包方式安装</li><li>salt-bootstrap方式安装</li></ul><p>在这里，我们使用yum方式进行安装,另外3种方式可以参见书籍：《SaltStack技术入门与实践》</p><p>安装环境为：centos7+python3，如果不知道如何升级python，可以看我的另一篇文章：<a href="http://watchmen.xin/2018/05/20/Centos7%E5%AE%89%E8%A3%85Python3/" target="_blank" rel="noopener">Centos7安装Python3</a></p><p><strong>参考文献：</strong></p><ul><li><a href="https://repo.saltstack.com/#rhel" target="_blank" rel="noopener">官方安装指南</a></li></ul><h3 id="yum源安装"><a href="#yum源安装" class="headerlink" title="yum源安装"></a>yum源安装</h3><pre><code># yum -y install https://repo.saltstack.com/py3/redhat/salt-py3-repo-latest-2.el7.noarch.rpm </code></pre><h3 id="master端安装"><a href="#master端安装" class="headerlink" title="master端安装"></a>master端安装</h3><p><strong>安装</strong></p><pre><code># yum -y install salt-master</code></pre><p><strong>启动服务</strong></p><pre><code># systemctl start salt-master</code></pre><p><strong>额外操作</strong></p><p>如果是阿里云服务器，我们还要在安全组中开放4505和4505端口</p><h3 id="minion端安装配置"><a href="#minion端安装配置" class="headerlink" title="minion端安装配置"></a>minion端安装配置</h3><p><strong>安装</strong></p><pre><code># yum -y install salt-minion</code></pre><p>注意：minion端在安装之后还需要进行配置（在配置文件中添加Master端的相关信息）</p><pre><code># sed -i &apos;s/#master: salt/master: 47.93.54.101/g&apos; /etc/salt/minion</code></pre><p><strong>启动服务</strong></p><pre><code># systemctl  start salt-minion</code></pre><h3 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h3><p>是否将服务设置为开机自动启动，请根据实际情况决定：</p><p>查看：</p><pre><code># systemctl is-enabled salt-master/salt-miniondisabled</code></pre><p>设置：</p><pre><code># systemctl enable salt-master/salt-minion</code></pre><hr><h2 id="开启SaltStack之旅"><a href="#开启SaltStack之旅" class="headerlink" title="开启SaltStack之旅"></a>开启SaltStack之旅</h2><h3 id="证书管理"><a href="#证书管理" class="headerlink" title="证书管理"></a>证书管理</h3><p>在前面的介绍中我们知道了saltstack使用SSL签证的方式进行安全认证，接下来我们就开始进行证书的管理</p>]]></content>
+    <content type="html"><![CDATA[<p>参考文件：</p><ul><li>书籍：《SaltStack技术入门与实践》</li></ul><h1 id="SaltStack基础入门"><a href="#SaltStack基础入门" class="headerlink" title="SaltStack基础入门"></a>SaltStack基础入门</h1><p>SlatStack是基于python开发的一套C/S架构配置管理工具，底层使用zeroMQ消息队列pub/sub的方式通信，使用SSL证书签发的方式进行认证管理，采用RSA Key方式确认身份，传输采用AES加密，这使得它的安全性有了一定的保障。</p><p>并且，SaltStack不止是一个配置管理工具，它还是一个做云计算与数据中心架构编排的利器-</p><p>重点：</p><ul><li>Python</li><li>C/S架构</li><li>Server和Client之间的通信采用ZeroMQ pub/sub通信方式</li><li>SSL证书提供加密传输</li></ul><h2 id="服务架构"><a href="#服务架构" class="headerlink" title="服务架构"></a>服务架构</h2><p>在slatstack架构中，服务端叫做Master，客户端叫做Minion（英文翻译为：奴才；仆从；宠臣）</p><p>在我们理解的C/S架构中，工作流程为：</p><blockquote><p>客户端发送请求给服务器端</p><p>服务器端接受请求并处理</p><p>处理完成之后，返回客户端</p></blockquote><p>在slatstack中，不仅有这种传统的C/S架构服务模式，而且还有消息队列中的发布/订阅(pub/sub)服务模式，这就使得saltstack的应用场景更加丰富。</p><p>目前在实际的环境中，一般使用C/S架构进行配置管理</p><p><strong>工作机制</strong></p><blockquote><p>Master和Minion端都是以守护进程的模式运行的，一直监听配置文件中定义的<strong><code>ret_port(接受minion请求)和publish_port（发布消息）的端口</code></strong></p><p>当Minion运行时会自动连接到配置文件里面定义的Master地址和ret_port端口进行连接认证。</p></blockquote><p>saltstack除了传统的的C/S架构，还有Masterless架构，如果采用该架构，我们就不需要单独安装一台salt-master机器，只需要在每台机器上安装Minion。然后采用本机只负责本机的配置管理工作机制服务模式。</p><h2 id="Saltstack架构安装"><a href="#Saltstack架构安装" class="headerlink" title="Saltstack架构安装"></a>Saltstack架构安装</h2><p>当前salt的安装一共有4四种方式：</p><ul><li>yum方式安装</li><li>pip方式安装</li><li>源码包方式安装</li><li>salt-bootstrap方式安装</li></ul><p>在这里，我们使用yum方式进行安装,另外3种方式可以参见书籍：《SaltStack技术入门与实践》</p><p>安装环境为：centos7+python3，如果不知道如何升级python，可以看我的另一篇文章：<a href="http://watchmen.xin/2018/05/20/Centos7%E5%AE%89%E8%A3%85Python3/" target="_blank" rel="noopener">Centos7安装Python3</a></p><p><strong>参考文献：</strong></p><ul><li><a href="https://repo.saltstack.com/#rhel" target="_blank" rel="noopener">官方安装指南</a></li></ul><h3 id="yum源安装"><a href="#yum源安装" class="headerlink" title="yum源安装"></a>yum源安装</h3><pre><code># yum -y install https://repo.saltstack.com/py3/redhat/salt-py3-repo-latest-2.el7.noarch.rpm </code></pre><h3 id="master端安装"><a href="#master端安装" class="headerlink" title="master端安装"></a>master端安装</h3><p><strong>安装</strong></p><pre><code># yum -y install salt-master</code></pre><p><strong>启动服务</strong></p><pre><code># systemctl start salt-master</code></pre><p><strong>额外操作</strong></p><p>如果是阿里云服务器，我们还要在安全组中开放4505和4506端口</p><h3 id="minion端安装配置"><a href="#minion端安装配置" class="headerlink" title="minion端安装配置"></a>minion端安装配置</h3><p><strong>安装</strong></p><pre><code># yum -y install salt-minion</code></pre><p>注意：minion端在安装之后还需要进行配置（在配置文件中添加Master端的相关信息）</p><pre><code># sed -i &apos;s/#master: salt/master: 47.93.54.101/g&apos; /etc/salt/minion</code></pre><p><strong>启动服务</strong></p><pre><code># systemctl  start salt-minion</code></pre><h3 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h3><p>是否将服务设置为开机自动启动，请根据实际情况决定：</p><p>查看：</p><pre><code># systemctl is-enabled salt-master/salt-miniondisabled</code></pre><p>设置：</p><pre><code># systemctl enable salt-master/salt-minion</code></pre><hr><h2 id="开启SaltStack之旅"><a href="#开启SaltStack之旅" class="headerlink" title="开启SaltStack之旅"></a>开启SaltStack之旅</h2><h3 id="证书管理"><a href="#证书管理" class="headerlink" title="证书管理"></a>证书管理</h3><p>在前面的介绍中我们知道了saltstack使用SSL签证的方式进行安全认证，接下来我们就开始进行证书的管理</p><p>minion端服务启动之后，我们在master端就能看到Minion的证书签证请求，下面我们需要对这台Minion进行签售证书</p><p>[root@master ~]# salt-key  -L<br>Accepted Keys:<br>Denied Keys:<br>Unaccepted Keys:<br>slave.kisspuppet.com<br>Rejected Keys:</p><p>[root@master ~]# salt-key -A -y<br>The following keys are going to be accepted:<br>Unaccepted Keys:<br>slave.kisspuppet.com<br>Key for minion slave.kisspuppet.com accepted.<br>[root@master ~]# salt-key  -L<br>Accepted Keys:<br>slave.kisspuppet.com<br>Denied Keys:<br>Unaccepted Keys:<br>Rejected Keys:</p><h1 id=""><a href="#" class="headerlink" title="#"></a>#</h1>]]></content>
     
     <summary type="html">
     
@@ -88,7 +138,7 @@
       <category term="SaltStack" scheme="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E8%BF%90%E7%BB%B4%E8%87%AA%E5%8A%A8%E5%8C%96/SaltStack/"/>
     
     
-      <category term="tag1" scheme="http://yoursite.com/tags/tag1/"/>
+      <category term="SaltStack" scheme="http://yoursite.com/tags/SaltStack/"/>
     
   </entry>
   
@@ -479,54 +529,6 @@
     
     
       <category term="python版本" scheme="http://yoursite.com/tags/python%E7%89%88%E6%9C%AC/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>运维工作日常问题记录</title>
-    <link href="http://yoursite.com/2018/04/23/%E8%BF%90%E7%BB%B4%E5%B7%A5%E4%BD%9C%E6%97%A5%E5%B8%B8%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/"/>
-    <id>http://yoursite.com/2018/04/23/运维工作日常问题记录/</id>
-    <published>2018-04-23T03:47:55.000Z</published>
-    <updated>2018-04-23T03:47:55.000Z</updated>
-    
-    <content type="html"><![CDATA[<p><strong>问题目录：</strong></p><ol><li>su: cannot set user id: Resource temporarily unavailable</li><li>ignoring option PermSize=512m; support was removed in 8.0</li><li>DTS迁移问题</li></ol><hr><p>#su: cannot set user id: Resource temporarily unavailable#</p><p><strong>问题描述：</strong></p><blockquote><p>切换用户时提示资源不可用问题解决</p></blockquote><p>切换用户时出现如下提示符：</p><pre><code>[root@qa3-app018 ~]# su - appqasu: cannot set user id: Resource temporarily unavailable</code></pre><p>常见的能够控制用户资源的文件一般有两个，一是/etc/profile,二是/etc/security/limits.conf。</p><p>除此之外，在Centos6.x版本后，还有一个配置文件对ulimit设置生效，就是<code>/etc/security/limits.d/90-nproc.conf</code></p><h2 id="etc-security-limits-conf文件"><a href="#etc-security-limits-conf文件" class="headerlink" title="/etc/security/limits.conf文件"></a>/etc/security/limits.conf文件</h2><p>如下图所示：</p><p><img src="http://picture.watchmen.xin/problems/1.png" alt="图片"></p><p>domain: </p><p>是指限制的对象，可以是个人，也可以是组，组前面要加@符号，也可以设置为除root用户外的 任何人，用*号表示；</p><p>type:</p><p>是指类型，soft是当前系统生效的值，hard是系统可以设置的最大值；</p><p>item:</p><p>项目，是可以对什么项目做限制，如最大进程数，文件最大值；</p><p>value:</p><p>值，所设置的值的大小。</p><p><strong>这里我的设置是：</strong></p><pre><code>root soft nofile 65535root hard nofile 65535* soft nofile 65535* hard nofile 65535</code></pre><p>可以看到是没有问题的</p><h2 id="etc-security-limits-d-90-nproc-conf"><a href="#etc-security-limits-d-90-nproc-conf" class="headerlink" title="/etc/security/limits.d/90-nproc.conf"></a>/etc/security/limits.d/90-nproc.conf</h2><pre><code>[appqa@qa3-app018 ~]$ cat /etc/security/limits.d/90-nproc.conf# Default limit for number of user&apos;s processes to prevent# accidental fork bombs.# See rhbz #432903 for reasoning.*          soft    nproc     1024root       soft    nproc     unlimited</code></pre><p>这这里发现默认最大进程数只有1024</p><p>将1024修改为10240之后，再次执行su即可恢复正常，问题得到解决。</p><hr><h1 id="ignoring-option-PermSize-512m-support-was-removed-in-8-0"><a href="#ignoring-option-PermSize-512m-support-was-removed-in-8-0" class="headerlink" title="ignoring option PermSize=512m; support was removed in 8.0"></a>ignoring option PermSize=512m; support was removed in 8.0</h1><p><strong>问题描述：</strong></p><blockquote><p>java1.8之后持久代被废弃</p></blockquote><p>使用jdk1.8的时候设置了vm参数：-Xmx2048m -XX:PermSize=512m -XX:MaxPermSize=768m -Xss2m<br>此时运行java程序时VM提示如下警告：</p><pre><code>Java HotSpot(TM) 64-Bit Server VM warning: ignoring option PermSize=512m; support was removed in 8.0 Java HotSpot(TM) 64-Bit Server VM warning: ignoring option MaxPermSize=768m; support was removed in 8.0</code></pre><p>程序能正常兼容启动，不会产生影响，但这个提示还是引起了注意</p><p><strong>问题原因：</strong></p><p>-XX:PermSize和-XX:MaxPermSize在jdk1.8中被弃用了，使用-XX:MetaspaceSize和-XX:MaxMetaspaceSize替代。 </p><p>所以此时VM参数正确应为：-Xmx2048m -XX:MetaspaceSize=512m -XX:MaxMetaspaceSize=768m -Xss2m</p><p><strong>根本原因：</strong></p><p>在jdk1.8之前之前我们将储存类信息、常量、静态变量的方法区称为持久代(Permanent Generation)，PermSize和MaxPermSize是设置持久代大小的参数。</p><p>但是<strong><code>在jdk1.8中，持久代被完全移除了</code></strong>，所以这两个参数也被移除了，多了一个元数据区(Metadata Space)，所以设置元数据区大小的参数也变成对应的MetaspaceSize和MaxMetaspaceSize了。</p><hr><h1 id="DTS迁移问题"><a href="#DTS迁移问题" class="headerlink" title="DTS迁移问题"></a>DTS迁移问题</h1><p><strong>问题描述：</strong></p><blockquote><p>使用DTS进行迁移的时候，页面不出现数据库等信息。</p></blockquote><p><strong>问题解决：</strong></p><p>前端一个控件缓存的问题。</p><p>显示迁移列表的树形控件是单独引用的，连接上没有添加版本号，浏览器缓存未更新。</p><p>后面我们会再url带上版本信息，强制浏览器重新获取。</p><p>把这个js加上版本号 强制刷新</p><p>不用清缓存 会自动获取新的。<br>这样就不会有问题了</p>]]></content>
-    
-    <summary type="html">
-    
-      运维工作日常问题记录
-    
-    </summary>
-    
-      <category term="IT科学技术知识体系结构-Linux运维方向" scheme="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/"/>
-    
-      <category term="运维工作日常问题" scheme="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E8%BF%90%E7%BB%B4%E5%B7%A5%E4%BD%9C%E6%97%A5%E5%B8%B8%E9%97%AE%E9%A2%98/"/>
-    
-    
-      <category term="运维问题" scheme="http://yoursite.com/tags/%E8%BF%90%E7%BB%B4%E9%97%AE%E9%A2%98/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>python中方法与函数的区别</title>
-    <link href="http://yoursite.com/2018/04/22/python%E4%B8%AD%E5%B1%9E%E6%80%A7%E4%B8%8E%E6%96%B9%E6%B3%95%E7%9A%84%E5%8C%BA%E5%88%AB/"/>
-    <id>http://yoursite.com/2018/04/22/python中属性与方法的区别/</id>
-    <published>2018-04-22T07:08:05.000Z</published>
-    <updated>2018-04-22T07:08:05.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>定义:</p><ul><li>function(函数) —— A series of statements which returns some value toa caller. It can also be passed zero or more arguments which may beused in the execution of the body.</li></ul><ul><li>method(方法) —— A function which is defined inside a class body. Ifcalled as an attribute of an instance of that class, the methodwill get the instance object as its first argument (which isusually called self).</li></ul><blockquote><p>Function包含一个函数头和一个函数体, 支持0到n个形参</p><p>而Method则是在function的基础上, 多了一层类的关系, 正因为这一层类, 所以区分了 function 和 method.而这个过程是通过 PyMethod_New实现的</p></blockquote><p>也就是说，函数可以脱离于类单独存在，在使用的时候，需要往函数中传入参数（实参）</p><p>而方法是与某个对象紧密联系的，不能脱离于类而存在方法的作用域只是在一个类中，只能在该类实例化后被该类使用</p><p>方法的绑定, 肯定是伴随着class的实例化而发生,我们都知道, 在class里定义方法, 需要显示传入self参数, 因为这个self是代表即将被实例化的对象。</p><p><strong>定义角度：</strong></p><p>从定义的角度上看，我们知道函数(function)就相当于一个数学公式，它理论上不与其它东西关系，它只需要相关的参数就可以。所以普通的在module中定义的称谓函数是很有道理的。</p><p>那么方法的意思就很明确了，它是与某个对象相互关联的，也就是说它的实现与某个对象有关联关系。这就是方法。虽然它的定义方式和函数是一样的。也就是说，在Class定义的函数就是方法。</p><p><strong>总结：</strong></p><pre><code>函数是一段代码，通过名字来进行调用。它能将一些数据（参数）传递进去进行处理，然后返回一些数据（返回值），也可以没有返回值。所有传递给函数的数据都是显式传递的。方法也是一段代码，也通过名字来进行调用，但它跟一个对象相关联。方法和函数大致上是相同的，但有两个主要的不同之处：方法中的数据是隐式传递的；方法可以操作类内部的数据（请记住，对象是类的实例化–类定义了一个数据类型，而对象是该数据类型的一个实例化）</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      python中方法与函数的区别
-    
-    </summary>
-    
-      <category term="编程语言" scheme="http://yoursite.com/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/"/>
-    
-      <category term="Python" scheme="http://yoursite.com/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Python/"/>
-    
-    
-      <category term="python方法与函数" scheme="http://yoursite.com/tags/python%E6%96%B9%E6%B3%95%E4%B8%8E%E5%87%BD%E6%95%B0/"/>
     
   </entry>
   

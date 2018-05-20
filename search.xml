@@ -1,6 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[IT类书籍资料]]></title>
+    <url>%2F2018%2F05%2F20%2FIT%E7%B1%BB%E4%B9%A6%E7%B1%8D%E8%B5%84%E6%96%99%2F</url>
+    <content type="text"><![CDATA[科普读物 名称 类型 作者 阅读状态 备注 浪潮之巅 书籍 吴军 未读 数学之美 书籍 吴军 未读 数据库Mysql： 名称 类型 作者 备注 MySQL技术内幕_InnoDB存储引擎.第2版 书籍 高性能mysql 书籍 MySQL 5.5从零开始学 书籍]]></content>
+      <categories>
+        <category>IT基础知识</category>
+        <category>IT类书籍资料</category>
+      </categories>
+      <tags>
+        <tag>IT书籍资料</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Salt常用命令]]></title>
+    <url>%2F2018%2F05%2F20%2FSalt%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%2F</url>
+    <content type="text"><![CDATA[有关SaltStack相关知识，可以看另一篇文章，本文只是记录常用命令，便于日常使用检索 SaltStack技术入门与实践 Salt-master端命令 查看证书签证情况 [root@master ~]# salt-key -L 同意签证所有没有接受的签证请求 [root@master ~]# salt-key -A -y]]></content>
+      <categories>
+        <category>IT科学技术知识体系结构-Linux运维方向</category>
+        <category>运维自动化</category>
+        <category>SaltStack</category>
+      </categories>
+      <tags>
+        <tag>SaltStack</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[常见应用程序/命令-协议/端口号对照表]]></title>
     <url>%2F2018%2F05%2F20%2F%E5%B8%B8%E8%A7%81%E7%BD%91%E7%BB%9C%E5%BA%94%E7%94%A8%E7%AB%AF%E5%8F%A3%E5%8F%B7%E5%AF%B9%E7%85%A7%E8%A1%A8%2F</url>
     <content type="text"><![CDATA[网络服务-端口对照关系表 应用程序API（命令） 主流程序 程序类别 3层协议 4层协议 5层协议 6层协议 7层协议 默认服务端口 程序说明 其他信息 FTP数据端口 vsftpd 网络程序 IP TCP FTP 20 文件传输 FTP连接控制认证 vsftpd 网络程序 IP TCP FTP 21 文件传输 ssh openssh 22 加固的远程连接 sallt-key salt-master 网络程序 IP TCP 4505 SaltStack-master端监听端口 sallt-key salt-master 网络程序 IP TCP 4506 SaltStack-master端监听端口 系统服务-协议对照关系表 应用程序/命令 主流程序 程序类别 3层协议 4层协议 5层协议 6层协议 7层协议 默认服务端口 程序说明 其他信息 ping命令 iputils 系统程序 icmp 探测主机到主机之间是否可通信]]></content>
@@ -28,14 +53,14 @@
   <entry>
     <title><![CDATA[SaltStack技术入门与实践]]></title>
     <url>%2F2018%2F05%2F20%2FSaltStack%E6%8A%80%E6%9C%AF%E5%85%A5%E9%97%A8%E4%B8%8E%E5%AE%9E%E8%B7%B5%2F</url>
-    <content type="text"><![CDATA[参考文件： 书籍：《SaltStack技术入门与实践》 SaltStack基础入门SlatStack是基于python开发的一套C/S架构配置管理工具，底层使用zeroMQ消息队列pub/sub的方式通信，使用SSL证书签发的方式进行认证管理，采用RSA Key方式确认身份，传输采用AES加密，这使得它的安全性有了一定的保障。 并且，SaltStack不止是一个配置管理工具，它还是一个做云计算与数据中心架构编排的利器- 重点： Python C/S架构 Server和Client之间的通信采用ZeroMQ pub/sub通信方式 SSL证书提供加密传输 服务架构在slatstack架构中，服务端叫做Master，客户端叫做Minion（英文翻译为：奴才；仆从；宠臣） 在我们理解的C/S架构中，工作流程为： 客户端发送请求给服务器端 服务器端接受请求并处理 处理完成之后，返回客户端 在slatstack中，不仅有这种传统的C/S架构服务模式，而且还有消息队列中的发布/订阅(pub/sub)服务模式，这就使得saltstack的应用场景更加丰富。 目前在实际的环境中，一般使用C/S架构进行配置管理 工作机制 Master和Minion端都是以守护进程的模式运行的，一直监听配置文件中定义的ret_port(接受minion请求)和publish_port（发布消息）的端口 当Minion运行时会自动连接到配置文件里面定义的Master地址和ret_port端口进行连接认证。 saltstack除了传统的的C/S架构，还有Masterless架构，如果采用该架构，我们就不需要单独安装一台salt-master机器，只需要在每台机器上安装Minion。然后采用本机只负责本机的配置管理工作机制服务模式。 Saltstack架构安装当前salt的安装一共有4四种方式： yum方式安装 pip方式安装 源码包方式安装 salt-bootstrap方式安装 在这里，我们使用yum方式进行安装,另外3种方式可以参见书籍：《SaltStack技术入门与实践》 安装环境为：centos7+python3，如果不知道如何升级python，可以看我的另一篇文章：Centos7安装Python3 参考文献： 官方安装指南 yum源安装# yum -y install https://repo.saltstack.com/py3/redhat/salt-py3-repo-latest-2.el7.noarch.rpm master端安装安装 # yum -y install salt-master 启动服务 # systemctl start salt-master 额外操作 如果是阿里云服务器，我们还要在安全组中开放4505和4505端口 minion端安装配置安装 # yum -y install salt-minion 注意：minion端在安装之后还需要进行配置（在配置文件中添加Master端的相关信息） # sed -i &apos;s/#master: salt/master: 47.93.54.101/g&apos; /etc/salt/minion 启动服务 # systemctl start salt-minion 补充是否将服务设置为开机自动启动，请根据实际情况决定： 查看： # systemctl is-enabled salt-master/salt-minion disabled 设置： # systemctl enable salt-master/salt-minion 开启SaltStack之旅证书管理在前面的介绍中我们知道了saltstack使用SSL签证的方式进行安全认证，接下来我们就开始进行证书的管理]]></content>
+    <content type="text"><![CDATA[参考文件： 书籍：《SaltStack技术入门与实践》 SaltStack基础入门SlatStack是基于python开发的一套C/S架构配置管理工具，底层使用zeroMQ消息队列pub/sub的方式通信，使用SSL证书签发的方式进行认证管理，采用RSA Key方式确认身份，传输采用AES加密，这使得它的安全性有了一定的保障。 并且，SaltStack不止是一个配置管理工具，它还是一个做云计算与数据中心架构编排的利器- 重点： Python C/S架构 Server和Client之间的通信采用ZeroMQ pub/sub通信方式 SSL证书提供加密传输 服务架构在slatstack架构中，服务端叫做Master，客户端叫做Minion（英文翻译为：奴才；仆从；宠臣） 在我们理解的C/S架构中，工作流程为： 客户端发送请求给服务器端 服务器端接受请求并处理 处理完成之后，返回客户端 在slatstack中，不仅有这种传统的C/S架构服务模式，而且还有消息队列中的发布/订阅(pub/sub)服务模式，这就使得saltstack的应用场景更加丰富。 目前在实际的环境中，一般使用C/S架构进行配置管理 工作机制 Master和Minion端都是以守护进程的模式运行的，一直监听配置文件中定义的ret_port(接受minion请求)和publish_port（发布消息）的端口 当Minion运行时会自动连接到配置文件里面定义的Master地址和ret_port端口进行连接认证。 saltstack除了传统的的C/S架构，还有Masterless架构，如果采用该架构，我们就不需要单独安装一台salt-master机器，只需要在每台机器上安装Minion。然后采用本机只负责本机的配置管理工作机制服务模式。 Saltstack架构安装当前salt的安装一共有4四种方式： yum方式安装 pip方式安装 源码包方式安装 salt-bootstrap方式安装 在这里，我们使用yum方式进行安装,另外3种方式可以参见书籍：《SaltStack技术入门与实践》 安装环境为：centos7+python3，如果不知道如何升级python，可以看我的另一篇文章：Centos7安装Python3 参考文献： 官方安装指南 yum源安装# yum -y install https://repo.saltstack.com/py3/redhat/salt-py3-repo-latest-2.el7.noarch.rpm master端安装安装 # yum -y install salt-master 启动服务 # systemctl start salt-master 额外操作 如果是阿里云服务器，我们还要在安全组中开放4505和4506端口 minion端安装配置安装 # yum -y install salt-minion 注意：minion端在安装之后还需要进行配置（在配置文件中添加Master端的相关信息） # sed -i &apos;s/#master: salt/master: 47.93.54.101/g&apos; /etc/salt/minion 启动服务 # systemctl start salt-minion 补充是否将服务设置为开机自动启动，请根据实际情况决定： 查看： # systemctl is-enabled salt-master/salt-minion disabled 设置： # systemctl enable salt-master/salt-minion 开启SaltStack之旅证书管理在前面的介绍中我们知道了saltstack使用SSL签证的方式进行安全认证，接下来我们就开始进行证书的管理 minion端服务启动之后，我们在master端就能看到Minion的证书签证请求，下面我们需要对这台Minion进行签售证书 [root@master ~]# salt-key -LAccepted Keys:Denied Keys:Unaccepted Keys:slave.kisspuppet.comRejected Keys: [root@master ~]# salt-key -A -yThe following keys are going to be accepted:Unaccepted Keys:slave.kisspuppet.comKey for minion slave.kisspuppet.com accepted.[root@master ~]# salt-key -LAccepted Keys:slave.kisspuppet.comDenied Keys:Unaccepted Keys:Rejected Keys: #]]></content>
       <categories>
         <category>IT科学技术知识体系结构-Linux运维方向</category>
         <category>运维自动化</category>
         <category>SaltStack</category>
       </categories>
       <tags>
-        <tag>tag1</tag>
+        <tag>SaltStack</tag>
       </tags>
   </entry>
   <entry>
