@@ -471,10 +471,39 @@ mysql&gt; optimize table history;
 mysql&gt; optimize table history_uint;
 
 注：执行过优化命令之后可能会需要很长的一段时间，中间不要中断，否则容易丢失数据。
-</code></pre><h2 id="启动应用"><a href="#启动应用" class="headerlink" title="启动应用"></a>启动应用</h2><p><strong>启动zabbix_server</strong></p>
-<p>rider-contract-service</p>
-<p>app465<br>app476 </p>
+</code></pre><h2 id="启动应用"><a href="#启动应用" class="headerlink" title="启动应用"></a>启动应用</h2><p>在数据库中给pt用户进行授权</p>
+<p><strong>删除3个月之前的数据</strong></p>
+<pre><code>pt-archiver --source h=192.168.1.202,P=3306,D=zabbix,t=history,u=pt,p=123456 --no-check-charset --where &apos;clock &lt; unix_timestamp(date_sub(curdate(),interval 3 month))&apos; --limit=500 --commit-each --sleep-coef=0.1 --nosafe-auto-increment --noversion-check --why-quit --purge --statistics --bulk-delete --progress=100000 &gt;&gt; ./tmp.log
 
+
+
+
+
+[root@master004-qa ~]# cat tmp.log 
+
+TIME                ELAPSED   COUNT
+2018-05-21T10:02:53       0       0
+2018-05-21T11:37:33    5679  100000
+2018-05-21T12:31:14    8900  200000
+2018-05-21T12:38:00    9307  300000
+2018-05-21T13:03:57   10863  313744
+Started at 2018-05-21T10:02:53, ended at 2018-05-21T13:40:20
+Source: D=zabbix,P=3306,h=192.168.1.202,p=...,t=history,u=pt
+SELECT 313744
+INSERT 0
+DELETE 313675
+Action             Count       Time        Pct
+select               629 11701.8659      89.69
+bulk_deleting        628  1310.4642      10.04
+commit               629    30.3126       0.23
+other                  0     4.7184       0.04
+Exiting because there are no more rows.
+[root@master004-qa ~]# 
+</code></pre><p><strong>释放空间</strong></p>
+<pre><code>pt-online-schema-change --alter &quot;engine=innodb&quot; --print --charset utf8 --chunk-time 1.000000 --max-load Threads_running=50 --recurse=1 --check-interval 5.000000 --alter-foreign-keys-method=none --force --execute --statistics --max-lag 3.000000 --noversion-check --recursion-method=processlist --progress percentage,1 --user=pt --password=123456 --host=192.168.1.202 --port=3306 D=zabbix,t=history
+</code></pre><p><strong>创建主键</strong></p>
+<pre><code>mysql -A zabbix -e &quot;alter table history add column id bigint auto_increment primary key first&quot; 
+</code></pre>
       
     </div>
     
@@ -657,7 +686,7 @@ var jiathis_config={
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">59</span>
+                  <span class="site-state-item-count">60</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -668,7 +697,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">77</span>
+                  <span class="site-state-item-count">79</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -679,7 +708,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">60</span>
+                  <span class="site-state-item-count">59</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
