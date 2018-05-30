@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2018-05-24T13:05:55.000Z</updated>
+  <updated>2018-05-30T12:55:38.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>带宽计算方法及B与b说明</title>
+    <link href="http://yoursite.com/2018/05/30/%E5%B8%A6%E5%AE%BD%E8%AE%A1%E7%AE%97%E6%96%B9%E6%B3%95%E5%8F%8AB%E4%B8%8Eb%E8%AF%B4%E6%98%8E/"/>
+    <id>http://yoursite.com/2018/05/30/带宽计算方法及B与b说明/</id>
+    <published>2018-05-30T12:55:38.000Z</published>
+    <updated>2018-05-30T12:55:38.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>参考文献：</p><ul><li><a href="https://blog.csdn.net/tianlesoftware/article/details/6909042" target="_blank" rel="noopener">带宽计算方法及大B与小b说明</a></li></ul><h1 id="bit与Byte的关系"><a href="#bit与Byte的关系" class="headerlink" title="bit与Byte的关系"></a>bit与Byte的关系</h1><p><strong>源信息</strong></p><p>在计算机科学中，bit（比特）是表示信息的最小单位，叫做二进制位；一般用0和1表示。</p><p>Byte叫做字节，由8个比特位（8bit）组成一个字节(1Byte)，用于表示计算机中的一个字符。</p><p>bit与Byte之间可以进行换算，其换算关系为：1Byte=8bit（或简写为：1B=8b）</p><p>在实际应用中一般用简称， 即1bit简写为1b(注意是小写英文字母b)，1Byte简写为1B（注意是大写英文字母B）。</p><p><strong>ISP的表示</strong></p><p>在计算机网络或者是网络运营商(Internet service provider)中，一般宽带速率的表示单位用bps(或b/s，小b)表示；</p><p>bps表示<strong><code>比特每秒</code></strong>即表示<strong><code>每秒钟传输多少位</code></strong>信息，是<strong><code>bit per second</code></strong>的缩写。在实际所说的1M带宽的意思是1Mbps（是兆比特每秒Mbps不是兆字节每秒MBps）</p><font color="red"><strong>换算公式:</strong></font><pre><code>1Byte    =    8bit1B    =    8b---------- 1B/s=8b/s(或1Bps=8bps)1KB    =    1024B---------- 1KB/s=1024B/s1MB    =    1024KB ---------- 1MB/s=1024KB/s最终：1Mbps =    1024*1024 bps = 1024 Kbps = 1024/8 KBps = 128KBps = 128KB/s</code></pre><p><strong>规范提示：</strong></p><blockquote><p>在实际书写中，B应表示Byte(字节)，b应表示bit(比特)，但是我们在实际书写中很容易把bit和Byte都混写为b ，如把Mb/s和MB/s都混写为Mb/s，导致人们在实际计算中因单位的混淆而出错。</p></blockquote><h1 id="实际应用"><a href="#实际应用" class="headerlink" title="实际应用"></a>实际应用</h1><p>在实际上网应用中，下载软件时常常看到诸如下载速度显示为128KB（KB/s），103KB/s等等宽带速率大小字样，因为ISP提供的线路带宽使用的单位是比特（bit，即小b），而一般下载软件显示的是字节（byte，1byte＝8bits），所以要通过换算，才能得实际值。</p><p>所以，我们可以按照公式换算一下：</p><pre><code>128KB/s=128×8(Kb/s)=1024Kb/s=1Mb/s即：128KB/s=1Mb/s。</code></pre><p>也就是说1Mb的带宽，下载速度为128KB/s秒</p><p>在一些软件的带宽的显示页面，通常的显示页面也是以bps的方式来显示，这个时候，我们就需要进行一下换算，例如下面的页面截图（阿里云带宽使用情况）</p><p><img src="http://picture.watchmen.xin/network/bandwidth.png" alt="带宽"></p><p>图中所选的这个值是：13272120 bps(bits/s)，我们下面进行换算：</p><pre><code>13272120 bps = 13272120/1024 Kbps = 13272120/1024/1024 Mbps = 12.65723 Mbps </code></pre><p>换算之后，我们可以看到这里显示的带宽是12.6M</p><h2 id="补充：ADSL宽带知识"><a href="#补充：ADSL宽带知识" class="headerlink" title="补充：ADSL宽带知识"></a>补充：ADSL宽带知识</h2><p>ADSL（Asymmetric Digital Subscriber Loop）技术是一种不对称数字用户线实现宽带接入互连网的技术，ADSL作为一种传输层的技术，充分利用现有的铜线资源，在一对双绞线上提供上行640kbps（理论上行1Mbps）下行8Mbps的带宽，从而克服了传统用户在”最后一公里”的”瓶颈”，实现了真正意义上的宽带接入。</p><p><strong>上行速率：</strong>是指用户电脑向网络发送信息时的数据传输速率。</p><p><strong>下行速率：</strong> 是指网络向用户电脑发送信息时的传输速率。比如用 FTP上传文件到网上去，影响上传速度的就是“上行速率”；而从网上下载文件，影响下载速度的就是“下行速率”。</p><p>当然，在实际上传下载过程中，线路、设备 (含计算机及其他设备)等的质量也会对速度造成或多或少的影响。</p><p><strong>上行速率对上行速率的影响</strong></p><p>TCP/IP规定，每一个封包，都需要有acknowledge信息的回传，也就是说，传输的资料，需要有一个收到资料的信息回复，才能决定后面的传输速度，并决定是否重新传输遗失的资料。　</p><p><font color="red">行的带宽一部分就是用来传输这些acknowledge(确认)资料的，当上行负载过大的时候，就会影响acknowledge资料的传送速度，并进而影响到下载速度。这对非对称数字环路也就是ADSL这种上行带宽远小于下载带宽的连接来说影响尤为明显。</font>　 </p><p>有试验证明，当上传满载时，下载速度讲变为理想速度的40%，这就可以解释为什么很多朋友用BT下载的时候稍微限速反而能够获得更大的下载速度。</p><h1 id="总结"><a href="#总结" class="headerlink" title="总结 #　"></a>总结 #　</h1><p>在网络运营商提供的宽带速率单位中，”bps”是指”bit per second”。</p><p>而我们在日常生活中，使用的一般是”Byte persecond”(Bps)</p><p>我们说的带宽几M几M指的是 2Mbps、8Mbps这种格式，为了便于更加直观的查看，我们会转回成为KB的形式，也就是说，我们拿到这个数字之后，需要先*1024，将M变成K，然后再/8，最后的单位就是我们最常使用的单位了。</p><p>举个栗子：</p><pre><code>1M的带宽，理论的下载速度为：1*1024/8= 128KB/s8M的带宽，理论的下载速度为：8*1024/8 = 1024KB/s = 1MB/s</code></pre><p>在8M带宽之后，我们的换算，可以直接除以8来得到结果</p><pre><code>100M的带宽，理论的下载速度为： 100/8 = 12.5MB/s</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      带宽计算方法及B与b说明
+    
+    </summary>
+    
+      <category term="IT科学技术知识体系结构-Linux运维方向" scheme="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/"/>
+    
+      <category term="网络知识" scheme="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E7%BD%91%E7%BB%9C%E7%9F%A5%E8%AF%86/"/>
+    
+      <category term="基础知识" scheme="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E7%BD%91%E7%BB%9C%E7%9F%A5%E8%AF%86/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/"/>
+    
+    
+      <category term="带宽计算" scheme="http://yoursite.com/tags/%E5%B8%A6%E5%AE%BD%E8%AE%A1%E7%AE%97/"/>
+    
+  </entry>
   
   <entry>
     <title>Python基础知识</title>
@@ -507,32 +533,6 @@
     
     
       <category term="HTML" scheme="http://yoursite.com/tags/HTML/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>disconf</title>
-    <link href="http://yoursite.com/2018/04/25/disconf/"/>
-    <id>http://yoursite.com/2018/04/25/disconf/</id>
-    <published>2018-04-25T08:15:14.000Z</published>
-    <updated>2018-04-25T08:15:14.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>官方资料：</p><p><a href="https://github.com/knightliao/disconf" target="_blank" rel="noopener">github主页</a></p><h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>disconf专注于各种「分布式系统配置管理」的「通用组件」和「通用平台」, 提供统一的「配置管理服务」</p><p>工作流程如下图所示：</p><p><img src="http://picture.watchmen.xin/disconf/disconf.jpg" alt="disconf"></p><p><strong>实现目标：</strong></p><ul><li>部署极其简单：同一个上线包，无须改动配置，即可在 多个环境中(RD/QA/PRODUCTION) 上线 【每个应用中只需要配置相关的参数即可。】</li></ul><ul><li>部署动态化：更改配置，无需重新打包或重启，即可 实时生效</li></ul><ul><li>统一管理：提供web平台，统一管理 多个环境(RD/QA/PRODUCTION)、多个产品 的所有配置</li></ul><ul><li>核心目标：一个jar包，到处运行,涉及到配置不会存储在项目文件中</li></ul><h1 id="部署及使用"><a href="#部署及使用" class="headerlink" title="部署及使用"></a>部署及使用</h1>]]></content>
-    
-    <summary type="html">
-    
-      Distributed Configuration Management Platform(分布式配置管理平台)
-    
-    </summary>
-    
-      <category term="IT科学技术知识体系结构-Linux运维方向" scheme="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/"/>
-    
-      <category term="分布式" scheme="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E5%88%86%E5%B8%83%E5%BC%8F/"/>
-    
-      <category term="disconf" scheme="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E5%88%86%E5%B8%83%E5%BC%8F/disconf/"/>
-    
-    
-      <category term="disconf" scheme="http://yoursite.com/tags/disconf/"/>
     
   </entry>
   

@@ -108,6 +108,12 @@
 <meta property="og:image" content="http://picture.watchmen.xin/vpc/vpcswitchconfig.png">
 <meta property="og:image" content="http://picture.watchmen.xin/vpc/creatvpc.png">
 <meta property="og:image" content="http://picture.watchmen.xin/vpc/defaultvpc.png">
+<meta property="og:image" content="http://picture.watchmen.xin/vpc/route_vpc_inter.png">
+<meta property="og:image" content="http://picture.watchmen.xin/vpc/route_vpc_vpc.png">
+<meta property="og:image" content="http://picture.watchmen.xin/vpc/route_vpc_vpn.png">
+<meta property="og:image" content="http://picture.watchmen.xin/vpc/route_vpc_idc.png">
+<meta property="og:image" content="http://picture.watchmen.xin/vpc/route_vpc_idc2.png">
+<meta property="og:image" content="http://picture.watchmen.xin/vpc/vpc_route_config.png">
 <meta property="og:updated_time" content="2018-04-17T05:57:23.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="VPC从入门到实践">
@@ -754,7 +760,96 @@
 <p><strong>说明：</strong>每个地域只有一个默认专有网络，但每个专有网络内的每个可用区都可创建一个默认交换机。</p>
 <p>默认专有网和交换机的配置如下表所示。</p>
 <p><img src="http://picture.watchmen.xin/vpc/defaultvpc.png" alt=""></p>
-<h2 id="路由表和路由条目"><a href="#路由表和路由条目" class="headerlink" title="路由表和路由条目"></a>路由表和路由条目</h2>
+<h2 id="路由表和路由条目"><a href="#路由表和路由条目" class="headerlink" title="路由表和路由条目"></a>路由表和路由条目</h2><p>创建专有网络时，系统会为该专有网络自动创建一个路由器和一张路由表。</p>
+<p>路由表中的每一项是一条路由条目。路由条目指定了网络流量的导向目的地，由<strong><code>目标网段、下一跳类型、下一跳</code></strong>三部分组成。路由条目包括系统路由和自定义路由。</p>
+<p>您不可以直接删除专有网络的路由器或路由表，但可以在路由表中添加自定义路由条目转发流量。删除VPC后，关联的路由器和路由表也会随之删除。</p>
+<h3 id="系统路由"><a href="#系统路由" class="headerlink" title="系统路由"></a>系统路由</h3><p>创建VPC时，系统会自动添加一条目标网段为100.64.0.0/10的系统路由用于VPC内的云产品通信。另外，阿里云也会为交换机自动添加一条以交换机网段为目标网段的系统路由。</p>
+<p>我们不可以创建，也不能删除系统路由。</p>
+<p>比如我创建了一个网段为192.168.0.0/16的专有网络，并在该专有网络下创建了两个网段为192.168.1.0/24和192.168.0.0/24的交换机，则该专有网络的路由表中会有如下三条系统路由：</p>
+<pre><code>目标网段            下一跳类型    下一跳        类型
+100.64.0.0/10            -        -        系统
+192.168.1.0/24            -        -        系统
+192.168.0.0/24            -        -        系统
+</code></pre><h3 id="自定义路由"><a href="#自定义路由" class="headerlink" title="自定义路由"></a>自定义路由</h3><p>您可以根据需要，添加自定义路由。针对不同的功能，专有网络提供如下<font color="red"><strong><code>下一跳类型</code></strong></font>的路由：</p>
+<ul>
+<li><p><strong>ECS实例：</strong>将指向目标网段的流量转发到专有网络内的一台ECS实例上。</p>
+<p>  当需要通过该ECS实例部署的应用访问互联网或其他应用时，配置此类型的路由。【一般是网关管理类应用服务器】</p>
+<p>  适用于将指定网络访问路由至ECS实例进行流量统一转发和管理的场景，例如将一台ECS实例配置为公网网关管理其他ECS实例访问公网。</p>
+</li>
+</ul>
+<ul>
+<li><p><strong>VPN网关：</strong>将指向目标网段的流量转发到一个VPN网关上。</p>
+<p>  当需要通过VPN网关连接本地网络或者其他专有网络时，配置此类型的路由。</p>
+</li>
+</ul>
+<ul>
+<li><p><strong>专有网络：</strong>将来指向标网段的流量转发到一个专有网络内。</p>
+<p>  当需要使用高速通道连接两个专有网络时，配置此类型的路由。</p>
+</li>
+</ul>
+<ul>
+<li><p><strong>边界路由器：</strong>将指向目标网段的流量转发到一个边界路由器上。</p>
+<p>  当需要使用高速通道连接本地网络（物理专线接入）时，才需要配置此类型的路由。</p>
+</li>
+</ul>
+<h3 id="选路规则"><a href="#选路规则" class="headerlink" title="选路规则"></a>选路规则</h3><p>路由表采用最长前缀匹配原则作为流量的路由选路规则。最长前缀匹配是指当路由表中有多条条目可以匹配目的IP时，采用掩码最长（最精确）的一条路由作为匹配项并确定下一跳。</p>
+<h3 id="路由实例"><a href="#路由实例" class="headerlink" title="路由实例"></a>路由实例</h3><h4 id="VPC内网路由"><a href="#VPC内网路由" class="headerlink" title="VPC内网路由"></a>VPC内网路由</h4><p>当您在VPC内的一台ECS实例（ECS01）自建了NAT网关或绑定了弹性公网IP，您需要专有网络内的云资源通过该ECS实例访问公网时（实际上是<strong><code>被外部访问</code></strong>），可以添加如下一条自定义路由：</p>
+<pre><code>目标网段    下一跳类型    下一跳
+0.0.0.0/0    ECS实例    ECS01
+</code></pre><p><img src="http://picture.watchmen.xin/vpc/route_vpc_inter.png" alt=""></p>
+<h4 id="VPC互连"><a href="#VPC互连" class="headerlink" title="VPC互连"></a>VPC互连</h4><p>VPC之间的互连又可以分为两种情况，一种是直接使用高速通道进行连接，一种是使用VPN网关进行连接。</p>
+<p><strong>第一种：使用高速通道进行连接</strong></p>
+<p>当使用高速通道连接两个VPC（VPC1 172.16.0.0/12和VPC2 192.168.0.0/16）时，创建完两个互相连接的路由器接口后，您还需要在两个VPC中分别添加如下一条路由：</p>
+<p><strong>VPC1的路由配置:</strong></p>
+<pre><code>目标网段    下一跳类型    下一跳
+192.168.0.0/16    路由器接口（专有网络方向）
+</code></pre><p><strong>VPC2的路由配置:</strong></p>
+<pre><code>目标网段    下一跳类型    下一跳
+172.16.0.0/12    路由器接口（专有网络方向）
+</code></pre><p><img src="http://picture.watchmen.xin/vpc/route_vpc_vpc.png" alt=""></p>
+<p><strong>第二种：使用VPN网关进行连接</strong></p>
+<p>如下图所示，当使用VPN网关连接两个VPC（VPC1 172.16.0.0/12和VPC2 10.0.0.0/8）时，配置完VPN网关后，需要在VPC中分别添加如下路由：</p>
+<p><strong>VPC1的路由配置</strong></p>
+<pre><code>目标网段    下一跳类型    下一跳
+10.0.0.0/8    VPN网关    VPN网关1
+</code></pre><p><strong>VPC2的路由配置</strong></p>
+<pre><code>目标网段    下一跳类型    下一跳
+172.16.0.0/12    VPN网关    VPN网关2
+</code></pre><p><img src="http://picture.watchmen.xin/vpc/route_vpc_vpn.png" alt=""></p>
+<h4 id="VPC连接本地网络-（自建机房或者IDC）"><a href="#VPC连接本地网络-（自建机房或者IDC）" class="headerlink" title="VPC连接本地网络-（自建机房或者IDC）"></a>VPC连接本地网络-（自建机房或者IDC）</h4><p>VPC连接本地网络又可以分为两种情况，一种是直接使用高速通道进行连接，一种是使用VPN网关进行连接。</p>
+<p><strong>第一种：使用高速通道连接本地网络</strong></p>
+<p>如下图所示，当使用高速通道物理专线连接专有网络和本地网络时，配置完专线和边界路由器后，需要配置如下路由：</p>
+<p><strong>VPC端的路由配置</strong></p>
+<pre><code>目标网段    下一跳类型    下一跳
+192.168.0.0/16    路由器接口（普通路由）    RI1
+</code></pre><p><strong>边界路由器端的配置</strong></p>
+<pre><code>目标网段    下一跳类型    下一跳
+192.168.0.0/16    指向专线    RI3
+172.16.0.0/12    指向VPC    RI2
+</code></pre><p><strong>本地网络的路由配置</strong></p>
+<pre><code>目标网段    下一跳类型    下一跳
+172.16.0.0/12    —    本地网关设备
+</code></pre><p><img src="http://picture.watchmen.xin/vpc/route_vpc_idc.png" alt=""></p>
+<p><strong>第二种：使用VPN网关连接本地网络</strong></p>
+<p>如下图所示，当使用VPN网关连接VPC（网段：172.16.0.0/12）和本地网络（网段：192.168.0.0/16）时，配置好VPN网关后，需要在VPC内添加如下一条路由：</p>
+<pre><code>目标网段    下一跳类型    下一跳
+192.168.0.0/16    VPN网关    已创建的VPN网关
+</code></pre><p><img src="http://picture.watchmen.xin/vpc/route_vpc_idc2.png" alt=""></p>
+<h2 id="添加自定义路由"><a href="#添加自定义路由" class="headerlink" title="添加自定义路由"></a>添加自定义路由</h2><p><strong>步骤如下所示：</strong></p>
+<ol>
+<li><p>登录专有网络管理控制台。</p>
+</li>
+<li><p>在左侧导航栏，单击路由表。</p>
+</li>
+<li><p>选择路由表所属的VPC的地域，然后单击目标路由表的ID链接。</p>
+</li>
+<li><p>单击添加路由条目。</p>
+</li>
+<li><p>在弹出的对话框，配置路由条目：</p>
+</li>
+</ol>
+<p><img src="http://picture.watchmen.xin/vpc/vpc_route_config.png" alt=""></p>
+
       
     </div>
     
@@ -937,7 +1032,7 @@ var jiathis_config={
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">60</span>
+                  <span class="site-state-item-count">61</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -948,7 +1043,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">79</span>
+                  <span class="site-state-item-count">80</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -959,7 +1054,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">59</span>
+                  <span class="site-state-item-count">60</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -999,7 +1094,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#VPC基础知识"><span class="nav-number">1.</span> <span class="nav-text">VPC基础知识</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#VPC概述"><span class="nav-number">1.1.</span> <span class="nav-text">VPC概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#VPC中的路由器和交换机"><span class="nav-number">1.2.</span> <span class="nav-text">VPC中的路由器和交换机</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基础架构及实现原理"><span class="nav-number">1.3.</span> <span class="nav-text">基础架构及实现原理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#问题"><span class="nav-number">1.3.1.</span> <span class="nav-text">问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解决方案"><span class="nav-number">1.3.2.</span> <span class="nav-text">解决方案</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#逻辑架构"><span class="nav-number">1.3.3.</span> <span class="nav-text">逻辑架构</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#VPC通信"><span class="nav-number">1.4.</span> <span class="nav-text">VPC通信</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#VPC与VPC通信"><span class="nav-number">1.4.1.</span> <span class="nav-text">VPC与VPC通信</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#VPC与经典网络通信"><span class="nav-number">1.4.2.</span> <span class="nav-text">VPC与经典网络通信</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#VPC与Internel通信"><span class="nav-number">1.4.3.</span> <span class="nav-text">VPC与Internel通信</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#VPC与本地IDC通信"><span class="nav-number">1.4.4.</span> <span class="nav-text">VPC与本地IDC通信</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#名词解释"><span class="nav-number">1.5.</span> <span class="nav-text">名词解释</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用限制"><span class="nav-number">1.6.</span> <span class="nav-text">使用限制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#VPC应用场景"><span class="nav-number">1.7.</span> <span class="nav-text">VPC应用场景</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#场景一：本地数据中心-云上对外业务的混合云模式"><span class="nav-number">1.7.1.</span> <span class="nav-text">场景一：本地数据中心+云上对外业务的混合云模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#场景二：多租户的安全隔离"><span class="nav-number">1.7.2.</span> <span class="nav-text">场景二：多租户的安全隔离</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#场景三：主动访问公网的抓取类业务"><span class="nav-number">1.7.3.</span> <span class="nav-text">场景三：主动访问公网的抓取类业务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#场景四：多个应用流量波动大——共享带宽包"><span class="nav-number">1.7.4.</span> <span class="nav-text">场景四：多个应用流量波动大——共享带宽包</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NAT网关"><span class="nav-number">1.8.</span> <span class="nav-text">NAT网关</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#入门实践"><span class="nav-number">2.</span> <span class="nav-text">入门实践</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#搭建专有网络"><span class="nav-number">2.1.</span> <span class="nav-text">搭建专有网络</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#步骤1-创建专有网络和交换机"><span class="nav-number">2.1.1.</span> <span class="nav-text">步骤1 创建专有网络和交换机</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#步骤二-创建ECS实例"><span class="nav-number">2.1.2.</span> <span class="nav-text">步骤二 创建ECS实例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#步骤三-创建EIP"><span class="nav-number">2.1.3.</span> <span class="nav-text">步骤三 创建EIP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#步骤四-绑定EIP"><span class="nav-number">2.1.4.</span> <span class="nav-text">步骤四 绑定EIP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#步骤五-公网访问测试"><span class="nav-number">2.1.5.</span> <span class="nav-text">步骤五 公网访问测试</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ECS安全组配置"><span class="nav-number">2.2.</span> <span class="nav-text">ECS安全组配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#交换机"><span class="nav-number">2.3.</span> <span class="nav-text">交换机</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#交换机的网段"><span class="nav-number">2.3.1.</span> <span class="nav-text">交换机的网段</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#默认的专有网络和交换机"><span class="nav-number">2.3.2.</span> <span class="nav-text">默认的专有网络和交换机</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#路由表和路由条目"><span class="nav-number">2.4.</span> <span class="nav-text">路由表和路由条目</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#VPC基础知识"><span class="nav-number">1.</span> <span class="nav-text">VPC基础知识</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#VPC概述"><span class="nav-number">1.1.</span> <span class="nav-text">VPC概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#VPC中的路由器和交换机"><span class="nav-number">1.2.</span> <span class="nav-text">VPC中的路由器和交换机</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基础架构及实现原理"><span class="nav-number">1.3.</span> <span class="nav-text">基础架构及实现原理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#问题"><span class="nav-number">1.3.1.</span> <span class="nav-text">问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解决方案"><span class="nav-number">1.3.2.</span> <span class="nav-text">解决方案</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#逻辑架构"><span class="nav-number">1.3.3.</span> <span class="nav-text">逻辑架构</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#VPC通信"><span class="nav-number">1.4.</span> <span class="nav-text">VPC通信</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#VPC与VPC通信"><span class="nav-number">1.4.1.</span> <span class="nav-text">VPC与VPC通信</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#VPC与经典网络通信"><span class="nav-number">1.4.2.</span> <span class="nav-text">VPC与经典网络通信</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#VPC与Internel通信"><span class="nav-number">1.4.3.</span> <span class="nav-text">VPC与Internel通信</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#VPC与本地IDC通信"><span class="nav-number">1.4.4.</span> <span class="nav-text">VPC与本地IDC通信</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#名词解释"><span class="nav-number">1.5.</span> <span class="nav-text">名词解释</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用限制"><span class="nav-number">1.6.</span> <span class="nav-text">使用限制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#VPC应用场景"><span class="nav-number">1.7.</span> <span class="nav-text">VPC应用场景</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#场景一：本地数据中心-云上对外业务的混合云模式"><span class="nav-number">1.7.1.</span> <span class="nav-text">场景一：本地数据中心+云上对外业务的混合云模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#场景二：多租户的安全隔离"><span class="nav-number">1.7.2.</span> <span class="nav-text">场景二：多租户的安全隔离</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#场景三：主动访问公网的抓取类业务"><span class="nav-number">1.7.3.</span> <span class="nav-text">场景三：主动访问公网的抓取类业务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#场景四：多个应用流量波动大——共享带宽包"><span class="nav-number">1.7.4.</span> <span class="nav-text">场景四：多个应用流量波动大——共享带宽包</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NAT网关"><span class="nav-number">1.8.</span> <span class="nav-text">NAT网关</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#入门实践"><span class="nav-number">2.</span> <span class="nav-text">入门实践</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#搭建专有网络"><span class="nav-number">2.1.</span> <span class="nav-text">搭建专有网络</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#步骤1-创建专有网络和交换机"><span class="nav-number">2.1.1.</span> <span class="nav-text">步骤1 创建专有网络和交换机</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#步骤二-创建ECS实例"><span class="nav-number">2.1.2.</span> <span class="nav-text">步骤二 创建ECS实例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#步骤三-创建EIP"><span class="nav-number">2.1.3.</span> <span class="nav-text">步骤三 创建EIP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#步骤四-绑定EIP"><span class="nav-number">2.1.4.</span> <span class="nav-text">步骤四 绑定EIP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#步骤五-公网访问测试"><span class="nav-number">2.1.5.</span> <span class="nav-text">步骤五 公网访问测试</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ECS安全组配置"><span class="nav-number">2.2.</span> <span class="nav-text">ECS安全组配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#交换机"><span class="nav-number">2.3.</span> <span class="nav-text">交换机</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#交换机的网段"><span class="nav-number">2.3.1.</span> <span class="nav-text">交换机的网段</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#默认的专有网络和交换机"><span class="nav-number">2.3.2.</span> <span class="nav-text">默认的专有网络和交换机</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#路由表和路由条目"><span class="nav-number">2.4.</span> <span class="nav-text">路由表和路由条目</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#系统路由"><span class="nav-number">2.4.1.</span> <span class="nav-text">系统路由</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#自定义路由"><span class="nav-number">2.4.2.</span> <span class="nav-text">自定义路由</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#选路规则"><span class="nav-number">2.4.3.</span> <span class="nav-text">选路规则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#路由实例"><span class="nav-number">2.4.4.</span> <span class="nav-text">路由实例</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#VPC内网路由"><span class="nav-number">2.4.4.1.</span> <span class="nav-text">VPC内网路由</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#VPC互连"><span class="nav-number">2.4.4.2.</span> <span class="nav-text">VPC互连</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#VPC连接本地网络-（自建机房或者IDC）"><span class="nav-number">2.4.4.3.</span> <span class="nav-text">VPC连接本地网络-（自建机房或者IDC）</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#添加自定义路由"><span class="nav-number">2.5.</span> <span class="nav-text">添加自定义路由</span></a></li></ol></li></ol></div>
             
 
           </div>
