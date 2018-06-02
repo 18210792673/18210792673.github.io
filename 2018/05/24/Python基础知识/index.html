@@ -89,10 +89,12 @@
 <meta property="og:site_name" content="Watchmen1992&#39;s Blog">
 <meta property="og:description" content="Python基础知识">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://picture.watchmen.xin/python-14/lang.png">
 <meta property="og:updated_time" content="2018-05-24T13:05:55.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Python基础知识">
 <meta name="twitter:description" content="Python基础知识">
+<meta name="twitter:image" content="http://picture.watchmen.xin/python-14/lang.png">
 
 
 
@@ -490,7 +492,50 @@
 <li>ansible</li>
 <li>腾讯蓝鲸</li>
 </ul>
-
+<h2 id="编程语言概述"><a href="#编程语言概述" class="headerlink" title="编程语言概述"></a>编程语言概述</h2><p>编程语言主要从以下几个角度为进行分类：</p>
+<ul>
+<li><p>低级语言与高级语言</p>
+</li>
+<li><p>编译型和解释型</p>
+</li>
+<li><p>静态语言和动态语言</p>
+</li>
+<li><p>强类型定义语言和弱类型定义语言</p>
+</li>
+</ul>
+<p>每个分类代表什么意思呢，我们一起来看一下。</p>
+<h3 id="低级语言与高级语言"><a href="#低级语言与高级语言" class="headerlink" title="低级语言与高级语言"></a>低级语言与高级语言</h3><p><strong>低级语言</strong></p>
+<p>最初的计算机程序都是使用0和1的序列表示的，程序员直接使用的是机器指令，无需翻译，从纸带打孔输入即可得到结果。后来为了记忆方便，就将用0、1序列表示的机器指令都用符号助记，这些与机器指令一一对应的助记符号就成为了汇编指令，从而诞生了汇编语言。</p>
+<p>无论是机器指令还是汇编指令，都是面向机器的，这些统称为低级语言。因此是针对特定机器的机器指令的助记符，所以汇编语言是无法独立于机器（特定的CPU体系结构）的</p>
+<p>但是汇编语言也是需要经过翻译才能转变为机器指令，所以也就有了将运行在一种机器上的汇编语言翻译成为另一类机器上的机器指令的方法，这被称之为：<strong><code>交叉汇编技术</code></strong></p>
+<p><strong>高级语言</strong></p>
+<p>高级语言是从人类的逻辑思维角度出发的计算机语言，因此，抽象程度大大提高，需要经过编译成特定机器上的目标代码才能执行，一条高级语言的语句往往需要若干条机器指令来完成。</p>
+<p>高级语言独立于机器的特性是靠编译器为不同机器生成不同的目标代码（或者机器指令）来实现的。具体来说，要将高级语言编译到什么程度，这跟编译的技术相挂钩，可以编译成为直接可以执行的目标代码，也可以变成成为一种中间表示，然后拿到不同的机器和系统上面去执行，这种情况通常是又需要支撑环境，比如解释器或者虚拟机的支持，Java程序编译成为bytecode，再由不同平台上的虚拟机执行就是很好的例子。</p>
+<p>所以，说高级语言不依赖于机器，指的是在不同的机器或者平台上高级语言的程序本身不变，而通过编译器编译得到的目标代码去使用不同的机器。<br>从这个意义来说，通过交叉编译，一些汇编程序也可以获得不同机器之间的可移植性，但是这种途径获得的移植性远远不如高级语言来的方便和实用。</p>
+<p><strong>总结</strong></p>
+<p>我们说的低级语言和高级语言，主要的区别点在于主要针对的对象，低级语言主要针对的对象是特定的机器，而高级语言，主要针对的对象是人类的逻辑。</p>
+<h3 id="编译型和解释型"><a href="#编译型和解释型" class="headerlink" title="编译型和解释型"></a>编译型和解释型</h3><p><strong>概念区别</strong></p>
+<p>编译器是把源程序的每一条语句都<strong><code>编译成机器语言</code></strong>,并保存成二进制文件,这样运行时计算机可以直接以机器语言来运行此程序,速度很快; </p>
+<p>而解释器则是只在执行程序时,才<strong><code>一条一条</code></strong>的解释成机器语言给计算机来执行,所以运行速度是不如编译后的程序运行的快的. </p>
+<p>这是因为计算机不能直接认识并执行我们写的语句,它只能认识机器语言(是二进制的形式)</p>
+<p>以下是各语言的分类</p>
+<p><img src="http://picture.watchmen.xin/python-14/lang.png" alt=""></p>
+<p><strong>编译型vs解释型</strong></p>
+<ul>
+<li>编译型</li>
+</ul>
+<p>优点：编译器一般会有预编译的过程对代码进行优化。因为编译只做一次，<strong><code>运行时不需要编译</code></strong>，所以编译型语言的程序执行效率高。<strong><code>可以脱离语言环境独立运行。</code></strong></p>
+<p>缺点：编译之后如果需要修改就需要整个模块重新编译。编译的时候根据对应的运行环境生成机器码，不同的操作系统之间移植就会有问题，需要根据运行的操作系统环境编译不同的可执行文件。</p>
+<p>也就是说，使用编译器将源代码文件进行编译之后，生成文件之后，计算机就可以直接运行，不再需要借助其他的东西，因此运行效率是最高的，但是这要求前期的准备工作必须做的非常完善，因为如果有代码需要修改的话，需要重新编译是生成执行文件。</p>
+<ul>
+<li>解释型</li>
+</ul>
+<blockquote>
+<p>优点：有良好的平台兼容性，在任何环境中都可以运行，前提是安装了解释器（一般我们也称之为虚拟机）。灵活，修改代码的时候可以直接修改，可以快速部署，不用停机维护</p>
+<p>缺点：每次运行的时候都需要使用解释器解释一遍，因此在性能上是不如编译型语言的。</p>
+<p>解释型语言可以无视运行的系统平台，只要有解释器的存在，能将源代码解释翻译成为计算机能够识别的机器语言即可。 </p>
+</blockquote>
+<h3 id="静态语言和动态语言"><a href="#静态语言和动态语言" class="headerlink" title="静态语言和动态语言"></a>静态语言和动态语言</h3>
       
     </div>
     
@@ -735,7 +780,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Python简介"><span class="nav-number">1.</span> <span class="nav-text">Python简介</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Python擅长领域"><span class="nav-number">1.1.</span> <span class="nav-text">Python擅长领域</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Python简介"><span class="nav-number">1.</span> <span class="nav-text">Python简介</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Python擅长领域"><span class="nav-number">1.1.</span> <span class="nav-text">Python擅长领域</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编程语言概述"><span class="nav-number">1.2.</span> <span class="nav-text">编程语言概述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#低级语言与高级语言"><span class="nav-number">1.2.1.</span> <span class="nav-text">低级语言与高级语言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编译型和解释型"><span class="nav-number">1.2.2.</span> <span class="nav-text">编译型和解释型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#静态语言和动态语言"><span class="nav-number">1.2.3.</span> <span class="nav-text">静态语言和动态语言</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
