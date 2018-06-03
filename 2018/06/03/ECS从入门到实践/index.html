@@ -593,18 +593,7 @@
 <p>如果您的应用对时延比较敏感，比如数据库（过高的时延会导致应用报错），建议您使用固态硬盘介质的SSD云盘、SSD共享块存储或本地SSD盘类产品。</p>
 <p>如果您的应用更偏重存储吞吐能力，对时延不太敏感，比如Hadoop离线计算等吞吐密集型应用，建议您使用本地HDD盘类产品，如d1或d1ne大数据型实例。</p>
 <p>不同云盘之间的性能测试对比请看文档：<a href="https://help.aliyun.com/document_detail/25382.html?spm=a2c4g.11186623.6.552.L3qKVk" target="_blank" rel="noopener">云盘性能对比部分</a></p>
-<h3 id="性能测试"><a href="#性能测试" class="headerlink" title="性能测试"></a>性能测试</h3><p>根据ECS实例的操作系统不同，您可以使用不同的工具测试块存储性能：</p>
-<ul>
-<li><p>Linux实例：可以使用DD、fio或sysbench等工具测试块存储性能。</p>
-</li>
-<li><p>Windows实例：可以使用fio、Iometer等工具测试块存储性能。</p>
-</li>
-</ul>
-<p>这里以Linux实例和fio为例，说明如何使用fio测试块存储性能。在进行测试前，请确保块存储已经4 KiB对齐。</p>
-<blockquote>
-<p><strong>警告：</strong><br>测试裸盘可以获得真实的块存储盘性能，但直接测试裸盘会破坏文件系统结构，请在测试前提前做好数据备份。建议您只在新购无数据的ECS实例上使用工具测试块存储性能，避免造成数据丢失。</p>
-</blockquote>
-
+<h2 id="弹性块存储"><a href="#弹性块存储" class="headerlink" title="弹性块存储"></a>弹性块存储</h2>
       
     </div>
     
@@ -849,7 +838,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ECS基础知识"><span class="nav-number">1.</span> <span class="nav-text">ECS基础知识</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#ECS-概述"><span class="nav-number">1.1.</span> <span class="nav-text">ECS 概述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#名词解释"><span class="nav-number">1.1.1.</span> <span class="nav-text">名词解释</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ECS的优势"><span class="nav-number">1.1.2.</span> <span class="nav-text">ECS的优势</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#块存储"><span class="nav-number">1.2.</span> <span class="nav-text">块存储</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#概念"><span class="nav-number">1.2.1.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#块存储、对象存储、文件存储的区别"><span class="nav-number">1.2.2.</span> <span class="nav-text">块存储、对象存储、文件存储的区别</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#块存储性能"><span class="nav-number">1.3.</span> <span class="nav-text">块存储性能</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#性能测试"><span class="nav-number">1.3.1.</span> <span class="nav-text">性能测试</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ECS基础知识"><span class="nav-number">1.</span> <span class="nav-text">ECS基础知识</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#ECS-概述"><span class="nav-number">1.1.</span> <span class="nav-text">ECS 概述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#名词解释"><span class="nav-number">1.1.1.</span> <span class="nav-text">名词解释</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ECS的优势"><span class="nav-number">1.1.2.</span> <span class="nav-text">ECS的优势</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#块存储"><span class="nav-number">1.2.</span> <span class="nav-text">块存储</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#概念"><span class="nav-number">1.2.1.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#块存储、对象存储、文件存储的区别"><span class="nav-number">1.2.2.</span> <span class="nav-text">块存储、对象存储、文件存储的区别</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#块存储性能"><span class="nav-number">1.3.</span> <span class="nav-text">块存储性能</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#弹性块存储"><span class="nav-number">1.4.</span> <span class="nav-text">弹性块存储</span></a></li></ol></li></ol></div>
             
 
           </div>
