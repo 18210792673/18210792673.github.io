@@ -593,7 +593,160 @@
 <p>如果您的应用对时延比较敏感，比如数据库（过高的时延会导致应用报错），建议您使用固态硬盘介质的SSD云盘、SSD共享块存储或本地SSD盘类产品。</p>
 <p>如果您的应用更偏重存储吞吐能力，对时延不太敏感，比如Hadoop离线计算等吞吐密集型应用，建议您使用本地HDD盘类产品，如d1或d1ne大数据型实例。</p>
 <p>不同云盘之间的性能测试对比请看文档：<a href="https://help.aliyun.com/document_detail/25382.html?spm=a2c4g.11186623.6.552.L3qKVk" target="_blank" rel="noopener">云盘性能对比部分</a></p>
-<h2 id="弹性块存储"><a href="#弹性块存储" class="headerlink" title="弹性块存储"></a>弹性块存储</h2>
+<h2 id="弹性块存储"><a href="#弹性块存储" class="headerlink" title="弹性块存储"></a>弹性块存储</h2><p>弹性块存储，是阿里云为云服务器ECS提供的数据块级别的随机存储，具有低时延、持久性、高可靠等性能，采用 分布式三副本机制，为ECS实例提供99.9999999%的数据可靠性保证。弹性块存储支持在可用区内自动复制您的数据，防止意外硬件故障导致的数据不可用，保护您的业务免于组件故障的威胁。就像硬盘一样，您可以对挂载到ECS实例上的弹性块存储做分区、创建文件系统等操作，并持久存储数据。</p>
+<p>您可以根据业务需要随时扩容弹性块存储。具体操作，请参见 扩容数据盘 和 扩容系统盘。您也可以为弹性块存储创建快照，备份数据。关于快照的更多信息，参见 快照。</p>
+<p>根据是否可挂载到多台ECS实例，弹性块存储可以分为：</p>
+<ul>
+<li>云盘：一块云盘只能挂载到同一地域、同一可用区的一台ECS实例。</li>
+</ul>
+<ul>
+<li>共享块存储：一块共享块存储可以同时挂载到同一地域、同一可用区的16台ECS实例。<blockquote>
+<p>说明：共享块存储目前仍处于公测阶段，公测期间支持最多同时挂载到4台ECS实例上。</p>
+</blockquote>
+</li>
+</ul>
+<p><strong>总结：</strong></p>
+<blockquote>
+<p>也就是说弹性块存储在使用的时候，可以被当做是本地的磁盘，也可以是当做网络存储，类似NFS等挂载到多台ECS主机上使用<br>区分云盘和共享块存储的方式是能否被多台ECS同时挂载</p>
+</blockquote>
+<h3 id="云盘"><a href="#云盘" class="headerlink" title="云盘"></a>云盘</h3><p><strong>根据性能分类</strong></p>
+<p>根据性能不同，云盘可以分为：</p>
+<ul>
+<li><p>ESSD云盘：又称增强型SSD云盘，是阿里云全新推出的超高性能的云盘产品。基于新一代分布式块存储架构，结合25GE网络和RDMA技术，为您提供单盘高达100万的随机读写能力和低至100μs的单路时延能力。ESSD云盘处于邀测阶段，更多信息，请参见 ESSD云盘FAQ。</p>
+</li>
+<li><p>SSD云盘：采用固态硬盘作为存储介质，能够提供稳定的高随机I/O、高数据可靠性的高性能存储。</p>
+</li>
+<li><p>高效云盘：采用固态硬盘与机械硬盘的混合介质作为存储介质。</p>
+</li>
+<li><p>普通云盘：采用机械磁盘作为存储介质</p>
+</li>
+</ul>
+<p><strong>根据用途分类</strong></p>
+<p>根据用途不同，云盘可以作：</p>
+<ul>
+<li><p>系统盘：生命周期与系统盘所挂载的ECS实例相同，随实例一起创建和释放。不可共享访问。系统盘可选的容量范围与实例所选的镜像有关：</p>
+<ul>
+<li>Linux（不包括CoreOS）+ FreeBSD：20 GiB ~ 500 GiB</li>
+<li>CoreOS：30 GiB ~ 500 GiB</li>
+<li>Windows：40 GiB ~ 500 GiB</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>数据盘：可以与ECS实例同时创建，也可以 单独创建，不可共享访问。与ECS实例同时创建的数据盘，生命同期与实例相同，随实例一起创建和释放。单独创建的数据盘，可以 单独释放，也可以 设置为随ECS实例一起释放。数据盘的容量由云盘类型决定，详细信息，请参见 块存储性能。<br>作数据盘用时，云盘与共享块存储共享数据盘配额，即一台实例最多挂载16块数据盘。</li>
+</ul>
+<h3 id="共享块存储"><a href="#共享块存储" class="headerlink" title="共享块存储"></a>共享块存储</h3><p>共享块存储是一种支持<strong><code>多台ECS实例并发读写访问</code></strong>的数据块级存储设备，具备多并发、高性能、高可靠等特性，数据可靠性可以达到 99.9999999%。单块共享块存储最多可以同时挂载到16台ECS实例。目前尚处于公测阶段（申请公测资格），最多同时挂载到4台ECS实例。</p>
+<p><strong><code>共享块存储只能作数据盘用</code></strong>，只能单独创建，可以共享访问。您可以 设置共享块存储与挂载的ECS实例一起释放。</p>
+<p>根据性能不同，共享块存储可以分为：</p>
+<ul>
+<li>SSD共享块存储：采用固态硬盘作为存储介质，能够提供稳定的高随机I/O、高数据可靠性的高性能存储。</li>
+</ul>
+<ul>
+<li>高效共享块存储：采用固态硬盘与机械硬盘的混合介质作为存储介质。</li>
+</ul>
+<p>挂载到实例上时，共享块存储与云盘共享数据盘配额，即一台实例最多挂载16块数据盘。</p>
+<p>更多共享块存储的信息，请参见 共享块存储FAQ。</p>
+<h2 id="网络和安全性"><a href="#网络和安全性" class="headerlink" title="网络和安全性"></a>网络和安全性</h2><h3 id="内网"><a href="#内网" class="headerlink" title="内网"></a>内网</h3><p>目前阿里云的云服务器ECS内网间，非I/O优化的实例为千兆共享的带宽，I/O优化的实例为万兆共享的带宽，没有特殊限制。由于是共享网络，因此无法保证带宽速度是不变的。</p>
+<p>如果两台同地域的ECS实例之间需要传输数据，一般建议使用内网连接。同时，云数据库RDS、负载均衡（SLB） 以及 对象存储（OSS） 相关的内网速度也都是千兆共享的环境。这些产品间也都可以使用内网相互连接使用。</p>
+<p>目前只要是相同地域下，SLB、云数据库RDS、OSS与ECS之间都可以直接内网互通连接使用。</p>
+<h3 id="弹性网卡"><a href="#弹性网卡" class="headerlink" title="弹性网卡"></a>弹性网卡</h3><p>弹性网卡（ENI）是一种可以附加到专有网络VPC类型ECS实例上的虚拟网卡，通过弹性网卡，您可以实现高可用集群搭建、低成本故障转移和精细化的网络管理。所有地域均支持弹性网卡。</p>
+<p><strong>使用场景</strong><br>弹性网卡适用于以下几种场景：</p>
+<ul>
+<li>搭建高可用集群</li>
+</ul>
+<p>满足系统高可用架构对于单实例多网卡的需求。</p>
+<ul>
+<li>低成本故障迁移</li>
+</ul>
+<p>通过将弹性网卡从ECS实例分离后再附加到另外一台ECS实例，将故障实例上的业务流量快速迁移到备用实例，实现服务快速恢复。</p>
+<ul>
+<li>精细化网络管理</li>
+</ul>
+<p>可以为实例配置多个弹性网卡，例如用于内部管理的弹性网卡及用于面向公网业务访问的弹性网卡等，完成管理数据和业务数据间的隔离。可以根据源IP、协议、端口等对每张弹性网卡配置精准的安全组规则，从而对每张弹性网卡的流量进行安全访问控制。</p>
+<p><strong>弹性网卡类型</strong></p>
+<p>弹性网卡分为两种类型：</p>
+<p>主网卡</p>
+<p>在创建专有网络实例时随实例默认创建的弹性网卡称作主网卡。主网卡的生命周期和实例保持一致，您无法分离主网卡与实例。</p>
+<p>辅助网卡</p>
+<p>您可以创建辅助网卡，并将其附加到实例上或从实例上分离。每个实例能附加的网卡上限与实例规格相关，详细信息，请参考 实例规格族。</p>
+<p><strong>弹性网卡属性</strong></p>
+<pre><code>属性    数量
+主私有IP地址    1个
+MAC地址    1个
+安全组    至少1个，最多5个
+描述信息    1个
+网卡名称    1个
+</code></pre><p><strong>限制约束</strong></p>
+<p>使用弹性网卡有如下限制：</p>
+<ul>
+<li>一个账号在一个地域内默认最多可创建100个弹性网卡。如果需要更多，请 提交工单 申请。</li>
+</ul>
+<ul>
+<li>ECS实例与弹性网卡必须在同一VPC的同一可用区中，可以分属于不同交换机。</li>
+</ul>
+<ul>
+<li>每台实例允许附加的弹性网卡数量由实例规格决定。详细信息，请参见 实例规格族。</li>
+</ul>
+<ul>
+<li>非I/O优化实例规格不支持弹性网卡。</li>
+</ul>
+<ul>
+<li>您不能在一个实例上附加多个弹性网卡来提高实例带宽。<blockquote>
+<p>说明：实例的带宽能力由实例规格决定。</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="安全组"><a href="#安全组" class="headerlink" title="安全组"></a>安全组</h3><p>安全组是一个逻辑上的分组，这个分组是由同一个地域（Region）内具有相同安全保护需求并相互信任的实例组成。<strong><code>每个实例至少属于一个安全组，在创建的时候就需要指定</code></strong>。同一安全组内的实例之间网络互通，不同安全组的实例之间默认内网不通。可以授权两个安全组之间互访。</p>
+<p>安全组是一种虚拟防火墙，具备状态检测包过滤功能。安全组用于设置单台或多台云服务器的网络访问控制，它是重要的网络安全隔离手段，用于在云端划分安全域。</p>
+<p><strong>安全组限制</strong></p>
+<ul>
+<li>单个安全组内的实例个数不能超过 1000。如果您有超过 1000 个实例需要内网互访，可以将他们分配到多个安全组内，并通过互相授权的方式允许互访。</li>
+</ul>
+<ul>
+<li>每个实例最多可以加入 5 个安全组。</li>
+</ul>
+<ul>
+<li>每个用户的安全组最多 100 个。</li>
+</ul>
+<ul>
+<li>对安全组的调整操作，对用户的服务连续性没有影响。</li>
+</ul>
+<ul>
+<li>安全组是有状态的。如果数据包在 Outbound 方向是被允许的，那么对应的此连接在 Inbound 方向也是允许的。</li>
+</ul>
+<ul>
+<li>安全组的网络类型分为经典网络和专有网络。</li>
+</ul>
+<pre><code>- 经典网络类型的实例可以加入同一地域（Region）下经典网络类型的安全组。
+
+
+- 专有网络类型的实例可以加入同一专有网络（VPC）下的安全组。
+</code></pre><p><strong>安全组规则</strong></p>
+<p>安全组规则可以允许或者禁止与安全组相关联的云服务器 ECS 实例的公网和内网的入出方向的访问。</p>
+<p>您可以随时授权和取消安全组规则。您的变更安全组规则会自动应用于与安全组相关联的ECS实例上。</p>
+<p>在设置安全组规则的时候，安全组的规则务必简洁。如果您给一个实例分配多个安全组，则该实例可能会应用多达数百条规则。访问该实例时，可能会出现网络不通的问题。</p>
+<p><strong>安全组规则限制</strong></p>
+<p>每个安全组最多有 100 条安全组规则。</p>
+<h3 id="DDOS基础防护"><a href="#DDOS基础防护" class="headerlink" title="DDOS基础防护"></a>DDOS基础防护</h3><p>阿里云云盾默认为ECS实例免费提供5 Gbit/s恶意流量攻击，即 DDoS基础防护能力。这一功能可以有效防止云服务器ECS实例受到恶意攻击，从而保证ECS系统的稳定，即当流入ECS实例的流量超出实例规格对应的限制时，云盾就会帮助ECS实例限流，避免ECS系统出现问题。</p>
+<h1 id="企业版入门"><a href="#企业版入门" class="headerlink" title="企业版入门"></a>企业版入门</h1><p>企业级用户在购买和使用云服务器ECS实例时，通常需考虑如下几点：</p>
+<ul>
+<li><p>配置选型</p>
+</li>
+<li><p>估算成本</p>
+</li>
+<li><p>网络规划</p>
+</li>
+<li><p>配置安全组</p>
+</li>
+<li><p>制定快照策略</p>
+</li>
+<li><p>镜像迁移</p>
+</li>
+<li><p>用负载均衡实现ECS的高可用性</p>
+</li>
+</ul>
+<h2 id="配置选型"><a href="#配置选型" class="headerlink" title="配置选型"></a>配置选型</h2><p>参考资料：<a href="https://help.aliyun.com/document_detail/58291.html?spm=a2c4g.11186623.6.604.XRqStZ" target="_blank" rel="noopener">阿里云官方资料</a></p>
+
       
     </div>
     
@@ -776,7 +929,7 @@ var jiathis_config={
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">63</span>
+                  <span class="site-state-item-count">64</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -787,7 +940,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">81</span>
+                  <span class="site-state-item-count">82</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -798,7 +951,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">62</span>
+                  <span class="site-state-item-count">63</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -838,7 +991,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ECS基础知识"><span class="nav-number">1.</span> <span class="nav-text">ECS基础知识</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#ECS-概述"><span class="nav-number">1.1.</span> <span class="nav-text">ECS 概述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#名词解释"><span class="nav-number">1.1.1.</span> <span class="nav-text">名词解释</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ECS的优势"><span class="nav-number">1.1.2.</span> <span class="nav-text">ECS的优势</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#块存储"><span class="nav-number">1.2.</span> <span class="nav-text">块存储</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#概念"><span class="nav-number">1.2.1.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#块存储、对象存储、文件存储的区别"><span class="nav-number">1.2.2.</span> <span class="nav-text">块存储、对象存储、文件存储的区别</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#块存储性能"><span class="nav-number">1.3.</span> <span class="nav-text">块存储性能</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#弹性块存储"><span class="nav-number">1.4.</span> <span class="nav-text">弹性块存储</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ECS基础知识"><span class="nav-number">1.</span> <span class="nav-text">ECS基础知识</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#ECS-概述"><span class="nav-number">1.1.</span> <span class="nav-text">ECS 概述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#名词解释"><span class="nav-number">1.1.1.</span> <span class="nav-text">名词解释</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ECS的优势"><span class="nav-number">1.1.2.</span> <span class="nav-text">ECS的优势</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#块存储"><span class="nav-number">1.2.</span> <span class="nav-text">块存储</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#概念"><span class="nav-number">1.2.1.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#块存储、对象存储、文件存储的区别"><span class="nav-number">1.2.2.</span> <span class="nav-text">块存储、对象存储、文件存储的区别</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#块存储性能"><span class="nav-number">1.3.</span> <span class="nav-text">块存储性能</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#弹性块存储"><span class="nav-number">1.4.</span> <span class="nav-text">弹性块存储</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#云盘"><span class="nav-number">1.4.1.</span> <span class="nav-text">云盘</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#共享块存储"><span class="nav-number">1.4.2.</span> <span class="nav-text">共享块存储</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#网络和安全性"><span class="nav-number">1.5.</span> <span class="nav-text">网络和安全性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#内网"><span class="nav-number">1.5.1.</span> <span class="nav-text">内网</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#弹性网卡"><span class="nav-number">1.5.2.</span> <span class="nav-text">弹性网卡</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安全组"><span class="nav-number">1.5.3.</span> <span class="nav-text">安全组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DDOS基础防护"><span class="nav-number">1.5.4.</span> <span class="nav-text">DDOS基础防护</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#企业版入门"><span class="nav-number">2.</span> <span class="nav-text">企业版入门</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#配置选型"><span class="nav-number">2.1.</span> <span class="nav-text">配置选型</span></a></li></ol></li></ol></div>
             
 
           </div>
