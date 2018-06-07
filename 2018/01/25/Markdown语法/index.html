@@ -89,6 +89,8 @@
 <meta property="og:site_name" content="Watchmen1992&#39;s Blog">
 <meta property="og:description" content="markdown介绍及常用基本操作">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://picture.watchmen.xin/markdown/ruby.png">
+<meta property="og:image" content="http://picture.watchmen.xin/markdown/bash.png">
 <meta property="og:image" content="http://picture.watchmen.xin/markdown/center.png">
 <meta property="og:image" content="http://picture.watchmen.xin/markdown/maodian1.png">
 <meta property="og:image" content="http://picture.watchmen.xin/markdown/maodian.png">
@@ -97,7 +99,7 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Markdown语法">
 <meta name="twitter:description" content="markdown介绍及常用基本操作">
-<meta name="twitter:image" content="http://picture.watchmen.xin/markdown/center.png">
+<meta name="twitter:image" content="http://picture.watchmen.xin/markdown/ruby.png">
 
 
 
@@ -543,13 +545,13 @@ _Coding，让开发更简单_
 <h3 id="文字内加区块，不会加空白处底纹"><a href="#文字内加区块，不会加空白处底纹" class="headerlink" title="文字内加区块，不会加空白处底纹"></a>文字内加区块，不会加空白处底纹</h3><pre><code>使用``（数字1左边，ESC下面的按键）
 </code></pre><p>实际效果展示：在文件中含有<code>代码区块</code>是什么样子</p>
 <h3 id="整行的代码区块行，会加空白处底纹（快捷操作：全部选中然后敲Tab）"><a href="#整行的代码区块行，会加空白处底纹（快捷操作：全部选中然后敲Tab）" class="headerlink" title="整行的代码区块行，会加空白处底纹（快捷操作：全部选中然后敲Tab）"></a>整行的代码区块行，会加空白处底纹（快捷操作：全部选中然后敲Tab）</h3><p>缩进4个空格或者一个制表符（tab键）或者将代码块包裹在代码块包裹在 “/` 之间（避免无休止的缩进）。</p>
-<pre><code><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">require</span> <span class="string">'redcarpet'</span></span><br><span class="line">markdown = Redcarpet.new(<span class="string">"Hello World!"</span>)</span><br><span class="line">puts markdown.to_html</span><br></pre></td></tr></table></figure>
-</code></pre><p>实际效果展示</p>
+<p><img src="http://picture.watchmen.xin/markdown/ruby.png" alt="ruby"></p>
+<p>实际效果展示</p>
 <figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">require</span> <span class="string">'redcarpet'</span></span><br><span class="line">markdown = Redcarpet.new(<span class="string">"Hello World!"</span>)</span><br><span class="line">puts markdown.to_html</span><br></pre></td></tr></table></figure>
 <p>实际效果展示：</p>
 <pre><code>现在的效果就是整整一个的区块行，如果这段代码比较长的话，那么markdown就会在下面生成一个查看条，供用户左右拉取调整，就是如现在所示。
-</code></pre><h3 id="指定代码格式的区块行"><a href="#指定代码格式的区块行" class="headerlink" title="指定代码格式的区块行"></a>指定代码格式的区块行</h3><pre><code><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ line1-test1</span><br><span class="line">$ line2-test2</span><br></pre></td></tr></table></figure>
-</code></pre><p>实际效果展示：</p>
+</code></pre><h3 id="指定代码格式的区块行"><a href="#指定代码格式的区块行" class="headerlink" title="指定代码格式的区块行"></a>指定代码格式的区块行</h3><p><img src="http://picture.watchmen.xin/markdown/bash.png" alt="bash"></p>
+<p>实际效果展示：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ line1-test1</span><br><span class="line">$ line2-test2</span><br></pre></td></tr></table></figure>
 <h2 id="分割线-分隔线（MarkdownPad中快捷键为Ctrl-r）："><a href="#分割线-分隔线（MarkdownPad中快捷键为Ctrl-r）：" class="headerlink" title="分割线/分隔线（MarkdownPad中快捷键为Ctrl+r）："></a>分割线/分隔线（MarkdownPad中快捷键为Ctrl+r）：</h2><p>一行中用三个以上的星号、减号、底线来建立一个分隔线，可以在字符之间加入空格，也可以不加空格</p>
 <pre><code>* * * 
@@ -711,7 +713,7 @@ Size：规定文本的尺寸大小。可能的值：从 1 到 7 的数字。浏�
 
 
 <h2 id="代码高亮"><a href="#代码高亮" class="headerlink" title="代码高亮"></a>代码高亮</h2><p>与原来使用缩进来添加代码块的语法不同，这里使用 <code></code> 来包含多行代码： 三个 ``` 要独占一行。</p>
-<h2 id="指定图片大小"><a href="#指定图片大小" class="headerlink" title="指定图片大小"></a>指定图片大小</h2><p>Markdown 不支持指定图片的显示大小，不过可以通过直接插入<img>标签来指定相关属性：</p>
+<h2 id="指定图片大小"><a href="#指定图片大小" class="headerlink" title="指定图片大小"></a>指定图片大小</h2><p>Markdown 不支持指定图片的显示大小，不过可以通过直接插入<strong><code>&lt;img /&gt;</code></strong>标签来指定相关属性：</p>
 <pre><code>&lt;img src=&quot;https://avatars2.githubusercontent.com/u/3265208?v=3&amp;s=100&quot; alt=&quot;GitHub&quot; title=&quot;GitHub,Social Coding&quot; width=&quot;50&quot; height=&quot;50&quot; /&gt;
 </code></pre><p>效果如下：</p>
 <p><img src="https://avatars2.githubusercontent.com/u/3265208?v=3&s=100" alt="GitHub" title="GitHub,Social Coding" width="50" height="50"></p>
