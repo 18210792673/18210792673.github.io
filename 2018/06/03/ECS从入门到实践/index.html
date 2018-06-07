@@ -746,7 +746,89 @@ MAC地址    1个
 </li>
 </ul>
 <h2 id="配置选型"><a href="#配置选型" class="headerlink" title="配置选型"></a>配置选型</h2><p>参考资料：<a href="https://help.aliyun.com/document_detail/58291.html?spm=a2c4g.11186623.6.604.XRqStZ" target="_blank" rel="noopener">阿里云官方资料</a></p>
-<h1 id="用户指南"><a href="#用户指南" class="headerlink" title="用户指南"></a>用户指南</h1>
+<h1 id="用户指南"><a href="#用户指南" class="headerlink" title="用户指南"></a>用户指南</h1><h2 id="安全组-1"><a href="#安全组-1" class="headerlink" title="安全组"></a>安全组</h2><h3 id="安全组限制"><a href="#安全组限制" class="headerlink" title="安全组限制"></a>安全组限制</h3><ul>
+<li>单个安全组内的实例个数不能超过 1000。如果您有超过 1000 个实例需要内网互访，可以将他们分配到多个安全组内，并通过互相授权的方式允许互访。</li>
+</ul>
+<ul>
+<li>每个实例最多可以加入 5 个安全组。</li>
+</ul>
+<ul>
+<li>每个用户的安全组最多 100 个。</li>
+</ul>
+<ul>
+<li>对安全组的调整操作，对用户的服务连续性没有影响。</li>
+</ul>
+<ul>
+<li>安全组是有状态的。如果数据包在 Outbound 方向是被允许的，那么对应的此连接在 Inbound 方向也是允许的。</li>
+</ul>
+<ul>
+<li>安全组的网络类型分为经典网络和专有网络。</li>
+</ul>
+<pre><code>- 经典网络类型的实例可以加入同一地域（Region）下经典网络类型的安全组。
+
+
+- 专有网络类型的实例可以加入同一专有网络（VPC）下的安全组。
+</code></pre><ul>
+<li>每个安全组最多有 100 条安全组规则。</li>
+</ul>
+<h3 id="安全组注意事项"><a href="#安全组注意事项" class="headerlink" title="安全组注意事项"></a>安全组注意事项</h3><ul>
+<li>出方向的端口25默认受限，无法通过安全组规则打开，但是您可以 <a href="https://help.aliyun.com/knowledge_detail/56130.html" target="_blank" rel="noopener">申请解封端口25</a>。</li>
+</ul>
+<h3 id="安全组实践的基本建议"><a href="#安全组实践的基本建议" class="headerlink" title="安全组实践的基本建议"></a>安全组实践的基本建议</h3><p>在开始安全组的实践之前，下面有一些基本的建议：</p>
+<ul>
+<li>最重要的规则：安全组应作为白名单使用。</li>
+</ul>
+<ul>
+<li>开放应用出入规则时应遵循“最小授权”原则，例如，您可以选择开放具体的端口（如 80 端口）。</li>
+</ul>
+<ul>
+<li>不应使用一个安全组管理所有应用，因为不同的分层一定有不同的需求。</li>
+</ul>
+<ul>
+<li>对于分布式应用来说，不同的应用类型应该使用不同的安全组，例如，您应对 Web、Service、Database、Cache 层使用不同的安全组，暴露不同的出入规则和权限。</li>
+</ul>
+<ul>
+<li>没有必要为每个实例单独设置一个安全组，控制管理成本。</li>
+</ul>
+<ul>
+<li>优先考虑 VPC 网络。</li>
+</ul>
+<ul>
+<li>不需要公网访问的资源不应提供公网 IP。</li>
+</ul>
+<ul>
+<li>尽可能保持单个安全组的规则简洁。因为一个实例最多可以加入 5 个安全组，一个安全组最多可以包括 100 个安全组规则，所以一个实例可能同时应用数百条安全组规则。您可以聚合所有分配的安全规则以判断是否允许流入或留出，但是，如果单个安全组规则很复杂，就会增加管理的复杂度。所以，应尽可能地保持单个安全组的规则简洁。</li>
+</ul>
+<ul>
+<li>调整线上的安全组的出入规则是比较危险的动作。如果您无法确定，不应随意更新安全组出入规则的设置。阿里云的控制台提供了克隆安全组和安全组规则的功能。如果您想要修改线上的安全组和规则，您应先克隆一个安全组，再在克隆的安全组上进行调试，从而避免直接影响线上应用。</li>
+</ul>
+<h3 id="设置安全组规则"><a href="#设置安全组规则" class="headerlink" title="设置安全组规则"></a>设置安全组规则</h3><h4 id="设置安全组的入网规则"><a href="#设置安全组的入网规则" class="headerlink" title="设置安全组的入网规则"></a>设置安全组的入网规则</h4><p><strong>不要使用 0.0.0.0/0 的入网规则</strong></p>
+<p>允许全部入网访问是经常犯的错误。使用 0.0.0.0/0 意味着所有的端口都对外暴露了访问权限。这是非常不安全的。正确的做法是，先拒绝所有的端口对外开放。安全组应该是白名单访问。例如，如果您需要暴露 Web 服务，默认情况下可以只开放 80、8080 和 443 之类的常用TCP端口，其它的端口都应关闭。</p>
+<pre><code>{ &quot;IpProtocol&quot; : &quot;tcp&quot;, &quot;FromPort&quot; : &quot;80&quot;, &quot;ToPort&quot; : &quot;80&quot;, &quot;SourceCidrIp&quot; : &quot;0.0.0.0/0&quot;, &quot;Policy&quot;: &quot;accept&quot;} ,
+{ &quot;IpProtocol&quot; : &quot;tcp&quot;, &quot;FromPort&quot; : &quot;8080&quot;, &quot;ToPort&quot; : &quot;8080&quot;, &quot;SourceCidrIp&quot; : &quot;0.0.0.0/0&quot;, &quot;Policy&quot;: &quot;accept&quot;} ,
+{ &quot;IpProtocol&quot; : &quot;tcp&quot;, &quot;FromPort&quot; : &quot;443&quot;, &quot;ToPort&quot; : &quot;443&quot;, &quot;SourceCidrIp&quot; : &quot;0.0.0.0/0&quot;, &quot;Policy&quot;: &quot;accept&quot;} ,
+</code></pre><p><strong>关闭不需要的入网规则</strong></p>
+<p>如果您当前使用的入规则已经包含了 0.0.0.0/0，您需要重新审视自己的应用需要对外暴露的端口和服务。如果确定不想让某些端口直接对外提供服务，您可以加一条拒绝的规则。比如，如果您的服务器上安装了 MySQL 数据库服务，默认情况下您不应该将 3306 端口暴露到公网，此时，您可以添加一条拒绝规则，如下所示，并将其优先级设为100，即优先级最低。</p>
+<pre><code>{ &quot;IpProtocol&quot; : &quot;tcp&quot;, &quot;FromPort&quot; : &quot;3306&quot;, &quot;ToPort&quot; : &quot;3306&quot;, &quot;SourceCidrIp&quot; : &quot;0.0.0.0/0&quot;, &quot;Policy&quot;: &quot;drop&quot;, Priority: 100} ,
+</code></pre><p>上面的调整会导致所有的端口都不能访问 3306 端口，极有可能会阻止您正常的业务需求。此时，您可以通过授权另外一个安全组的资源进行入规则访问。</p>
+<p><strong>授权另外一个安全组入网访问</strong></p>
+<p>不同的安全组按照最小原则开放相应的出入规则。对于不同的应用分层应该使用不同的安全组，不同的安全组应有相应的出入规则。</p>
+<p>例如，如果是分布式应用，您会区分不同的安全组，但是，不同的安全组可能网络不通，此时您不应该直接授权 IP 或者 CIDR 网段，而是直接授权另外一个安全组 ID 的所有的资源都可以直接访问。比如，您的应用对 Web、Database 分别创建了不同的安全组：sg-web 和 sg-database。在sg-database 中，您可以添加如下规则，授权所有的 sg-web 安全组的资源访问您的 3306 端口。</p>
+<pre><code>{ &quot;IpProtocol&quot; : &quot;tcp&quot;, &quot;FromPort&quot; : &quot;3306&quot;, &quot;ToPort&quot; : &quot;3306&quot;, &quot;SourceGroupId&quot; : &quot;sg-web&quot;, &quot;Policy&quot;: &quot;accept&quot;, Priority: 2} ,
+</code></pre><p><strong>授权另外一个 CIDR 可以入网访问</strong></p>
+<p>经典网络中，因为网段不太可控，建议您使用安全组 ID 来授信入网规则。</p>
+<p>VPC 网络中，您可以自己通过不同的 VSwitch 设置不同的 IP 域，规划 IP 地址。所以，在 VPC 网络中，您可以默认拒绝所有的访问，再授信自己的专有网络的网段访问，直接授信可以相信的 CIDR 网段。</p>
+<pre><code>{ &quot;IpProtocol&quot; : &quot;icmp&quot;, &quot;FromPort&quot; : &quot;-1&quot;, &quot;ToPort&quot; : &quot;-1&quot;, &quot;SourceCidrIp&quot; : &quot;10.0.0.0/24&quot;, Priority: 2} ,
+{ &quot;IpProtocol&quot; : &quot;tcp&quot;, &quot;FromPort&quot; : &quot;0&quot;, &quot;ToPort&quot; : &quot;65535&quot;, &quot;SourceCidrIp&quot; : &quot;10.0.0.0/24&quot;, Priority: 2} ,
+{ &quot;IpProtocol&quot; : &quot;udp&quot;, &quot;FromPort&quot; : &quot;0&quot;, &quot;ToPort&quot; : &quot;65535&quot;, &quot;SourceCidrIp&quot; : &quot;10.0.0.0/24&quot;, Priority: 2} ,
+</code></pre><p><strong>总结：</strong></p>
+<ol>
+<li>安全组的实质是白名单</li>
+<li>不适用0.0.0.0/0的入网规则</li>
+<li>如果已经存在了0.0.0.0/0这种规则，那么需要设置关闭不安全的入网规则，例如关闭3306端口等，这里需要设置优先级为最小值100</li>
+<li>不同应用使用不同的安全组，在这种情况下，需要在入向规则中添加安全组授权，比如数据库的安全组中授权web的安全组</li>
+</ol>
+<h1 id="最佳实践"><a href="#最佳实践" class="headerlink" title="最佳实践"></a>最佳实践</h1><h2 id="安全"><a href="#安全" class="headerlink" title="安全"></a>安全</h2><h1 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h1>
       
     </div>
     
@@ -929,7 +1011,7 @@ var jiathis_config={
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">64</span>
+                  <span class="site-state-item-count">69</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -940,7 +1022,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">82</span>
+                  <span class="site-state-item-count">90</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -951,7 +1033,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">63</span>
+                  <span class="site-state-item-count">66</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -991,7 +1073,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ECS基础知识"><span class="nav-number">1.</span> <span class="nav-text">ECS基础知识</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#ECS-概述"><span class="nav-number">1.1.</span> <span class="nav-text">ECS 概述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#名词解释"><span class="nav-number">1.1.1.</span> <span class="nav-text">名词解释</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ECS的优势"><span class="nav-number">1.1.2.</span> <span class="nav-text">ECS的优势</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#块存储"><span class="nav-number">1.2.</span> <span class="nav-text">块存储</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#概念"><span class="nav-number">1.2.1.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#块存储、对象存储、文件存储的区别"><span class="nav-number">1.2.2.</span> <span class="nav-text">块存储、对象存储、文件存储的区别</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#块存储性能"><span class="nav-number">1.3.</span> <span class="nav-text">块存储性能</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#弹性块存储"><span class="nav-number">1.4.</span> <span class="nav-text">弹性块存储</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#云盘"><span class="nav-number">1.4.1.</span> <span class="nav-text">云盘</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#共享块存储"><span class="nav-number">1.4.2.</span> <span class="nav-text">共享块存储</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#网络和安全性"><span class="nav-number">1.5.</span> <span class="nav-text">网络和安全性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#内网"><span class="nav-number">1.5.1.</span> <span class="nav-text">内网</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#弹性网卡"><span class="nav-number">1.5.2.</span> <span class="nav-text">弹性网卡</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安全组"><span class="nav-number">1.5.3.</span> <span class="nav-text">安全组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DDOS基础防护"><span class="nav-number">1.5.4.</span> <span class="nav-text">DDOS基础防护</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#企业版入门"><span class="nav-number">2.</span> <span class="nav-text">企业版入门</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#配置选型"><span class="nav-number">2.1.</span> <span class="nav-text">配置选型</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#用户指南"><span class="nav-number">3.</span> <span class="nav-text">用户指南</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ECS基础知识"><span class="nav-number">1.</span> <span class="nav-text">ECS基础知识</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#ECS-概述"><span class="nav-number">1.1.</span> <span class="nav-text">ECS 概述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#名词解释"><span class="nav-number">1.1.1.</span> <span class="nav-text">名词解释</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ECS的优势"><span class="nav-number">1.1.2.</span> <span class="nav-text">ECS的优势</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#块存储"><span class="nav-number">1.2.</span> <span class="nav-text">块存储</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#概念"><span class="nav-number">1.2.1.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#块存储、对象存储、文件存储的区别"><span class="nav-number">1.2.2.</span> <span class="nav-text">块存储、对象存储、文件存储的区别</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#块存储性能"><span class="nav-number">1.3.</span> <span class="nav-text">块存储性能</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#弹性块存储"><span class="nav-number">1.4.</span> <span class="nav-text">弹性块存储</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#云盘"><span class="nav-number">1.4.1.</span> <span class="nav-text">云盘</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#共享块存储"><span class="nav-number">1.4.2.</span> <span class="nav-text">共享块存储</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#网络和安全性"><span class="nav-number">1.5.</span> <span class="nav-text">网络和安全性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#内网"><span class="nav-number">1.5.1.</span> <span class="nav-text">内网</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#弹性网卡"><span class="nav-number">1.5.2.</span> <span class="nav-text">弹性网卡</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安全组"><span class="nav-number">1.5.3.</span> <span class="nav-text">安全组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DDOS基础防护"><span class="nav-number">1.5.4.</span> <span class="nav-text">DDOS基础防护</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#企业版入门"><span class="nav-number">2.</span> <span class="nav-text">企业版入门</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#配置选型"><span class="nav-number">2.1.</span> <span class="nav-text">配置选型</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#用户指南"><span class="nav-number">3.</span> <span class="nav-text">用户指南</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#安全组-1"><span class="nav-number">3.1.</span> <span class="nav-text">安全组</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安全组限制"><span class="nav-number">3.1.1.</span> <span class="nav-text">安全组限制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安全组注意事项"><span class="nav-number">3.1.2.</span> <span class="nav-text">安全组注意事项</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安全组实践的基本建议"><span class="nav-number">3.1.3.</span> <span class="nav-text">安全组实践的基本建议</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设置安全组规则"><span class="nav-number">3.1.4.</span> <span class="nav-text">设置安全组规则</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#设置安全组的入网规则"><span class="nav-number">3.1.4.1.</span> <span class="nav-text">设置安全组的入网规则</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#最佳实践"><span class="nav-number">4.</span> <span class="nav-text">最佳实践</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#安全"><span class="nav-number">4.1.</span> <span class="nav-text">安全</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#常见问题"><span class="nav-number">5.</span> <span class="nav-text">常见问题</span></a></li></ol></div>
             
 
           </div>
