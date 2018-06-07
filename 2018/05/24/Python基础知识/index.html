@@ -90,6 +90,7 @@
 <meta property="og:description" content="Python基础知识">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://picture.watchmen.xin/python-14/lang.png">
+<meta property="og:image" content="http://picture.watchmen.xin/python-14/ASCII.jpg">
 <meta property="og:updated_time" content="2018-05-24T13:05:55.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Python基础知识">
@@ -631,6 +632,39 @@
 <blockquote>
 <p>[‘and’, ‘as’, ‘assert’, ‘break’, ‘class’, ‘continue’, ‘def’, ‘del’, ‘elif’, ‘else’, ‘except’, ‘exec’, ‘finally’, ‘for’, ‘from’, ‘global’, ‘if’, ‘import’, ‘in’, ‘is’, ‘lambda’, ‘not’, ‘or’, ‘pass’, ‘print’, ‘raise’, ‘return’, ‘try’, ‘while’, ‘with’, ‘yield’]</p>
 </blockquote>
+<h3 id="变量和常量"><a href="#变量和常量" class="headerlink" title="变量和常量"></a>变量和常量</h3><p>注意，在C++等语言中可以定义常量，但是在python中没有常量的概念</p>
+<p>那么，如果我们在python中想要定义一个常量，我们就将这个<font color="red"><strong><code>变量名大写</code></strong></font>。这是一种自发遵守的代码规范，并不是说不能再次修改，只是便于人类识别。 </p>
+<p>例如：</p>
+<pre><code>PIE = &quot;watchmen&quot;
+</code></pre><h3 id="字符编码"><a href="#字符编码" class="headerlink" title="字符编码"></a>字符编码</h3><p>计算机的底层就是电路，电路到最底层就只有两种状态，一种是通电，一种是不通电，那么也就是只能表示两种状态。</p>
+<pre><code>128 64 32 16     8     4     2     1 
+1     1    1    1    1    1    1    1
+</code></pre><p>进位：后面的数字表示有上限之后，才进位到前面，例如：8+4+2+1=15，在表示16的时候，需要在前面表示进一位表示</p>
+<p>第n位数表示的值：2^n-1,例如16=2^5-1=2^4 = 8+4+2+1+1</p>
+<p>第n位数之前的值的总和是：2^n-1 -1。例如第5位数的前4位数的总和为：2^4-1=16-1</p>
+<p>也就是说，我们可以通过这种方式来计算，n位数的总和：2^n-1</p>
+<p>上面这些是二进制和数字的对应关系 </p>
+<p>现在可以将数字和字符进行对应，指定某个数字对应某个字母</p>
+<p>根据这种对应关系，人们就创建了ASCII编码方式</p>
+<p>ASCII（American Standard Code for Information Interchange，<strong><code>美国标准信息交换代码</code></strong>）是基于拉丁字母的一套电脑编码系统，主要用于显示现代英语和其他西欧语言，其最多只能用 8 位来表示（一个字节），即：2**8 = 256-1，所以，ASCII码最多只能表示 255 个符号。</p>
+<p><img src="http://picture.watchmen.xin/python-14/ASCII.jpg" alt="ascii"></p>
+<p>图中显示的是ASCII的上半部分，一共127个，剩余的128-255个是预留的。</p>
+<p>预留的这128个空间，无法存储下中文，因此重新创造了编码方式（扩展编码）</p>
+<p>将指定的空间，用来存储索引信息，只要是定位到这个空间，那么就将指向另外的一张中文表（大约7000+个汉字），这就是GB2312编码（1980年创建）</p>
+<p>为了处理汉字，程序员设计了用于简体中文的GB2312和用于繁体中文的big5。</p>
+<p>GB2312(1980年)一共收录了7445个字符，包括6763个汉字和682个其它符号。汉字区的内码范围高字节从B0-F7，低字节从A1-FE，占用的码位是72*94=6768。其中有5个空位是D7FA-D7FE。</p>
+<p>GB2312 支持的汉字太少。1995年的汉字扩展规范GBK1.0收录了21886个符号，它分为汉字区和图形符号区。汉字区包括21003个字符。2000年的 GB18030是取代GBK1.0的正式国家标准。该标准收录了27484个汉字，同时还收录了藏文、蒙文、维吾尔文等主要的少数民族文字。</p>
+<p>现在的PC平台必须支持GB18030，对嵌入式产品暂不作要求。所以手机、MP3一般只支持GB2312。</p>
+<p>从ASCII、GB2312、GBK 到GB18030，这些编码方法是向下兼容的，即同一个字符在这些方案中总是有相同的编码，后面的标准支持更多的字符。在这些编码中，英文和中文可以统一地处理。区分中文编码的方法是高字节的最高位不为0。按照程序员的称呼，GB2312、GBK到GB18030都属于双字节字符集 (DBCS)。</p>
+<p>有的中文Windows的缺省内码还是GBK，可以通过GB18030升级包升级到GB18030。不过GB18030相对GBK增加的字符，普通人是很难用到的，通常我们还是用GBK指代中文Windows内码。</p>
+<p><strong>Unicode</strong></p>
+<p>显然ASCII码无法将世界上的各种文字和符号全部表示，所以，就需要新出一种可以代表所有字符和符号的编码，即：Unicode</p>
+<p>Unicode（统一码、万国码、单一码）是一种在计算机上使用的字符编码。Unicode 是为了解决传统的字符编码方案的局限而产生的，它为每种语言中的每个字符设定了统一并且唯一的二进制编码，规定虽有的字符和符号最少由 16 位来表示（2个字节），即：2 **16 = 65536，<br>注：此处说的的是最少2个字节，可能更多</p>
+<p>UTF-8，是对Unicode编码的压缩和优化，他不再使用最少使用2个字节，而是将所有的字符和符号进行分类：</p>
+<blockquote>
+<p>ascii码中的内容用1个字节保存、欧洲的字符用2个字节保存，东亚的字符用3个字节保存..</p>
+</blockquote>
+<p>UTF-8，可以动态改变长度，可以动态变化的编码集 </p>
 
       
     </div>
@@ -876,7 +910,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Python简介"><span class="nav-number">1.</span> <span class="nav-text">Python简介</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Python擅长领域"><span class="nav-number">1.1.</span> <span class="nav-text">Python擅长领域</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编程语言概述"><span class="nav-number">1.2.</span> <span class="nav-text">编程语言概述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#低级语言与高级语言"><span class="nav-number">1.2.1.</span> <span class="nav-text">低级语言与高级语言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编译型和解释型"><span class="nav-number">1.2.2.</span> <span class="nav-text">编译型和解释型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#静态语言和动态语言"><span class="nav-number">1.2.3.</span> <span class="nav-text">静态语言和动态语言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#强类型定义语言和弱类型定义语言"><span class="nav-number">1.2.4.</span> <span class="nav-text">强类型定义语言和弱类型定义语言</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Python的优缺点"><span class="nav-number">1.3.</span> <span class="nav-text">Python的优缺点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#优点"><span class="nav-number">1.3.1.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#缺点"><span class="nav-number">1.3.2.</span> <span class="nav-text">缺点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Python解释器"><span class="nav-number">1.4.</span> <span class="nav-text">Python解释器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#变量和字符编码"><span class="nav-number">1.5.</span> <span class="nav-text">变量和字符编码</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Python变量的定义规则"><span class="nav-number">1.5.1.</span> <span class="nav-text">Python变量的定义规则</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Python简介"><span class="nav-number">1.</span> <span class="nav-text">Python简介</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Python擅长领域"><span class="nav-number">1.1.</span> <span class="nav-text">Python擅长领域</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编程语言概述"><span class="nav-number">1.2.</span> <span class="nav-text">编程语言概述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#低级语言与高级语言"><span class="nav-number">1.2.1.</span> <span class="nav-text">低级语言与高级语言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编译型和解释型"><span class="nav-number">1.2.2.</span> <span class="nav-text">编译型和解释型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#静态语言和动态语言"><span class="nav-number">1.2.3.</span> <span class="nav-text">静态语言和动态语言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#强类型定义语言和弱类型定义语言"><span class="nav-number">1.2.4.</span> <span class="nav-text">强类型定义语言和弱类型定义语言</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Python的优缺点"><span class="nav-number">1.3.</span> <span class="nav-text">Python的优缺点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#优点"><span class="nav-number">1.3.1.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#缺点"><span class="nav-number">1.3.2.</span> <span class="nav-text">缺点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Python解释器"><span class="nav-number">1.4.</span> <span class="nav-text">Python解释器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#变量和字符编码"><span class="nav-number">1.5.</span> <span class="nav-text">变量和字符编码</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Python变量的定义规则"><span class="nav-number">1.5.1.</span> <span class="nav-text">Python变量的定义规则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#变量和常量"><span class="nav-number">1.5.2.</span> <span class="nav-text">变量和常量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#字符编码"><span class="nav-number">1.5.3.</span> <span class="nav-text">字符编码</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
