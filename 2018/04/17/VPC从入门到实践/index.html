@@ -530,29 +530,31 @@
 <tr>
 <td style="text-align:center">192.168.0.0/16</td>
 <td style="text-align:center">65532</td>
+<td style="text-align:center">192.168.0.0-192.168.255.255</td>
 </tr>
 <tr>
 <td style="text-align:center">172.16.0.0/12</td>
 <td style="text-align:center">1048572</td>
-<td style="text-align:center">172.16.0.1-172.31.255.254</td>
+<td style="text-align:center">172.16.0.0-172.31.255.255</td>
 </tr>
 <tr>
 <td style="text-align:center">10.0.0.0/8</td>
 <td style="text-align:center">16777212</td>
+<td style="text-align:center">10.0.0.0-10.255.255.255</td>
 </tr>
 </tbody>
 </table>
+<p>最终每个网段的可用IP数量要总数减去4（系统去掉了0以及保留了最后3个）</p>
 <p>交换机的网段不能和所属的专有网络的网段重叠，可以是其子集或者相同，网段大小在<strong><code>16位网络掩码与29位网络掩码</code></strong>之间。 如果交换机的网段和专有网络的网段相同，您只能创建一个交换机。</p>
 <p>更多网络规划的信息，参考VPC网络规划。</p>
 <p><strong>关系梳理：</strong></p>
 <blockquote>
 <p>一个VPC（专有网络）是一个大网段，例如：192.168.0.0/16</p>
-<p>每一个可用区是其中的子网（VLAN），由交换机相连接，例如可用区A和B的网段：192.168.1.0/24、192.168.2.0/24 </p>
+<p>如果掩码是24位，那么这里一共可以划分出来2^8=256个子网</p>
 <ul>
-<li>如果掩码是24位，那么这里一共可以划分出来2^8=256个可用区（可用的为256个，0-255，剔除了256）</li>
-<li>每一个可用区的可用主机数量为：2^8=256个（可用的为254个，1-254，剔除了0和255)</li>
+<li>每一个可用区的可用主机数量为：2^8=256个（可用的为252个，剔除了0和255、254、253)</li>
 </ul>
-<p>一个交换机连接的是一个可用区（也就是一个子网），路由器连接的是每个可用区，对外的网段是VPC的网段。</p>
+<p>一个交换机在一个可用区中，一个交换机也就是一个子网，路由器连接的是每个交换机，对外的网段是VPC的网段。</p>
 </blockquote>
 <h2 id="基础架构及实现原理"><a href="#基础架构及实现原理" class="headerlink" title="基础架构及实现原理"></a>基础架构及实现原理</h2><h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><p>随着云计算的不断发展，对虚拟化网络的要求越来越高，比如弹性（scalability）、安全性（security）、可靠性（reliability）和私密性（privacy），并且还有极高的互联性能（performance）需求，因此催生了多种多样的网络虚拟化技术。</p>
 <p>比较早的解决方案，是将虚拟机的网络和物理网络融合在一起，形成一个扁平的网络架构，例如大二层网络。随着虚拟化网络规模的扩大，这种方案中的<strong><code>ARP欺骗、广播风暴、主机扫描</code></strong>等问题会越来越严重。为了解决这些问题，出现了各种网络隔离技术，把物理网络和虚拟网络彻底隔开。其中一种技术是用户之间用VLAN进行隔离，<strong><code>但是VLAN的数量最大只能支持到4096个</code></strong>，无法支撑公共云的巨大用户量。</p>
@@ -1112,7 +1114,7 @@ var jiathis_config={
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">69</span>
+                  <span class="site-state-item-count">71</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1123,7 +1125,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">90</span>
+                  <span class="site-state-item-count">93</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -1134,7 +1136,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">66</span>
+                  <span class="site-state-item-count">69</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

@@ -478,11 +478,141 @@ Salary:
 &apos;&apos;&apos;
 </code></pre><p>让输出的内容按照指定的格式进行输出</p>
 <p><strong>传统方式：使用字符串拼接实现</strong></p>
+<p>代码如下：</p>
+<pre><code>name = input(&quot;name: &quot;)
+age = input(&quot;age: &quot;)
+job = input(&quot;job:&quot;)
+salary = input(&quot;salary:&quot;)
+
+info = &apos;&apos;&apos;
+-------- info of &apos;&apos;&apos; +  name +  &quot;&quot;&quot; ------- 
+Name:&quot;&quot;&quot; + name  + &quot;&quot;&quot;
+Age: &quot;&quot;&quot; + age   + &quot;&quot;&quot;
+Job: &quot;&quot;&quot; +  job  +  &quot;&quot;&quot;
+Salary: &quot;&quot;&quot; + salary
+
+
+print (info)
+</code></pre><p>使用注释拼接上变量的形式来创建指定的格式，不建议使用字符串拼接的方式去实现，因为它会开辟好几块的内存空间，效率比较低下</p>
+<p><strong>更高效简单的方法-参数替换</strong></p>
+<p>在shell脚本中，我们使用$符号引用外面定义的变量，在python中也提供了类似的功能。</p>
+<p>在python中使用%s，占位符，相当于$的存在</p>
+<p>代码如下：</p>
+<pre><code>name = input(&quot;name: &quot;)
+age = int(input(&quot;age: &quot;))
+job = input(&quot;job:&quot;)
+salary = input(&quot;salary:&quot;)
+
+
+print(&quot;name&quot;)
+
+info = &quot;&quot;&quot;
+-------- info of %s -----
+name: %s
+age: %d
+job: %s
+salary: %s
+&quot;&quot;&quot;%(name,name,age,job,salary)
+
+print (info)
+</code></pre><p><strong>解释：</strong></p>
+<p>在这里</p>
+<ul>
+<li>%s代表的是string</li>
+<li>%d代表的是 digital</li>
+<li>%f代表的是 float</li>
+<li>int代表的是整型  integer</li>
+</ul>
+<p>注意，在定义age的时候，使用的强制类型转换，因为如果不进行强制类型定义的话，则输入的会使默认的字符类型</p>
+<p>如果想要知道输入的值在程序运行的时候的是什么类型，则可以使用type函数进行查看</p>
+<pre><code>print (type(name))
+</code></pre><p>因为python是一个强类型定义语言，所以在第一次赋值之后，这个变量的数据类型就固定了，要么强制转换，不然的话就一直是这个数据类型</p>
+<p><strong>更高效简单的方法-format方式</strong></p>
+<p>代码如下：</p>
+<pre><code>name = input(&quot;name: &quot;)
+age = input(&quot;age: &quot;)
+job = input(&quot;job: &quot;)
+salary = input(&quot;salary: &quot;)
+
+info = &quot;&quot;&quot;
+
+--- info of {_name} ---
+name: {_name}
+age: {_age}
+job: {_job}
+salary: {_salary}
+&quot;&quot;&quot; .format(_name = name,
+            _age = age,
+            _job = job,
+            _salary = salary)
+
+print (info)
+</code></pre><p>在日常开发中，建议使用这种方式去格式化输出内容</p>
 <h1 id="用户输入"><a href="#用户输入" class="headerlink" title="用户输入"></a>用户输入</h1><pre><code>username = input(&quot;username: &quot;)
 password = input(&quot;password: &quot;)
 
 print (username + &quot; &quot; + password )
-</code></pre><p>当使用input函数的时候，我们在输入内容的时候，所输入的内容是直接在屏幕显示的</p>
+</code></pre><p>当使用input函数的时候，我们在输入内容的时候，所输入的内容是直接在屏幕明文显示的</p>
+<p>因此，这里需要隐藏输入的明文显示，此时，使用标准库中的一个模块：getpass</p>
+<p>标准库：直接import就能使用标准库中的模块，不需要再额外安装，因此在安装python的时候，就已经默认安装集成了这个标准库</p>
+<p>我们从标准库中import getpass模块之后，直接调用它的方法</p>
+<p>修改之后的代码如下所示：</p>
+<pre><code>import getpass
+
+username = input(&quot;username: &quot;)
+password = getpass.getpass(&quot;password: &quot;)
+
+print (username,password)
+</code></pre><p><strong>注意：</strong> getpass在pycharm中有bug，在进行验证的时候可以使用cmd来进行</p>
+<p>输出如下：</p>
+<pre><code>C:\Users\Administrator\PycharmProjects\python14\day1&gt;python password.py
+username: wxh
+password:
+wxh wxh
+</code></pre><p><strong>优化之后的代码：</strong></p>
+<pre><code>import getpass
+
+
+_username = &quot;wxh&quot;
+_password = &quot;wxh123&quot;
+
+username = input(&quot;username: &quot;)
+password = getpass.getpass(&quot;password: &quot;)
+
+if username == _username and password == _password :
+    print (&quot;Welcome user {name} login...&quot;.format(name=username))
+    print (username,password)
+else:
+    print (&quot;Invalid username or password! &quot;)
+</code></pre><p>输出 如下：</p>
+<pre><code>C:\Users\Administrator\PycharmProjects\python14\day1&gt;python password.py
+username: wxh
+password:
+Invalid username or password!
+
+C:\Users\Administrator\PycharmProjects\python14\day1&gt;python password.py
+username: wxh
+password:
+Welcome user wxh login...
+wxh wxh123
+
+C:\Users\Administrator\PycharmProjects\python14\day1&gt;
+</code></pre><h1 id="模块初始"><a href="#模块初始" class="headerlink" title="模块初始"></a>模块初始</h1><h1 id="流程控制"><a href="#流程控制" class="headerlink" title="流程控制"></a>流程控制</h1><h1 id="if语句"><a href="#if语句" class="headerlink" title="if语句"></a>if语句</h1><pre><code>wxh_age = 23
+print (type(wxh_age))
+
+message = &quot;Please input the number of wxh&apos;s age: &quot;
+
+guess_age = int(input (message))
+
+if guess_age == wxh_age:
+    print (&quot;yes,you got it. &quot;)
+elif guess_age &gt; wxh_age:
+    print (&quot;think smaller...&quot;)
+else:
+    print (&quot;think bigger...&quot;)
+
+print (&quot;the right answer is {Age}&quot;.format(Age=wxh_age))
+</code></pre><p>注意：当给变量赋值字符的时候，一定要记得带上引号，不带引号的话表示的是变量。</p>
 
       
     </div>
@@ -666,7 +796,7 @@ var jiathis_config={
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">69</span>
+                  <span class="site-state-item-count">71</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -677,7 +807,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">90</span>
+                  <span class="site-state-item-count">93</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -688,7 +818,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">66</span>
+                  <span class="site-state-item-count">69</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -728,7 +858,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#格式化输出"><span class="nav-number">1.</span> <span class="nav-text">格式化输出</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#用户输入"><span class="nav-number">2.</span> <span class="nav-text">用户输入</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#格式化输出"><span class="nav-number">1.</span> <span class="nav-text">格式化输出</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#用户输入"><span class="nav-number">2.</span> <span class="nav-text">用户输入</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#模块初始"><span class="nav-number">3.</span> <span class="nav-text">模块初始</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#流程控制"><span class="nav-number">4.</span> <span class="nav-text">流程控制</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#if语句"><span class="nav-number">5.</span> <span class="nav-text">if语句</span></a></li></ol></div>
             
 
           </div>
