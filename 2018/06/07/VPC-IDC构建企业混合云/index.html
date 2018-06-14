@@ -490,20 +490,6 @@
 <li><p>GDS CX专线接入饿了么</p>
 </li>
 </ul>
-<p>问题</p>
-<ol>
-<li>现在公司的整体机房、网络等的情况【目前杭州的自建IDC机房是什么情况、有哪些阿里云和IDC，我们现在的zabbix不是也是有3套吗】</li>
-<li>上海IDC要连接的杭州IDC指的是现在公司的自建机房还是杭州的阿里云机房（这个的机房在哪里?是在东冠机房吗）</li>
-<li>阿里云华东2 也就是上海阿里云是什么情况？</li>
-<li>IDC和阿里云的专线连接是怎么样子的？是直接连接到阿里云所在可用区的物理机房吗？ 还是通过高速通道的这种方式连接到VPC的高速通道的边界路由器的路由器接口  </li>
-<li>本地IDC和本地阿里云的，也就是杭州的IDC和阿里云以及上海的IDC和上海的阿里云有做专线吗？</li>
-<li>本地IDC有必要和跨地域的阿里云连接吗?也就是说，是不是IDC和阿里云两两之间都需要连通</li>
-<li>2/5Gbps专线是什么意思 ？ 2.5Gb的带宽吗 还是是主备的模式 主是5Gb,备是2Gb</li>
-<li>服务器安装的系统 应用服务器还是安装6吗？怎么做初始化</li>
-<li>现在现在上海的混合云架构和异地多活改造的关系是什么样子，也就是现在这个上海机房处于一个什么位置，是异地多活的开始吗，最终的异地多活是什么样子的？</li>
-<li>上海机房建设的进度安排，什么时间点要完成什么任务 我们要做什么？</li>
-<li>混合之后的网段划分，不能是同一网段</li>
-</ol>
 <h1 id="为什么需要这套环境？-需求分析"><a href="#为什么需要这套环境？-需求分析" class="headerlink" title="为什么需要这套环境？-需求分析"></a>为什么需要这套环境？-需求分析</h1><h1 id="架构实现"><a href="#架构实现" class="headerlink" title="架构实现"></a>架构实现</h1><h2 id="项目进度时间轴"><a href="#项目进度时间轴" class="headerlink" title="项目进度时间轴"></a>项目进度时间轴</h2><h2 id="架构规划"><a href="#架构规划" class="headerlink" title="架构规划"></a>架构规划</h2><p><strong>网络设备及服务器：</strong></p>
 <ul>
 <li><p>网络设备</p>
@@ -525,6 +511,553 @@
 <ul>
 <li>您可以使用VPN网关来实现本地IDC网络中心与专有网络的互通，详情参考搭建VPN网关。</li>
 </ul>
+<h1 id="备注"><a href="#备注" class="headerlink" title="备注"></a>备注</h1><p>临时配置之后，写入配置文件当中，做自启动配置</p>
+<p>vim /etc/rc.local</p>
+<p>route add -net 10.11.0.0 netmask 255.255.0.0 gateway 10.10.10.254</p>
+<h1 id="测试验收"><a href="#测试验收" class="headerlink" title="测试验收"></a>测试验收</h1><h2 id="专线带宽测试"><a href="#专线带宽测试" class="headerlink" title="专线带宽测试"></a>专线带宽测试</h2><p>专线带宽为2Gb，理论传输速率为：256MB/s</p>
+<p>使用iperf命令进行测试，客户端指定发送一个5GB的数据包，每隔5秒钟输出一次传输状态，输出结果的显示单位为MB显示，并发3个线程发送</p>
+<h3 id="上海IDC机房流入流量"><a href="#上海IDC机房流入流量" class="headerlink" title="上海IDC机房流入流量"></a>上海IDC机房流入流量</h3><font color="red"><strong>杭州IDC机房(10.10.10.11)–&gt;上海IDC机房(10.11.6.3)</strong></font>
+
+
+
+
+<pre><code>[root@storage1 iperf-3.5]# iperf3  -c 10.11.6.3 -n 5000000000 -p 5201 -i 5 -f M -P 3 
+
+Connecting to host 10.11.6.3, port 5201
+[  5] local 10.10.10.11 port 44247 connected to 10.11.6.3 port 5201
+[  7] local 10.10.10.11 port 44248 connected to 10.11.6.3 port 5201
+[  9] local 10.10.10.11 port 44252 connected to 10.11.6.3 port 5201
+[ ID] Interval           Transfer     Bitrate         Retr  Cwnd
+[  5]   0.00-5.00   sec   482 MBytes  96.3 MBytes/sec  44120    824 KBytes       
+[  7]   0.00-5.00   sec   293 MBytes  58.6 MBytes/sec  460    553 KBytes       
+[  9]   0.00-5.00   sec   236 MBytes  47.1 MBytes/sec  473    454 KBytes       
+[SUM]   0.00-5.00   sec  1010 MBytes   202 MBytes/sec  45053             
+- - - - - - - - - - - - - - - - - - - - - - - - -
+[  5]   5.00-10.00  sec   476 MBytes  95.3 MBytes/sec  46332    570 KBytes       
+[  7]   5.00-10.00  sec   305 MBytes  61.1 MBytes/sec    0    679 KBytes       
+[  9]   5.00-10.00  sec   257 MBytes  51.4 MBytes/sec    0    581 KBytes       
+[SUM]   5.00-10.00  sec  1.01 GBytes   208 MBytes/sec  46332             
+- - - - - - - - - - - - - - - - - - - - - - - - -
+[  5]  10.00-15.00  sec   471 MBytes  94.2 MBytes/sec  49245    694 KBytes       
+[  7]  10.00-15.00  sec   299 MBytes  59.7 MBytes/sec   18    641 KBytes       
+[  9]  10.00-15.00  sec   262 MBytes  52.4 MBytes/sec    6    595 KBytes       
+[SUM]  10.00-15.00  sec  1.01 GBytes   206 MBytes/sec  49269             
+- - - - - - - - - - - - - - - - - - - - - - - - -
+[  5]  15.00-20.00  sec   472 MBytes  94.5 MBytes/sec  49402    901 KBytes       
+[  7]  15.00-20.00  sec   290 MBytes  57.9 MBytes/sec   86    608 KBytes       
+[  9]  15.00-20.00  sec   272 MBytes  54.4 MBytes/sec   10    587 KBytes       
+[SUM]  15.00-20.00  sec  1.01 GBytes   207 MBytes/sec  49498             
+- - - - - - - - - - - - - - - - - - - - - - - - -
+[  5]  20.00-23.08  sec   309 MBytes   100 MBytes/sec  18564    571 KBytes       
+[  7]  20.00-23.08  sec   177 MBytes  57.3 MBytes/sec    0    680 KBytes       
+[  9]  20.00-23.08  sec   169 MBytes  54.7 MBytes/sec    0    635 KBytes       
+[SUM]  20.00-23.08  sec   654 MBytes   212 MBytes/sec  18564             
+- - - - - - - - - - - - - - - - - - - - - - - - -
+[ ID] Interval           Transfer     Bitrate         Retr
+[  5]   0.00-23.08  sec  2.16 GBytes  95.8 MBytes/sec  207663             sender
+[  5]   0.00-23.09  sec  2.16 GBytes  95.6 MBytes/sec                  receiver
+[  7]   0.00-23.08  sec  1.33 GBytes  59.1 MBytes/sec  564             sender
+[  7]   0.00-23.09  sec  1.33 GBytes  59.0 MBytes/sec                  receiver
+[  9]   0.00-23.08  sec  1.17 GBytes  51.8 MBytes/sec  489             sender
+[  9]   0.00-23.09  sec  1.17 GBytes  51.7 MBytes/sec                  receiver
+[SUM]   0.00-23.08  sec  4.66 GBytes   207 MBytes/sec  208716             sender
+[SUM]   0.00-23.09  sec  4.65 GBytes   206 MBytes/sec                  receiver
+
+iperf Done.
+</code></pre><font color="red"><strong>杭州阿里云(172.24.146.107)–&gt;上海IDC机房(10.11.0.11)</strong></font>
+
+<p>因为阿里云主机，每台服务器都只配备一块千兆网卡，因此服务器的出口带宽是有限制的</p>
+<p>所以在做测试时，我们同时启动3台阿里云主机进行测试，查看三台主机数据之和</p>
+<p><strong>杭州阿里云-主机1(172.24.18.125)–&gt;上海IDC机房(10.11.6.3)</strong></p>
+<pre><code>[root@app589 ~]# date;iperf3 -c 10.11.6.3 -n 5000000000 -p 5201 -i 5 -f M -P 3
+Wed Jun 13 15:46:37 CST 2018
+Connecting to host 10.11.6.3, port 5201
+[  5] local 172.24.18.125 port 48282 connected to 10.11.6.3 port 5201
+[  7] local 172.24.18.125 port 48284 connected to 10.11.6.3 port 5201
+[  9] local 172.24.18.125 port 48286 connected to 10.11.6.3 port 5201
+[ ID] Interval           Transfer     Bitrate         Retr  Cwnd
+[  5]   0.00-5.00   sec   119 MBytes  23.8 MBytes/sec   85    287 KBytes       
+[  7]   0.00-5.00   sec   149 MBytes  29.8 MBytes/sec  189    376 KBytes       
+[  9]   0.00-5.00   sec   137 MBytes  27.3 MBytes/sec   84    296 KBytes       
+[SUM]   0.00-5.00   sec   405 MBytes  80.9 MBytes/sec  358             
+- - - - - - - - - - - - - - - - - - - - - - - - -
+[  5]   5.00-10.00  sec   104 MBytes  20.8 MBytes/sec    0    329 KBytes       
+[  7]   5.00-10.00  sec   132 MBytes  26.4 MBytes/sec    0    395 KBytes       
+[  9]   5.00-10.00  sec   115 MBytes  23.0 MBytes/sec    0    348 KBytes       
+[SUM]   5.00-10.00  sec   351 MBytes  70.2 MBytes/sec    0             
+- - - - - - - - - - - - - - - - - - - - - - - - -
+[  5]  10.00-15.00  sec  89.0 MBytes  17.8 MBytes/sec    5    250 KBytes       
+[  7]  10.00-15.00  sec   157 MBytes  31.4 MBytes/sec    4    419 KBytes       
+[  9]  10.00-15.00  sec   100 MBytes  20.1 MBytes/sec   14    184 KBytes       
+[SUM]  10.00-15.00  sec   346 MBytes  69.3 MBytes/sec   23             
+- - - - - - - - - - - - - - - - - - - - - - - - -
+[  5]  15.00-20.00  sec  89.7 MBytes  17.9 MBytes/sec    7    262 KBytes       
+[  7]  15.00-20.00  sec   157 MBytes  31.4 MBytes/sec    3    437 KBytes       
+[  9]  15.00-20.00  sec  79.3 MBytes  15.9 MBytes/sec    0    245 KBytes       
+[SUM]  15.00-20.00  sec   326 MBytes  65.2 MBytes/sec   10             
+- - - - - - - - - - - - - - - - - - - - - - - - -
+[  5]  20.00-25.00  sec  72.7 MBytes  14.5 MBytes/sec   22    154 KBytes       
+[  7]  20.00-25.00  sec   150 MBytes  30.1 MBytes/sec    8    464 KBytes       
+[  9]  20.00-25.00  sec  94.2 MBytes  18.8 MBytes/sec   10    303 KBytes       
+[SUM]  20.00-25.00  sec   317 MBytes  63.5 MBytes/sec   40             
+- - - - - - - - - - - - - - - - - - - - - - - - -
+[  5]  25.00-30.00  sec  67.9 MBytes  13.6 MBytes/sec    0    208 KBytes       
+[  7]  25.00-30.00  sec   153 MBytes  30.7 MBytes/sec   11    477 KBytes       
+[  9]  25.00-30.00  sec   114 MBytes  22.8 MBytes/sec    5    290 KBytes       
+[SUM]  25.00-30.00  sec   335 MBytes  67.1 MBytes/sec   16             
+- - - - - - - - - - - - - - - - - - - - - - - - -
+[  5]  30.00-35.00  sec  81.1 MBytes  16.2 MBytes/sec    0    297 KBytes       
+[  7]  30.00-35.00  sec   169 MBytes  33.7 MBytes/sec    0    502 KBytes       
+[  9]  30.00-35.00  sec   102 MBytes  20.4 MBytes/sec    3    301 KBytes       
+[SUM]  30.00-35.00  sec   352 MBytes  70.4 MBytes/sec    3             
+- - - - - - - - - - - - - - - - - - - - - - - - -
+[  5]  35.00-40.00  sec  78.4 MBytes  15.7 MBytes/sec   12    182 KBytes       
+[  7]  35.00-40.00  sec   176 MBytes  35.3 MBytes/sec   18    482 KBytes       
+[  9]  35.00-40.00  sec  94.6 MBytes  18.9 MBytes/sec    7    218 KBytes       
+[SUM]  35.00-40.00  sec   349 MBytes  69.9 MBytes/sec   37             
+- - - - - - - - - - - - - - - - - - - - - - - - -
+[  5]  40.00-45.00  sec  71.3 MBytes  14.3 MBytes/sec    0    233 KBytes       
+[  7]  40.00-45.00  sec   136 MBytes  27.3 MBytes/sec    7    414 KBytes       
+[  9]  40.00-45.00  sec  69.3 MBytes  13.9 MBytes/sec    2    208 KBytes       
+[SUM]  40.00-45.00  sec   277 MBytes  55.4 MBytes/sec    9             
+- - - - - - - - - - - - - - - - - - - - - - - - -
+[  5]  45.00-50.00  sec  78.3 MBytes  15.7 MBytes/sec    5    245 KBytes       
+[  7]  45.00-50.00  sec   148 MBytes  29.7 MBytes/sec    0    478 KBytes       
+[  9]  45.00-50.00  sec  82.2 MBytes  16.4 MBytes/sec    0    267 KBytes       
+[SUM]  45.00-50.00  sec   309 MBytes  61.8 MBytes/sec    5             
+- - - - - - - - - - - - - - - - - - - - - - - - -
+[  5]  50.00-55.00  sec  93.0 MBytes  18.6 MBytes/sec    0    281 KBytes       
+[  7]  50.00-55.00  sec   180 MBytes  36.0 MBytes/sec   10    550 KBytes       
+[  9]  50.00-55.00  sec   109 MBytes  21.9 MBytes/sec    1    342 KBytes       
+[SUM]  50.00-55.00  sec   382 MBytes  76.4 MBytes/sec   11             
+- - - - - - - - - - - - - - - - - - - - - - - - -
+[  5]  55.00-60.00  sec   157 MBytes  31.3 MBytes/sec    0    656 KBytes       
+[  7]  55.00-60.00  sec   208 MBytes  41.7 MBytes/sec    0    574 KBytes       
+[  9]  55.00-60.00  sec   117 MBytes  23.5 MBytes/sec    8    345 KBytes       
+[SUM]  55.00-60.00  sec   482 MBytes  96.5 MBytes/sec    8             
+- - - - - - - - - - - - - - - - - - - - - - - - -
+[  5]  60.00-64.77  sec   249 MBytes  52.2 MBytes/sec   10    796 KBytes       
+[  7]  60.00-64.77  sec   179 MBytes  37.5 MBytes/sec    2    566 KBytes       
+[  9]  60.00-64.77  sec   109 MBytes  22.8 MBytes/sec    6    345 KBytes       
+[SUM]  60.00-64.77  sec   536 MBytes   112 MBytes/sec   18             
+- - - - - - - - - - - - - - - - - - - - - - - - -
+[ ID] Interval           Transfer     Bitrate         Retr
+[  5]   0.00-64.77  sec  1.32 GBytes  20.8 MBytes/sec  146             sender
+[  5]   0.00-64.79  sec  1.32 GBytes  20.8 MBytes/sec                  receiver
+[  7]   0.00-64.77  sec  2.05 GBytes  32.4 MBytes/sec  252             sender
+[  7]   0.00-64.79  sec  2.05 GBytes  32.3 MBytes/sec                  receiver
+[  9]   0.00-64.77  sec  1.29 GBytes  20.4 MBytes/sec  140             sender
+[  9]   0.00-64.79  sec  1.29 GBytes  20.4 MBytes/sec                  receiver
+[SUM]   0.00-64.77  sec  4.66 GBytes  73.6 MBytes/sec  538             sender
+[SUM]   0.00-64.79  sec  4.65 GBytes  73.6 MBytes/sec                  receiver
+
+iperf Done.
+</code></pre><p><strong>杭州阿里云-主机2(172.24.18.126)–&gt;上海IDC机房(10.11.6.4)</strong></p>
+<pre><code>[root@app590 iperf-3.5]# date;iperf3 -c 10.11.6.4 -n 5000000000 -p 5201 -i 5 -f M -P 3 
+Wed Jun 13 15:46:37 CST 2018
+Connecting to host 10.11.6.4, port 5201
+[  5] local 172.24.18.126 port 45744 connected to 10.11.6.4 port 5201
+[  7] local 172.24.18.126 port 45746 connected to 10.11.6.4 port 5201
+[  9] local 172.24.18.126 port 45748 connected to 10.11.6.4 port 5201
+[ ID] Interval           Transfer     Bitrate         Retr  Cwnd
+[  5]   0.00-5.00   sec   170 MBytes  33.9 MBytes/sec   95    482 KBytes       
+[  7]   0.00-5.00   sec   135 MBytes  27.0 MBytes/sec  106    318 KBytes       
+[  9]   0.00-5.00   sec   155 MBytes  30.9 MBytes/sec   32    437 KBytes       
+[SUM]   0.00-5.00   sec   459 MBytes  91.9 MBytes/sec  233             
+- - - - - - - - - - - - - - - - - - - - - - - - -
+[  5]   5.00-10.00  sec   164 MBytes  32.8 MBytes/sec    0    501 KBytes       
+[  7]   5.00-10.00  sec   104 MBytes  20.8 MBytes/sec    1    327 KBytes       
+[  9]   5.00-10.00  sec   152 MBytes  30.3 MBytes/sec    0    464 KBytes       
+[SUM]   5.00-10.00  sec   420 MBytes  84.0 MBytes/sec    1             
+- - - - - - - - - - - - - - - - - - - - - - - - -
+[  5]  10.00-15.00  sec   165 MBytes  32.9 MBytes/sec    9    519 KBytes       
+[  7]  10.00-15.00  sec  92.7 MBytes  18.5 MBytes/sec    4    218 KBytes       
+[  9]  10.00-15.00  sec   181 MBytes  36.1 MBytes/sec    9    527 KBytes       
+[SUM]  10.00-15.00  sec   438 MBytes  87.6 MBytes/sec   22             
+- - - - - - - - - - - - - - - - - - - - - - - - -
+[  5]  15.00-20.00  sec   172 MBytes  34.4 MBytes/sec    7    515 KBytes       
+[  7]  15.00-20.00  sec  73.8 MBytes  14.8 MBytes/sec    9    223 KBytes       
+[  9]  15.00-20.00  sec   135 MBytes  27.0 MBytes/sec   25    361 KBytes       
+[SUM]  15.00-20.00  sec   381 MBytes  76.2 MBytes/sec   41             
+- - - - - - - - - - - - - - - - - - - - - - - - -
+[  5]  20.00-25.00  sec   179 MBytes  35.9 MBytes/sec    0    535 KBytes       
+[  7]  20.00-25.00  sec  69.4 MBytes  13.9 MBytes/sec   17    133 KBytes       
+[  9]  20.00-25.00  sec   115 MBytes  22.9 MBytes/sec   11    359 KBytes       
+[SUM]  20.00-25.00  sec   363 MBytes  72.7 MBytes/sec   28             
+- - - - - - - - - - - - - - - - - - - - - - - - -
+[  5]  25.00-30.00  sec   166 MBytes  33.2 MBytes/sec   14    533 KBytes       
+[  7]  25.00-30.00  sec  53.6 MBytes  10.7 MBytes/sec    8    147 KBytes       
+[  9]  25.00-30.00  sec   119 MBytes  23.7 MBytes/sec    5    342 KBytes       
+[SUM]  25.00-30.00  sec   338 MBytes  67.7 MBytes/sec   27             
+- - - - - - - - - - - - - - - - - - - - - - - - -
+[  5]  30.00-35.00  sec   185 MBytes  36.9 MBytes/sec    0    554 KBytes       
+[  7]  30.00-35.00  sec  53.9 MBytes  10.8 MBytes/sec    1    156 KBytes       
+[  9]  30.00-35.00  sec   126 MBytes  25.2 MBytes/sec    0    372 KBytes       
+[SUM]  30.00-35.00  sec   365 MBytes  73.0 MBytes/sec    1             
+- - - - - - - - - - - - - - - - - - - - - - - - -
+[  5]  35.00-40.00  sec   229 MBytes  45.9 MBytes/sec    0    857 KBytes       
+[  7]  35.00-40.00  sec  60.5 MBytes  12.1 MBytes/sec    9    178 KBytes       
+[  9]  35.00-40.00  sec   126 MBytes  25.2 MBytes/sec    6    269 KBytes       
+[SUM]  35.00-40.00  sec   416 MBytes  83.1 MBytes/sec   15             
+- - - - - - - - - - - - - - - - - - - - - - - - -
+[  5]  40.00-45.00  sec   295 MBytes  59.0 MBytes/sec    1    952 KBytes       
+[  7]  40.00-45.00  sec  69.2 MBytes  13.8 MBytes/sec    0    215 KBytes       
+[  9]  40.00-45.00  sec   106 MBytes  21.1 MBytes/sec    1    226 KBytes       
+[SUM]  40.00-45.00  sec   470 MBytes  94.0 MBytes/sec    2             
+- - - - - - - - - - - - - - - - - - - - - - - - -
+[  5]  45.00-50.00  sec   319 MBytes  63.8 MBytes/sec    4    800 KBytes       
+[  7]  45.00-50.00  sec  72.2 MBytes  14.4 MBytes/sec   10    222 KBytes       
+[  9]  45.00-50.00  sec  91.8 MBytes  18.4 MBytes/sec    4    259 KBytes       
+[SUM]  45.00-50.00  sec   483 MBytes  96.6 MBytes/sec   18             
+- - - - - - - - - - - - - - - - - - - - - - - - -
+[  5]  50.00-55.00  sec   267 MBytes  53.4 MBytes/sec    4    749 KBytes       
+[  7]  50.00-55.00  sec  75.8 MBytes  15.2 MBytes/sec   12    225 KBytes       
+[  9]  50.00-55.00  sec  89.2 MBytes  17.8 MBytes/sec    1    264 KBytes       
+[SUM]  50.00-55.00  sec   432 MBytes  86.4 MBytes/sec   17             
+- - - - - - - - - - - - - - - - - - - - - - - - -
+[  5]  55.00-57.53  sec   114 MBytes  45.2 MBytes/sec    1    598 KBytes       
+[  7]  55.00-57.53  sec  40.6 MBytes  16.0 MBytes/sec    0    236 KBytes       
+[  9]  55.00-57.53  sec  47.7 MBytes  18.9 MBytes/sec    0    272 KBytes       
+[SUM]  55.00-57.53  sec   203 MBytes  80.1 MBytes/sec    1             
+- - - - - - - - - - - - - - - - - - - - - - - - -
+[ ID] Interval           Transfer     Bitrate         Retr
+[  5]   0.00-57.53  sec  2.37 GBytes  42.2 MBytes/sec  135             sender
+[  5]   0.00-57.55  sec  2.37 GBytes  42.1 MBytes/sec                  receiver
+[  7]   0.00-57.53  sec   901 MBytes  15.7 MBytes/sec  177             sender
+[  7]   0.00-57.55  sec   900 MBytes  15.6 MBytes/sec                  receiver
+[  9]   0.00-57.53  sec  1.41 GBytes  25.1 MBytes/sec   94             sender
+[  9]   0.00-57.55  sec  1.41 GBytes  25.0 MBytes/sec                  receiver
+[SUM]   0.00-57.53  sec  4.66 GBytes  82.9 MBytes/sec  406             sender
+[SUM]   0.00-57.55  sec  4.65 GBytes  82.8 MBytes/sec                  receiver
+
+iperf Done.
+</code></pre><p><strong>杭州阿里云-主机3(172.24.146.107)–&gt;上海IDC机房(10.11.0.11)</strong></p>
+<pre><code>[root@app548 ~]# date;iperf3 -c 10.11.0.11 -n 5000000000 -p 5201 -i 5 -f M -P 3
+Wed Jun 13 15:46:38 CST 2018
+Connecting to host 10.11.0.11, port 5201
+[  5] local 172.24.146.107 port 53912 connected to 10.11.0.11 port 5201
+[  7] local 172.24.146.107 port 53914 connected to 10.11.0.11 port 5201
+[  9] local 172.24.146.107 port 53916 connected to 10.11.0.11 port 5201
+[ ID] Interval           Transfer     Bitrate         Retr  Cwnd
+[  5]   0.00-5.00   sec   148 MBytes  29.6 MBytes/sec   45    416 KBytes       
+[  7]   0.00-5.00   sec   138 MBytes  27.6 MBytes/sec   91    386 KBytes       
+[  9]   0.00-5.00   sec   150 MBytes  30.0 MBytes/sec  119    307 KBytes       
+[SUM]   0.00-5.00   sec   436 MBytes  87.2 MBytes/sec  255             
+- - - - - - - - - - - - - - - - - - - - - - - - -
+[  5]   5.00-10.00  sec   145 MBytes  28.9 MBytes/sec    0    444 KBytes       
+[  7]   5.00-10.00  sec   136 MBytes  27.2 MBytes/sec    0    423 KBytes       
+[  9]   5.00-10.00  sec  91.9 MBytes  18.4 MBytes/sec    8    228 KBytes       
+[SUM]   5.00-10.00  sec   373 MBytes  74.5 MBytes/sec    8             
+- - - - - - - - - - - - - - - - - - - - - - - - -
+[  5]  10.00-15.00  sec   200 MBytes  40.0 MBytes/sec    0    793 KBytes       
+[  7]  10.00-15.00  sec   108 MBytes  21.5 MBytes/sec   15    245 KBytes       
+[  9]  10.00-15.00  sec  61.2 MBytes  12.2 MBytes/sec   24    170 KBytes       
+[SUM]  10.00-15.00  sec   369 MBytes  73.8 MBytes/sec   39             
+- - - - - - - - - - - - - - - - - - - - - - - - -
+[  5]  15.00-20.00  sec   302 MBytes  60.4 MBytes/sec    1    913 KBytes       
+[  7]  15.00-20.00  sec  62.2 MBytes  12.4 MBytes/sec    3    192 KBytes       
+[  9]  15.00-20.00  sec  77.2 MBytes  15.4 MBytes/sec    0    238 KBytes       
+[SUM]  15.00-20.00  sec   441 MBytes  88.3 MBytes/sec    4             
+- - - - - - - - - - - - - - - - - - - - - - - - -
+[  5]  20.00-25.00  sec   282 MBytes  56.5 MBytes/sec    7    776 KBytes       
+[  7]  20.00-25.00  sec  67.3 MBytes  13.5 MBytes/sec    9    146 KBytes       
+[  9]  20.00-25.00  sec   119 MBytes  23.8 MBytes/sec   14    400 KBytes       
+[SUM]  20.00-25.00  sec   469 MBytes  93.7 MBytes/sec   30             
+- - - - - - - - - - - - - - - - - - - - - - - - -
+[  5]  25.00-30.00  sec   242 MBytes  48.5 MBytes/sec    7    662 KBytes       
+[  7]  25.00-30.00  sec  51.6 MBytes  10.3 MBytes/sec    1    163 KBytes       
+[  9]  25.00-30.00  sec   176 MBytes  35.3 MBytes/sec   13    383 KBytes       
+[SUM]  25.00-30.00  sec   470 MBytes  94.0 MBytes/sec   21             
+- - - - - - - - - - - - - - - - - - - - - - - - -
+[  5]  30.00-35.00  sec   228 MBytes  45.6 MBytes/sec    8    516 KBytes       
+[  7]  30.00-35.00  sec  59.0 MBytes  11.8 MBytes/sec    9    188 KBytes       
+[  9]  30.00-35.00  sec   134 MBytes  26.7 MBytes/sec    3    373 KBytes       
+[SUM]  30.00-35.00  sec   420 MBytes  84.1 MBytes/sec   20             
+- - - - - - - - - - - - - - - - - - - - - - - - -
+[  5]  35.00-40.00  sec   217 MBytes  43.4 MBytes/sec    0    683 KBytes       
+[  7]  35.00-40.00  sec  61.6 MBytes  12.3 MBytes/sec    9    191 KBytes       
+[  9]  35.00-40.00  sec   111 MBytes  22.2 MBytes/sec    2    307 KBytes       
+[SUM]  35.00-40.00  sec   390 MBytes  77.9 MBytes/sec   11             
+- - - - - - - - - - - - - - - - - - - - - - - - -
+[  5]  40.00-45.00  sec   223 MBytes  44.5 MBytes/sec    4    581 KBytes       
+[  7]  40.00-45.00  sec  55.3 MBytes  11.1 MBytes/sec    4    156 KBytes       
+[  9]  40.00-45.00  sec   118 MBytes  23.6 MBytes/sec    0    363 KBytes       
+[SUM]  40.00-45.00  sec   396 MBytes  79.1 MBytes/sec    8             
+- - - - - - - - - - - - - - - - - - - - - - - - -
+[  5]  45.00-50.00  sec   155 MBytes  31.0 MBytes/sec    3    399 KBytes       
+[  7]  45.00-50.00  sec  59.4 MBytes  11.9 MBytes/sec    4    185 KBytes       
+[  9]  45.00-50.00  sec   133 MBytes  26.7 MBytes/sec    5    411 KBytes       
+[SUM]  45.00-50.00  sec   348 MBytes  69.6 MBytes/sec   12             
+- - - - - - - - - - - - - - - - - - - - - - - - -
+[  5]  50.00-55.00  sec   127 MBytes  25.4 MBytes/sec   14    352 KBytes       
+[  7]  50.00-55.00  sec  73.3 MBytes  14.7 MBytes/sec    0    228 KBytes       
+[  9]  50.00-55.00  sec   127 MBytes  25.4 MBytes/sec   11    354 KBytes       
+[SUM]  50.00-55.00  sec   327 MBytes  65.4 MBytes/sec   25             
+- - - - - - - - - - - - - - - - - - - - - - - - -
+[  5]  55.00-58.86  sec   126 MBytes  32.5 MBytes/sec    0    402 KBytes       
+[  7]  55.00-58.86  sec  92.1 MBytes  23.9 MBytes/sec    0    351 KBytes       
+[  9]  55.00-58.86  sec   112 MBytes  29.1 MBytes/sec    3    352 KBytes       
+[SUM]  55.00-58.86  sec   330 MBytes  85.4 MBytes/sec    3             
+- - - - - - - - - - - - - - - - - - - - - - - - -
+[ ID] Interval           Transfer     Bitrate         Retr
+[  5]   0.00-58.86  sec  2.34 GBytes  40.7 MBytes/sec   89             sender
+[  5]   0.00-58.87  sec  2.34 GBytes  40.6 MBytes/sec                  receiver
+[  7]   0.00-58.86  sec   963 MBytes  16.4 MBytes/sec  145             sender
+[  7]   0.00-58.87  sec   962 MBytes  16.3 MBytes/sec                  receiver
+[  9]   0.00-58.86  sec  1.38 GBytes  24.0 MBytes/sec  202             sender
+[  9]   0.00-58.87  sec  1.38 GBytes  23.9 MBytes/sec                  receiver
+[SUM]   0.00-58.86  sec  4.66 GBytes  81.0 MBytes/sec  436             sender
+[SUM]   0.00-58.87  sec  4.65 GBytes  80.9 MBytes/sec                  receiver
+
+iperf Done.
+</code></pre><p>可以看到三台之和（73.6+82.8+80.9 = 237.3 MBytes/sec）与<strong><code>杭州IDC--&gt;上海IDC</code></strong>的测试结果（206 MBytes/sec）对比</p>
+<h3 id="上海IDC机房流出流量"><a href="#上海IDC机房流出流量" class="headerlink" title="上海IDC机房流出流量"></a>上海IDC机房流出流量</h3><font color="red"><strong>上海IDC机房(10.11.6.3)–&gt;杭州IDC机房(10.10.10.11)</strong></font>
+
+
+<pre><code>[root@bigdata003 ~]# iperf3  -c 10.10.10.11 -n 5000000000 -p 5201 -i 5 -f M -P 3
+Connecting to host 10.10.10.11, port 5201
+[  5] local 10.11.6.3 port 33654 connected to 10.10.10.11 port 5201
+[  7] local 10.11.6.3 port 33656 connected to 10.10.10.11 port 5201
+[  9] local 10.11.6.3 port 33658 connected to 10.10.10.11 port 5201
+[ ID] Interval           Transfer     Bitrate         Retr  Cwnd
+[  5]   0.00-5.00   sec   317 MBytes  63.3 MBytes/sec  407    650 KBytes       
+[  7]   0.00-5.00   sec   345 MBytes  69.0 MBytes/sec  1406    673 KBytes       
+[  9]   0.00-5.00   sec   447 MBytes  89.5 MBytes/sec  4490   1.29 MBytes       
+[SUM]   0.00-5.00   sec  1.08 GBytes   222 MBytes/sec  6303             
+- - - - - - - - - - - - - - - - - - - - - - - - -
+[  5]   5.00-10.00  sec   336 MBytes  67.3 MBytes/sec    0    853 KBytes       
+[  7]   5.00-10.00  sec   338 MBytes  67.5 MBytes/sec    0    793 KBytes       
+[  9]   5.00-10.00  sec   449 MBytes  89.8 MBytes/sec    0   1.29 MBytes       
+[SUM]   5.00-10.00  sec  1.10 GBytes   225 MBytes/sec    0             
+- - - - - - - - - - - - - - - - - - - - - - - - -
+[  5]  10.00-15.00  sec   308 MBytes  61.5 MBytes/sec  536    655 KBytes       
+[  7]  10.00-15.00  sec   362 MBytes  72.5 MBytes/sec  1740    970 KBytes       
+[  9]  10.00-15.00  sec   444 MBytes  88.7 MBytes/sec  2608   1.29 MBytes       
+[SUM]  10.00-15.00  sec  1.09 GBytes   223 MBytes/sec  4884             
+- - - - - - - - - - - - - - - - - - - - - - - - -
+[  5]  15.00-20.00  sec   311 MBytes  62.3 MBytes/sec  114    799 KBytes       
+[  7]  15.00-20.00  sec   404 MBytes  80.8 MBytes/sec  314   1.02 MBytes       
+[  9]  15.00-20.00  sec   408 MBytes  81.5 MBytes/sec  290   1.29 MBytes       
+[SUM]  15.00-20.00  sec  1.10 GBytes   225 MBytes/sec  718             
+- - - - - - - - - - - - - - - - - - - - - - - - -
+[  5]  20.00-21.34  sec  82.5 MBytes  61.5 MBytes/sec   49    809 KBytes       
+[  7]  20.00-21.34  sec   108 MBytes  80.1 MBytes/sec    0   1.02 MBytes       
+[  9]  20.00-21.34  sec   111 MBytes  82.9 MBytes/sec  222   1.29 MBytes       
+[SUM]  20.00-21.34  sec   301 MBytes   224 MBytes/sec  271             
+- - - - - - - - - - - - - - - - - - - - - - - - -
+[ ID] Interval           Transfer     Bitrate         Retr
+[  5]   0.00-21.34  sec  1.32 GBytes  63.4 MBytes/sec  1106             sender
+[  5]   0.00-21.35  sec  1.32 GBytes  63.3 MBytes/sec                  receiver
+[  7]   0.00-21.34  sec  1.52 GBytes  72.9 MBytes/sec  3460             sender
+[  7]   0.00-21.35  sec  1.52 GBytes  72.8 MBytes/sec                  receiver
+[  9]   0.00-21.34  sec  1.82 GBytes  87.1 MBytes/sec  7610             sender
+[  9]   0.00-21.35  sec  1.81 GBytes  86.9 MBytes/sec                  receiver
+[SUM]   0.00-21.34  sec  4.66 GBytes   223 MBytes/sec  12176             sender
+[SUM]   0.00-21.35  sec  4.65 GBytes   223 MBytes/sec                  receiver
+
+iperf Done.
+</code></pre><font color="red"><strong>上海IDC机房(10.11.0.11)–&gt;杭州阿里云(172.24.146.107)</strong></font>
+
+
+<pre><code>[root@lvs001 iperf-3.5]# iperf3  -c 172.24.146.107 -n 5000000000 -p 5201 -i 5 -f M -P 3
+Connecting to host 172.24.146.107, port 5201
+[  5] local 10.11.0.11 port 56078 connected to 172.24.146.107 port 5201
+[  7] local 10.11.0.11 port 56080 connected to 172.24.146.107 port 5201
+[  9] local 10.11.0.11 port 56082 connected to 172.24.146.107 port 5201
+[ ID] Interval           Transfer     Bitrate         Retr  Cwnd
+[  5]   0.00-5.00   sec   369 MBytes  73.9 MBytes/sec    3    930 KBytes       
+[  7]   0.00-5.00   sec   370 MBytes  74.1 MBytes/sec  154    932 KBytes       
+[  9]   0.00-5.00   sec   372 MBytes  74.5 MBytes/sec   18    936 KBytes       
+[SUM]   0.00-5.00   sec  1.09 GBytes   222 MBytes/sec  175             
+- - - - - - - - - - - - - - - - - - - - - - - - -
+[  5]   5.00-10.00  sec   375 MBytes  75.0 MBytes/sec    0    884 KBytes       
+[  7]   5.00-10.00  sec   375 MBytes  74.9 MBytes/sec    0    925 KBytes       
+[  9]   5.00-10.00  sec   374 MBytes  74.7 MBytes/sec    0    905 KBytes       
+[SUM]   5.00-10.00  sec  1.10 GBytes   225 MBytes/sec    0             
+- - - - - - - - - - - - - - - - - - - - - - - - -
+[  5]  10.00-15.00  sec   374 MBytes  74.8 MBytes/sec    0    870 KBytes       
+[  7]  10.00-15.00  sec   374 MBytes  74.8 MBytes/sec    0    929 KBytes       
+[  9]  10.00-15.00  sec   374 MBytes  74.8 MBytes/sec    0    913 KBytes       
+[SUM]  10.00-15.00  sec  1.10 GBytes   224 MBytes/sec    0             
+- - - - - - - - - - - - - - - - - - - - - - - - -
+[  5]  15.00-20.00  sec   374 MBytes  74.8 MBytes/sec    0    915 KBytes       
+[  7]  15.00-20.00  sec   374 MBytes  74.9 MBytes/sec    0    899 KBytes       
+[  9]  15.00-20.00  sec   375 MBytes  74.9 MBytes/sec    0    915 KBytes       
+[SUM]  15.00-20.00  sec  1.10 GBytes   225 MBytes/sec    0             
+- - - - - - - - - - - - - - - - - - - - - - - - -
+[  5]  20.00-21.29  sec  96.2 MBytes  74.6 MBytes/sec    0    964 KBytes       
+[  7]  20.00-21.29  sec  96.0 MBytes  74.5 MBytes/sec    0    967 KBytes       
+[  9]  20.00-21.29  sec  96.7 MBytes  75.0 MBytes/sec    0    933 KBytes       
+[SUM]  20.00-21.29  sec   289 MBytes   224 MBytes/sec    0             
+- - - - - - - - - - - - - - - - - - - - - - - - -
+[ ID] Interval           Transfer     Bitrate         Retr
+[  5]   0.00-21.29  sec  1.55 GBytes  74.6 MBytes/sec    3             sender
+[  5]   0.00-21.30  sec  1.55 GBytes  74.5 MBytes/sec                  receiver
+[  7]   0.00-21.29  sec  1.55 GBytes  74.7 MBytes/sec  154             sender
+[  7]   0.00-21.30  sec  1.55 GBytes  74.6 MBytes/sec                  receiver
+[  9]   0.00-21.29  sec  1.55 GBytes  74.8 MBytes/sec   18             sender
+[  9]   0.00-21.30  sec  1.55 GBytes  74.6 MBytes/sec                  receiver
+[SUM]   0.00-21.29  sec  4.66 GBytes   224 MBytes/sec  175             sender
+[SUM]   0.00-21.30  sec  4.65 GBytes   224 MBytes/sec                  receiver
+
+iperf Done.
+</code></pre><p>因为无法做到完全同时执行，因此最终的累加数值会稍微偏大</p>
+<h2 id="LVS公网带宽测试"><a href="#LVS公网带宽测试" class="headerlink" title="LVS公网带宽测试"></a>LVS公网带宽测试</h2><p>LVS使用100M带宽链路，理论传输速率为12.5MB/s</p>
+<p>使用iperf命令进行测试，因带宽较小，这里客户端指定发送一个500M的数据包，每隔10秒钟输出一次传输状态，输出结果的显示单位为MB显示，并发3个线程发送</p>
+<p>这里防火墙临时开放5201端口进行测试，在配置文件顶端添加以下条目然后重新加载配置</p>
+<pre><code>-A INPUT -p tcp -m tcp --dport 5201 -j ACCEPT
+</code></pre><h3 id="流入流量"><a href="#流入流量" class="headerlink" title="流入流量"></a>流入流量</h3><font color="red"><strong>杭州IDC机房(10.11.0.11)–&gt;上海IDC机房-LVS1(103.13.244.19)</strong></font>
+
+<pre><code>[root@storage1 ~]# iperf3  -c 103.13.244.19  -n 500000000 -p 5201 -i 10 -f M -P 3
+Connecting to host 103.13.244.19, port 5201
+[  5] local 115.239.208.210 port 32619 connected to 103.13.244.19 port 5201
+[  7] local 115.239.208.210 port 32621 connected to 103.13.244.19 port 5201
+[  9] local 115.239.208.210 port 32623 connected to 103.13.244.19 port 5201
+[ ID] Interval           Transfer     Bitrate         Retr  Cwnd
+[  5]   0.00-10.00  sec  51.9 MBytes  5.19 MBytes/sec  1935   56.6 KBytes       
+[  7]   0.00-10.00  sec  42.6 MBytes  4.26 MBytes/sec  1376   41.0 KBytes       
+[  9]   0.00-10.00  sec  38.2 MBytes  3.82 MBytes/sec  1195   31.1 KBytes       
+[SUM]   0.00-10.00  sec   133 MBytes  13.3 MBytes/sec  4506             
+- - - - - - - - - - - - - - - - - - - - - - - - -
+[  5]  10.00-20.00  sec  39.5 MBytes  3.95 MBytes/sec  133   48.1 KBytes       
+[  7]  10.00-20.00  sec  33.7 MBytes  3.37 MBytes/sec  251   38.2 KBytes       
+[  9]  10.00-20.00  sec  39.8 MBytes  3.98 MBytes/sec  145   43.8 KBytes       
+[SUM]  10.00-20.00  sec   113 MBytes  11.3 MBytes/sec  529             
+- - - - - - - - - - - - - - - - - - - - - - - - -
+[  5]  20.00-30.00  sec  39.0 MBytes  3.90 MBytes/sec  208   45.2 KBytes       
+[  7]  20.00-30.00  sec  35.2 MBytes  3.52 MBytes/sec  161   46.7 KBytes       
+[  9]  20.00-30.00  sec  39.0 MBytes  3.90 MBytes/sec  215   36.8 KBytes       
+[SUM]  20.00-30.00  sec   113 MBytes  11.3 MBytes/sec  584             
+- - - - - - - - - - - - - - - - - - - - - - - - -
+[  5]  30.00-40.00  sec  38.6 MBytes  3.86 MBytes/sec  171   55.1 KBytes       
+[  7]  30.00-40.00  sec  35.9 MBytes  3.59 MBytes/sec  247   36.8 KBytes       
+[  9]  30.00-40.00  sec  39.0 MBytes  3.90 MBytes/sec  228   29.7 KBytes       
+[SUM]  30.00-40.00  sec   114 MBytes  11.4 MBytes/sec  646             
+- - - - - - - - - - - - - - - - - - - - - - - - -
+[  5]  40.00-40.37  sec  1.56 MBytes  4.17 MBytes/sec    9   36.8 KBytes       
+[  7]  40.00-40.37  sec  2.14 MBytes  5.72 MBytes/sec    9   35.4 KBytes       
+[  9]  40.00-40.37  sec  1.09 MBytes  2.92 MBytes/sec   11   22.6 KBytes       
+[SUM]  40.00-40.37  sec  4.79 MBytes  12.8 MBytes/sec   29             
+- - - - - - - - - - - - - - - - - - - - - - - - -
+[ ID] Interval           Transfer     Bitrate         Retr
+[  5]   0.00-40.37  sec   171 MBytes  4.23 MBytes/sec  2456             sender
+[  5]   0.00-40.38  sec   168 MBytes  4.17 MBytes/sec                  receiver
+[  7]   0.00-40.37  sec   150 MBytes  3.70 MBytes/sec  2044             sender
+[  7]   0.00-40.38  sec   147 MBytes  3.65 MBytes/sec                  receiver
+[  9]   0.00-40.37  sec   157 MBytes  3.89 MBytes/sec  1794             sender
+[  9]   0.00-40.38  sec   156 MBytes  3.85 MBytes/sec                  receiver
+[SUM]   0.00-40.37  sec   477 MBytes  11.8 MBytes/sec  6294             sender
+[SUM]   0.00-40.38  sec   472 MBytes  11.7 MBytes/sec                  receiver
+
+iperf Done.
+</code></pre><h3 id="流出流量"><a href="#流出流量" class="headerlink" title="流出流量"></a>流出流量</h3><font color="red"><strong>上海IDC机房-LVS2(103.13.244.20)–&gt;杭州阿里云-NAT公网地址(114.55.124.112)</strong></font>
+
+
+
+
+<pre><code>[root@lvs002 iperf-3.5]# iperf3  -c 114.55.124.112  -n 500000000 -p 5201 -i 10 -f M -P 3
+Connecting to host 114.55.124.112, port 5201
+[  5] local 103.13.244.20 port 37002 connected to 114.55.124.112 port 5201
+[  7] local 103.13.244.20 port 37004 connected to 114.55.124.112 port 5201
+[  9] local 103.13.244.20 port 37006 connected to 114.55.124.112 port 5201
+[ ID] Interval           Transfer     Bitrate         Retr  Cwnd
+[  5]   0.00-10.00  sec  35.9 MBytes  3.59 MBytes/sec  1278   43.8 KBytes       
+[  7]   0.00-10.00  sec  38.7 MBytes  3.87 MBytes/sec  1603   52.3 KBytes       
+[  9]   0.00-10.00  sec  50.3 MBytes  5.03 MBytes/sec  3930   58.0 KBytes       
+[SUM]   0.00-10.00  sec   125 MBytes  12.5 MBytes/sec  6811             
+- - - - - - - - - - - - - - - - - - - - - - - - -
+[  5]  10.00-20.00  sec  37.0 MBytes  3.70 MBytes/sec  332   45.2 KBytes       
+[  7]  10.00-20.00  sec  38.8 MBytes  3.88 MBytes/sec  131   66.5 KBytes       
+[  9]  10.00-20.00  sec  38.3 MBytes  3.83 MBytes/sec  366   26.9 KBytes       
+[SUM]  10.00-20.00  sec   114 MBytes  11.4 MBytes/sec  829             
+- - - - - - - - - - - - - - - - - - - - - - - - -
+[  5]  20.00-30.00  sec  36.7 MBytes  3.67 MBytes/sec  435   42.4 KBytes       
+[  7]  20.00-30.00  sec  40.1 MBytes  4.01 MBytes/sec  200   79.2 KBytes       
+[  9]  20.00-30.00  sec  35.9 MBytes  3.59 MBytes/sec  397   39.6 KBytes       
+[SUM]  20.00-30.00  sec   113 MBytes  11.3 MBytes/sec  1032             
+- - - - - - - - - - - - - - - - - - - - - - - - -
+[  5]  30.00-40.00  sec  35.2 MBytes  3.52 MBytes/sec  296   48.1 KBytes       
+[  7]  30.00-40.00  sec  45.6 MBytes  4.56 MBytes/sec  160   69.3 KBytes       
+[  9]  30.00-40.00  sec  32.2 MBytes  3.22 MBytes/sec  355   29.7 KBytes       
+[SUM]  30.00-40.00  sec   113 MBytes  11.3 MBytes/sec  811             
+- - - - - - - - - - - - - - - - - - - - - - - - -
+[  5]  40.00-41.04  sec  3.17 MBytes  3.06 MBytes/sec   51   33.9 KBytes       
+[  7]  40.00-41.04  sec  6.17 MBytes  5.95 MBytes/sec   11   63.6 KBytes       
+[  9]  40.00-41.04  sec  3.03 MBytes  2.92 MBytes/sec   15   24.0 KBytes       
+[SUM]  40.00-41.04  sec  12.4 MBytes  11.9 MBytes/sec   77             
+- - - - - - - - - - - - - - - - - - - - - - - - -
+[ ID] Interval           Transfer     Bitrate         Retr
+[  5]   0.00-41.04  sec   148 MBytes  3.61 MBytes/sec  2392             sender
+[  5]   0.00-41.05  sec   146 MBytes  3.56 MBytes/sec                  receiver
+[  7]   0.00-41.04  sec   169 MBytes  4.13 MBytes/sec  2105             sender
+[  7]   0.00-41.05  sec   168 MBytes  4.09 MBytes/sec                  receiver
+[  9]   0.00-41.04  sec   160 MBytes  3.89 MBytes/sec  5063             sender
+[  9]   0.00-41.05  sec   157 MBytes  3.82 MBytes/sec                  receiver
+[SUM]   0.00-41.04  sec   477 MBytes  11.6 MBytes/sec  9560             sender
+[SUM]   0.00-41.05  sec   471 MBytes  11.5 MBytes/sec                  receiver
+
+iperf Done.
+</code></pre><p>注意：阿里云NAT网关购买的带宽包为15M,这里的15M指的是出方向的带宽限制，入方向是没有限制的，通常会放大很多。</p>
+<h2 id="服务器双网卡带宽分流"><a href="#服务器双网卡带宽分流" class="headerlink" title="服务器双网卡带宽分流"></a>服务器双网卡带宽分流</h2><p>因为每台服务器都做了bond，所以每一块网卡的流量应该是负载均衡的，抓取网卡bond之后，每块网卡对应的流量情况</p>
+<p>因为杭州IDC机房的服务器都是做了网卡绑定的，无法很直观的测试，因此，我们在阿里云上进行测试，起用两台ECS服务器，都连接上海IDC机房的某一台服务器，传输数据，如果能达到200MB/s左右的传输速度，则证明绑定配置正确。</p>
+<h2 id="带宽测试数据问题"><a href="#带宽测试数据问题" class="headerlink" title="带宽测试数据问题"></a>带宽测试数据问题</h2><h3 id="问题1-杭州阿里云和上海IDC之间的专线带宽测试数据不一致"><a href="#问题1-杭州阿里云和上海IDC之间的专线带宽测试数据不一致" class="headerlink" title="问题1. 杭州阿里云和上海IDC之间的专线带宽测试数据不一致"></a>问题1. 杭州阿里云和上海IDC之间的专线带宽测试数据不一致</h3><ul>
+<li>杭州阿里云–&gt;上海IDC为：112MB/s</li>
+<li>上海IDC–&gt;杭州阿里云为：224MB/s</li>
+</ul>
+<p><strong>问题解析：</strong> 多了一跳，应该只对网络延迟有影响，而不应该对带宽有影响</p>
+<p><strong>问题解决：</strong></p>
+<p>带宽传输速率（每秒传输速率）的计算公式为：<strong><code>总传输数据量/传输时长</code></strong></p>
+<p>接下来，我们进行计算。</p>
+<p>总传输量：4.65 GBytes，换算单位后为：4.65*1024=4761.6 MB</p>
+<ul>
+<li>杭州IDC–&gt;上海IDC的计算：4761.6/23.09 = 206.220 MB/s</li>
+<li>杭州阿里云–&gt;上海IDC的计算：4761.6/42.53 = 111.959 MB/s</li>
+</ul>
+<p>由最上面完整的测试数据我们其实就可以看出，杭州阿里云比杭州IDC的传输时长多了将近一倍。</p>
+<p>其他原因： 出口带宽就是1G，一次只能一百M左右，因此总量不变，传输时长也会发生变化</p>
+<p><strong>在这里，总传输数据量是相等的，变化的是传输时长，而传输时长是由网络延迟引起的，下面是网络链路的下一跳及延迟情况</strong></p>
+<p>杭州IDC–&gt;上海IDC（总延迟约为：14ms）</p>
+<pre><code>[root@storage1 ~]# traceroute  -n -T -p 5201 10.11.6.3
+traceroute to 10.11.6.3 (10.11.6.3), 30 hops max, 60 byte packets
+ 1  * * *
+ 2  10.11.255.37  9.190 ms  9.885 ms  10.297 ms
+ 3  10.11.6.3  4.633 ms  4.645 ms  4.563 ms
+</code></pre><p>杭州阿里云–&gt;上海IDC（总延迟约为：33ms）</p>
+<pre><code>[root@app589 iperf-3.5]# traceroute  -n -T -p 5201 10.11.6.3
+traceroute to 10.11.6.3 (10.11.6.3), 30 hops max, 60 byte packets
+ 1  * * *
+ 2  * * *
+ 3  192.168.123.9  15.164 ms  14.342 ms  14.762 ms
+ 4  * * *
+ 5  10.11.255.1  11.843 ms  12.275 ms  11.372 ms
+ 6  10.11.6.3  7.050 ms  6.898 ms  6.867 ms
+</code></pre><p>下一跳192.168.123.9为VBR配置中的上海IDC侧IP地址</p>
+<p>可以很清晰的看到，VBR之间的链路延迟高达15s左右，接近之后两跳（11+7=18）的总和，这也是导致传输时长接近一倍的原因</p>
+<p>接下来，我们看下从上海IDC机房到两端的下一跳及延迟情况（上面的测试数据表明到两端的传输时间大致相等，都为21秒）</p>
+<p>上海IDC–&gt;杭州IDC（总延迟约为：10ms）</p>
+<pre><code>[root@bigdata003 ~]# traceroute  -n -T -p 5201 10.10.10.11
+traceroute to 10.10.10.11 (10.10.10.11), 30 hops max, 60 byte packets
+ 1  10.11.6.254  5.162 ms  5.711 ms  6.272 ms
+ 2  * * *
+ 3  10.10.10.11  4.542 ms  4.510 ms  4.482 ms
+</code></pre><p>上海IDC–&gt;杭州阿里云（总延迟约为：17ms）</p>
+<pre><code>[root@bigdata003 ~]# traceroute  -n -T -p 5201 172.24.146.107
+traceroute to 172.24.146.107 (172.24.146.107), 30 hops max, 60 byte packets
+ 1  10.11.6.254  5.399 ms  5.950 ms  4.582 ms
+ 2  * * *
+ 3  10.11.255.30  4.435 ms  5.372 ms  4.901 ms
+ 4  * * *
+ 5  172.24.146.107  7.052 ms  6.770 ms  7.016 ms
+</code></pre><p>可以看到，上海IDC的回向下一跳不是指的192.168.123.10</p>
+<p>那么，为什么两边的路由不一致呢？10.11.255.30是什么地址？</p>
+<h3 id="问题2-杭州阿里云的NAT带宽包只有15Mb，为何也能跑出百M带宽的速率。"><a href="#问题2-杭州阿里云的NAT带宽包只有15Mb，为何也能跑出百M带宽的速率。" class="headerlink" title="问题2. 杭州阿里云的NAT带宽包只有15Mb，为何也能跑出百M带宽的速率。"></a>问题2. 杭州阿里云的NAT带宽包只有15Mb，为何也能跑出百M带宽的速率。</h3><p>问题解析：</p>
+<ul>
+<li>一条链路的实际带宽应该遵循瓶颈效应，实际速率应该为带宽最小的一端</li>
+<li>杭州阿里云的NAT带宽包只有15Mb，为何也能跑出百M带宽的速率？</li>
+</ul>
+<p>问题解决：</p>
+<p>登录阿里云控制台进行查看，发现NAT网关的实际带宽已经远远超出15M</p>
+<h2 id="LVS配置"><a href="#LVS配置" class="headerlink" title="LVS配置"></a>LVS配置</h2><p>2台LVS是直接承载公网流量的</p>
 
       
     </div>
@@ -708,7 +1241,7 @@ var jiathis_config={
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">71</span>
+                  <span class="site-state-item-count">77</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -719,7 +1252,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">93</span>
+                  <span class="site-state-item-count">96</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -730,7 +1263,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">69</span>
+                  <span class="site-state-item-count">72</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -770,7 +1303,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#目标结果-最终架构"><span class="nav-number">1.</span> <span class="nav-text">目标结果-最终架构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#架构图"><span class="nav-number">1.1.</span> <span class="nav-text">架构图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#承载业务"><span class="nav-number">1.2.</span> <span class="nav-text">承载业务</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#上海IDC机房承载业务"><span class="nav-number">1.2.1.</span> <span class="nav-text">上海IDC机房承载业务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#上海阿里云环境承载业务"><span class="nav-number">1.2.2.</span> <span class="nav-text">上海阿里云环境承载业务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#杭州IDC机房承载业务"><span class="nav-number">1.2.3.</span> <span class="nav-text">杭州IDC机房承载业务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#杭州阿里云环境承载业务"><span class="nav-number">1.2.4.</span> <span class="nav-text">杭州阿里云环境承载业务</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线路"><span class="nav-number">1.3.</span> <span class="nav-text">线路</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#为什么需要这套环境？-需求分析"><span class="nav-number">2.</span> <span class="nav-text">为什么需要这套环境？-需求分析</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#架构实现"><span class="nav-number">3.</span> <span class="nav-text">架构实现</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#项目进度时间轴"><span class="nav-number">3.1.</span> <span class="nav-text">项目进度时间轴</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#架构规划"><span class="nav-number">3.2.</span> <span class="nav-text">架构规划</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#目标结果-最终架构"><span class="nav-number">1.</span> <span class="nav-text">目标结果-最终架构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#架构图"><span class="nav-number">1.1.</span> <span class="nav-text">架构图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#承载业务"><span class="nav-number">1.2.</span> <span class="nav-text">承载业务</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#上海IDC机房承载业务"><span class="nav-number">1.2.1.</span> <span class="nav-text">上海IDC机房承载业务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#上海阿里云环境承载业务"><span class="nav-number">1.2.2.</span> <span class="nav-text">上海阿里云环境承载业务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#杭州IDC机房承载业务"><span class="nav-number">1.2.3.</span> <span class="nav-text">杭州IDC机房承载业务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#杭州阿里云环境承载业务"><span class="nav-number">1.2.4.</span> <span class="nav-text">杭州阿里云环境承载业务</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线路"><span class="nav-number">1.3.</span> <span class="nav-text">线路</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#为什么需要这套环境？-需求分析"><span class="nav-number">2.</span> <span class="nav-text">为什么需要这套环境？-需求分析</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#架构实现"><span class="nav-number">3.</span> <span class="nav-text">架构实现</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#项目进度时间轴"><span class="nav-number">3.1.</span> <span class="nav-text">项目进度时间轴</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#架构规划"><span class="nav-number">3.2.</span> <span class="nav-text">架构规划</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#备注"><span class="nav-number">4.</span> <span class="nav-text">备注</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#测试验收"><span class="nav-number">5.</span> <span class="nav-text">测试验收</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#专线带宽测试"><span class="nav-number">5.1.</span> <span class="nav-text">专线带宽测试</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#上海IDC机房流入流量"><span class="nav-number">5.1.1.</span> <span class="nav-text">上海IDC机房流入流量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#上海IDC机房流出流量"><span class="nav-number">5.1.2.</span> <span class="nav-text">上海IDC机房流出流量</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LVS公网带宽测试"><span class="nav-number">5.2.</span> <span class="nav-text">LVS公网带宽测试</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#流入流量"><span class="nav-number">5.2.1.</span> <span class="nav-text">流入流量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#流出流量"><span class="nav-number">5.2.2.</span> <span class="nav-text">流出流量</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#服务器双网卡带宽分流"><span class="nav-number">5.3.</span> <span class="nav-text">服务器双网卡带宽分流</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#带宽测试数据问题"><span class="nav-number">5.4.</span> <span class="nav-text">带宽测试数据问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#问题1-杭州阿里云和上海IDC之间的专线带宽测试数据不一致"><span class="nav-number">5.4.1.</span> <span class="nav-text">问题1. 杭州阿里云和上海IDC之间的专线带宽测试数据不一致</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#问题2-杭州阿里云的NAT带宽包只有15Mb，为何也能跑出百M带宽的速率。"><span class="nav-number">5.4.2.</span> <span class="nav-text">问题2. 杭州阿里云的NAT带宽包只有15Mb，为何也能跑出百M带宽的速率。</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LVS配置"><span class="nav-number">5.5.</span> <span class="nav-text">LVS配置</span></a></li></ol></li></ol></div>
             
 
           </div>

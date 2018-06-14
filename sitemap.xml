@@ -2,6 +2,48 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/2018/06/14/nginx%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE/</loc>
+    
+    <lastmod>2018-06-14T03:59:24.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2018/06/13/traceroute%E5%91%BD%E4%BB%A4/</loc>
+    
+    <lastmod>2018-06-13T03:14:10.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2018/06/12/iperf%E5%91%BD%E4%BB%A4/</loc>
+    
+    <lastmod>2018-06-12T09:19:32.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2018/06/10/4%E5%B1%82%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E5%92%8C7%E5%B1%82%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E7%9A%84%E5%8C%BA%E5%88%AB/</loc>
+    
+    <lastmod>2018-06-10T13:46:04.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2018/06/10/%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E6%8A%80%E6%9C%AF%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E8%B7%B5/</loc>
+    
+    <lastmod>2018-06-10T13:23:11.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2018/06/10/zabbix%E7%9B%91%E6%8E%A7%E7%BD%91%E7%BB%9C%E8%AE%BE%E5%A4%87/</loc>
+    
+    <lastmod>2018-06-10T08:53:40.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/2018/06/10/onenote%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E8%B7%B5/</loc>
     
     <lastmod>2018-06-10T05:31:50.000Z</lastmod>
@@ -268,7 +310,7 @@
   </url>
   
   <url>
-    <loc>http://yoursite.com/2018/04/18/LVS%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E7%B2%BE%E9%80%9A/</loc>
+    <loc>http://yoursite.com/2018/04/18/LVS%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E8%B7%B5/</loc>
     
     <lastmod>2018-04-18T01:07:47.000Z</lastmod>
     
