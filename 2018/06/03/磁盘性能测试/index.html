@@ -453,7 +453,10 @@
       
         <p>文献资料：</p>
 <ul>
-<li><a href="https://help.aliyun.com/document_detail/25382.html?spm=a2c4g.11186623.6.552.t1GC8q" target="_blank" rel="noopener">阿里云-ECS之-块存储性能</a></li>
+<li><p><a href="https://help.aliyun.com/document_detail/25382.html?spm=a2c4g.11186623.6.552.t1GC8q" target="_blank" rel="noopener">阿里云-ECS之-块存储性能</a></p>
+</li>
+<li><p><a href="https://github.com/axboe/fio" target="_blank" rel="noopener">fio项目主页</a></p>
+</li>
 </ul>
 <h1 id="性能衡量指标"><a href="#性能衡量指标" class="headerlink" title="性能衡量指标"></a>性能衡量指标</h1><p>衡量存储产品的性能指标主要包括：</p>
 <ul>
@@ -513,6 +516,7 @@
 <li>Windows实例：可以使用fio、Iometer等工具测试块存储性能。</li>
 </ul>
 <p>本文以Linux实例和fio为例，说明如何使用fio测试块存储性能。在进行测试前，请确保块存储已经4 KiB对齐。</p>
+<p><strong>注意：fio用于测试磁盘性能，不是文件系统，测试之前需要先把要测试的磁盘卸载掉，测试完后需格式化一遍再挂载上去。</strong></p>
 <p><strong>警告：</strong></p>
 <blockquote>
 <p>测试裸盘可以获得真实的块存储盘性能，但直接测试裸盘会破坏文件系统结构，请在测试前提前做好数据备份。建议您只在新购无数据的ECS实例上使用工具测试块存储性能，避免造成数据丢失。</p>
@@ -797,7 +801,7 @@ var jiathis_config={
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">77</span>
+                  <span class="site-state-item-count">78</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -819,7 +823,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">72</span>
+                  <span class="site-state-item-count">73</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
