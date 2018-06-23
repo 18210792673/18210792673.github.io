@@ -5,7 +5,7 @@
   
 
 
-<html class="theme-next pisces use-motion" lang="zh-Hans">
+<html class="theme-next mist use-motion" lang="zh-Hans">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -91,6 +91,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://picture.watchmen.xin/python-14/lang.png">
 <meta property="og:image" content="http://picture.watchmen.xin/python-14/ASCII.jpg">
+<meta property="og:image" content="http://picture.watchmen.xin/python-14/help.png">
 <meta property="og:updated_time" content="2018-05-24T13:05:55.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Python基础知识">
@@ -103,7 +104,7 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
-    scheme: 'Pisces',
+    scheme: 'Mist',
     version: '5.1.4',
     sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
     fancybox: true,
@@ -629,7 +630,7 @@
 <p>IronPython和Jython类似，只不过IronPython是运行在微软.Net平台上的Python解释器，可以直接把Python代码编译成.Net的字节码。</p>
 <p><strong>总结：</strong></p>
 <p>Python的解释器很多，但使用最广泛的还是CPython。如果要和Java或.Net平台交互，最好的办法不是用Jython或IronPython，而是通过网络调用来交互，确保各程序之间的独立性。</p>
-<h2 id="变量和字符编码"><a href="#变量和字符编码" class="headerlink" title="变量和字符编码"></a>变量和字符编码</h2><p>变量的作用：存储数据，为了后面调用</p>
+<h2 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h2><p>变量的作用：存储数据，为了后面调用</p>
 <p>变量存储在内存当中，每一个拥有独立的内存空间。</p>
 <h3 id="Python变量的定义规则"><a href="#Python变量的定义规则" class="headerlink" title="Python变量的定义规则"></a>Python变量的定义规则</h3><ul>
 <li>变量名只能是 字母、数字或下划线的任意组合</li>
@@ -647,7 +648,7 @@
 <p>那么，如果我们在python中想要定义一个常量，我们就将这个<font color="red"><strong><code>变量名大写</code></strong></font>。这是一种自发遵守的代码规范，并不是说不能再次修改，只是便于人类识别。 </p>
 <p>例如：</p>
 <pre><code>PIE = &quot;watchmen&quot;
-</code></pre><h3 id="字符编码"><a href="#字符编码" class="headerlink" title="字符编码"></a>字符编码</h3><p>计算机的底层就是电路，电路到最底层就只有两种状态，一种是通电，一种是不通电，那么也就是只能表示两种状态。</p>
+</code></pre><h2 id="字符编码编码"><a href="#字符编码编码" class="headerlink" title="字符编码编码"></a>字符编码编码</h2><h3 id="字符编码说明"><a href="#字符编码说明" class="headerlink" title="字符编码说明"></a>字符编码说明</h3><p>计算机的底层就是电路，电路到最底层就只有两种状态，一种是通电，一种是不通电，那么也就是只能表示两种状态。</p>
 <pre><code>128 64 32 16     8     4     2     1 
 1     1    1    1    1    1    1    1
 </code></pre><p>进位：后面的数字表示有上限之后，才进位到前面，例如：8+4+2+1=15，在表示16的时候，需要在前面表示进一位表示</p>
@@ -676,7 +677,7 @@
 <p>ascii码中的内容用1个字节保存、欧洲的字符用2个字节保存，东亚的字符用3个字节保存..</p>
 </blockquote>
 <p>UTF-8，可以动态改变长度，可以动态变化的编码集 </p>
-<h3 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h3><p>单行注释：  </p>
+<h2 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h2><p>单行注释：  </p>
 <pre><code># 被注释内容
 or
 &quot;被注释内容&quot;  也就是使用单引号或者双引号【注意，和shell不同，在python中，这两者没有区别】
@@ -695,7 +696,67 @@ print (message)
 <pre><code>line1
 line2
 line3
-</code></pre>
+</code></pre><h2 id="Python2和Python3的区别"><a href="#Python2和Python3的区别" class="headerlink" title="Python2和Python3的区别"></a>Python2和Python3的区别</h2><p><strong>PRINT IS A FUNCTION</strong></p>
+<p>在python中，print是以函数的方式存在的</p>
+<pre><code>Old: print &quot;The answer is&quot;, 2*2 New: print(&quot;The answer is&quot;, 2*2)
+Old: print x, # Trailing comma suppresses newline New: print(x, end=&quot; &quot;) # Appends a space instead of a newline
+Old: print # Prints a newline
+New: print() # You must call the function!
+Old: print &gt;&gt;sys.stderr, &quot;fatal error&quot; New: print(&quot;fatal error&quot;, file=sys.stderr)
+Old: print (x, y) # prints repr((x, y))
+New: print((x, y)) # Not the same as print(x, y)!
+</code></pre><p><strong>ALL IS UNICODE NOW</strong></p>
+<p>python3默认支持UTF-8，也就是说，默认就支持中文</p>
+<p>在python中，在文件的开头要使用下方命令指定该文件的编码方式</p>
+<pre><code>#_*_coding:utf-8_*_
+</code></pre><h2 id="帮助文档查看"><a href="#帮助文档查看" class="headerlink" title="帮助文档查看"></a>帮助文档查看</h2><p>python的一个优势是有着大量自带和在线的模块(module)资源，可以提供丰富的功能，在使用这些模块的时候，如果每次都去网站找在线文档会过于耗费时间，结果也不一定准确。因此这里介绍下python自带的查看帮助功能，可以在编程时不中断地迅速找到所需模块和函数的使用方法</p>
+<p>在python命令行中键入help(),可以看到：</p>
+<p><img src="http://picture.watchmen.xin/python-14/help.png" alt=""></p>
+<p>进入help帮助文档界面，根据屏幕提示可以继续键入相应关键词进行查询</p>
+<p>这是python的通用的查询帮助，可以查到几乎所有的帮助文档，但我们很多时候不需要这样层级式地向下查询，接下来会介绍如何直接查询特定的模块和函数帮助信息。</p>
+<ul>
+<li><p>键入modules可以列出当前所有安装的模块</p>
+</li>
+<li><p>键入相应的模块名称得到该模块的帮助信息</p>
+</li>
+</ul>
+<p>例如要查询math模块的使用方法，可以如下操作：</p>
+<pre><code>&gt;&gt;&gt; import math
+&gt;&gt;&gt; help(math)
+</code></pre><p>使用help(module_name)时首先需要import该模块，有些教程中不进行导入而在模块名中加入引号help(‘module_name’)，这种方法可能会带来问题，大家可以用math模块测试，建议使用先导入再使用help()函数查询</p>
+<p><strong>查看模块下所有函数：</strong></p>
+<pre><code>&gt;&gt;&gt; dir(math)
+[&apos;__doc__&apos;, &apos;__loader__&apos;, &apos;__name__&apos;, &apos;__package__&apos;, &apos;__spec__&apos;, &apos;acos&apos;, &apos;acosh&apos;, &apos;asin&apos;, &apos;asinh&apos;, &apos;atan&apos;, &apos;atan2&apos;, &apos;atanh&apos;, &apos;ceil&apos;, &apos;copysign&apos;, &apos;cos&apos;, &apos;cosh&apos;, &apos;degrees&apos;, &apos;e&apos;, &apos;erf&apos;, &apos;erfc&apos;, &apos;exp&apos;, &apos;expm1&apos;, &apos;fabs&apos;, &apos;factorial&apos;, &apos;floor&apos;, &apos;fmod&apos;, &apos;frexp&apos;, &apos;fsum&apos;, &apos;gamma&apos;, &apos;gcd&apos;, &apos;hypot&apos;, &apos;inf&apos;, &apos;isclose&apos;, &apos;isfinite&apos;, &apos;isinf&apos;, &apos;isnan&apos;, &apos;ldexp&apos;, &apos;lgamma&apos;, &apos;log&apos;, &apos;log10&apos;, &apos;log1p&apos;, &apos;log2&apos;, &apos;modf&apos;, &apos;nan&apos;, &apos;pi&apos;, &apos;pow&apos;, &apos;radians&apos;, &apos;sin&apos;, &apos;sinh&apos;, &apos;sqrt&apos;, &apos;tan&apos;, &apos;tanh&apos;, &apos;tau&apos;, &apos;trunc&apos;]
+&gt;&gt;&gt;
+</code></pre><h2 id="模块初识"><a href="#模块初识" class="headerlink" title="模块初识"></a>模块初识</h2><p>Python的强大之处在于他有非常丰富和强大的标准库和第三方库，几乎你想实现的任何功能都有相应的Python库支持，以后的课程中会深入讲解常用到的各种库，现在，我们先简单介绍两个在运维中常用的</p>
+<p><strong>sys模块</strong></p>
+<pre><code>wxh@wxh-virtual-machine:~/python-14/day01$ cat modules-sys.py 
+import sys
+print (sys.argv)
+
+wxh@wxh-virtual-machine:~/python-14/day01$ python modules-sys.py ni hao
+[&apos;modules-sys.py&apos;, &apos;ni&apos;, &apos;hao&apos;]
+</code></pre><p><strong>os模块</strong></p>
+<pre><code>wxh@wxh-virtual-machine:~/python-14/day01$ cat modules-os.py 
+import os
+os.system(&quot;df -h&quot;)
+
+wxh@wxh-virtual-machine:~/python-14/day01$ python modules-os.py
+Filesystem      Size  Used Avail Use% Mounted on
+udev            960M     0  960M   0% /dev
+tmpfs           198M   19M  179M  10% /run
+/dev/sda1        97G  5.6G   86G   7% /
+tmpfs           986M  320K  986M   1% /dev/shm
+tmpfs           5.0M  4.0K  5.0M   1% /run/lock
+tmpfs           986M     0  986M   0% /sys/fs/cgroup
+tmpfs           198M   68K  198M   1% /run/user/1000
+</code></pre><p>后续会涉及到自己自己写一些python文件，然后将它转换为模块。</p>
+<p>默认情况下模块只能在当前目录下导入，如果想在系统的何何一个地方都使用怎么办呢？ </p>
+<p>此时你就要把这个xxx.py模块文件放到python全局环境变量目录里啦，基本一般都放在一个叫 Python/2.7/site-packages 目录下，这个目录在不同的OS里放的位置不一样，用 print(sys.path) 可以查看python环境变量列表。</p>
+<pre><code>&gt;&gt;&gt; print (sys.path)
+[&apos;&apos;, &apos;/usr/lib/python35.zip&apos;, &apos;/usr/lib/python3.5&apos;, &apos;/usr/lib/python3.5/plat-x86_64-linux-gnu&apos;, &apos;/usr/lib/python3.5/lib-dynload&apos;, &apos;/usr/local/lib/python3.5/dist-packages&apos;, &apos;/usr/lib/python3/dist-packages&apos;]
+&gt;&gt;&gt; 
+</code></pre><h2 id="pyc是什么？"><a href="#pyc是什么？" class="headerlink" title=".pyc是什么？"></a>.pyc是什么？</h2>
       
     </div>
     
@@ -940,7 +1001,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Python简介"><span class="nav-number">1.</span> <span class="nav-text">Python简介</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Python擅长领域"><span class="nav-number">1.1.</span> <span class="nav-text">Python擅长领域</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编程语言概述"><span class="nav-number">1.2.</span> <span class="nav-text">编程语言概述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#低级语言与高级语言"><span class="nav-number">1.2.1.</span> <span class="nav-text">低级语言与高级语言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编译型和解释型"><span class="nav-number">1.2.2.</span> <span class="nav-text">编译型和解释型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#静态语言和动态语言"><span class="nav-number">1.2.3.</span> <span class="nav-text">静态语言和动态语言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#强类型定义语言和弱类型定义语言"><span class="nav-number">1.2.4.</span> <span class="nav-text">强类型定义语言和弱类型定义语言</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Python的优缺点"><span class="nav-number">1.3.</span> <span class="nav-text">Python的优缺点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#优点"><span class="nav-number">1.3.1.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#缺点"><span class="nav-number">1.3.2.</span> <span class="nav-text">缺点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Python解释器"><span class="nav-number">1.4.</span> <span class="nav-text">Python解释器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#变量和字符编码"><span class="nav-number">1.5.</span> <span class="nav-text">变量和字符编码</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Python变量的定义规则"><span class="nav-number">1.5.1.</span> <span class="nav-text">Python变量的定义规则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#变量和常量"><span class="nav-number">1.5.2.</span> <span class="nav-text">变量和常量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#字符编码"><span class="nav-number">1.5.3.</span> <span class="nav-text">字符编码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#注释"><span class="nav-number">1.5.4.</span> <span class="nav-text">注释</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Python简介"><span class="nav-number">1.</span> <span class="nav-text">Python简介</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Python擅长领域"><span class="nav-number">1.1.</span> <span class="nav-text">Python擅长领域</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编程语言概述"><span class="nav-number">1.2.</span> <span class="nav-text">编程语言概述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#低级语言与高级语言"><span class="nav-number">1.2.1.</span> <span class="nav-text">低级语言与高级语言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编译型和解释型"><span class="nav-number">1.2.2.</span> <span class="nav-text">编译型和解释型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#静态语言和动态语言"><span class="nav-number">1.2.3.</span> <span class="nav-text">静态语言和动态语言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#强类型定义语言和弱类型定义语言"><span class="nav-number">1.2.4.</span> <span class="nav-text">强类型定义语言和弱类型定义语言</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Python的优缺点"><span class="nav-number">1.3.</span> <span class="nav-text">Python的优缺点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#优点"><span class="nav-number">1.3.1.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#缺点"><span class="nav-number">1.3.2.</span> <span class="nav-text">缺点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Python解释器"><span class="nav-number">1.4.</span> <span class="nav-text">Python解释器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#变量"><span class="nav-number">1.5.</span> <span class="nav-text">变量</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Python变量的定义规则"><span class="nav-number">1.5.1.</span> <span class="nav-text">Python变量的定义规则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#变量和常量"><span class="nav-number">1.5.2.</span> <span class="nav-text">变量和常量</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字符编码编码"><span class="nav-number">1.6.</span> <span class="nav-text">字符编码编码</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#字符编码说明"><span class="nav-number">1.6.1.</span> <span class="nav-text">字符编码说明</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#注释"><span class="nav-number">1.7.</span> <span class="nav-text">注释</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Python2和Python3的区别"><span class="nav-number">1.8.</span> <span class="nav-text">Python2和Python3的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#帮助文档查看"><span class="nav-number">1.9.</span> <span class="nav-text">帮助文档查看</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模块初识"><span class="nav-number">1.10.</span> <span class="nav-text">模块初识</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pyc是什么？"><span class="nav-number">1.11.</span> <span class="nav-text">.pyc是什么？</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -978,7 +1039,7 @@ var jiathis_config={
 
 
 
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
 
 
 
@@ -1077,13 +1138,6 @@ var jiathis_config={
 
   
   
-
-
-  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
-
-
 
   
   <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>

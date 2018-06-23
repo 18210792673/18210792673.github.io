@@ -5,7 +5,7 @@
   
 
 
-<html class="theme-next pisces use-motion" lang="zh-Hans">
+<html class="theme-next mist use-motion" lang="zh-Hans">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -100,7 +100,7 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
-    scheme: 'Pisces',
+    scheme: 'Mist',
     version: '5.1.4',
     sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
     fancybox: true,
@@ -788,10 +788,17 @@ print (&quot;The right answer is 23 &quot;)
 </ul>
 <p><strong>多级菜单</strong></p>
 <ul>
-<li>三级菜单</li>
+<li>三级菜单【省市县】【例如，浙江省–&gt;杭州市–&gt;xx县/区】</li>
 <li>可依次选择进入各个子菜单</li>
 <li>所需新知识点：列表，字典</li>
 </ul>
+<p>一打开程序，列出中国所有的省，选择一个省，列出下面所有的城市，选中一个城市，再列出下面所有的县</p>
+<p>在任何一个级别，可以返回上一级</p>
+<p>在任何一个级别的时候，可以整个退出程序，输入例如quit等退出程序</p>
+<h1 id="作业完成"><a href="#作业完成" class="headerlink" title="作业完成"></a>作业完成</h1><p><strong>登录接口：</strong></p>
+<p>代码如下：</p>
+<p><strong>多级菜单：</strong></p>
+<p>代码如下：</p>
 
       
     </div>
@@ -1037,7 +1044,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#格式化输出"><span class="nav-number">1.</span> <span class="nav-text">格式化输出</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#用户输入"><span class="nav-number">2.</span> <span class="nav-text">用户输入</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#模块初始"><span class="nav-number">3.</span> <span class="nav-text">模块初始</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#流程控制"><span class="nav-number">4.</span> <span class="nav-text">流程控制</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#if语句"><span class="nav-number">4.1.</span> <span class="nav-text">if语句</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#循环"><span class="nav-number">4.2.</span> <span class="nav-text">循环</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#while循环"><span class="nav-number">4.2.1.</span> <span class="nav-text">while循环</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#for循环"><span class="nav-number">4.2.2.</span> <span class="nav-text">for循环</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#作业"><span class="nav-number">5.</span> <span class="nav-text">作业</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#格式化输出"><span class="nav-number">1.</span> <span class="nav-text">格式化输出</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#用户输入"><span class="nav-number">2.</span> <span class="nav-text">用户输入</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#模块初始"><span class="nav-number">3.</span> <span class="nav-text">模块初始</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#流程控制"><span class="nav-number">4.</span> <span class="nav-text">流程控制</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#if语句"><span class="nav-number">4.1.</span> <span class="nav-text">if语句</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#循环"><span class="nav-number">4.2.</span> <span class="nav-text">循环</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#while循环"><span class="nav-number">4.2.1.</span> <span class="nav-text">while循环</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#for循环"><span class="nav-number">4.2.2.</span> <span class="nav-text">for循环</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#作业"><span class="nav-number">5.</span> <span class="nav-text">作业</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#作业完成"><span class="nav-number">6.</span> <span class="nav-text">作业完成</span></a></li></ol></div>
             
 
           </div>
@@ -1075,7 +1082,7 @@ var jiathis_config={
 
 
 
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
 
 
 
@@ -1174,13 +1181,6 @@ var jiathis_config={
 
   
   
-
-
-  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
-
-
 
   
   <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
