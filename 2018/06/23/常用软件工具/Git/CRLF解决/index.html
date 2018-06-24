@@ -462,10 +462,10 @@
 <li>当我们执行commit提交时，会把暂存区的内容(也就是我们对工作区做的改动)再重新转化为LF然后放入版本库(repository)</li>
 </ul>
 <ul>
-<li><p>转化暂存区的内容时，如果发现里面存在 LF 换行符，LF 会被转化成 CRLF，并给出提到的那条警告：”LF will be replaced by CRLF”</p>
-</li>
-<li><p>这里有一个重要的知识点：git创建的项目，最终项目文件中的换行符是为LF【因为git最终是运行在Linux平台之上】</p>
-</li>
+<li>从工作区转化暂存区时，如果发现里面存在 LF 换行符，LF 会被转化成 CRLF，并给出提到的那条警告：”LF will be replaced by CRLF”</li>
+</ul>
+<ul>
+<li>这里有一个重要的知识点：git创建的项目，暂存区和运行平台挂钩，但是最终项目文件在版本库(repository)中的换行符是为LF【因为git最终是运行在Linux平台之上】</li>
 </ul>
 <p>其实这句警告的下面其实还有一句很重要的话:</p>
 <pre><code>warning: LF will be replaced by CRLF in . 
@@ -484,8 +484,7 @@ The file will have its original line endings in your working directory.
 <p><strong>问题解决：</strong></p>
 <p>因为如果 Windows 上设置 core.autocrlf=false,仓库里也没有配置 .gitattributes,很容易引入 CRLF 或者混合换行符(Mixed Line Endings,一个文件里既有 LF 又有CRLF)到版本库,这样就可能产生各种奇怪的问题。</p>
 <p>所以，解决最好保持工作区都是纯 CRLF 文件,编辑器用 CRLF 换行,就不会出现警告。</p>
-<p>如果设置<code>core.autocrlf = false</code>，那么很可能会出现CRLF和LF混合的情况，这样会导致一些问题，例如<code>git diff</code> 失去功能，会发现很多行代码并没有修改，然而被认为是修改过了。</p>
-<p>首先<code>core.autocrlf = true</code>在windows上才是正确的选择，不建议将其修改为false（网上大部分的解决方法都是：rm -rf .git &amp;&amp; git config –global core.autocrlf false &amp;&amp; git init &amp;&amp; git add . &amp;&amp; git remote add <em>*</em>这种，其实不是解决方式不是太友好），如果实在忍受不了，想要避免这些warning，那么执行下面的操作：</p>
+<p>首先<code>core.autocrlf = true</code>在windows上才是正确的选择，不建议将其修改为false（网上大部分的解决方法都是：rm -rf .git &amp;&amp; git config –global core.autocrlf false &amp;&amp; git init &amp;&amp; git add . &amp;&amp; git remote add xx 这种解决方式，其实不是太友好），如果实在忍受不了，想要避免这些warning，那么执行下面的操作：</p>
 <ol>
 <li>添加.gitattributes</li>
 <li>设置<code>core.safecrlf = true</code></li>
