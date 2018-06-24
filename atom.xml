@@ -23,7 +23,7 @@
     <published>2018-06-23T10:56:27.000Z</published>
     <updated>2018-06-23T10:56:27.000Z</updated>
     
-    <content type="html"><![CDATA[<p>因为我使用的是Next主题，这里说下Next主题的修改，其他主题的操作也都是一致的</p><p>Next默认对超链接只有下划线样式，在查看文章内容的时候很容易被忽略</p><p>主题样式是在\hexoBlog\themes\next\source\css,这里面保存了Muse,Mist和Pisces等主题的css文件</p><p>例如,字体和边框的颜色还有字体,图片的大小等保存在next\source\css_variables里.</p><p>而我们要修改的body超链接的样式在themes\next\source\css_common\components\post\post.styl里,编辑文件，在文件中添加以下内容:</p><pre><code>.post-body a {  color: #428BCA;  font-weight: bold;}</code></pre><p>添加以后，我们需要执行clean操作剩下</p><pre><code>hexo clean hexo g -d</code></pre><p>强制刷新我们的文章内容，就能看到超链接已经变成蓝色粗体的形式</p><p>如下图所示：</p><p><img src="http://picture.watchmen.xin/tmp/next_css.png" alt="css"></p>]]></content>
+    <content type="html"><![CDATA[<p>因为我使用的是Next主题，这里说下Next主题的修改，其他主题的操作也都是一致的</p><p>Next默认对超链接只有下划线样式，在查看文章内容的时候很容易被忽略</p><p>主题样式是在\hexoBlog\themes\next\source\css,这里面保存了Muse,Mist和Pisces等主题的css文件</p><p>例如,字体和边框的颜色还有字体,图片的大小等保存在next\source\css_variables里.</p><p>而我们要修改的body超链接的样式在themes\next\source\css_common\components\post\post.styl里,编辑文件，在文件中添加以下内容:</p><pre><code>.post-body a {  color: #428BCA;  font-weight: bold;}</code></pre><p>添加以后，我们需要执行clean操作生效</p><pre><code>hexo clean hexo g -d</code></pre><p>强制刷新我们的文章内容，就能看到超链接已经变成蓝色粗体的形式</p><p>如下图所示：</p><p><img src="http://picture.watchmen.xin/tmp/next_css.png" alt="css"></p>]]></content>
     
     <summary type="html">
     
