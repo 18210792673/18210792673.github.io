@@ -460,7 +460,9 @@
       
 
       
-        <p>有关负载均衡基础知识详见<strong><code>高并发-负载均衡</code></strong>章节相关博文。</p>
+        <p>有关负载均衡基础知识详见<strong><code>高并发-负载均衡-负载均衡基础知识</code></strong>相关文章，这里不再进行赘述。</p>
+<p>LVS相关的重要内容：工作模式、调度算法等相关内容都会放在单独的文章中</p>
+<p>建议阅读顺序：负载均衡基础知识–&gt;LVS从入门到实践–&gt;嵌入工作模式相关文章–&gt;嵌入调度算法相关文章–&gt;高可用系列的keepalived相关文章–&gt;LVS从入门到实践</p>
 <p><strong>参考文献：</strong></p>
 <ul>
 <li><p><a href="http://www.linuxvirtualserver.org/index.html" target="_blank" rel="noopener">LVS官网</a></p>
@@ -479,7 +481,7 @@
 </li>
 </ul>
 <h1 id="LVS介绍"><a href="#LVS介绍" class="headerlink" title="LVS介绍"></a>LVS介绍</h1><p>LVS是Linux Virtual Server的简写，意即Linux虚拟服务器，是一个虚拟的服务器集群系统，可以在UNIX/LINUX平台下实现负载均衡集群功能。该项目在1998年5月由章文嵩博士组织成立，是中国国内最早出现的自由软件项目之一。</p>
-<h2 id="LVS内核模块ip-vs介绍"><a href="#LVS内核模块ip-vs介绍" class="headerlink" title="LVS内核模块ip_vs介绍"></a>LVS内核模块ip_vs介绍</h2><p>早在2.2内核时， IPVS就已经以内核补丁的形式出现。</p>
+<h2 id="为什么使用LVS？"><a href="#为什么使用LVS？" class="headerlink" title="为什么使用LVS？"></a>为什么使用LVS？</h2><h2 id="LVS内核模块ip-vs介绍"><a href="#LVS内核模块ip-vs介绍" class="headerlink" title="LVS内核模块ip_vs介绍"></a>LVS内核模块ip_vs介绍</h2><p>早在2.2内核时， IPVS就已经以内核补丁的形式出现。</p>
 <p>从2.4.23版本开始，IPVS软件就合并到Linux内核的常用版本的内核补丁的集合。</p>
 <p>从2.4.24以后IPVS已经成为Linux官方标准内核的一部分。</p>
 <p><img src="http://picture.watchmen.xin/LVS/core.png" alt="core"></p>
@@ -487,7 +489,7 @@
 <p>我们在操作系统上安装的是管理工具，第一种叫ipvsadm，第二种叫keepalive</p>
 <p>ipvsadm是通过命令行配置管理，而keepalive读取配置文件管理并提供了HA的功能</p>
 <p>后面我们会用Shell脚本实现keepalive的功能</p>
-<h1 id="LVS三种工作模式"><a href="#LVS三种工作模式" class="headerlink" title="LVS三种工作模式"></a>LVS三种工作模式</h1><h1 id="LVS的8种调度算法"><a href="#LVS的8种调度算法" class="headerlink" title="LVS的8种调度算法"></a>LVS的8种调度算法</h1><h1 id="LVS集群搭建"><a href="#LVS集群搭建" class="headerlink" title="LVS集群搭建"></a>LVS集群搭建</h1><h2 id="整体架构"><a href="#整体架构" class="headerlink" title="整体架构"></a>整体架构</h2><p>此处插入visio图或者亿图的图</p>
+<h1 id="LVS集群搭建"><a href="#LVS集群搭建" class="headerlink" title="LVS集群搭建"></a>LVS集群搭建</h1><h2 id="整体架构"><a href="#整体架构" class="headerlink" title="整体架构"></a>整体架构</h2><p>此处插入visio图或者亿图的图</p>
 <h2 id="安装ipvsadm管理工具"><a href="#安装ipvsadm管理工具" class="headerlink" title="安装ipvsadm管理工具"></a>安装ipvsadm管理工具</h2><p>ipvsadm是LVS在应用层的管理命令，我们可以通过这个命令去管理LVS的配置。一般操作系统都已经集成了LVS相关模块，但是ipvsadm命令仍然需要使用yum单独安装。</p>
 <p>注意：我们安装ipvsadm的主要目的是使用它该查看LVS的运行状态，而不是使用它来进行配置，具体的配置我们使用keepalived来实现。</p>
 <ul>
@@ -615,16 +617,8 @@ vrrp_instance VI_1{        #固定写法，VI_1为自定义的实例名
         192.168.80.200/24
     }
 }
-
-
-virtual_server 192.168.80.200 6379 {    #固定写法，后面为VIP及对应端口
-    delay_loop 3            #定义对后端节点进行健康监测的时间间隔，单位是秒
-    lb_algo lc                #定义负载均衡调度算法，可使用的有:rr,wrr,lc,wlc,lblc,lblcr,sh,dh
-    lb_kind DR                #定义LVS的工作模式，可设置为NAT,DR,TUN
-    protocol TCP            #定义转发协议类型，可设置为TCP和UDP    \如果用户一直在操作，则不受这个时间限制
-    persistence_timeout 50
-
-    real_server 192.168.80.129 6379 {
+</code></pre><p>​<br>    virtual_server 192.168.80.200 6379 {    #固定写法，后面为VIP及对应端口<br>        delay_loop 3            #定义对后端节点进行健康监测的时间间隔，单位是秒<br>        lb_algo lc                #定义负载均衡调度算法，可使用的有:rr,wrr,lc,wlc,lblc,lblcr,sh,dh<br>        lb_kind DR                #定义LVS的工作模式，可设置为NAT,DR,TUN<br>        protocol TCP            #定义转发协议类型，可设置为TCP和UDP    \如果用户一直在操作，则不受这个时间限制<br>        persistence_timeout 50</p>
+<pre><code>    real_server 192.168.80.129 6379 {
         weight 1            #定义权重值，默认为1，根据服务器性能决定
        TCP_CHECK {            #定义检测方式
             connect_port 6379        #健康检查的端口，不指定默认为real_server的端口
@@ -661,33 +655,9 @@ vrrp_instance VI_1{        #固定写法，VI_1为自定义的实例名
         192.168.80.200/24
     }
 }
-
-
-virtual_server 192.168.80.200 80 {    #固定写法，后面为VIP及对应端口
-    delay_loop 3            #定义对后端节点进行健康监测的时间间隔，单位是秒
-    lb_algo lc                #定义负载均衡调度算法，可使用的有:rr,wrr,lc,wlc,lblc,lblcr,sh,dh
-    lb_kind DR                #定义LVS的工作模式，可设置为NAT,DR,TUN
-    protocol TCP            #定义转发协议类型，可设置为TCP和UDP    \如果用户一直在操作，则不受这个时间限制
-    persistence_timeout 50
-
-
-
-real_server 192.168.80.128 80 {
-        weight 2            #定义权重值，默认为1，根据服务器性能决定
-       HTTP_GET {            #定义检测方式
-            url {                       #HTTP/SSL检查的URL，可以指定多个URL
-              path /index.html          #URL路径
-              digest 650a1c9c9baa20730b4fcfdbe4cdc135   #HTTP检查后的摘要信息,计算方式:genhash -s ip -p port -u /index.html
-                status_code 200         #HTTP检查的返回状态码，成功一般为200
-            }
-            bindto 192.168.5.128        #表示通过此地址来发送请求对服务器进行健康检查
-            connect_port 80             #健康检查的端口，不指定默认为real_server的端口
-            connect_timeout 3           #无响应超时时间，单位是秒
-            nb_get_retry 3              #重试次数
-            delay_before_retry 3        #每次重试的时间间隔，单位是秒
-        }
-
-}
+</code></pre><p>​<br>    virtual_server 192.168.80.200 80 {    #固定写法，后面为VIP及对应端口<br>        delay_loop 3            #定义对后端节点进行健康监测的时间间隔，单位是秒<br>        lb_algo lc                #定义负载均衡调度算法，可使用的有:rr,wrr,lc,wlc,lblc,lblcr,sh,dh<br>        lb_kind DR                #定义LVS的工作模式，可设置为NAT,DR,TUN<br>        protocol TCP            #定义转发协议类型，可设置为TCP和UDP    \如果用户一直在操作，则不受这个时间限制<br>        persistence_timeout 50</p>
+<p>​<br>​<br>    real_server 192.168.80.128 80 {<br>            weight 2            #定义权重值，默认为1，根据服务器性能决定<br>           HTTP_GET {            #定义检测方式<br>                url {                       #HTTP/SSL检查的URL，可以指定多个URL<br>                  path /index.html          #URL路径<br>                  digest 650a1c9c9baa20730b4fcfdbe4cdc135   #HTTP检查后的摘要信息,计算方式:genhash -s ip -p port -u /index.html<br>                    status_code 200         #HTTP检查的返回状态码，成功一般为200<br>                }<br>                bindto 192.168.5.128        #表示通过此地址来发送请求对服务器进行健康检查<br>                connect_port 80             #健康检查的端口，不指定默认为real_server的端口<br>                connect_timeout 3           #无响应超时时间，单位是秒<br>                nb_get_retry 3              #重试次数<br>                delay_before_retry 3        #每次重试的时间间隔，单位是秒<br>            }</p>
+<pre><code>}
 }
 </code></pre><h1 id="注意事项及常见问题解答"><a href="#注意事项及常见问题解答" class="headerlink" title="注意事项及常见问题解答"></a>注意事项及常见问题解答</h1><h2 id="后端服务器端口配置问题"><a href="#后端服务器端口配置问题" class="headerlink" title="后端服务器端口配置问题"></a>后端服务器端口配置问题</h2><p>因为DR模式只是修改MAC地址，不会修改三层以上的信息，所以在配置后端节点的时候，端口号必须保持一致</p>
 <p>也就是说，VIP的80端口，对应后端的服务器的端口也只能是80，而不能是81、8080等其他端口</p>
@@ -754,8 +724,8 @@ real_server 192.168.80.128 80 {
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/04/17/Python-django项目/" rel="next" title="Python-django项目">
-                <i class="fa fa-chevron-left"></i> Python-django项目
+              <a href="/2018/04/17/编程语言/Python/个人总结/Python-django项目/" rel="next" title="《Python编程从入门到实践》-Django项目">
+                <i class="fa fa-chevron-left"></i> 《Python编程从入门到实践》-Django项目
               </a>
             
           </div>
@@ -878,7 +848,7 @@ var jiathis_config={
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">89</span>
+                  <span class="site-state-item-count">91</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -889,7 +859,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">109</span>
+                  <span class="site-state-item-count">110</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -940,7 +910,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#LVS介绍"><span class="nav-number">1.</span> <span class="nav-text">LVS介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#LVS内核模块ip-vs介绍"><span class="nav-number">1.1.</span> <span class="nav-text">LVS内核模块ip_vs介绍</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#LVS三种工作模式"><span class="nav-number">2.</span> <span class="nav-text">LVS三种工作模式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#LVS的8种调度算法"><span class="nav-number">3.</span> <span class="nav-text">LVS的8种调度算法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#LVS集群搭建"><span class="nav-number">4.</span> <span class="nav-text">LVS集群搭建</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#整体架构"><span class="nav-number">4.1.</span> <span class="nav-text">整体架构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装ipvsadm管理工具"><span class="nav-number">4.2.</span> <span class="nav-text">安装ipvsadm管理工具</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ipvsadm命令常用用法"><span class="nav-number">4.2.1.</span> <span class="nav-text">ipvsadm命令常用用法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Keepalived安装配置"><span class="nav-number">4.3.</span> <span class="nav-text">Keepalived安装配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装keepalived依赖关系"><span class="nav-number">4.3.1.</span> <span class="nav-text">安装keepalived依赖关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装keepalived"><span class="nav-number">4.3.2.</span> <span class="nav-text">安装keepalived</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#keepalived配置"><span class="nav-number">4.3.3.</span> <span class="nav-text">keepalived配置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#后端服务器节点配置"><span class="nav-number">4.4.</span> <span class="nav-text">后端服务器节点配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#VIP配置"><span class="nav-number">4.4.1.</span> <span class="nav-text">VIP配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#网络参数配置"><span class="nav-number">4.4.2.</span> <span class="nav-text">网络参数配置</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#LVS负载均衡配置实践"><span class="nav-number">5.</span> <span class="nav-text">LVS负载均衡配置实践</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#通用TCP服务"><span class="nav-number">5.1.</span> <span class="nav-text">通用TCP服务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Web服务"><span class="nav-number">5.2.</span> <span class="nav-text">Web服务</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#注意事项及常见问题解答"><span class="nav-number">6.</span> <span class="nav-text">注意事项及常见问题解答</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#后端服务器端口配置问题"><span class="nav-number">6.1.</span> <span class="nav-text">后端服务器端口配置问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RealServer为什么要在lo接口上配置VIP？"><span class="nav-number">6.2.</span> <span class="nav-text">RealServer为什么要在lo接口上配置VIP？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在eth0网卡上配置VIP可以吗？"><span class="nav-number">6.3.</span> <span class="nav-text">在eth0网卡上配置VIP可以吗？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么要抑制ARP响应？"><span class="nav-number">6.4.</span> <span class="nav-text">为什么要抑制ARP响应？</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#LVS介绍"><span class="nav-number">1.</span> <span class="nav-text">LVS介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么使用LVS？"><span class="nav-number">1.1.</span> <span class="nav-text">为什么使用LVS？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LVS内核模块ip-vs介绍"><span class="nav-number">1.2.</span> <span class="nav-text">LVS内核模块ip_vs介绍</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#LVS集群搭建"><span class="nav-number">2.</span> <span class="nav-text">LVS集群搭建</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#整体架构"><span class="nav-number">2.1.</span> <span class="nav-text">整体架构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装ipvsadm管理工具"><span class="nav-number">2.2.</span> <span class="nav-text">安装ipvsadm管理工具</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ipvsadm命令常用用法"><span class="nav-number">2.2.1.</span> <span class="nav-text">ipvsadm命令常用用法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Keepalived安装配置"><span class="nav-number">2.3.</span> <span class="nav-text">Keepalived安装配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装keepalived依赖关系"><span class="nav-number">2.3.1.</span> <span class="nav-text">安装keepalived依赖关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装keepalived"><span class="nav-number">2.3.2.</span> <span class="nav-text">安装keepalived</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#keepalived配置"><span class="nav-number">2.3.3.</span> <span class="nav-text">keepalived配置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#后端服务器节点配置"><span class="nav-number">2.4.</span> <span class="nav-text">后端服务器节点配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#VIP配置"><span class="nav-number">2.4.1.</span> <span class="nav-text">VIP配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#网络参数配置"><span class="nav-number">2.4.2.</span> <span class="nav-text">网络参数配置</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#LVS负载均衡配置实践"><span class="nav-number">3.</span> <span class="nav-text">LVS负载均衡配置实践</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#通用TCP服务"><span class="nav-number">3.1.</span> <span class="nav-text">通用TCP服务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Web服务"><span class="nav-number">3.2.</span> <span class="nav-text">Web服务</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#注意事项及常见问题解答"><span class="nav-number">4.</span> <span class="nav-text">注意事项及常见问题解答</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#后端服务器端口配置问题"><span class="nav-number">4.1.</span> <span class="nav-text">后端服务器端口配置问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RealServer为什么要在lo接口上配置VIP？"><span class="nav-number">4.2.</span> <span class="nav-text">RealServer为什么要在lo接口上配置VIP？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在eth0网卡上配置VIP可以吗？"><span class="nav-number">4.3.</span> <span class="nav-text">在eth0网卡上配置VIP可以吗？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么要抑制ARP响应？"><span class="nav-number">4.4.</span> <span class="nav-text">为什么要抑制ARP响应？</span></a></li></ol></li></ol></div>
             
 
           </div>

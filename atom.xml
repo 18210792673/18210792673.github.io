@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2018-06-25T07:39:26.000Z</updated>
+  <updated>2018-06-25T09:57:30.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,38 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>LVS+Keepalived配置文件模板</title>
+    <link href="http://yoursite.com/2018/06/25/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E9%AB%98%E5%B9%B6%E5%8F%91/%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/LVS/LVS-Keepalived%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E6%A8%A1%E6%9D%BF/"/>
+    <id>http://yoursite.com/2018/06/25/IT科学技术知识体系结构-Linux运维方向/高并发/负载均衡/LVS/LVS-Keepalived配置文件模板/</id>
+    <published>2018-06-25T09:57:30.000Z</published>
+    <updated>2018-06-25T09:57:30.000Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+      <category term="tag1" scheme="http://yoursite.com/tags/tag1/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>LVS的三种工作模式</title>
+    <link href="http://yoursite.com/2018/06/25/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E9%AB%98%E5%B9%B6%E5%8F%91/%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/LVS/LVS%E7%9A%84%E4%B8%89%E7%A7%8D%E5%B7%A5%E4%BD%9C%E6%A8%A1%E5%BC%8F/"/>
+    <id>http://yoursite.com/2018/06/25/IT科学技术知识体系结构-Linux运维方向/高并发/负载均衡/LVS/LVS的三种工作模式/</id>
+    <published>2018-06-25T09:51:40.000Z</published>
+    <updated>2018-06-25T09:51:40.000Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+      <category term="tag1" scheme="http://yoursite.com/tags/tag1/"/>
+    
+  </entry>
   
   <entry>
     <title>Chrome常用操作</title>
@@ -42,8 +74,8 @@
   
   <entry>
     <title>LVS的8种调度算法</title>
-    <link href="http://yoursite.com/2018/06/25/LVS%E7%9A%848%E7%A7%8D%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95/"/>
-    <id>http://yoursite.com/2018/06/25/LVS的8种调度算法/</id>
+    <link href="http://yoursite.com/2018/06/25/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E9%AB%98%E5%B9%B6%E5%8F%91/%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/LVS/LVS%E7%9A%848%E7%A7%8D%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95/"/>
+    <id>http://yoursite.com/2018/06/25/IT科学技术知识体系结构-Linux运维方向/高并发/负载均衡/LVS/LVS的8种调度算法/</id>
     <published>2018-06-25T07:37:09.000Z</published>
     <updated>2018-06-25T07:37:09.000Z</updated>
     
@@ -415,17 +447,17 @@
   </entry>
   
   <entry>
-    <title>负载均衡技术从入门到实践</title>
-    <link href="http://yoursite.com/2018/06/10/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E9%AB%98%E5%B9%B6%E5%8F%91/%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E6%8A%80%E6%9C%AF%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E8%B7%B5/"/>
-    <id>http://yoursite.com/2018/06/10/IT科学技术知识体系结构-Linux运维方向/高并发/负载均衡/负载均衡基础知识/负载均衡技术从入门到实践/</id>
+    <title>负载均衡技术概述</title>
+    <link href="http://yoursite.com/2018/06/10/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E9%AB%98%E5%B9%B6%E5%8F%91/%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E6%8A%80%E6%9C%AF%E6%A6%82%E8%BF%B0/"/>
+    <id>http://yoursite.com/2018/06/10/IT科学技术知识体系结构-Linux运维方向/高并发/负载均衡/负载均衡基础知识/负载均衡技术概述/</id>
     <published>2018-06-10T13:23:11.000Z</published>
     <updated>2018-06-10T13:23:11.000Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h1><h2 id="我们为什么需要负载均衡"><a href="#我们为什么需要负载均衡" class="headerlink" title="我们为什么需要负载均衡"></a>我们为什么需要负载均衡</h2><h2 id="负载均衡的好处"><a href="#负载均衡的好处" class="headerlink" title="负载均衡的好处"></a>负载均衡的好处</h2><p>负载均衡（Load Balance）集群提供了一种廉价、有效、透明的方法，来扩展网络设备和服务器的负载、带宽、增加吞吐量、加强网络数据处理能力、提高网络的灵活性和可用性。</p><p>单台计算机无法承受大规模的并发访问或数据流量，此时需要搭建负载均衡集群把流量分摊到多台节点设备上分别处理，即减少用户等待响应的时间又提升了用户体验；</p><p>7*24小时的服务保证，任意一个或多个有限后端节点设备宕机，不能影响整个业务的运行。</p>]]></content>
+    <content type="html"><![CDATA[<h1 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h1><h2 id="负载均衡技术简介"><a href="#负载均衡技术简介" class="headerlink" title="负载均衡技术简介"></a>负载均衡技术简介</h2><h2 id="负载均衡的好处"><a href="#负载均衡的好处" class="headerlink" title="负载均衡的好处"></a>负载均衡的好处</h2><p>负载均衡（Load Balance）集群提供了一种廉价、有效、透明的方法，来扩展网络设备和服务器的负载、带宽、增加吞吐量、加强网络数据处理能力、提高网络的灵活性和可用性。</p><p>单台计算机无法承受大规模的并发访问或数据流量，此时需要搭建负载均衡集群把流量分摊到多台节点设备上分别处理，即减少用户等待响应的时间又提升了用户体验；</p><p>7*24小时的服务保证，任意一个或多个有限后端节点设备宕机，不能影响整个业务的运行。</p>]]></content>
     
     <summary type="html">
     
-      负载均衡技术从入门到实践
+      负载均衡技术概述
     
     </summary>
     
@@ -465,58 +497,6 @@
     
     
       <category term="zabbix" scheme="http://yoursite.com/tags/zabbix/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>onenote从入门到实践</title>
-    <link href="http://yoursite.com/2018/06/10/onenote%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E8%B7%B5/"/>
-    <id>http://yoursite.com/2018/06/10/onenote从入门到实践/</id>
-    <published>2018-06-10T05:31:50.000Z</published>
-    <updated>2018-06-10T05:31:50.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>参考文献：</p><ul><li><a href="https://support.office.com/zh-cn/onenote" target="_blank" rel="noopener">OneNote-Microsoft官方文档</a></li></ul><h1 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h1><p>onenote中的关系是（三级目录）：</p><p>笔记本–&gt;分区–&gt;页</p><p>注意：我们应该使用的是：onenote2013/onenote2016这种版本，而不是onenote这种不带版本后缀的。</p><h1 id="入门实践"><a href="#入门实践" class="headerlink" title="入门实践"></a>入门实践</h1><h2 id="设置密码保护"><a href="#设置密码保护" class="headerlink" title="设置密码保护"></a>设置密码保护</h2><p>参考文献：</p><ul><li><a href="https://support.office.com/zh-cn/article/%E7%94%A8%E5%AF%86%E7%A0%81%E4%BF%9D%E6%8A%A4%E6%82%A8%E7%9A%84%E7%AC%94%E8%AE%B0-e5ffd8fd-e811-441a-aa02-e13f0f445933#PASSWORDS=2016%E3%80%812013_%E5%92%8C_2010" target="_blank" rel="noopener">用密码保护您的笔记</a></li></ul><p>OneNote 中的密码保护功能旨在帮助确保笔记的安全，防止他人窥探。无论是在学校将 OneNote 用于课堂笔记、在工作场所将其用于会议笔记、在家将其用于个人日记或博客，还是将其用于你自己或亲朋好友的个人信息，密码都在控制对这些笔记的访问权限方面发挥着重要作用。</p><p>通过使用密码保护 OneNote 笔记本分区，可帮助确保私人笔记免遭他人窥探。当分区受密码保护时，其所有页面均处于锁定状态，直到输入正确的密码。</p><h3 id="设置密码"><a href="#设置密码" class="headerlink" title="设置密码"></a>设置密码</h3><p><strong>步骤如下：</strong></p><ol><li><p>右键单击要保护的<font color="red"><strong><code>分区</code></strong></font>选项卡，然后选择“用密码保护此分区”。</p></li><li><p>如何在 OneNote 2016 中使用密码保护分区的屏幕截图。</p></li><li><p>在“密码保护”任务窗格中，选择“设置密码”。</p></li><li><p>在“密码保护”对话框中，在“输入密码”框中键入所需的密码。</p></li><li><p>在“确认密码”框中再次键入该密码进行确认，然后单击“确定”。</p></li></ol><p><img src="http://picture.watchmen.xin/onenote/password.png" alt="password"></p><blockquote><p><strong>注意:</strong> 请仔细选择密码。如果忘记了密码，任何人都无法为你解锁笔记（甚至 Microsoft 技术支持也不能）。</p></blockquote><h3 id="锁定笔记本中受保护的分区"><a href="#锁定笔记本中受保护的分区" class="headerlink" title="锁定笔记本中受保护的分区"></a>锁定笔记本中受保护的分区</h3><p>如果您为笔记本中的多个分区应用了密码，则可以同时锁定所有这些分区。</p><ol><li><p>右键单击任何受保护的（但当前未锁定的）分区选项卡，然后选择“用密码保护此分区”。</p></li><li><p>在“密码保护”任务窗格中，选择“全部锁定”。</p></li></ol><p><strong>也就是说，一次锁定一个笔记本中的所有有密码保护的分区</strong></p><h3 id="更改受保护分区的密码"><a href="#更改受保护分区的密码" class="headerlink" title="更改受保护分区的密码"></a>更改受保护分区的密码</h3><ol><li><p>右键单击要更改密码的分区选项卡，然后选择“用密码保护此分区”。</p></li><li><p>在“密码保护”任务窗格中，选择“更改密码”。（如果此选项不可用，则表示该分区无密码。）</p></li><li><p>在“更改密码”对话框中，在“旧密码”框中键入当前的密码。</p></li><li><p>在“输入新密码”框中键入新密码。</p></li><li><p>在“确认密码”框中键入该密码进行确认，然后单击“确定”。</p></li></ol><h3 id="删除受保护分区的密码"><a href="#删除受保护分区的密码" class="headerlink" title="删除受保护分区的密码"></a>删除受保护分区的密码</h3><ol><li><p>右键单击要删除密码的分区选项卡，然后单击“用密码保护此分区”。</p></li><li><p>在“密码保护”任务窗格中，单击“删除密码”。（如果此选项不可用，则表示该分区无密码。）</p></li><li><p>在“取消密码”对话框中，键入当前密码，然后单击“确定”。</p></li></ol><h3 id="设置密码保护选项"><a href="#设置密码保护选项" class="headerlink" title="设置密码保护选项"></a>设置密码保护选项</h3><p>如果您在一段时间内没有使用已解锁的受密码保护分区，此类分区将再次自动锁定。 您可以自定义这段时间，并且可以设置应用于受保护分区的密码保护方式的其他选项。</p><ol><li><p>选择“文件”&gt;“选项”。</p></li><li><p>在“OneNote 选项”对话框中，选择“高级”。</p></li><li><p>在右侧的“密码”下，执行下列任一操作：</p></li><li><p>若要在指定的一段时间后锁定笔记本分区，请选中“在以下时间内未对受密码保护的分区进行操作即将其锁定”，然后选择所需的时间。</p></li><li><p>若要在完成使用笔记本分区后立即将其锁定，请选中“离开受密码保护的分区时即将其锁定”。</p></li><li><p>若要使受密码保护的分区中的笔记暂时对其他程序可用，请选中“允许加载项程序访问解除锁定的受密码保护的分区”。</p></li><li><p>单击“确定”应用首选项。</p></li></ol><h3 id="有关密码的一些重要说明"><a href="#有关密码的一些重要说明" class="headerlink" title="有关密码的一些重要说明"></a>有关密码的一些重要说明</h3><ul><li>密码只能应用于笔记本分区，不能应用于整个笔记本。</li></ul><ul><li>密码区分大小写。创建或输入密码前，请确保关闭 Caps Lock 键。</li></ul><ul><li>OneNote 使用加密来保护受密码保护的分区。如果忘记了密码，任何人都无法为你解锁笔记（甚至 Microsoft 技术支持也不能）。因此，向笔记本分区分配密码和更改密码时，需要特别小心。</li></ul><ul><li>笔记本搜索中不包括受密码保护的分区。 若要在搜索中包括受保护的分区，您必须首先将对应分区解锁。</li></ul><ul><li>除非已解除受保护分区的锁定，否则在任何受保护分区内的页面上使用的笔记标记不会包含在笔记标记摘要中。</li></ul>]]></content>
-    
-    <summary type="html">
-    
-      OneNote从入门到实践
-    
-    </summary>
-    
-      <category term="常用软件工具" scheme="http://yoursite.com/categories/%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6%E5%B7%A5%E5%85%B7/"/>
-    
-      <category term="OneNote" scheme="http://yoursite.com/categories/%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6%E5%B7%A5%E5%85%B7/OneNote/"/>
-    
-    
-      <category term="OneNote" scheme="http://yoursite.com/tags/OneNote/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>高速通道从入门到实践</title>
-    <link href="http://yoursite.com/2018/06/08/%E9%AB%98%E9%80%9F%E9%80%9A%E9%81%93%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E8%B7%B5/"/>
-    <id>http://yoursite.com/2018/06/08/高速通道从入门到实践/</id>
-    <published>2018-06-08T04:12:15.000Z</published>
-    <updated>2018-06-08T04:12:15.000Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h1><p>阿里云高速通道（Express Connect）服务，帮助您在VPC间、VPC与本地数据中心间搭建私网通信通道，提高网络拓扑的灵活性和跨网络通信的质量和安全性。使用高速通道可以使您避免绕行公网带来的网络质量不稳定问题，同时可以免去数据在传输过程中被窃取的风险。</p><p><strong>VPC间内网通信</strong></p><ul><li>高速通道支持位于相同地域或不同地域，同一账号或不同账号的VPC之间进行内网互通。</li></ul><ul><li>阿里云通过在<strong><code>两侧VPC的路由器上分别创建路由器接口</code></strong>，以及自有的骨干传输网络来搭建高速通道，轻松实现两个VPC之间安全可靠，方便快捷的通信。</li></ul><p><strong>本地数据中心和阿里云上VPC间内网通信</strong></p><ul><li>您可以通过物理专线在物理层面上连接您的本地数据中心到阿里云，然后建立边界路由器和路由器接口来连接数据中心与阿里云VPC。</li></ul><h2 id="基础架构"><a href="#基础架构" class="headerlink" title="基础架构"></a>基础架构</h2><p>基于软件自定义网络（Software Defined Network，简称SDN）架构下的三层Overlay技术和交换机虚拟化技术，阿里云将客户的物理专线接入的端口隔离起来，并抽象成边界路由器。通过目前主流的隧道技术，阿里云将客户的数据包在交换机内部进行封装，在用户的物理专线和VPC的路由器之间加上隧道封装，然后将数据传输到VPC内。</p><p><img src="http://picture.watchmen.xin/channel/base.png" alt="base"></p><h2 id="路由器接口"><a href="#路由器接口" class="headerlink" title="路由器接口"></a>路由器接口</h2><p>路由器接口是一种虚拟设备，具备搭建通信通道并控制其工作状态的功能。</p><p>高速通道通过在两侧的VPC路由器上分别创建路由器接口为两个VPC之间搭建内网通信通道。</p><p>在两个路由器接口建立连接后，两侧的路由器可以通过建立的通道相互发送消息。因此，两个VPC中的资源（比如ECS实例）就可以通过内网进行通信了。</p><p><img src="http://picture.watchmen.xin/channel/interface.png" alt=""></p><h3 id="发起端和接受端"><a href="#发起端和接受端" class="headerlink" title="发起端和接受端"></a>发起端和接受端</h3><p>当两个路由器接口进行互连时，一个扮演连接发起端角色，另一个扮演连接接受端角色。只有发起端路由器接口才可以发起连接，接受端路由器接口只能等待发起端发起连接。发起端和接受端仅用于控制连接建立的过程，在实际进行网络通信时，通信链路是双向的，发起端和接受端没有任何差别。</p><p>对于同账号VPC互通，高速通道提供了同时创建两端的选项。在这种情况下，您不需要手动发起连接，系统会自动发起并建立连接。对于跨账号VPC互通，您必须手动发起路由器接口间的连接。</p><p>发起端与接受端的对比如下表所示。</p><p><img src="http://picture.watchmen.xin/channel/duibi.png" alt="duibi"></p><p><strong>注意：</strong></p><p>和我们传统的路由器的发起和接受概念有点不一样，这里需要明确的指定</p><ul><li>发起端需要指定接受端的路由器接口</li></ul><ul><li>接收端需要指定发起端的路由器接口</li></ul><p>也就是说，这两个接口只能是给这一条通道使用</p><h3 id="连接过程和连接状态"><a href="#连接过程和连接状态" class="headerlink" title="连接过程和连接状态"></a>连接过程和连接状态</h3><p>路由器接口的连接过程为：发起端路由器接口发起连接 &gt; 接受端路由器接口接受连接 &gt; 连接成功。</p><p>在不同的连接过程和阶段，路由器接口的状态也不同如下表所示。路由器接口创建后的初始状态为未连接。</p><blockquote><p>说明：在创建路由器接口时，如果您选择了同时创建两端，系统会自动发起并建立连接，此种情况下路由器接口直接变为已激活状态。</p></blockquote><p><img src="http://picture.watchmen.xin/channel/status.png" alt=""></p><p>整个连接过程如下所示：</p><p><img src="http://picture.watchmen.xin/channel/process.png" alt=""></p><h3 id="路由器接口规格"><a href="#路由器接口规格" class="headerlink" title="路由器接口规格"></a>路由器接口规格</h3><p>高速通道提供小型（10MB-50MB）、中型（100MB-900MB）和大型（1GB-4.5GB）三种规格的路由器接口。</p><p>可选择的路由器接口规格在不同连接场景和不同地域中并不相同。您可以根据具体的配置在购买页面选择合适的路由器接口规格。同地域间VPC互连的路由器接口规格默认为大型2档（2GB）。</p><h3 id="使用限制"><a href="#使用限制" class="headerlink" title="使用限制"></a>使用限制</h3><ul><li><font color="red"><strong>两个VPC之间只能有一对连接成功的路由器接口。</strong></font></li><li><p>路由器接口创建后无法修改连接角色。</p></li><li><p>边界路由器（VBR）必须是发起端。</p></li></ul><h2 id="物理专线"><a href="#物理专线" class="headerlink" title="物理专线"></a>物理专线</h2><p>物理专线是对阿里云接入点和本地数据中心之间建立的网络线路的抽象。您需要通过租用一条运营商的专线将本地数据中心连接到阿里云接入点，建立专线连接。</p><p>专线接入后，您可以创建一个边界路由器（VBR）将您本地数据中心和阿里云连接起来，构建混合云环境，使云上资源可以绕过公网通过私网访问本地数据中心。</p><p>物理专线的私网连接不通过公网，因此与传统的公网连接相比，物理专线连接更加安全、可靠、速度更快、延迟更低。</p><h3 id="功能"><a href="#功能" class="headerlink" title="功能"></a>功能</h3><p>高速通道物理专线提供以下功能：</p><p><strong>多种连接方式</strong></p><p>您可以选择使用点对点以太网连接或MPLS VPN连接。物理专线支持以太格式的RJ45电口和LC模式光口, 可以提供1Mbps至10Gbps的传输速率。</p><p><strong>冗余连接</strong></p><p>物理专线通过等价路由实现两条物理线路冗余：</p><ul><li><p>如果两条专线接入同地域下不同接入点，则两条线路形成天然冗余。</p></li><li><p>如果两条专线接入同地域下同一个接入点，您可以在申请第二条物理专线时，将第一条物理专线作为冗余线路。</p></li></ul><h3 id="使用限制-1"><a href="#使用限制-1" class="headerlink" title="使用限制"></a>使用限制</h3><p>物理专线使用限制如下：</p><p>物理专线不支持SDH的G.703、V.35格式接口。</p><p>阿里云在每个可接入的地域提供一个或多个接入点，不同的接入点有运营商限制。在申请专线接入前，您需要提交工单获取接入点以及运营商限制信息。</p><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>在物理专线接入之后，你会得到一个边界路由器</p><p>边界路由器（VBR）必须是发起端。</p><p>购买物理专线之后，其实不是直接连接到阿里云的机房，而是连接到这个边界路由器，边界路由器的对端再连接VPC的路由器</p><h2 id="边界路由器"><a href="#边界路由器" class="headerlink" title="边界路由器"></a>边界路由器</h2><p>边界路由器（Virtual border router, VBR）是您申请的物理专线接入交换机的产品映射，可以看做是CPE（Customer-premises equipment）设备和VPC之间的一个路由器，作为数据从VPC到本地数据中心的转发桥梁。</p><p>边界路由器同VPC中的路由器一样，同样管理一个路由表。在该路由表中配置路由条目，可以对边界路由器中的流量转发进行管理。</p><p><img src="http://picture.watchmen.xin/channel/vbr.png" alt=""></p><h3 id="功能-1"><a href="#功能-1" class="headerlink" title="功能"></a>功能</h3><p>边界路由器提供如下功能：</p><ul><li>作为VPC和本地数据中心的中间路由器，交换数据包。</li></ul><ul><li>在三层子接口模式下，可以识别或附加VLAN(Virtual Local Area Network)标签。</li></ul><ul><li>决定物理专线端口模式：三层路由接口或基于VLAN的三层子接口。</li></ul><ul><li>支持添加BGP动态路由。</li></ul><h3 id="使用限制-2"><a href="#使用限制-2" class="headerlink" title="使用限制"></a>使用限制</h3><ul><li>目前不支持源地址策略路由。</li></ul><ul><li>每个边界路由器有且只有1个路由表。</li></ul><ul><li>每个路由表支持48条自定义路由条目。</li></ul><h2 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h2><h3 id="VPC私网互连"><a href="#VPC私网互连" class="headerlink" title="VPC私网互连"></a>VPC私网互连</h3><p>您可以使用高速通道实现两个VPC间的的私网通信需求，既可以避免绕行公网带来的网络质量不稳定问题，也可以免去数据在传输过程中被窃取的风险。详情请参考跨地域VPC互连和跨账号VPC互连。</p><h3 id="本地数据中心专线接入VPC"><a href="#本地数据中心专线接入VPC" class="headerlink" title="本地数据中心专线接入VPC"></a>本地数据中心专线接入VPC</h3><p>如果您的本地数据中心需要与VPC进行私网通信，您可以使用<strong><code>高速通道的物理专线功能实现两侧的私网通信</code></strong>，您可以选择自行搭建专线接入阿里云或让阿里巴巴的合作伙伴为您搭建物理专线。通过物理专线可以实现本地数据中心和VPC间高质量、高可靠且安全性高的私网通信。您可以使用高速通道实现两个VPC间的的私网通信需求，既可以避免绕行公网带来的网络质量不稳定问题，也可以免去数据在传输过程中被窃取的风险。详情请参考同账号专线接入和跨账号专线接入。</p><h3 id="两个VPC共用NAT网关"><a href="#两个VPC共用NAT网关" class="headerlink" title="两个VPC共用NAT网关"></a>两个VPC共用NAT网关</h3><p>如果您需要两个VPC共用一个NAT网关进行公网通信，您可以使用高速通道实现同两个VPC使用同一个NAT网关来访问公网。</p><p><img src="http://picture.watchmen.xin/channel/vpc_nat.jpg" alt=""></p><h2 id="使用限制-3"><a href="#使用限制-3" class="headerlink" title="使用限制"></a>使用限制</h2><ul><li>同一个路由器上的路由器接口不能互连。</li></ul><ul><li><font color="red"><strong>边界路由器上的路由器接口只能作为发起端。</strong></font></li></ul><ul><li>一对VPC之间只能同时存在一对互连的路由器接口。</li></ul><ul><li>一条物理专线上最多可以存在的边界路由器个数：50个。</li></ul><ul><li>一个用户名下最多可以存在的已激活的路由器接口个数：5个。</li></ul><ul><li>一个路由器上最多可以存在的已激活的路由器接口个数：5个。</li></ul><ul><li>一个账号最多可以在一个接入点接入的物理专线条数：2条。</li></ul><ul><li>一个账号下最多可以存在的空闲边界路由器（没有接口的边界路由器）个数：2个。</li></ul><h1 id="入门实践"><a href="#入门实践" class="headerlink" title="入门实践"></a>入门实践</h1><h2 id="跨地域VPC互连"><a href="#跨地域VPC互连" class="headerlink" title="跨地域VPC互连"></a>跨地域VPC互连</h2><p>本操作以如下同一个账号下的两个VPC为例演示如何使用高速通道实现VPC私网互通。</p><blockquote><p>说明：同账号下同地域和跨地域VPC互连的操作步骤一样。</p></blockquote><p>前提条件</p><ul><li>确保要进行互连的VPC或交换机的网段不冲突。</li></ul><p>文章内容：<a href="https://help.aliyun.com/document_detail/44842.html?spm=a2c4g.11186623.6.550.zI2Wp5" target="_blank" rel="noopener">跨地域VPC互连</a></p><h2 id="跨账号VPC互连"><a href="#跨账号VPC互连" class="headerlink" title="跨账号VPC互连"></a>跨账号VPC互连</h2><p>前提条件</p><ul><li>两个VPC中交换机地址不能冲突。</li></ul><ul><li>已获取双方的阿里云账号ID和路由器ID。</li></ul><p>文章内容：<a href="https://help.aliyun.com/document_detail/44843.html?spm=a2c4g.11186623.6.551.PoqdWg" target="_blank" rel="noopener">跨账号VPC互连</a></p><h2 id="物理专线-1"><a href="#物理专线-1" class="headerlink" title="物理专线"></a>物理专线</h2><p>文章内容：<a href="https://help.aliyun.com/document_detail/44844.html?spm=a2c4g.11186623.6.552.0hqrXn" target="_blank" rel="noopener">物理专线接入</a></p>]]></content>
-    
-    <summary type="html">
-    
-      高速通道从入门到实践
-    
-    </summary>
-    
-      <category term="IT科学技术知识体系结构-Linux运维方向" scheme="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/"/>
-    
-      <category term="公有云产品" scheme="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E5%85%AC%E6%9C%89%E4%BA%91%E4%BA%A7%E5%93%81/"/>
-    
-      <category term="阿里云" scheme="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E5%85%AC%E6%9C%89%E4%BA%91%E4%BA%A7%E5%93%81/%E9%98%BF%E9%87%8C%E4%BA%91/"/>
-    
-      <category term="高速通道" scheme="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E5%85%AC%E6%9C%89%E4%BA%91%E4%BA%A7%E5%93%81/%E9%98%BF%E9%87%8C%E4%BA%91/%E9%AB%98%E9%80%9F%E9%80%9A%E9%81%93/"/>
-    
-    
-      <category term="高速通道" scheme="http://yoursite.com/tags/%E9%AB%98%E9%80%9F%E9%80%9A%E9%81%93/"/>
     
   </entry>
   
