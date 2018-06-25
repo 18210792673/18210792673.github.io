@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2018-06-24T12:20:41.000Z</updated>
+  <updated>2018-06-25T07:39:26.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,46 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Chrome常用操作</title>
+    <link href="http://yoursite.com/2018/06/25/%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6%E5%B7%A5%E5%85%B7/Chrome/Chrome%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C/"/>
+    <id>http://yoursite.com/2018/06/25/常用软件工具/Chrome/Chrome常用操作/</id>
+    <published>2018-06-25T07:39:26.000Z</published>
+    <updated>2018-06-25T07:39:26.000Z</updated>
+    
+    <content type="html"><![CDATA[<p><strong>参考文献：</strong></p><ul><li><a href="https://support.google.com/chrome/answer/157179?hl=zh-Hans" target="_blank" rel="noopener">chrome键盘快捷键</a></li></ul><hr><h1 id="快捷操作"><a href="#快捷操作" class="headerlink" title="快捷操作"></a>快捷操作</h1><h2 id="书签管理"><a href="#书签管理" class="headerlink" title="书签管理"></a>书签管理</h2><h3 id="书签管理器"><a href="#书签管理器" class="headerlink" title="书签管理器"></a>书签管理器</h3><p>ctrl+shift+o</p><h3 id="为此网页添加书签"><a href="#为此网页添加书签" class="headerlink" title="为此网页添加书签"></a>为此网页添加书签</h3><p>ctrl+d</p><h2 id="浏览器管理"><a href="#浏览器管理" class="headerlink" title="浏览器管理"></a>浏览器管理</h2><h3 id="搜索引擎"><a href="#搜索引擎" class="headerlink" title="搜索引擎"></a>搜索引擎</h3><p>在搜索框中输入相对应的名称，然后tab</p><p>例如在搜索框中，输入：baidu.com 然后tab，然后再输入内容，此时就是使用百度搜索引擎来进行搜索。</p><h3 id="页面"><a href="#页面" class="headerlink" title="页面"></a>页面</h3><h4 id="切换页面"><a href="#切换页面" class="headerlink" title="切换页面"></a>切换页面</h4><p>显示前一个标签页：ctrl+tab</p><p>显示后一个标签页：ctrl+shift+tab</p><h4 id="新增页面"><a href="#新增页面" class="headerlink" title="新增页面"></a>新增页面</h4><p>ctrl+t</p>]]></content>
+    
+    <summary type="html">
+    
+      Chrome常用操作
+    
+    </summary>
+    
+      <category term="常用软件工具" scheme="http://yoursite.com/categories/%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6%E5%B7%A5%E5%85%B7/"/>
+    
+      <category term="Chrome" scheme="http://yoursite.com/categories/%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6%E5%B7%A5%E5%85%B7/Chrome/"/>
+    
+    
+      <category term="Chrome" scheme="http://yoursite.com/tags/Chrome/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>LVS的8种调度算法</title>
+    <link href="http://yoursite.com/2018/06/25/LVS%E7%9A%848%E7%A7%8D%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95/"/>
+    <id>http://yoursite.com/2018/06/25/LVS的8种调度算法/</id>
+    <published>2018-06-25T07:37:09.000Z</published>
+    <updated>2018-06-25T07:37:09.000Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+      <category term="tag1" scheme="http://yoursite.com/tags/tag1/"/>
+    
+  </entry>
   
   <entry>
     <title>第1章：中国人学习英语的误区</title>
@@ -348,8 +388,8 @@
   
   <entry>
     <title>4层负载均衡和7层负载均衡的区别</title>
-    <link href="http://yoursite.com/2018/06/10/4%E5%B1%82%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E5%92%8C7%E5%B1%82%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E7%9A%84%E5%8C%BA%E5%88%AB/"/>
-    <id>http://yoursite.com/2018/06/10/4层负载均衡和7层负载均衡的区别/</id>
+    <link href="http://yoursite.com/2018/06/10/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E9%AB%98%E5%B9%B6%E5%8F%91/%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/4%E5%B1%82%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E5%92%8C7%E5%B1%82%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E7%9A%84%E5%8C%BA%E5%88%AB/"/>
+    <id>http://yoursite.com/2018/06/10/IT科学技术知识体系结构-Linux运维方向/高并发/负载均衡/负载均衡基础知识/4层负载均衡和7层负载均衡的区别/</id>
     <published>2018-06-10T13:46:04.000Z</published>
     <updated>2018-06-10T13:46:04.000Z</updated>
     
@@ -376,8 +416,8 @@
   
   <entry>
     <title>负载均衡技术从入门到实践</title>
-    <link href="http://yoursite.com/2018/06/10/%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E6%8A%80%E6%9C%AF%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E8%B7%B5/"/>
-    <id>http://yoursite.com/2018/06/10/负载均衡技术从入门到实践/</id>
+    <link href="http://yoursite.com/2018/06/10/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E9%AB%98%E5%B9%B6%E5%8F%91/%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E6%8A%80%E6%9C%AF%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E8%B7%B5/"/>
+    <id>http://yoursite.com/2018/06/10/IT科学技术知识体系结构-Linux运维方向/高并发/负载均衡/负载均衡基础知识/负载均衡技术从入门到实践/</id>
     <published>2018-06-10T13:23:11.000Z</published>
     <updated>2018-06-10T13:23:11.000Z</updated>
     
@@ -477,56 +517,6 @@
     
     
       <category term="高速通道" scheme="http://yoursite.com/tags/%E9%AB%98%E9%80%9F%E9%80%9A%E9%81%93/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>软件开发环境－开发环境、测试环境、灰发环境、生产环境的区别</title>
-    <link href="http://yoursite.com/2018/06/07/%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%EF%BC%8D%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E3%80%81%E6%B5%8B%E8%AF%95%E7%8E%AF%E5%A2%83%E3%80%81%E7%94%9F%E4%BA%A7%E7%8E%AF%E5%A2%83%E7%9A%84%E5%8C%BA%E5%88%AB/"/>
-    <id>http://yoursite.com/2018/06/07/软件开发环境－开发环境、测试环境、生产环境的区别/</id>
-    <published>2018-06-07T14:25:59.000Z</published>
-    <updated>2018-06-07T14:25:59.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>软件开发环境(Software Development Environment，SDE)是指在基本硬件和宿主软件的基础上，为支持系统软件和应用软件的工程化开发和维护而使用的一组软件，简称SDE。它由软件工具和环境集成机制构成，前者用以支持软件开发的相关过程、活动和任务，后者为工具集成和软件的开发、维护及管理提供统一的支持。</p><p>项目部署环境一般可分为四种：</p><ul><li>开发环境</li><li>测试环境</li><li>灰发环境/预生产环境</li><li>生产环境</li></ul><h1 id="开发环境"><a href="#开发环境" class="headerlink" title="开发环境"></a>开发环境</h1><p>开发环境时程序猿们专门用于开发的服务器，配置可以比较随意，为了开发调试方便，一般打开全部错误报告和测试工具，是最基础的环境。开发环境的分支，一般是feature分支。</p><h1 id="测试环境"><a href="#测试环境" class="headerlink" title="测试环境"></a>测试环境</h1><p>测试环境就是上线前的测试。一般是克隆一份生产环境的配置，一个程序在测试环境工作不正常，那么肯定不能把它发布到生产服务器上，是开发环境到生产环境的过度环境。测试环境的分支一般是develop分支，部署到公司私有的服务器或者局域网服务器上，主要用于测试是否存在bug，一般会不让用户和其他人看到，并且测试环境会尽量与生产环境相似。</p><h1 id="灰发环境-预生产环境"><a href="#灰发环境-预生产环境" class="headerlink" title="灰发环境/预生产环境"></a>灰发环境/预生产环境</h1><p>1、什么是预发布环境?<br>预发布环境，就是线上环境、正式生产环境，为避免因为测试环境和线上环境的差异性等带来的缺陷漏测而设立的一套环境，其配置等基本和线上一致，只是预发布环境web服务器不在线上集成服务器范围之内，为单独的一台机器；</p><p>2、预发布环境不能被线上用户访问<br>通常这里的技术实现是这样的：把预发布环境的访问域名设置成和线上环境的不一样，通过配置host来访问预发布环境；</p><p>3、预发布环境和线上环境公用数据库，即预发布环境使用的是线上的数据库<br>问题：如果新版本程序需要更改表结构等，比如加个表字段，那么，部署到预发布环境时也需要更改表字段，这个可能会影响线上环境程序代码的运行，咋解决？</p><p>答案：<br>3.1 先把预发布环境使用的数据库切换为测试环境使用的数据库<br>3.2 根据实际部署过程，如果有必要，接着，可有针对性的测试下数据库的变更是否会影响线上当前代码程序的运行(注：个人想法)<br>3.3 把新代码部署到预发布环境，测试程序是否正常运行<br>3.4预发布测试完毕，如果没问题，先上线数据库，即在正式环境执行对应的数据库变更操作<br>3.5 紧接着，把预发布环境连接的数据库切换为线上环境使用的数据库，再次进行预发布环境的测试<br>3.6 最后，如果预发布环境测试通过，则把预发布环境的代码部署到线上生产环境。</p><p>注：<br>1、如果不需要更改数据库表结构等，则无需切换预发布环境环境使用的数据库，即预发布使用线上的数据库。</p><p>2、这里，因为预发布环境本身就是线上环境，测试完预发布，也基本代表线上环境测试完成。这样还可以避免发布到正式环境还得再测一遍的情况</p><p><strong>总结</strong></p><p>预发布环境不能被线上用户访问 </p><p>通常这里的技术实现是这样的：把预发布环境的访问域名设置成和线上环境的不一样，通过配置host来访问预发布环境；</p><p>也就是说，预发布环境其实就是生产环境，只是其所在的服务器，没有被添加到生产服务器所在的负载均衡中，因此从公网是无法直接通过原来的方式进行访问的，在这种情况，我们通过配置hosts等方式来定向的访问这一台</p><h1 id="生产环境"><a href="#生产环境" class="headerlink" title="生产环境"></a>生产环境</h1><p>生产环境是指正式提供对外服务的，一般会关掉错误报告，打开错误日志，是最重要的环境。部署分支一般为master分支。</p><p>三个环境也可以说是系统开发的三个阶段：开发-&gt;测试-&gt;上线，其中生产环境也就是通产说的真实的环境，最后交给用户的环境。</p><h1 id="补充：灰度发布"><a href="#补充：灰度发布" class="headerlink" title="补充：灰度发布"></a>补充：灰度发布</h1><p>预发布环境过后，就是灰度发布了。由于一个项目，一般会部署到多台机器，所以灰度1台至3台，看看新功能是否ok，如果失败则只需要回滚几台，比较方便。注意，由于是灰度发布几种几台，所以一般会使用跳板机，然后进行域名绑定，这样才可以保证只访问有最新代码的服务器。</p><p><strong>什么是灰度发布？</strong></p><p>灰度发布，又名金丝雀发布，或者灰度测试，是指在黑与白之间能够平滑过渡的一种发布方式。在其上可以进行A/B testing，即让一部分用户继续用产品特性A，一部分用户开始用产品特性B，如果用户对B没有什么反对意见，那么逐步扩大范围，把所有用户都迁移到B上面来。</p><p>灰度发布是对某一产品的发布逐步扩大使用群体范围，也叫灰度放量。灰度发布可以保证整体系统的稳定，在初始灰度的时候就可以发现、调整问题，以保证其影响度。</p><p><strong>灰度期：</strong>灰度发布开始到结束期间的这一段时间，称为灰度期。</p><p><strong>灰度发布的意义</strong></p><p>灰度发布能及早获得用户的意见反馈，完善产品功能，提升产品质量，让用户参与产品测试，加强与用户互动，降低产品升级所影响的用户范围。</p><p><strong>灰度发布的实现</strong></p><p>待补充</p>]]></content>
-    
-    <summary type="html">
-    
-      软件开发环境－开发环境、测试环境、灰发环境生产环境的区别
-    
-    </summary>
-    
-      <category term="IT基础知识" scheme="http://yoursite.com/categories/IT%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/"/>
-    
-      <category term="软件开发环境" scheme="http://yoursite.com/categories/IT%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/"/>
-    
-    
-      <category term="软件开发环境" scheme="http://yoursite.com/tags/%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>高并发之分流限流与降级</title>
-    <link href="http://yoursite.com/2018/06/07/%E9%AB%98%E5%B9%B6%E5%8F%91%E4%B9%8B%E5%88%86%E6%B5%81%E9%99%90%E6%B5%81%E4%B8%8E%E9%99%8D%E7%BA%A7/"/>
-    <id>http://yoursite.com/2018/06/07/高并发之分流限流与降级/</id>
-    <published>2018-06-07T13:05:28.000Z</published>
-    <updated>2018-06-07T13:05:28.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>参考文献：</p><ul><li><a href="http://www.cnblogs.com/duanxz/p/3465559.html" target="_blank" rel="noopener">高可用服务设计之二：Rate limiting 限流与降级</a></li><li><a href="http://www.cnblogs.com/duanxz/p/4123068.html" target="_blank" rel="noopener">限流算法之漏桶算法、令牌桶算法</a></li></ul><h1 id="分流"><a href="#分流" class="headerlink" title="分流"></a>分流</h1><p>分流一般是指使用7层负载均衡技术，在前端使用正则表达式，匹配相对应的接口URL串，然后将该接口的流量负载转发到后端的指定服务器上【前提是微服务，将接口进行拆分】</p><h1 id="限流"><a href="#限流" class="headerlink" title="限流"></a>限流</h1><p>在开发高并发系统时，有很多手段保护系统，比如缓存、分流、降级和限流。缓存的目的是提升系统访问速度和增大系统处理能力，可谓是抗高并发的银弹。而降级是当服务出问题或者影响到核心流程的性能，需要暂时屏蔽掉，待高峰过去或者问题解决后再打开的场景。而有些场景并不能用缓存和降级来解决，比如稀缺资源（秒杀、抢购）、写服务（如评论、下单）、频繁的复杂查询（评论的最后几页）等。因此，需要有一种手段来限制这些场景下的并发/请求量，这种手段就是限流。</p><p>限流的目的是通过对并发访问/请求进行限速或者一个时间窗口内的请求进行限速来保护系统，一旦达到限速速率则可以拒绝服务（定向到错误页或告知资源没有了）、排队或等待（比如秒杀、评论、下单）、降级（返回兜底数据或者默认数据，如商品详情页库存默认有货）。在压测时，我们能找出每个系统的处理峰值，然后通过设定峰值阈值，当系统过载时，通过拒绝过载的请求来保障系统可用。另外，也可以根据系统的吞吐量、响应时间、可用率来动态调整限流阈值。</p><p>一般开发高并发系统场景的限流有：<strong><code>限制总并发数</code></strong>（比如数据库连接池、线程池）、<strong><code>限制瞬时并发数</code></strong>（如Nginx的limit_conn模块，用来限制瞬间并发连接数）、<strong><code>限制时间窗口内的平均速率</code></strong>（如Guava的RateLimiter、Nginx的limit_req模块，用来限制每秒的平均速率），以及限制远程接口调用速率、限制MQ的消费速率等。另外还可以根据网络连接数、网络流量、CPU或内存负载等来限流。</p><p>Rate limiting 在 Web 架构中非常重要，是互联网架构可靠性保证重要的一个方面。</p><p>从最终用户访问安全的角度看，设想有人想暴力碰撞网站的用户密码；或者有人攻击某个很耗费资源的接口；或者有人想从某个接口大量抓取数据。大部分人 都知道应该增加 Rate limiting，做请求频率限制。从安全角度，这个可能也是大部分能想到，但不一定去做的薄弱环节。</p><p>从整个架构的稳定性角度看，一般 SOA 架构（service-oriented architecture面向服务的架构）的每个接口的有限资源的情况下，所能提供的单位时间服务能力是有限的。假如超过服务能力，一般会造成整个接口服务停顿，或者应用 Crash，或者带来连锁反应，将延迟传递给服务调用方造成整个系统的服务能力丧失。有必要在服务能力超限的情况下 Fail Fast。</p><p>另外，根据排队论，由于 API 接口服务具有延迟随着请求量提升迅速提升的特点，为了保证 SLA 的低延迟，需要控制单位时间的请求量。这也是 Little’s law 所说的。</p><h2 id="限流算法"><a href="#限流算法" class="headerlink" title="限流算法"></a>限流算法</h2><p>常见的限流算法有：令牌桶、漏桶。计数器也可以用来进行粗暴限流实现。</p><ul><li><a href="http://www.cnblogs.com/duanxz/p/4123068.html" target="_blank" rel="noopener">限流算法之漏桶算法、令牌桶算法</a></li></ul><p><strong>令牌桶算法</strong></p><p>令牌桶算法，是一个存放固定容量令牌的桶，按照固定速率往桶里添加令牌。令牌桶算法的描述如下：</p><ul><li>假设限制2r/s，则按照500毫秒的固定速率往桶内添加令牌。</li></ul><ul><li>桶中最多存放b个令牌，当桶满时，新添加的令牌会被丢弃或拒绝。</li></ul><ul><li>当一个n个字节大小的数据包到达，将从桶中删除n个令牌，接着数据包被发送到网络上。</li></ul><ul><li>如果桶中的令牌不足n个，则不会删除令牌，且该数据包被限流（要么丢弃，要么在缓冲区等待）。</li></ul><p><strong>漏桶算法</strong></p><p>漏桶作为计量工具时，可以用于流量整形和流量控制，漏桶算法的描述如下：</p><ul><li>一个固定容量的漏桶，按照常量固定速率流出水滴。</li></ul><ul><li>如果桶是空的，则不需流出水滴。</li></ul><ul><li>可以以任意速率流入水滴到漏桶。</li></ul><ul><li>如果流入水滴超过了桶的容量，则流入的水滴溢出了（被丢弃），而漏桶容量是不变的。</li></ul><p><strong>令牌桶和漏桶对比</strong></p><ul><li>令牌桶是按照固定速率往桶中添加令牌，请求是否被处理需要看桶中令牌是否足够，当令牌数减为零时，则拒绝新的请求。</li></ul><ul><li>漏桶则是按照常量固定速率流出请求，请求流入速率任意，当流入的请求数累积到漏桶容量时，则新流入的请求被拒绝。</li></ul><ul><li>令牌桶限制的是平均流入速率（允许突发请求，只要有令牌就可以处理，支持一次拿多个令牌），并允许一定程序的突发流量。</li></ul><ul><li>漏桶限制的是常量流出速率（即流出速率是一个固定常量值，比如都是1的速率流出，而不能一次是1，下次又是2），从而平滑突发流入速率。</li></ul><ul><li>令牌桶允许一定程序的突发，而漏桶主要目的是平滑流入速率。</li></ul><ul><li>两个算法实现可以一样，但是方向是相反的，对于相同的参数得到的限流效果是一样的。</li></ul><h2 id="应用级限流"><a href="#应用级限流" class="headerlink" title="应用级限流"></a>应用级限流</h2><p><strong>限制总并发/连接/请求数</strong></p><p>对于一个应用系统来说，一定会有极限并发/请求数，即总有一个<strong><code>TPS/QPS</code></strong>阈值，如果超了阈值，则系统就会不影响用户请求或响应得非常慢。因此，我们最好进行过载保护，以防止大量请求涌入击垮系统。</p><p>如MQ（max_connections）、Redis（tcp-backlog）都会有类似的限制连接数的配置。</p><p><strong>限制总资源数</strong></p><p>如果有的资源是稀缺资源（如数据库连接、线程），而且可能有多个系统都会去使用它，那么需要加以限制。可以使用池化技术来限制总资源数，如连接池、线程池。假设分配给每个应用的数据库连接是100，那么本应用最多可以使用100个资源，超出则可以等待或者抛异常。</p><p><strong>限制某个接口的总并发/请求数</strong></p><p>如果接口可能会有并发流量，但又担心访问量太大造成奔溃，那么久需要限制这个接口的总并发/请求数了。因为粒度比较细，可以为每个接口设置相应的阈值。可以使用Java中的AtomicLong或者Semaphore进行限流。Hystrix在信号量模式下也使用Semaphore限制每个接口的总请求数。</p><p>一种实现方式如下：</p><pre><code>try {    if (atomic.incrementAndGet() &gt; 限流数) {        //拒绝请求    }    //处理请求} finally {    atomic.decrementAndGet();}</code></pre><p><strong>限制某个接口的时间窗请求数</strong></p><p>即限制某个接口/服务每秒/每分钟/每天的请求数/调用量。一种实现方式如下：</p><pre><code>LoadingCache&lt;Long, AtomicLong&gt; counter =        CacheBuilder.newBuilder()        .expireAfterWrite(2, TimeUnit.SECONDS)        .build(new CacheLoader&lt;Long, AtomicLong&gt;() {            @Override            public AtomicLong load(Long aLong) throws Exception {                return new AtomicLong(0);            }        });long limit = 1000;while (true) {    long currentSeconds = System.currentTimeMillis() / 1000;    if (counter.get(currentSeconds).incrementAndGet() &gt; limit) {        logger.info(&quot;被限流了:{}&quot;, currentSeconds);        continue;    }    //业务处理}</code></pre><p><strong>平滑限流某个接口的请求数</strong></p><p>Guava RateLimiter提供的令牌桶算法可用于平滑突发限流（SmoothBursty）和平滑预热限流（SmoothWarmingUp）实现。</p><p><strong>分布式限流</strong></p><p>分布式限流最关键的是要将限流服务做成原子化，而解决方案可以使用Redis+Lua或者Nginx+Lua技术进行实现，通过这两种技术可以实现高并发和高性能。</p><p><strong>节流</strong></p><p>有时候我们想在特定时间窗口内对重复的相同事件最多只处理一次，或者想限制多个连续相同事件最小执行时间间隔，那么可使用节流（Throttle）实现，其防止多个相同事件连续重复执行。节流主要有如下几种用法：throttleFirst、throttleLast、throttleWithTimeout。</p><font color="red"><strong>总结方法：</strong></font><p>常见的 Rate limiting 的实现方式</p><p>Proxy 层的实现，针对部分 URL 或者 API 接口进行访问频率限制</p><p><strong>Nginx 模块</strong></p><pre><code>limit_req_zone $binary_remote_addr zone=one:10m rate=1r/s;server {    location /search/ {        limit_req zone=one burst=5;    }</code></pre><p>详细参见：<a href="http://www.cnblogs.com/duanxz/p/3977756.html" target="_blank" rel="noopener">《Nginx模块 ngx_http_limit_req_module 限制请求速率》</a></p><p><strong>Haproxy 提供的功能</strong></p><p>详细参见：<a href="http://blog.serverfault.com/2010/08/26/1016491873/" target="_blank" rel="noopener">Haproxy Rate limit 模块</a></p><p><strong>Java、Scala JVM 系应用层实现</strong></p><p>Google Guava 提供了一个 RateLimiter 实现。使用方式简单明了，在自己的应用中简单封装即可，放到 HTTP 服务或者其他逻辑接口调用的前端。</p><p>final RateLimiter rateLimiter = RateLimiter.create(2.0); // rate is “2 permits per second” void submitTasks(List<runnable> tasks, Executor executor) { for(Runnable task : tasks) { rateLimiter.acquire(); // may wait executor.execute(task);} }</runnable></p><p><strong>基于 Redis 功能的实现</strong></p><p>这个在 Redis 官方文档有非常详细的实现。一般适用于所有类型的应用，比如 PHP、Python 等等。Redis 的实现方式可以支持分布式服务的访问频率的集中控制。Redis 的频率限制实现方式还适用于在应用中无法状态保存状态的场景。</p><h1 id="降级"><a href="#降级" class="headerlink" title="降级"></a>降级</h1><p>当访问量剧增、服务出现问题（如响应时间长或者不响应）或非核心服务影响到核心服务的性能时，仍然需要保证服务还是可用的，即使是有损服务。系统可以根据一些关键参数进行自动降级，也可以配合开关实现人工降级。</p><p><strong>降级的最终目的是保证核心服务可用</strong>，即使是有损的。而且有些服务是无法降级的（如加入购物车、结算）。降级也需要根据系统的吞吐量、响应时间、可用率等条件进行手工降级或自动降级。</p><h2 id="降级预案"><a href="#降级预案" class="headerlink" title="降级预案"></a>降级预案</h2><p>在进行降级之前要对系统进行梳理，看看系统是不是可以丢卒保车，从而梳理出哪些必须誓死保护，哪些可以降级。比如，可以参考日志级别设置预案：</p><ul><li>一般：比如，有些服务偶尔因为网络抖动或者服务正在上线而超时，可以自动降级。</li></ul><ul><li>警告：有些服务在一段时间内成功率有波动（如在95%~100%之间），可以自动降级或人工降级并发送告警。</li></ul><ul><li>错误：比如，可用率低于90%，或者数据库连接池用完了，或者访问量突然猛增到系统能承受的最大阈值，此时可以根据情况自动降级或人工降级。</li></ul><ul><li>严重错误：比如，因为特殊原因数据出现错误，此时需要紧急人工降级。</li></ul><p><strong>降级分类</strong></p><ul><li>降级按照是否自动化可分为：自动开关降级和人工开关降级。</li></ul><ul><li>降级按照功能可分为：读服务降级和写服务降级。</li></ul><ul><li>降级按照处于的系统层次可分为：多级降级。</li></ul><p>降级的功能点主要从服务器端链路考虑，即根据用户访问的服务调用链路来梳理哪里需要降级。</p><ul><li>页面降级。</li></ul><ul><li>页面片段降级。</li></ul><ul><li>页面异步请求降级。</li></ul><ul><li><p>服务功能降级。</p></li><li><p>读降级。比如多级缓存模式，如果后端服务有问题，则可以降级为只读缓存，这种方式是用于对读一致性要求不高的场景。</p></li></ul><ul><li>写降级。比如秒杀抢购我们可以只进行Cache的更新，然后异步扣减库存到DB，保证最终一致性即可，此时可以将DB降级为Cache。</li></ul><ul><li>爬虫降级。</li></ul><ul><li>风控降级。</li></ul><p><strong>自动开关降级</strong></p><p>自动降级是根据系统负载、资源使用情况、SLA等指标进行降级。</p><ul><li>超时降级</li></ul><ul><li>统计失败次数降级</li></ul><ul><li>故障降级</li></ul><ul><li>限流降级</li></ul><p><strong>人工开关降级</strong></p><p>比如，上线新功能时进行灰度测试，当新服务有问题时通过开关切换回老服务。</p><h1 id="补充：超时与重试机制"><a href="#补充：超时与重试机制" class="headerlink" title="补充：超时与重试机制"></a>补充：超时与重试机制</h1><p>如果应用不设置超时，可能会导致请求响应慢，慢请求累积导致连锁效应，甚至造成应用雪崩。而有些中间件或框架在超时后会进行重试（如设置超时自动重试两次），读服务天然适合重试，但写服务大多不能重试（如写订单，如果写服务是幂等的，则重试是允许的），重试次数太多会导致多倍请求流量，即模拟了DDoS攻击，后果可能是灾难。因此，务必设置合理的重试机制，并且应该和熔断、快速失败机制配合。在进行代码Review时，一定记得Review超时与重试机制。</p><p>对于非幂等写服务应避免重试，或者考虑提前生成唯一流水号来保证写服务操作通过判断流水号来实现幂等操作。</p><p>在进行数据库/缓存服务器操作时，要经常检查慢查询，慢查询通常是引起服务出问题的罪魁祸首。也要考虑在超时严重时，直接将该服务降级，待该服务修复后再取消降级。</p><h1 id="补充：回滚机制"><a href="#补充：回滚机制" class="headerlink" title="补充：回滚机制"></a>补充：回滚机制</h1><p>回滚是指当程序或数据出错时，将程序或数据恢复到最近的一个正确版本的行为。通过回滚机制可保证系统在某些场景下的高可用。常见的回滚如下：</p><ul><li>事务回滚</li></ul><ul><li>代码库回滚</li></ul><ul><li>部署版本回滚</li></ul><ul><li>数据版本回滚</li></ul><ul><li>静态资源版本回滚。</li></ul><h1 id="补充：压测与预案"><a href="#补充：压测与预案" class="headerlink" title="补充：压测与预案"></a>补充：压测与预案</h1><p>在大促来临之前，研发人员需要对现有系统进行梳理，发现系统瓶颈和问题，然后进行系统调优来提升系统的健壮性和处理能力。一般通过系统压测来发现系统瓶颈和问题，然后进行系统优化和容灾（系统参数调整、单机房容灾、多机房容灾等）。</p><h2 id="系统压测"><a href="#系统压测" class="headerlink" title="系统压测"></a>系统压测</h2><p>压测一般是指性能压力测试，用来评估系统的稳定性和性能，通过压测数据进行系统容量评估，从而决定是否需要进行扩容或缩容。</p><p>压测之前要有压测方案（如压测接口、并发量、压测策略[突发、逐步加压、并发量]、压测指标[机器负载、QPS/TPS]、响应时间[平均、最小、最大]、成功率、相关参数[JVM参数、压缩参数]等），最后根据压测报告分析的结果进行系统优化和容灾。</p>]]></content>
-    
-    <summary type="html">
-    
-      高并发之分流限流与降级
-    
-    </summary>
-    
-      <category term="IT科学技术知识体系结构-Linux运维方向" scheme="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/"/>
-    
-      <category term="高并发" scheme="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E9%AB%98%E5%B9%B6%E5%8F%91/"/>
-    
-      <category term="分流限流与降级" scheme="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E9%AB%98%E5%B9%B6%E5%8F%91/%E5%88%86%E6%B5%81%E9%99%90%E6%B5%81%E4%B8%8E%E9%99%8D%E7%BA%A7/"/>
-    
-    
-      <category term="高并发" scheme="http://yoursite.com/tags/%E9%AB%98%E5%B9%B6%E5%8F%91/"/>
     
   </entry>
   
