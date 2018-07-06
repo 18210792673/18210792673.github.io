@@ -490,10 +490,8 @@ Name:&quot;&quot;&quot; + name  + &quot;&quot;&quot;
 Age: &quot;&quot;&quot; + age   + &quot;&quot;&quot;
 Job: &quot;&quot;&quot; +  job  +  &quot;&quot;&quot;
 Salary: &quot;&quot;&quot; + salary
-
-
-print (info)
-</code></pre><p>使用注释拼接上变量的形式来创建指定的格式，不建议使用字符串拼接的方式去实现，因为它会开辟好几块的内存空间，效率比较低下</p>
+</code></pre><p>​<br>​    print (info)</p>
+<p>使用注释拼接上变量的形式来创建指定的格式，不建议使用字符串拼接的方式去实现，因为它会开辟好几块的内存空间，效率比较低下</p>
 <p><strong>更高效简单的方法-参数替换</strong></p>
 <p>在shell脚本中，我们使用$符号引用外面定义的变量，在python中也提供了类似的功能。</p>
 <p>在python中使用%s，占位符，相当于$的存在</p>
@@ -502,11 +500,8 @@ print (info)
 age = int(input(&quot;age: &quot;))
 job = input(&quot;job:&quot;)
 salary = input(&quot;salary:&quot;)
-
-
-print(&quot;name&quot;)
-
-info = &quot;&quot;&quot;
+</code></pre><p>​<br>    print(“name”)</p>
+<pre><code>info = &quot;&quot;&quot;
 -------- info of %s -----
 name: %s
 age: %d
@@ -518,9 +513,9 @@ print (info)
 </code></pre><p><strong>解释：</strong></p>
 <p>在这里</p>
 <ul>
-<li>%s代表的是string</li>
-<li>%d代表的是 digital</li>
-<li>%f代表的是 float</li>
+<li>%s代表的是字符串string</li>
+<li>%d代表的是整数 digital</li>
+<li>%f代表的是浮点数 float</li>
 <li>int代表的是整型  integer</li>
 </ul>
 <p>注意，在定义age的时候，使用的强制类型转换，因为如果不进行强制类型定义的话，则输入的会使默认的字符类型</p>
@@ -571,12 +566,8 @@ password:
 wxh wxh
 </code></pre><p><strong>优化之后的代码：</strong></p>
 <pre><code>import getpass
-
-
-_username = &quot;wxh&quot;
-_password = &quot;wxh123&quot;
-
-username = input(&quot;username: &quot;)
+</code></pre><p>​<br>    _username = “wxh”<br>    _password = “wxh123”</p>
+<pre><code>username = input(&quot;username: &quot;)
 password = getpass.getpass(&quot;password: &quot;)
 
 if username == _username and password == _password :
@@ -597,7 +588,7 @@ Welcome user wxh login...
 wxh wxh123
 
 C:\Users\Administrator\PycharmProjects\python14\day1&gt;
-</code></pre><h1 id="模块初始"><a href="#模块初始" class="headerlink" title="模块初始"></a>模块初始</h1><h1 id="流程控制"><a href="#流程控制" class="headerlink" title="流程控制"></a>流程控制</h1><h2 id="if语句"><a href="#if语句" class="headerlink" title="if语句"></a>if语句</h2><pre><code>wxh_age = 23
+</code></pre><h1 id="模块初始"><a href="#模块初始" class="headerlink" title="模块初始"></a>模块初始</h1><h1 id="流程控制"><a href="#流程控制" class="headerlink" title="流程控制"></a>流程控制</h1><h2 id="if判断"><a href="#if判断" class="headerlink" title="if判断"></a>if判断</h2><pre><code>wxh_age = 23
 print (type(wxh_age))
 
 message = &quot;Please input the number of wxh&apos;s age: &quot;
@@ -615,9 +606,10 @@ print (&quot;the right answer is {Age}&quot;.format(Age=wxh_age))
 </code></pre><p>注意：当给变量赋值字符的时候，一定要记得带上引号，不带引号的话表示的是变量。</p>
 <p>这段猜年龄的代码，没有循环效果，猜一次就要执行一次，接下来，我们添加循环功能</p>
 <p>一次执行，猜三次，三次之后再退出</p>
-<h2 id="循环"><a href="#循环" class="headerlink" title="循环"></a>循环</h2><p>循环：循环执行</p>
+<hr>
+<p>循环：循环执行</p>
 <p>while:条件匹配循环<br>for：固定次数循环</p>
-<h3 id="while循环"><a href="#while循环" class="headerlink" title="while循环"></a>while循环</h3><blockquote>
+<h2 id="while循环"><a href="#while循环" class="headerlink" title="while循环"></a>while循环</h2><blockquote>
 <p>在这里：count = count +1 等价于：count +=1</p>
 </blockquote>
 <p>这里限制猜的次数为3次，如果三次中间有猜中的，直接break退出，不然只有当次数达到3次之后，才会退出这个循环。</p>
@@ -625,54 +617,12 @@ print (&quot;the right answer is {Age}&quot;.format(Age=wxh_age))
 <p><strong>代码如下：</strong></p>
 <pre><code>wxh_age = 23
 message = &quot;Please input the number of wxh&apos;s age,input 00 to quit:  &quot;
-
-
-tag = True
-count = 0
-while tag:
-    guess_age = int(input(message))
-    if guess_age == 00:
-        break
-    elif guess_age == wxh_age:
-        print(&quot;Yes,you get it!&quot;)
-        break
-    elif guess_age &gt; wxh_age:
-        print(&quot;please guess smaller...&quot;)
-    else:
-        print(&quot;plwase guess bigger...&quot;)
-    count = count + 1
-    if count == 3:
-        tag = False
-        print (&quot;\n&quot;)
-        print (&quot;You have input too many times,quit now!&quot;)
-print (&quot;\n&quot;)
-print (&quot;The right age is:{Age} &quot;.format(Age=wxh_age))
-</code></pre><p>或者</p>
+</code></pre><p>​<br>    tag = True<br>    count = 0<br>    while tag:<br>        guess_age = int(input(message))<br>        if guess_age == 00:<br>            break<br>        elif guess_age == wxh_age:<br>            print(“Yes,you get it!”)<br>            break<br>        elif guess_age &gt; wxh_age:<br>            print(“please guess smaller…”)<br>        else:<br>            print(“plwase guess bigger…”)<br>        count = count + 1<br>        if count == 3:<br>            tag = False<br>            print (“\n”)<br>            print (“You have input too many times,quit now!”)<br>    print (“\n”)<br>    print (“The right age is:{Age} “.format(Age=wxh_age))</p>
+<p>或者</p>
 <pre><code>wxh_age = 23
 message = &quot;Please input the number of wxh&apos;s age,input 00 to quit:  &quot;
-
-
-tag = True
-count = 0
-while tag:
-    guess_age = int(input(message))
-    if guess_age == 00:
-        break
-    elif guess_age == wxh_age:
-        print(&quot;Yes,you get it!&quot;)
-        break
-    elif guess_age &gt; wxh_age:
-        print(&quot;please guess smaller...&quot;)
-    else:
-        print(&quot;plwase guess bigger...&quot;)
-    count = count + 1
-    if count == 3:
-        tag = False
-        print (&quot;\n&quot;)
-else:
-        print (&quot;You have input too many time,quit now!&quot;)
-
-print (&quot;\n&quot;)
+</code></pre><p>​<br>    tag = True<br>    count = 0<br>    while tag:<br>        guess_age = int(input(message))<br>        if guess_age == 00:<br>            break<br>        elif guess_age == wxh_age:<br>            print(“Yes,you get it!”)<br>            break<br>        elif guess_age &gt; wxh_age:<br>            print(“please guess smaller…”)<br>        else:<br>            print(“plwase guess bigger…”)<br>        count = count + 1<br>        if count == 3:<br>            tag = False<br>            print (“\n”)<br>    else:<br>            print (“You have input too many time,quit now!”)</p>
+<pre><code>print (&quot;\n&quot;)
 print (&quot;The right age is:{Age} &quot;.format(Age=wxh_age))
 </code></pre><p>注意，while也可以和else配合使用，当while所执行的条件不成立时，就会执行else块中的语句</p>
 <p><strong>执行后的输出如下：</strong></p>
@@ -683,35 +633,24 @@ Please input the number of wxh&apos;s age,input 00 to quit:  11
 plwase guess bigger...
 Please input the number of wxh&apos;s age,input 00 to quit:  28
 please guess smaller...
-
-
-You have input too many times,quit now!
-
-
-The right age is:23 
-
-Process finished with exit code 0
+</code></pre><p>​<br>    You have input too many times,quit now!</p>
+<p>​<br>    The right age is:23 </p>
+<pre><code>Process finished with exit code 0
 </code></pre><p>and</p>
 <pre><code>D:\software\python\python.exe C:/Users/Administrator/PycharmProjects/python14/day1/guess.py
 Please input the number of wxh&apos;s age,input 00 to quit:  11
 plwase guess bigger...
 Please input the number of wxh&apos;s age,input 00 to quit:  23
 Yes,you get it!
-
-
-The right age is:23 
-
-Process finished with exit code 0
+</code></pre><p>​<br>    The right age is:23 </p>
+<pre><code>Process finished with exit code 0
 </code></pre><p>and</p>
 <pre><code>D:\software\python\python.exe C:/Users/Administrator/PycharmProjects/python14/day1/guess.py
 Please input the number of wxh&apos;s age,input 00 to quit:  22
 plwase guess bigger...
 Please input the number of wxh&apos;s age,input 00 to quit:  00
-
-
-The right age is:23 
-
-Process finished with exit code 0
+</code></pre><p>​<br>    The right age is:23 </p>
+<pre><code>Process finished with exit code 0
 </code></pre><p>将上述代码进行优化，添加重复的功能【达到3次之后，询问用户是否需要继续】</p>
 <pre><code>num = 0
 while num &lt; 3:
@@ -736,7 +675,7 @@ while num &lt; 3:
           break
 
 print (&quot;The answer is 23.&quot;)
-</code></pre><h3 id="for循环"><a href="#for循环" class="headerlink" title="for循环"></a>for循环</h3><p>我们将上面的while循环使用for循环的方式进行重新编写</p>
+</code></pre><h2 id="for循环"><a href="#for循环" class="headerlink" title="for循环"></a>for循环</h2><p>我们将上面的while循环使用for循环的方式进行重新编写</p>
 <p>代码如下：</p>
 <pre><code>wxh_age = 23
 
@@ -780,25 +719,22 @@ print (&quot;The right answer is 23 &quot;)
 0
 1
 2
-</code></pre><h1 id="作业"><a href="#作业" class="headerlink" title="作业"></a>作业</h1><p><strong>编写登录接口</strong></p>
-<ul>
+</code></pre><h1 id="作业"><a href="#作业" class="headerlink" title="作业"></a>作业</h1><h2 id="编写登录接口"><a href="#编写登录接口" class="headerlink" title="编写登录接口"></a><strong>编写登录接口</strong></h2><ul>
 <li>输入用户名密码【需要允许多对用户名密码】</li>
 <li>认证成功之后，显示欢迎信息</li>
 <li>输出三次密码之后进行锁定 【可以根据用户名进行检测，那么这个信息就需要保存在某一个地方】</li>
 </ul>
-<p><strong>多级菜单</strong></p>
-<ul>
+<h2 id="多级菜单"><a href="#多级菜单" class="headerlink" title="多级菜单"></a><strong>多级菜单</strong></h2><ul>
 <li>三级菜单【省市县】【例如，浙江省–&gt;杭州市–&gt;xx县/区】</li>
 <li>可依次选择进入各个子菜单</li>
 <li>所需新知识点：列表，字典</li>
 </ul>
-<p>一打开程序，列出中国所有的省，选择一个省，列出下面所有的城市，选中一个城市，再列出下面所有的县</p>
+<p>打开程序，列出中国所有的省，选择一个省，列出下面所有的城市，选中一个城市，再列出下面所有的县</p>
 <p>在任何一个级别，可以返回上一级</p>
 <p>在任何一个级别的时候，可以整个退出程序，输入例如quit等退出程序</p>
-<h1 id="作业完成"><a href="#作业完成" class="headerlink" title="作业完成"></a>作业完成</h1><p><strong>登录接口：</strong></p>
-<p>代码如下：</p>
-<p><strong>多级菜单：</strong></p>
-<p>代码如下：</p>
+<h2 id="作业完成"><a href="#作业完成" class="headerlink" title="作业完成"></a>作业完成</h2><h2 id="登录接口："><a href="#登录接口：" class="headerlink" title="登录接口："></a><strong>登录接口：</strong></h2><p>代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"># Author:XiaoHua Wang</span><br><span class="line">#定义提示信息</span><br><span class="line">message1 = &quot;please enter your username: &quot;</span><br><span class="line">message2 = &quot;please enter your password: &quot;</span><br><span class="line"># 定义空字典</span><br><span class="line">u_p_dict = &#123;&#125;</span><br><span class="line"># 打开文件并将文件内容进行截取（分隔符为“：”，然后将文件内容按照key:value的格式追加添加到字典u_p_dict中）</span><br><span class="line">file_object = open(r&apos;C:\Users\Administrator\PycharmProjects\files\login.txt&apos;, &apos;r&apos;)</span><br><span class="line">for txt_lines in file_object.readlines():</span><br><span class="line">  txt_lines = txt_lines.strip(&apos;\n&apos;)</span><br><span class="line">  u_p_dict[txt_lines.split(&apos;:&apos;,1)[0]] = txt_lines.split(&apos;:&apos;,1)[1]</span><br><span class="line">file_object.close()</span><br><span class="line"># 使用while循环，控制循环次数为3次</span><br><span class="line">#打开记录了锁定用户信息的文件，进行判断，判断用户输入的用户是否已经被锁定</span><br><span class="line">i =0</span><br><span class="line">tmp_username = open(r&apos;C:\\Users\Administrator\PycharmProjects\files\lock_user.txt&apos;, &apos;r&apos;)</span><br><span class="line">tmp_user_list = tmp_username.readlines()</span><br><span class="line">tmp_username.close()</span><br><span class="line">while i &lt; 3:</span><br><span class="line">  username = input(message1)</span><br><span class="line">  password = input(message2)</span><br><span class="line">  if username in tmp_user_list:</span><br><span class="line">      print (&quot;you have enter passwd too many times befor,your account  is locked&quot;)</span><br><span class="line">      break</span><br><span class="line">  if username not in u_p_dict.keys():</span><br><span class="line">    print (&quot;username enter error,please check...&quot;)</span><br><span class="line">    continue</span><br><span class="line">  if password == u_p_dict[username]:</span><br><span class="line">    print(&quot;Welcome &#123;Username&#125;&quot;.format(Username=username))</span><br><span class="line">    break</span><br><span class="line">  print (&quot;password enter error,please check...&quot;)</span><br><span class="line">  i += 1</span><br><span class="line">  if i == 3:</span><br><span class="line">    print (&quot;you have enter error password too many times.It&apos;s now being forced out&quot;)</span><br><span class="line">    lock_username = username</span><br><span class="line">    error_name = open(r&apos;C:\\Users\Administrator\PycharmProjects\files\lock_user.txt&apos;, &apos;a&apos;)</span><br><span class="line">    error_name.write(lock_username+ &apos;\n&apos;)</span><br><span class="line">    error_name.close()</span><br><span class="line">    continue</span><br></pre></td></tr></table></figure>
+<h2 id="多级菜单："><a href="#多级菜单：" class="headerlink" title="多级菜单："></a><strong>多级菜单：</strong></h2><p>代码如下：</p>
 
       
     </div>
@@ -982,7 +918,7 @@ var jiathis_config={
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">91</span>
+                  <span class="site-state-item-count">96</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -993,7 +929,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">110</span>
+                  <span class="site-state-item-count">113</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -1044,7 +980,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#格式化输出"><span class="nav-number">1.</span> <span class="nav-text">格式化输出</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#用户输入"><span class="nav-number">2.</span> <span class="nav-text">用户输入</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#模块初始"><span class="nav-number">3.</span> <span class="nav-text">模块初始</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#流程控制"><span class="nav-number">4.</span> <span class="nav-text">流程控制</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#if语句"><span class="nav-number">4.1.</span> <span class="nav-text">if语句</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#循环"><span class="nav-number">4.2.</span> <span class="nav-text">循环</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#while循环"><span class="nav-number">4.2.1.</span> <span class="nav-text">while循环</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#for循环"><span class="nav-number">4.2.2.</span> <span class="nav-text">for循环</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#作业"><span class="nav-number">5.</span> <span class="nav-text">作业</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#作业完成"><span class="nav-number">6.</span> <span class="nav-text">作业完成</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#格式化输出"><span class="nav-number">1.</span> <span class="nav-text">格式化输出</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#用户输入"><span class="nav-number">2.</span> <span class="nav-text">用户输入</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#模块初始"><span class="nav-number">3.</span> <span class="nav-text">模块初始</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#流程控制"><span class="nav-number">4.</span> <span class="nav-text">流程控制</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#if判断"><span class="nav-number">4.1.</span> <span class="nav-text">if判断</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#while循环"><span class="nav-number">4.2.</span> <span class="nav-text">while循环</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#for循环"><span class="nav-number">4.3.</span> <span class="nav-text">for循环</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#作业"><span class="nav-number">5.</span> <span class="nav-text">作业</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#编写登录接口"><span class="nav-number">5.1.</span> <span class="nav-text">编写登录接口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多级菜单"><span class="nav-number">5.2.</span> <span class="nav-text">多级菜单</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#作业完成"><span class="nav-number">5.3.</span> <span class="nav-text">作业完成</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#登录接口："><span class="nav-number">5.4.</span> <span class="nav-text">登录接口：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多级菜单："><span class="nav-number">5.5.</span> <span class="nav-text">多级菜单：</span></a></li></ol></li></ol></div>
             
 
           </div>

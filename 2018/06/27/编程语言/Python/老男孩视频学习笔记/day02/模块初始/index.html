@@ -1,0 +1,1467 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="老男孩视频," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Watchmen1992's Blog" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="模块初始">
+<meta name="keywords" content="老男孩视频">
+<meta property="og:type" content="article">
+<meta property="og:title" content="模块初始及列表字典等深入">
+<meta property="og:url" content="http://yoursite.com/2018/06/27/编程语言/Python/老男孩视频学习笔记/day02/模块初始/index.html">
+<meta property="og:site_name" content="Watchmen1992&#39;s Blog">
+<meta property="og:description" content="模块初始">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-06-27T13:54:39.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="模块初始及列表字典等深入">
+<meta name="twitter:description" content="模块初始">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/06/27/编程语言/Python/老男孩视频学习笔记/day02/模块初始/"/>
+
+
+
+
+
+  <title>模块初始及列表字典等深入 | Watchmen1992's Blog</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?07235ad5687ee838f373b31c7c687d23";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Watchmen1992's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">锦瑟年华当与书香为度，是为不负天地人生。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/27/编程语言/Python/老男孩视频学习笔记/day02/模块初始/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="XiaoHua WANG">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/touxiang.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Watchmen1992's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">模块初始及列表字典等深入</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-27T21:54:39+08:00">
+                2018-06-27
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2018-06-27T21:54:39+08:00">
+                2018-06-27
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/编程语言/" itemprop="url" rel="index">
+                    <span itemprop="name">编程语言</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/编程语言/Python/" itemprop="url" rel="index">
+                    <span itemprop="name">Python</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/编程语言/Python/老男孩视频学习笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">老男孩视频学习笔记</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/编程语言/Python/老男孩视频学习笔记/day02/" itemprop="url" rel="index">
+                    <span itemprop="name">day02</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/编程语言/Python/老男孩视频学习笔记/day02/模块初识/" itemprop="url" rel="index">
+                    <span itemprop="name">模块初识</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/06/27/编程语言/Python/老男孩视频学习笔记/day02/模块初始/" class="leancloud_visitors" data-flag-title="模块初始及列表字典等深入">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+              <div class="post-description">
+                  模块初始
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="模块简介"><a href="#模块简介" class="headerlink" title="模块简介"></a>模块简介</h1><p>模块的简单介绍：用户写好了一堆功能，将其封装在一个文件当中，从网上下载下来之后，导入之后就可以使用，不用再去重新编写相对应的功能代码。这个文件就叫做模块，又可以叫做库</p>
+<p>模块（库）主要分为两种：</p>
+<ul>
+<li>一个是标准库（不需要额外安装下载，就可以直接导入的库，比如说getpass,os,sys模块等）</li>
+<li>一个是第三方库（必须要额外的下载安装之后，才可以使用，例如django）</li>
+</ul>
+<p>几个要点：</p>
+<ul>
+<li>模块在系统中是以.py结尾的文件方式存在的</li>
+<li>这些模块文件在python有一个寻找路径/环境变量（存储路径可以通过sys模块的path方法进行查看，默认情况下，会最优先从当前目录下进行寻找）【这个是python的全局变量，和系统的path环境变量不一样】，这个python全局变量，存储的是路径信息</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">C:\Users\Administrator&gt;python</span><br><span class="line">Python 3.6.5 (v3.6.5:f59c0932b4, Mar 28 2018, 16:07:46) [MSC v.1900 32 bit (Intel)] on win32</span><br><span class="line">Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.</span><br><span class="line">&gt;&gt;&gt; import sys</span><br><span class="line">&gt;&gt;&gt; print (sys.path)</span><br><span class="line">[&apos;&apos;, &apos;D:\\software\\python\\python36.zip&apos;, &apos;D:\\software\\python\\DLLs&apos;, &apos;D:\\software\\python\\lib&apos;, &apos;D:\\software\\python&apos;, &apos;D:\\software\\python\\lib\\site-packages&apos;]</span><br></pre></td></tr></table></figure>
+<p>一般情况下，python安装的第三方库都是存放在lib\site-packages路径下</p>
+<h2 id="sys模块"><a href="#sys模块" class="headerlink" title="sys模块"></a>sys模块</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">import sys</span><br><span class="line"></span><br><span class="line">print (sys.path)</span><br><span class="line">print(sys.argv)</span><br></pre></td></tr></table></figure>
+<p>输出信息如下所示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[&apos;C:\Users\Administrator\PycharmProjects\python14\day02&apos;, &apos;C:\Users\Administrator\PycharmProjects\python14&apos;, &apos;D:\software\python\python36.zip&apos;, &apos;D:\software\python\DLLs&apos;, &apos;D:\software\python\lib&apos;, &apos;D:\software\python&apos;, &apos;D:\software\python\lib\site-packages&apos;]</span><br><span class="line"></span><br><span class="line">[&apos;C:/Users/Administrator/PycharmProjects/python14/day02/moudles.py&apos;]</span><br></pre></td></tr></table></figure>
+<ul>
+<li>path方法输出python定义的环境变量信息</li>
+<li>argv方法输出当前文件所在相对路径信息（注意是相对路径，这里输出是因为在IDE中调用的时候写的脚本名字的路径就是绝对路径，pycharm在调用的时候写的是绝对路径）</li>
+</ul>
+<h2 id="OS模块"><a href="#OS模块" class="headerlink" title="OS模块"></a>OS模块</h2><p>OS模块是跟操作系统进行交互</p>
+<p>从python中调用shell的命令，或者在系统上创建一个文件、目录等</p>
+<p>比如</p>
+<p>执行命令，使用方法：os.system()</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/python</span><br><span class="line">import os</span><br><span class="line">cmd_res = os.system(&quot;df -h&quot;)</span><br><span class="line">print (cmd_res)</span><br></pre></td></tr></table></figure>
+<p>执行后的输出为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[root@redis001 ~]# python test.py</span><br><span class="line">Filesystem      Size  Used Avail Use% Mounted on</span><br><span class="line">/dev/sda2       197G  1.4G  186G   1% /</span><br><span class="line">tmpfs            63G   24K   63G   1% /dev/shm</span><br><span class="line">/dev/sda1       283M   37M  232M  14% /boot</span><br><span class="line">/dev/sda6       1.3T  203M  1.3T   1% /data1</span><br><span class="line">/dev/sda3        99G   60M   94G   1% /home</span><br><span class="line">/dev/sda5        50G   52M   47G   1% /tmp</span><br><span class="line">0</span><br></pre></td></tr></table></figure>
+<p>注意：在使用os.system执行命令的时候，这个结果的输出是直接输出到屏幕上的，而不是存到这个变量中，所以输出之后就没有了</p>
+<p>0 是命令执行成功与否的返回状态码</p>
+<p>上面的system是执行命令，但是不保存结果</p>
+<p>那么，我们就想保存结果的时候，该做什么操作？ 这个时候我们使用popen方法</p>
+<p>popen()方法输出的是一个内存的对象地址</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[root@redis001 ~]# cat test.py </span><br><span class="line">#!/usr/bin/python</span><br><span class="line">import os</span><br><span class="line">cmd_res = os.popen(&quot;ls&quot;)</span><br><span class="line">print (cmd_res)</span><br><span class="line">[root@redis001 ~]# python test.py</span><br><span class="line">&lt;open file &apos;ls&apos;, mode &apos;r&apos; at 0x7ff2cce43c00&gt;</span><br><span class="line">ls: write error: Broken pipe</span><br></pre></td></tr></table></figure>
+<p>那么，想要真正的结果，则需要再调用一下read()</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[root@redis001 ~]# cat test.py </span><br><span class="line">#!/usr/bin/python</span><br><span class="line">import os</span><br><span class="line">cmd_res = os.popen(&quot;ls&quot;).read()</span><br><span class="line">print (cmd_res)</span><br><span class="line">[root@redis001 ~]# python test.py</span><br><span class="line">anaconda-ks.cfg</span><br><span class="line">install.log</span><br><span class="line">install.log.syslog</span><br><span class="line">test.py</span><br></pre></td></tr></table></figure>
+<p>解析：在执行完popen()之后，这个结果是保存在内存的一个临时的地方，这个地方，必须通过read()方法，再去取出来</p>
+<h1 id="其他知识"><a href="#其他知识" class="headerlink" title="其他知识"></a>其他知识</h1><h2 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h2><p>列表切片</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">list = [&quot;wxh&quot;,&quot;wsy&quot;,&quot;dabadou&quot;,&quot;badou&quot;,&quot;wxh&quot;]</span><br><span class="line">print (list[1:3])</span><br><span class="line">输出为：</span><br><span class="line">[&apos;wsy&apos;, &apos;dabadou&apos;]</span><br></pre></td></tr></table></figure>
+<p>打印列表中item的数量-使用count方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">list = [&quot;wxh&quot;,&quot;wsy&quot;,&quot;dabadou&quot;,&quot;badou&quot;,&quot;wxh&quot;]</span><br><span class="line">print(list.count(&quot;wxh&quot;))</span><br></pre></td></tr></table></figure>
+<p>清除列表-clear方法-注意这里只是清空了但是不会被删除</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">list.clear()</span><br></pre></td></tr></table></figure>
+<p>列表反转-reverse()方法</p>
+<p>列表合并-extend()方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">list = [&quot;wxh&quot;,&quot;wsy&quot;,&quot;dabadou&quot;,&quot;badou&quot;,&quot;wxh&quot;]</span><br><span class="line">list2 = [1,2,3,4]</span><br><span class="line">list.extend(list2)</span><br><span class="line">print (list)</span><br><span class="line">输出为：</span><br><span class="line">[&apos;wxh&apos;, &apos;wsy&apos;, &apos;dabadou&apos;, &apos;badou&apos;, &apos;wxh&apos;, 1, 2, 3, 4]</span><br></pre></td></tr></table></figure>
+<p>列表删除-del命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">list2 = [1,2,3,4]</span><br><span class="line">del list2</span><br><span class="line">print (list2)</span><br></pre></td></tr></table></figure>
+<p>列表嵌套列表及子列表赋值</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">list = [&quot;wxh&quot;,&quot;wsy&quot;,&quot;dabadou&quot;,[&quot;wxh&quot;,&quot;heheh&quot;,&quot;haha&quot;],&quot;badou&quot;,&quot;wxh&quot;]</span><br><span class="line">list[3][1] = &quot;WXH&quot;</span><br><span class="line">print(list)</span><br><span class="line">执行后输出为：</span><br><span class="line">[&apos;wxh&apos;, &apos;wsy&apos;, &apos;dabadou&apos;, [&apos;wxh&apos;, &apos;WXH&apos;, &apos;haha&apos;], &apos;badou&apos;, &apos;wxh&apos;]</span><br></pre></td></tr></table></figure>
+<p>列表复制-使用copy模块的copy方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">import copy</span><br><span class="line">list = [&quot;wxh&quot;,&quot;wsy&quot;,&quot;dabadou&quot;,[&quot;wxh&quot;,&quot;heheh&quot;,&quot;haha&quot;],&quot;badou&quot;,&quot;wxh&quot;]</span><br><span class="line">list2 = copy.copy(list)</span><br><span class="line">print (list2)</span><br><span class="line">输出为：</span><br><span class="line">[&apos;wxh&apos;, &apos;wsy&apos;, &apos;dabadou&apos;, [&apos;wxh&apos;, &apos;heheh&apos;, &apos;haha&apos;], &apos;badou&apos;, &apos;wxh&apos;]</span><br><span class="line"></span><br><span class="line">也可以使用下面这种方式：</span><br><span class="line">list = [&quot;wxh&quot;,&quot;wsy&quot;,&quot;dabadou&quot;,[&quot;wxh&quot;,&quot;heheh&quot;,&quot;haha&quot;],&quot;badou&quot;,&quot;wxh&quot;]</span><br><span class="line">list2 = list[:]</span><br><span class="line">print (list2)</span><br></pre></td></tr></table></figure>
+<p>使用这种列表再赋值的方式，可以拿来作为联合账号类功能，也就是说前者最开始的列表将会连带的影响所有的列表。</p>
+<p>列表循环：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">for i in list:</span><br><span class="line">print (i)</span><br></pre></td></tr></table></figure>
+<p>在循环的时候-按照步长进行输出</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">print(list[0:-1:2])</span><br></pre></td></tr></table></figure>
+<h2 id="元祖"><a href="#元祖" class="headerlink" title="元祖"></a>元祖</h2><p>元祖和列表差不多，只不过一旦创建之后就不能再次修改，因此又叫做只读列表</p>
+<p>元祖使用()进行定义，而不是列表的[]</p>
+<p>元祖只有两个方法，count和index方法</p>
+<h2 id="购物车程序"><a href="#购物车程序" class="headerlink" title="购物车程序"></a>购物车程序</h2><p>需求如下：</p>
+<ol>
+<li>启动程序之后，让用户输入工资，然后打印商品列表</li>
+<li>允许用户根据商品编号购买商品</li>
+<li>用户选择商品后，检测余额是否足够，够久直接扣款，不够就提醒（不够的话可以选择便宜的，也就是说进入下一次循环）</li>
+<li>可以随时退出，退出时，打印已经购买的商品和余额</li>
+</ol>
+<p>代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"># Author:XiaoHua Wang</span><br><span class="line">goods = [(&quot;iphone&quot;,7000),(&quot;Ipad pro&quot;,5000),(&quot;Mac pro&quot;,22000),(&quot;tea&quot;,40),(&quot;bag&quot;,2000),(&quot;Nike&quot;,860),(&quot;book&quot;,105)]</span><br><span class="line">salary = int(input(&quot;Please input your salary: &quot;))</span><br><span class="line">message2 = &quot;Please choice which number to buy,enter q to quit in any time:&quot;</span><br><span class="line">buy_goods = []</span><br><span class="line">while True:</span><br><span class="line">    print(&quot;These are all goods you can buy:&quot;)</span><br><span class="line">#    for i in range(len(goods)):</span><br><span class="line">#        print(str(i) + &quot; &quot; + str(goods[i]))</span><br><span class="line">    for item in goods:</span><br><span class="line">        print (goods.index(item),item)</span><br><span class="line">    Tag = input(message2)</span><br><span class="line">    jude = Tag.isdigit()</span><br><span class="line">    if Tag == &quot;q&quot;:</span><br><span class="line">        break</span><br><span class="line">    if jude != True:</span><br><span class="line">        print (&quot;sorry,input error,please enter number or q&quot;)</span><br><span class="line">        break</span><br><span class="line">    consume_moneny = int(goods[int(Tag)][1])</span><br><span class="line">    salary1 = salary</span><br><span class="line">    salary = salary - consume_moneny</span><br><span class="line">    if  salary &lt; 0:</span><br><span class="line">        print (&quot;sorry,you The amount is not enough,please select again&quot;)</span><br><span class="line">        print( &quot;rest salary is &#123;Salary&#125;&quot;.format(Salary=salary1) )</span><br><span class="line">        salary = salary1</span><br><span class="line">        continue</span><br><span class="line">#    if salary == 0:</span><br><span class="line">    if salary == 0:</span><br><span class="line">        print(&quot;Add &quot; + str(goods[int(Tag)]) )</span><br><span class="line">        print(&quot;consume all money just right,&quot;+ &quot;rest salary is 0 . you can&apos;t buy again.&quot;)</span><br><span class="line">        buy_goods = buy_goods.append(goods[int(Tag)][0])</span><br><span class="line">        break</span><br><span class="line">    print(&quot;Add &quot; + str(goods[int(Tag)]))</span><br><span class="line">#    print(&quot;rest salary is &quot; + str(salary))</span><br><span class="line">    print(&quot;rest salary is &#123;Salary&#125;&quot;.format(Salary=salary))</span><br><span class="line">    buy_goods.append(goods[int(Tag)][0])</span><br><span class="line">    continue</span><br><span class="line">print (&quot;you have buy blow goods: &quot;)</span><br><span class="line">print (buy_goods)</span><br></pre></td></tr></table></figure>
+<p>注意：匹配列表的索引和对应的值还可以使用下面的方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">goods = [(&quot;iphone&quot;,7000),(&quot;Ipad pro&quot;,5000),(&quot;Mac pro&quot;,22000),(&quot;tea&quot;,40),(&quot;bag&quot;,2000),(&quot;Nike&quot;,860),(&quot;book&quot;,105)]</span><br><span class="line">for item in goods:</span><br><span class="line">    print(goods.index(item), item)</span><br><span class="line">#或者</span><br><span class="line">for index,item in enumerate(goods):</span><br><span class="line">    print (index,item)</span><br><span class="line"></span><br><span class="line">执行后输出如下：</span><br><span class="line">0 (&apos;iphone&apos;, 7000)</span><br><span class="line">1 (&apos;Ipad pro&apos;, 5000)</span><br><span class="line">2 (&apos;Mac pro&apos;, 22000)</span><br><span class="line">3 (&apos;tea&apos;, 40)</span><br><span class="line">4 (&apos;bag&apos;, 2000)</span><br><span class="line">5 (&apos;Nike&apos;, 860)</span><br><span class="line">6 (&apos;book&apos;, 105)</span><br><span class="line">0 (&apos;iphone&apos;, 7000)</span><br><span class="line">1 (&apos;Ipad pro&apos;, 5000)</span><br><span class="line">2 (&apos;Mac pro&apos;, 22000)</span><br><span class="line">3 (&apos;tea&apos;, 40)</span><br><span class="line">4 (&apos;bag&apos;, 2000)</span><br><span class="line">5 (&apos;Nike&apos;, 860)</span><br><span class="line">6 (&apos;book&apos;, 105)</span><br></pre></td></tr></table></figure>
+<h2 id="字符串常用操作"><a href="#字符串常用操作" class="headerlink" title="字符串常用操作"></a>字符串常用操作</h2><p><strong>字符串对应位置替换</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">name = &quot;wangxiaohua&quot;</span><br><span class="line">p = str.maketrans(&quot;abcdefg&quot;,&quot;1234567&quot;)</span><br><span class="line">print (name.translate(p))</span><br><span class="line"></span><br><span class="line">执行之后的输出如下所示：</span><br><span class="line">w1n7xi1ohu1</span><br></pre></td></tr></table></figure>
+<p><strong>临时替换</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">print (&quot;wangxiaohua&quot;.replace(&apos;a&apos;,&apos;A&apos;,2))</span><br><span class="line">执行后输出如下：</span><br><span class="line">wAngxiAohua</span><br><span class="line"></span><br><span class="line">格式为：旧字符，新字符，替换的格式个数</span><br></pre></td></tr></table></figure>
+<p><strong>split分割-按照字符</strong></p>
+<p>将字符串的值，按照指定的分隔符号，重新定义为列表</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">num = &quot;1+2+3+4&quot;</span><br><span class="line">print (num.split(&quot;+&quot;))</span><br><span class="line">执行后输出如下：</span><br><span class="line">[&apos;1&apos;, &apos;2&apos;, &apos;3&apos;, &apos;4&apos;]</span><br></pre></td></tr></table></figure>
+<p><strong>split分割-按照行</strong></p>
+<p>split分割按照行来进行区分的时候，我们就需要使用splitlines()方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">num = &quot;1+2+3\n+4+\n5+6&quot;</span><br><span class="line">print (num)</span><br><span class="line">print (num.split(&quot;+&quot;))</span><br><span class="line">print (num.splitlines())</span><br><span class="line"></span><br><span class="line">执行后输出如下所示：</span><br><span class="line">[&apos;1&apos;, &apos;2&apos;, &apos;3\n&apos;, &apos;4&apos;, &apos;\n5&apos;, &apos;6&apos;]</span><br><span class="line">[&apos;1+2+3&apos;, &apos;+4+&apos;, &apos;5+6&apos;]</span><br></pre></td></tr></table></figure>
+<p>注意：在linux和windows平台上使用splitlines()方法的时候，它会自动的识别换行符（Linux和windows的换行符号是不一样的）</p>
+<p><strong>Title格式</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">name = &quot;wang xiao hua&quot;</span><br><span class="line">name1 = &quot;wangxiaohua&quot;</span><br><span class="line">print (name.title())</span><br><span class="line">print (name1.title())</span><br><span class="line"></span><br><span class="line">执行后的输出如下所示：</span><br><span class="line">Wang Xiao Hua</span><br><span class="line">Wangxiaohua</span><br></pre></td></tr></table></figure>
+<p>将输入的字符串输出为标题的格式，也就是首字母大写的格式</p>
+<h2 id="字典操作"><a href="#字典操作" class="headerlink" title="字典操作"></a>字典操作</h2><p>字典的数据类型是一种key-value类型</p>
+<p>字典的特性：</p>
+<ul>
+<li>dict是无序的</li>
+<li>key必须是唯一的，因此字典天生就具备去重的功能</li>
+<li>在输出的时候，默认是没有顺序的，因此可能写在最后的在最前面输出，因为字典没有下标信息，因为列表是通过索引下标进行查找，但是字典是通过key进行查找的</li>
+<li>在取值的时候，用法和列表的相似，不过是在[]中将索引下标数字修改成为key值</li>
+</ul>
+<p>删除字典有几种方法，使用pop的时候，可以再进行赋值，使用del的时候就是真的删除了</p>
+<p>字典的查找，可以使用get方法，也可以使用in的用法</p>
+<p>字典中有该值则返回，没有的话则返回None</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">info = &#123;</span><br><span class="line">    &quot;name&quot;:&quot;wangxiaohua&quot;,</span><br><span class="line">    &quot;age&quot;:&quot;26&quot;,</span><br><span class="line">    &quot;sex&quot;:&quot;man&quot;</span><br><span class="line">&#125;</span><br><span class="line">print (info.get(&quot;name&quot;))</span><br><span class="line">print (info.get(&quot;named&quot;))</span><br><span class="line">if &quot;name&quot; in info:</span><br><span class="line">    print (&quot;Yes&quot;)</span><br><span class="line"></span><br><span class="line">执行后的输出如下所示：</span><br><span class="line">wangxiaohua</span><br><span class="line">None</span><br><span class="line">Yes</span><br></pre></td></tr></table></figure>
+<p>字典的特殊赋值-如果能取到值则返回取到的值，如果值不存在则创建一个新的-setdefault()方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">info = &#123;</span><br><span class="line">    &quot;name&quot;:&quot;wangxiaohua&quot;,</span><br><span class="line">    &quot;age&quot;:&quot;26&quot;,</span><br><span class="line">    &quot;sex&quot;:&quot;man&quot;</span><br><span class="line">&#125;</span><br><span class="line">info.setdefault(&quot;name&quot;,&quot;hehe&quot;)</span><br><span class="line">print (info)</span><br><span class="line"></span><br><span class="line">执行后输出如下所示：</span><br><span class="line">&#123;&apos;name&apos;: &apos;wangxiaohua&apos;, &apos;age&apos;: &apos;26&apos;, &apos;sex&apos;: &apos;man&apos;&#125;</span><br></pre></td></tr></table></figure>
+<p>字典的合并更新-存在交叉的key值进行覆盖，不存在的则进行插入</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">info = &#123;</span><br><span class="line">    &quot;name&quot;:&quot;wangxiaohua&quot;,</span><br><span class="line">    &quot;age&quot;:&quot;26&quot;,</span><br><span class="line">    &quot;sex&quot;:&quot;man&quot;</span><br><span class="line">&#125;</span><br><span class="line">info2 = &#123;</span><br><span class="line">    &quot;name&quot;:&quot;dabadou&quot;,</span><br><span class="line">    &quot;city&quot;:&quot;hangzhou&quot;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">info.update(info2)</span><br><span class="line">print (info)</span><br><span class="line"></span><br><span class="line">执行后的输出如下所示：</span><br><span class="line">&#123;&apos;name&apos;: &apos;dabadou&apos;, &apos;age&apos;: &apos;26&apos;, &apos;sex&apos;: &apos;man&apos;, &apos;city&apos;: &apos;hangzhou&apos;&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>字典的循环</strong></p>
+<p>字典的循环，一般使用的是items()方法，但是使用下面这种方法，会比items()方法高效很多</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">info = &#123;</span><br><span class="line">    &quot;name&quot;:&quot;wangxiaohua&quot;,</span><br><span class="line">    &quot;age&quot;:&quot;26&quot;,</span><br><span class="line">    &quot;sex&quot;:&quot;man&quot;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">for i in info:</span><br><span class="line">  print (i,info[i])</span><br><span class="line"></span><br><span class="line">for k,v in info.items():</span><br><span class="line">    print (k,v)</span><br><span class="line">    </span><br><span class="line">执行后的输出如下所示：</span><br><span class="line"></span><br><span class="line">name wangxiaohua</span><br><span class="line">age 26</span><br><span class="line">sex man</span><br><span class="line">name wangxiaohua</span><br><span class="line">age 26</span><br><span class="line">sex man</span><br></pre></td></tr></table></figure>
+<p>上面的方式，是通过索引的形式（这里是key）就直接把value取出来了，但是下面这个items()相当于是把字典变成一个列表，因此就多了一个字典转换成列表的过程，在数据量大的时候，效率非常的差</p>
+<p>因此字典的循环，最好使用上面的这种方式，尽量避免使用items()方法来实现</p>
+<h2 id="三级菜单程序"><a href="#三级菜单程序" class="headerlink" title="三级菜单程序"></a>三级菜单程序</h2><ul>
+<li>三级菜单【省市县】【例如，浙江省–&gt;杭州市–&gt;xx县/区】</li>
+<li>可依次选择进入各个子菜单</li>
+<li>所需新知识点：列表，字典</li>
+</ul>
+<p>打开程序，列出中国所有的省，选择一个省，列出下面所有的城市，选中一个城市，再列出下面所有的县</p>
+<p>在任何一个级别，可以返回上一级</p>
+<p>在任何一个级别的时候，可以整个退出程序，输入例如quit等退出程序</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/wechatpay.jpg" alt="XiaoHua WANG 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/alipay.jpg" alt="XiaoHua WANG 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/老男孩视频/" rel="tag"># 老男孩视频</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/06/26/IT科学技术知识体系结构-Linux运维方向/高并发/负载均衡/2层负载均衡/Linux服务器双网卡bond配置/" rel="next" title="Linux服务器双网卡bond配置">
+                <i class="fa fa-chevron-left"></i> Linux服务器双网卡bond配置
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zMzg1NC8xMDQwNw=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/touxiang.jpg"
+                alt="XiaoHua WANG" />
+            
+              <p class="site-author-name" itemprop="name">XiaoHua WANG</p>
+              <p class="site-description motion-element" itemprop="description">Focus on Linux operations and development.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">96</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">113</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">82</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#模块简介"><span class="nav-number">1.</span> <span class="nav-text">模块简介</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#sys模块"><span class="nav-number">1.1.</span> <span class="nav-text">sys模块</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#OS模块"><span class="nav-number">1.2.</span> <span class="nav-text">OS模块</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#其他知识"><span class="nav-number">2.</span> <span class="nav-text">其他知识</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#列表"><span class="nav-number">2.1.</span> <span class="nav-text">列表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#元祖"><span class="nav-number">2.2.</span> <span class="nav-text">元祖</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#购物车程序"><span class="nav-number">2.3.</span> <span class="nav-text">购物车程序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字符串常用操作"><span class="nav-number">2.4.</span> <span class="nav-text">字符串常用操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字典操作"><span class="nav-number">2.5.</span> <span class="nav-text">字典操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三级菜单程序"><span class="nav-number">2.6.</span> <span class="nav-text">三级菜单程序</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">XiaoHua WANG</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("mlSs9Cm0Xv2D9B7cFqbp25Df-gzGzoHsz", "alKheIFly9OVC81YCV7otTrf");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
