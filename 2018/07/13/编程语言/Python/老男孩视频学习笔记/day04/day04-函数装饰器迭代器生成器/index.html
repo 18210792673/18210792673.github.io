@@ -1,0 +1,1664 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="老男孩视频," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Watchmen1992's Blog" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="day04-函数装饰器迭代器生成器">
+<meta name="keywords" content="老男孩视频">
+<meta property="og:type" content="article">
+<meta property="og:title" content="day04-函数装饰器迭代器生成器">
+<meta property="og:url" content="http://yoursite.com/2018/07/13/编程语言/Python/老男孩视频学习笔记/day04/day04-函数装饰器迭代器生成器/index.html">
+<meta property="og:site_name" content="Watchmen1992&#39;s Blog">
+<meta property="og:description" content="day04-函数装饰器迭代器生成器">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-07-13T12:43:08.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="day04-函数装饰器迭代器生成器">
+<meta name="twitter:description" content="day04-函数装饰器迭代器生成器">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/07/13/编程语言/Python/老男孩视频学习笔记/day04/day04-函数装饰器迭代器生成器/"/>
+
+
+
+
+
+  <title>day04-函数装饰器迭代器生成器 | Watchmen1992's Blog</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?07235ad5687ee838f373b31c7c687d23";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Watchmen1992's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">锦瑟年华当与书香为度，是为不负天地人生。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/13/编程语言/Python/老男孩视频学习笔记/day04/day04-函数装饰器迭代器生成器/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="XiaoHua WANG">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/touxiang.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Watchmen1992's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">day04-函数装饰器迭代器生成器</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-13T20:43:08+08:00">
+                2018-07-13
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2018-07-13T20:43:08+08:00">
+                2018-07-13
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/编程语言/" itemprop="url" rel="index">
+                    <span itemprop="name">编程语言</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/编程语言/Python/" itemprop="url" rel="index">
+                    <span itemprop="name">Python</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/编程语言/Python/老男孩视频学习笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">老男孩视频学习笔记</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/编程语言/Python/老男孩视频学习笔记/day04/" itemprop="url" rel="index">
+                    <span itemprop="name">day04</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/07/13/编程语言/Python/老男孩视频学习笔记/day04/day04-函数装饰器迭代器生成器/" class="leancloud_visitors" data-flag-title="day04-函数装饰器迭代器生成器">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+              <div class="post-description">
+                  day04-函数装饰器迭代器生成器
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="装饰器"><a href="#装饰器" class="headerlink" title="装饰器"></a>装饰器</h1><p>器：代表函数的意思。也就是说，装饰器本质是函数，基本语法都是使用def关键字去定义的</p>
+<p>那么它的本质是函数，它的功能是什么？</p>
+<p>定义：装饰器的本质是函数：装饰其他函数的函数【就是为其他函数添加附加功能】</p>
+<p>在实际生产环境中，需要新增功能的时候，有以下原则</p>
+<ol>
+<li>不能修改现有函数的源代码</li>
+<li>函数一旦写好了，原则上就不能再去修改它的源代码</li>
+<li>函数的调用方式也不能被修改</li>
+</ol>
+<p>装饰器有自己独特的需要遵循的原则：</p>
+<ol>
+<li><strong>不能修改被装饰的函数的源代码</strong></li>
+<li><strong>不能修改被装饰的函数的调用方式</strong></li>
+</ol>
+<p>也就是，被装饰的函数式完全透明的（调用函数的一方不知道这个函数被装饰过，函数本身也感知不到装饰器的存在）</p>
+<p>实现装饰器的知识储备：</p>
+<ol>
+<li><p>函数即“变量”</p>
+</li>
+<li><p>高阶函数</p>
+<ul>
+<li><p>把一个函数名都当做实参传递给另外一个函数【在一般的函数使用中，给形参传递的都是<code>实参变量</code>，那么，函数即变量之后，就可以把==函数==当做一个<code>变量实参</code>传递给另外一个函数】</p>
+<p>这一步可以做到，在不修改被装饰函数源代码的情况下，为其添加功能</p>
+</li>
+<li><p>返回值中包含函数名【一般函数的返回值中吗，可以是字符串，列表，数字等等，因为函数是变量，那么在返回值中是也可以包含函数的】</p>
+<p>不修改函数的调用方式</p>
+</li>
+</ul>
+</li>
+<li><p>函数嵌套</p>
+<ul>
+<li>函数嵌套指的是，在一个函数的函数体之内用def去声明一个新的函数，而不是去调用它</li>
+</ul>
+</li>
+</ol>
+<p>高阶函数+嵌套函数==》装饰器</p>
+<h2 id="案例演示"><a href="#案例演示" class="headerlink" title="案例演示"></a>案例演示</h2><h3 id="原型"><a href="#原型" class="headerlink" title="原型"></a>原型</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">import time</span><br><span class="line"></span><br><span class="line">def test1():</span><br><span class="line">    time.sleep(1)</span><br><span class="line">    print (&quot;in the test1&quot;)</span><br><span class="line"></span><br><span class="line">def test2():</span><br><span class="line">    time.sleep(1)</span><br><span class="line">    print (&quot;in the test2&quot;)</span><br><span class="line"></span><br><span class="line">def timer(func):</span><br><span class="line">    def deco():</span><br><span class="line">        start_time = time.time()</span><br><span class="line">        func()</span><br><span class="line">        stop_time = time.time()</span><br><span class="line">        print (&quot;func is cost &#123;cost&#125;&quot;.format(cost=stop_time-start_time))</span><br><span class="line">    return deco</span><br><span class="line"></span><br><span class="line"># 返回该函数（这里是deco函数）的内存地址</span><br><span class="line"></span><br><span class="line">test1 = timer(test1)</span><br><span class="line">test1()</span><br><span class="line">#test1执行，实际上是在执行deco这个函数</span><br></pre></td></tr></table></figure>
+<p>执行后的输出如下所示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">in the test1</span><br><span class="line">func is cost 1.0031695365905762</span><br></pre></td></tr></table></figure>
+<p><strong>说明：</strong></p>
+<p>函数的执行，主要是执行函数体中的内容，而我们在真正执行函数的时候，是通过函数名称进行调用的（也就是一个变量），因此，在函数真正执行之前，我们可以<strong>修改这个函数名称对应的函数体中的内容</strong></p>
+<p>装饰器的编写步骤：</p>
+<ol>
+<li>首先编写一个函数，其中调用这个被装饰的函数，并在其中添加上新的功能</li>
+<li>将这个函数的函数体，也就是<strong>内存地址</strong>拿出来，重新赋值给这个被装饰的函数</li>
+<li>实现第2步，就需要使用函数的嵌套，以此来返回这个函数的内存地址（函数嵌套了函数之后，是直接将子函数的内存地址返回，而没有执行这个子函数）</li>
+<li>而将这个被装饰的源函数传递给这个装饰函数执行，就需要使用高阶函数</li>
+</ol>
+<h3 id="改良"><a href="#改良" class="headerlink" title="改良"></a>改良</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">import time</span><br><span class="line"></span><br><span class="line">def timer(func):</span><br><span class="line">    def deco():</span><br><span class="line">        start_time = time.time()</span><br><span class="line">        func()</span><br><span class="line">        stop_time = time.time()</span><br><span class="line">        print (&quot;func is cost &#123;cost&#125;&quot;.format(cost=stop_time-start_time))</span><br><span class="line">    return deco</span><br><span class="line"></span><br><span class="line">@timer</span><br><span class="line">def test1():</span><br><span class="line">    time.sleep(1)</span><br><span class="line">    print (&quot;in the test1&quot;)</span><br><span class="line"></span><br><span class="line">def test2():</span><br><span class="line">    time.sleep(1)</span><br><span class="line">    print (&quot;in the test2&quot;)</span><br></pre></td></tr></table></figure>
+<p><strong>说明：</strong></p>
+<p>在这里，@timer=test1 = timer(test1)</p>
+<p>注意，使用这种方式的时候，timer函数的定义要在这些被装饰函数的前方</p>
+<p>如果函数还涉及到参数，那么，我们就需要重新编写定义装饰器，将它写成通用的方式，不管被装饰的函数传递的是几个函数（0个或多个），都能够正确的读取。</p>
+<p><strong>添加函数传递功能</strong></p>
+<h1 id="匿名函数"><a href="#匿名函数" class="headerlink" title="匿名函数"></a>匿名函数</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">res = lambda x:x*3</span><br><span class="line">print (res(3))</span><br><span class="line"></span><br><span class="line">执行后输出结果为：9</span><br></pre></td></tr></table></figure>
+<h1 id="生成器"><a href="#生成器" class="headerlink" title="生成器"></a>生成器</h1><p>通过列表生成式【列表解析】，我们可以直接创建一个列表。但是，受到内存限制，列表容量肯定是有限的。而且，创建一个包含100万个元素的列表，不仅占用很大的存储空间，如果我们仅仅需要访问前面几个元素，那后面绝大多数元素占用的空间都白白浪费了。</p>
+<p>所以，如果列表元素可以按照某种算法推算出来，那我们是否可以在循环的过程中不断推算出后续的元素呢？这样就不必创建完整的list，从而节省大量的空间。在Python中，这种<strong><code>一边循环一边计算</code></strong>的<strong>机制</strong>，称为生成器：generator。</p>
+<p>要创建一个generator，有很多种方法。第一种方法很简单，只要把一个列表生成式的<code>[]</code>改成<code>()</code>，就创建了一个generator：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">a = [i*2 for i in range(11)]</span><br><span class="line">b = (i*2 for i in range(11))</span><br><span class="line">print (a)</span><br><span class="line">print (b)</span><br><span class="line"></span><br><span class="line">执行后输出如下所示：</span><br><span class="line">[0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20]</span><br><span class="line">&lt;generator object &lt;genexpr&gt; at 0x058D5360&gt;</span><br></pre></td></tr></table></figure>
+<p>注意，在进行调用的时候，传统的方式能够直接通过列表下标的方式获取到相应的元素【因为元素已经生成并存在于内存当中】，但是生成器是只有你调用到我这一次的时候，我才会生成这一个，也就是必须循环到这个指定的下标的时候，我才会产生这个元素的值，因此，在前面的数据没有生成的情况下，直接调用中间的某个元素，因为不存在这个元素，因此就会产生报错,不支持这种数据获取方式</p>
+<p>调用生成器的时候，只能使用for循环的方式一个个取用，当不想要获取全部的数据，只需要获取部分数据的时候，使用生成器提供的next方法进行操作【next方法获取当前】。 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">c.__next()__()</span><br></pre></td></tr></table></figure>
+<p>注意：没有previous方法用户获取上一个值，因为，生成器只会当前的位置，不知道前边和后边</p>
+<p><strong>总结：</strong></p>
+<ul>
+<li>生成器只有在调用时，才会生成相应的数据</li>
+<li>只会记录当前位置</li>
+<li>只有一个<code>__next__()</code>方法（2.7中为next()）</li>
+</ul>
+<p>我们创建了一个generator后，基本上永远不会调用<code>next()</code>，而是通过<code>for</code>循环来迭代它，并且不需要关心<code>StopIteration</code>的错误。</p>
+<p>generator非常强大。如果推算的算法比较复杂，用类似列表生成式的<code>for</code>循环无法实现的时候，还可以用函数来实现。</p>
+<p>比如，著名的斐波拉契数列（Fibonacci），除第一个和第二个数外，任意一个数都可由前两个数相加得到：</p>
+<p>1, 1, 2, 3, 5, 8, 13, 21, 34, …</p>
+<p>斐波拉契数列用列表生成式写不出来，但是，用函数把它打印出来却很容易：</p>
+<p>yield的作用：保存函数的中断状态，yield返回当前状态的值，并且将函数保持停留在这里</p>
+<p>对生成器使用send()方法，可以将参数传递给这个生成器，yield就会接受到这个参数</p>
+<p>next()只是单纯的调用yield，它不会给yield传值；send()给yield传值，同时调用yield</p>
+<h1 id="迭代器"><a href="#迭代器" class="headerlink" title="迭代器"></a>迭代器</h1><p>我们已经知道，可以直接作用于<code>for</code>循环的数据类型有以下几种：</p>
+<p>一类是集合数据类型，如<code>list</code>、<code>tuple</code>、<code>dict</code>、<code>set</code>、<code>str</code>等；</p>
+<p>一类是<code>generator</code>，包括生成器和带<code>yield</code>的generator function。</p>
+<p>这些可以直接作用于<code>for</code>循环的对象统称为可迭代对象：<code>Iterable</code>。</p>
+<p><strong>重点：</strong></p>
+<ul>
+<li><p>可以直接作用于<code>for</code>循环的对象统称为可迭代对象：<code>Iterable</code></p>
+</li>
+<li><p>生成器不但可以作用于<code>for</code>循环，还可以被<code>next()</code>函数不断调用并返回下一个值，直到最后抛出<code>StopIteration</code>错误表示无法继续返回下一个值了。</p>
+</li>
+<li>可以被next()方法调用并不断返回下一个值的对象称为迭代器：<strong><code>Iterator</code></strong>。</li>
+</ul>
+<p>迭代器和next()方法相关联，有next()方法的才能称之为迭代器</p>
+<p>查看一个对象能够调用的所有方法：dir(a)</p>
+<p>可以使用<code>isinstance()</code>判断一个对象是否是<code>Iterator</code>对象【是否是<strong>迭代器</strong>对象】：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">print (isinstance([1,2,3],Iterator))</span><br><span class="line">print (isinstance([],Iterator))</span><br><span class="line">print (isinstance((x for x in range(10)),Iterator))</span><br><span class="line"></span><br><span class="line">False</span><br><span class="line">False</span><br><span class="line">True</span><br><span class="line"></span><br><span class="line">------</span><br><span class="line">a = [1,2,3]</span><br><span class="line">b = iter(a)</span><br><span class="line">print (isinstance(b,Iterator))</span><br><span class="line"></span><br><span class="line">True</span><br></pre></td></tr></table></figure>
+<p><strong>注意：</strong></p>
+<p>生成器都是<code>Iterator</code>对象，但<code>list</code>、<code>dict</code>、<code>str</code>虽然是<code>Iterable</code>，却不是<code>Iterator</code>。</p>
+<p>把<code>list</code>、<code>dict</code>、<code>str</code>等<code>Iterable</code>变成<code>Iterator</code>可以使用<code>iter()</code>函数：</p>
+<p>你可能会问，为什么<code>list</code>、<code>dict</code>、<code>str</code>等数据类型不是<code>Iterator</code>？</p>
+<p>这是因为Python的<code>Iterator</code>对象表示的是一个数据流，Iterator对象可以被<code>next()</code>函数调用并不断返回下一个数据，直到没有数据时抛出<code>StopIteration</code>错误。可以把这个数据流看做是一个有序序列，但我们却不能提前知道序列的长度，只能不断通过<code>next()</code>函数实现按需计算下一个数据，所以<code>Iterator</code>的计算是惰性的，只有在需要返回下一个数据时它才会计算。</p>
+<p><code>Iterator</code>甚至可以表示一个无限大的数据流，例如全体自然数。而使用list是永远不可能存储全体自然数的。</p>
+<h1 id="内置方法"><a href="#内置方法" class="headerlink" title="内置方法"></a>内置方法</h1><p>python中有以下内置函数</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Built-in Functions</th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://docs.python.org/3/library/functions.html?highlight=built#abs" target="_blank" rel="noopener"><code>abs()</code></a></td>
+<td><a href="https://docs.python.org/3/library/functions.html?highlight=built#delattr" target="_blank" rel="noopener"><code>delattr()</code></a></td>
+<td><a href="https://docs.python.org/3/library/functions.html?highlight=built#hash" target="_blank" rel="noopener"><code>hash()</code></a></td>
+<td><a href="https://docs.python.org/3/library/functions.html?highlight=built#func-memoryview" target="_blank" rel="noopener"><code>memoryview()</code></a></td>
+<td><a href="https://docs.python.org/3/library/functions.html?highlight=built#func-set" target="_blank" rel="noopener"><code>set()</code></a></td>
+</tr>
+<tr>
+<td><a href="https://docs.python.org/3/library/functions.html?highlight=built#all" target="_blank" rel="noopener"><code>all()</code></a></td>
+<td><a href="https://docs.python.org/3/library/functions.html?highlight=built#func-dict" target="_blank" rel="noopener"><code>dict()</code></a></td>
+<td><a href="https://docs.python.org/3/library/functions.html?highlight=built#help" target="_blank" rel="noopener"><code>help()</code></a></td>
+<td><a href="https://docs.python.org/3/library/functions.html?highlight=built#min" target="_blank" rel="noopener"><code>min()</code></a></td>
+<td><a href="https://docs.python.org/3/library/functions.html?highlight=built#setattr" target="_blank" rel="noopener"><code>setattr()</code></a></td>
+</tr>
+<tr>
+<td><a href="https://docs.python.org/3/library/functions.html?highlight=built#any" target="_blank" rel="noopener"><code>any()</code></a></td>
+<td><a href="https://docs.python.org/3/library/functions.html?highlight=built#dir" target="_blank" rel="noopener"><code>dir()</code></a></td>
+<td><a href="https://docs.python.org/3/library/functions.html?highlight=built#hex" target="_blank" rel="noopener"><code>hex()</code></a></td>
+<td><a href="https://docs.python.org/3/library/functions.html?highlight=built#next" target="_blank" rel="noopener"><code>next()</code></a></td>
+<td><a href="https://docs.python.org/3/library/functions.html?highlight=built#slice" target="_blank" rel="noopener"><code>slice()</code></a></td>
+</tr>
+<tr>
+<td><a href="https://docs.python.org/3/library/functions.html?highlight=built#ascii" target="_blank" rel="noopener"><code>ascii()</code></a></td>
+<td><a href="https://docs.python.org/3/library/functions.html?highlight=built#divmod" target="_blank" rel="noopener"><code>divmod()</code></a></td>
+<td><a href="https://docs.python.org/3/library/functions.html?highlight=built#id" target="_blank" rel="noopener"><code>id()</code></a></td>
+<td><a href="https://docs.python.org/3/library/functions.html?highlight=built#object" target="_blank" rel="noopener"><code>object()</code></a></td>
+<td><a href="https://docs.python.org/3/library/functions.html?highlight=built#sorted" target="_blank" rel="noopener"><code>sorted()</code></a></td>
+</tr>
+<tr>
+<td><a href="https://docs.python.org/3/library/functions.html?highlight=built#bin" target="_blank" rel="noopener"><code>bin()</code></a></td>
+<td><a href="https://docs.python.org/3/library/functions.html?highlight=built#enumerate" target="_blank" rel="noopener"><code>enumerate()</code></a></td>
+<td><a href="https://docs.python.org/3/library/functions.html?highlight=built#input" target="_blank" rel="noopener"><code>input()</code></a></td>
+<td><a href="https://docs.python.org/3/library/functions.html?highlight=built#oct" target="_blank" rel="noopener"><code>oct()</code></a></td>
+<td><a href="https://docs.python.org/3/library/functions.html?highlight=built#staticmethod" target="_blank" rel="noopener"><code>staticmethod()</code></a></td>
+</tr>
+<tr>
+<td><a href="https://docs.python.org/3/library/functions.html?highlight=built#bool" target="_blank" rel="noopener"><code>bool()</code></a></td>
+<td><a href="https://docs.python.org/3/library/functions.html?highlight=built#eval" target="_blank" rel="noopener"><code>eval()</code></a></td>
+<td><a href="https://docs.python.org/3/library/functions.html?highlight=built#int" target="_blank" rel="noopener"><code>int()</code></a></td>
+<td><a href="https://docs.python.org/3/library/functions.html?highlight=built#open" target="_blank" rel="noopener"><code>open()</code></a></td>
+<td><a href="https://docs.python.org/3/library/functions.html?highlight=built#func-str" target="_blank" rel="noopener"><code>str()</code></a></td>
+</tr>
+<tr>
+<td><a href="https://docs.python.org/3/library/functions.html?highlight=built#breakpoint" target="_blank" rel="noopener"><code>breakpoint()</code></a></td>
+<td><a href="https://docs.python.org/3/library/functions.html?highlight=built#exec" target="_blank" rel="noopener"><code>exec()</code></a></td>
+<td><a href="https://docs.python.org/3/library/functions.html?highlight=built#isinstance" target="_blank" rel="noopener"><code>isinstance()</code></a></td>
+<td><a href="https://docs.python.org/3/library/functions.html?highlight=built#ord" target="_blank" rel="noopener"><code>ord()</code></a></td>
+<td><a href="https://docs.python.org/3/library/functions.html?highlight=built#sum" target="_blank" rel="noopener"><code>sum()</code></a></td>
+</tr>
+<tr>
+<td><a href="https://docs.python.org/3/library/functions.html?highlight=built#func-bytearray" target="_blank" rel="noopener"><code>bytearray()</code></a></td>
+<td><a href="https://docs.python.org/3/library/functions.html?highlight=built#filter" target="_blank" rel="noopener"><code>filter()</code></a></td>
+<td><a href="https://docs.python.org/3/library/functions.html?highlight=built#issubclass" target="_blank" rel="noopener"><code>issubclass()</code></a></td>
+<td><a href="https://docs.python.org/3/library/functions.html?highlight=built#pow" target="_blank" rel="noopener"><code>pow()</code></a></td>
+<td><a href="https://docs.python.org/3/library/functions.html?highlight=built#super" target="_blank" rel="noopener"><code>super()</code></a></td>
+</tr>
+<tr>
+<td><a href="https://docs.python.org/3/library/functions.html?highlight=built#func-bytes" target="_blank" rel="noopener"><code>bytes()</code></a></td>
+<td><a href="https://docs.python.org/3/library/functions.html?highlight=built#float" target="_blank" rel="noopener"><code>float()</code></a></td>
+<td><a href="https://docs.python.org/3/library/functions.html?highlight=built#iter" target="_blank" rel="noopener"><code>iter()</code></a></td>
+<td><a href="https://docs.python.org/3/library/functions.html?highlight=built#print" target="_blank" rel="noopener"><code>print()</code></a></td>
+<td><a href="https://docs.python.org/3/library/functions.html?highlight=built#func-tuple" target="_blank" rel="noopener"><code>tuple()</code></a></td>
+</tr>
+<tr>
+<td><a href="https://docs.python.org/3/library/functions.html?highlight=built#callable" target="_blank" rel="noopener"><code>callable()</code></a></td>
+<td><a href="https://docs.python.org/3/library/functions.html?highlight=built#format" target="_blank" rel="noopener"><code>format()</code></a></td>
+<td><a href="https://docs.python.org/3/library/functions.html?highlight=built#len" target="_blank" rel="noopener"><code>len()</code></a></td>
+<td><a href="https://docs.python.org/3/library/functions.html?highlight=built#property" target="_blank" rel="noopener"><code>property()</code></a></td>
+<td><a href="https://docs.python.org/3/library/functions.html?highlight=built#type" target="_blank" rel="noopener"><code>type()</code></a></td>
+</tr>
+<tr>
+<td><a href="https://docs.python.org/3/library/functions.html?highlight=built#chr" target="_blank" rel="noopener"><code>chr()</code></a></td>
+<td><a href="https://docs.python.org/3/library/functions.html?highlight=built#func-frozenset" target="_blank" rel="noopener"><code>frozenset()</code></a></td>
+<td><a href="https://docs.python.org/3/library/functions.html?highlight=built#func-list" target="_blank" rel="noopener"><code>list()</code></a></td>
+<td><a href="https://docs.python.org/3/library/functions.html?highlight=built#func-range" target="_blank" rel="noopener"><code>range()</code></a></td>
+<td><a href="https://docs.python.org/3/library/functions.html?highlight=built#vars" target="_blank" rel="noopener"><code>vars()</code></a></td>
+</tr>
+<tr>
+<td><a href="https://docs.python.org/3/library/functions.html?highlight=built#classmethod" target="_blank" rel="noopener"><code>classmethod()</code></a></td>
+<td><a href="https://docs.python.org/3/library/functions.html?highlight=built#getattr" target="_blank" rel="noopener"><code>getattr()</code></a></td>
+<td><a href="https://docs.python.org/3/library/functions.html?highlight=built#locals" target="_blank" rel="noopener"><code>locals()</code></a></td>
+<td><a href="https://docs.python.org/3/library/functions.html?highlight=built#repr" target="_blank" rel="noopener"><code>repr()</code></a></td>
+<td><a href="https://docs.python.org/3/library/functions.html?highlight=built#zip" target="_blank" rel="noopener"><code>zip()</code></a></td>
+</tr>
+<tr>
+<td><a href="https://docs.python.org/3/library/functions.html?highlight=built#compile" target="_blank" rel="noopener"><code>compile()</code></a></td>
+<td><a href="https://docs.python.org/3/library/functions.html?highlight=built#globals" target="_blank" rel="noopener"><code>globals()</code></a></td>
+<td><a href="https://docs.python.org/3/library/functions.html?highlight=built#map" target="_blank" rel="noopener"><code>map()</code></a></td>
+<td><a href="https://docs.python.org/3/library/functions.html?highlight=built#reversed" target="_blank" rel="noopener"><code>reversed()</code></a></td>
+<td><a href="https://docs.python.org/3/library/functions.html?highlight=built#__import__" target="_blank" rel="noopener"><code>__import__()</code></a></td>
+</tr>
+<tr>
+<td><a href="https://docs.python.org/3/library/functions.html?highlight=built#complex" target="_blank" rel="noopener"><code>complex()</code></a></td>
+<td><a href="https://docs.python.org/3/library/functions.html?highlight=built#hasattr" target="_blank" rel="noopener"><code>hasattr()</code></a></td>
+<td><a href="https://docs.python.org/3/library/functions.html?highlight=built#max" target="_blank" rel="noopener"><code>max()</code></a></td>
+<td><a href="https://docs.python.org/3/library/functions.html?highlight=built#round" target="_blank" rel="noopener"><code>round()</code></a></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><p>all()：判断输出的值是否都为true</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">print (all([9,3]))</span><br><span class="line">print (all([0,9,3]))</span><br><span class="line"></span><br><span class="line">True</span><br><span class="line">False</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>any()：一个数据为真，就返回真，如果可迭代对象为空，返回也为False</p>
+</li>
+</ul>
+<ul>
+<li>eval()：将字符串变成字典</li>
+</ul>
+<h1 id="json序列化"><a href="#json序列化" class="headerlink" title="json序列化"></a>json序列化</h1><p>序列化：把内存中的数据对象变成字符串</p>
+<p>反序列化： 把磁盘中的数据加载到内存当中</p>
+<p>注意：json只能处理简单的数据类型，列表、字典、字符串等，因为json是所有语言都通用的，json主要的作用是用于不同语言之间进行数据交互，因为一些复杂的东西，例如python和java里面，类的定义和使用方式、一些特性等等，各语言之间很多东西都有很大的差异性，如果需要转换类、函数等对象就会变得相当复杂。所以，json默认只是支持这些比较简单的。</p>
+<ul>
+<li><p>xml知识补充：xml正在逐渐的被json所取代</p>
+<blockquote>
+<p>xml是一种标记语言，</p>
+</blockquote>
+</li>
+</ul>
+<h1 id="pickle"><a href="#pickle" class="headerlink" title="pickle"></a>pickle</h1><p>pickle的用法和json完全一样，但是它在序列化的时候，会把内存转换成为二进制的形式，所以在操作文件的时候，需要在序列化和反序列化的时候使用的方法为：wb和rb</p>
+<p>pickle有自己的一套语法映射关系，将数据转换为二进制数据，因此系统的字符集识别之后将会显示为乱码</p>
+<h1 id="dumps-和dump-以及loads-和load-区别"><a href="#dumps-和dump-以及loads-和load-区别" class="headerlink" title="dumps()和dump()以及loads()和load()区别"></a>dumps()和dump()以及loads()和load()区别</h1><p>注意，在序列化的时候，使用dumps和loads操作文件的时候，需要使用文件本身的f.write()或者f.read()方法；但是如果使用dump()和load()的时候，该方法中就可以嵌入了对文件的操作，也就是说不需要再额外的使用以上两个文件方法。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">f.write(pickle.dumps(info))</span><br><span class="line">等价于</span><br><span class="line">pickle.dump(info,f)</span><br><span class="line"></span><br><span class="line">---</span><br><span class="line"></span><br><span class="line">data = pickle.loads(f.read())</span><br><span class="line">等价于</span><br><span class="line">data = pickle.load(f)</span><br></pre></td></tr></table></figure>
+<p>注意，我们可以dump很多次，但是dump很多次之后的这个文件，直接使用load是打不开的。</p>
+<p>也就是说，在python3中，最多只能dump一次。</p>
+<p><strong>在编写程序时的一个准则：</strong></p>
+<ul>
+<li>只dump一次，只load一次</li>
+<li>如果还是想使用原来的文件，那么就把原来的内容覆盖掉 </li>
+<li>例如虚拟机的快照，虚拟机的快照是每一个快照都会对应一个文件，而不是把所有的快照内容都存在一起</li>
+<li>如果想保存好几个状态，那么就dump好几个文件。</li>
+</ul>
+<h1 id="软件目录结构规范"><a href="#软件目录结构规范" class="headerlink" title="软件目录结构规范"></a>软件目录结构规范</h1><h4 id="为什么要设计好目录结构"><a href="#为什么要设计好目录结构" class="headerlink" title="为什么要设计好目录结构?"></a>为什么要设计好目录结构?</h4><p>“设计项目目录结构”，就和”代码编码风格”一样，属于个人风格问题。对于这种风格上的规范，一直都存在两种态度:</p>
+<ol>
+<li>一类同学认为，这种个人风格问题”无关紧要”。理由是能让程序work就好，风格问题根本不是问题。</li>
+<li>另一类同学认为，规范化能更好的控制程序结构，让程序具有更高的可读性。</li>
+</ol>
+<p>我是比较偏向于后者的，因为我是前一类同学思想行为下的直接受害者。我曾经维护过一个非常不好读的项目，其实现的逻辑并不复杂，但是却耗费了我非常长的时间去理解它想表达的意思。从此我个人对于提高项目可读性、可维护性的要求就很高了。”项目目录结构”其实也是属于”可读性和可维护性”的范畴，我们设计一个层次清晰的目录结构，就是为了达到以下两点:</p>
+<ol>
+<li>可读性高: 不熟悉这个项目的代码的人，一眼就能看懂目录结构，知道程序启动脚本是哪个，测试目录在哪儿，配置文件在哪儿等等。从而非常快速的了解这个项目。</li>
+<li>可维护性高: 定义好组织规则后，维护者就能很明确地知道，新增的哪个文件和代码应该放在什么目录之下。这个好处是，随着时间的推移，代码/配置的规模增加，项目结构不会混乱，仍然能够组织良好。</li>
+</ol>
+<p>所以，我认为，保持一个层次清晰的目录结构是有必要的。更何况组织一个良好的工程目录，其实是一件很简单的事儿。</p>
+<h4 id="目录组织方式"><a href="#目录组织方式" class="headerlink" title="目录组织方式"></a>目录组织方式</h4><p>关于如何组织一个较好的Python工程目录结构，已经有一些得到了共识的目录结构。在Stackoverflow的<a href="http://stackoverflow.com/questions/193161/what-is-the-best-project-structure-for-a-python-application" target="_blank" rel="noopener">这个问题</a>上，能看到大家对Python目录结构的讨论。</p>
+<p>这里面说的已经很好了，我也不打算重新造轮子列举各种不同的方式，这里面我说一下我的理解和体会。</p>
+<p>假设你的项目名为foo, 我比较建议的最方便快捷目录结构这样就足够了:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">Foo/</span><br><span class="line">|-- bin/</span><br><span class="line">|   |-- foo</span><br><span class="line">|</span><br><span class="line">|-- foo/</span><br><span class="line">|   |-- tests/</span><br><span class="line">|   |   |-- __init__.py</span><br><span class="line">|   |   |-- test_main.py</span><br><span class="line">|   |</span><br><span class="line">|   |-- __init__.py</span><br><span class="line">|   |-- main.py</span><br><span class="line">|</span><br><span class="line">|-- docs/</span><br><span class="line">|   |-- conf.py</span><br><span class="line">|   |-- abc.rst</span><br><span class="line">|</span><br><span class="line">|-- setup.py</span><br><span class="line">|-- requirements.txt</span><br><span class="line">|-- README</span><br></pre></td></tr></table></figure>
+<p>简要解释一下:</p>
+<ol>
+<li><code>bin/</code>: 存放项目的一些可执行文件，当然你可以起名<code>script/</code>之类的也行。</li>
+<li><code>foo/</code>: 存放项目的所有源代码。(1) 源代码中的所有模块、包都应该放在此目录。不要置于顶层目录。(2) 其子目录<code>tests/</code>存放单元测试代码； (3) 程序的入口最好命名为<code>main.py</code>。</li>
+<li><code>docs/</code>: 存放一些文档。</li>
+<li><code>setup.py</code>: 安装、部署、打包的脚本。</li>
+<li><code>requirements.txt</code>: 存放软件依赖的外部Python包列表。</li>
+<li><code>README</code>: 项目说明文件。</li>
+</ol>
+<p>除此之外，有一些方案给出了更加多的内容。比如<code>LICENSE.txt</code>,<code>ChangeLog.txt</code>文件等，我没有列在这里，因为这些东西主要是项目开源的时候需要用到。如果你想写一个开源软件，目录该如何组织，可以参考<a href="http://www.jeffknupp.com/blog/2013/08/16/open-sourcing-a-python-project-the-right-way/" target="_blank" rel="noopener">这篇文章</a>。</p>
+<p>下面，再简单讲一下我对这些目录的理解和个人要求吧。</p>
+<p><strong>注意：</strong>有<code>__init__.py</code>这个空文件的目录就叫做包，没有的就叫做目录</p>
+<h4 id="关于README的内容"><a href="#关于README的内容" class="headerlink" title="关于README的内容"></a>关于README的内容</h4><p><strong>这个我觉得是每个项目都应该有的一个文件</strong>，目的是能简要描述该项目的信息，让读者快速了解这个项目。</p>
+<p>它需要说明以下几个事项:</p>
+<ol>
+<li>软件定位，软件的基本功能。</li>
+<li>运行代码的方法: 安装环境、启动命令等。</li>
+<li>简要的使用说明。</li>
+<li>代码目录结构说明，更详细点可以说明软件的基本原理。</li>
+<li>常见问题说明。</li>
+</ol>
+<p>我觉得有以上几点是比较好的一个<code>README</code>。在软件开发初期，由于开发过程中以上内容可能不明确或者发生变化，并不是一定要在一开始就将所有信息都补全。但是在项目完结的时候，是需要撰写这样的一个文档的。</p>
+<p>可以参考Redis源码中<a href="https://github.com/antirez/redis#what-is-redis" target="_blank" rel="noopener">Readme</a>的写法，这里面简洁但是清晰的描述了Redis功能和源码结构。</p>
+<h4 id="关于requirements-txt和setup-py"><a href="#关于requirements-txt和setup-py" class="headerlink" title="关于requirements.txt和setup.py"></a>关于requirements.txt和setup.py</h4><h4 id="setup-py"><a href="#setup-py" class="headerlink" title="setup.py"></a>setup.py</h4><p>一般来说，用<code>setup.py</code>来管理代码的打包、安装、部署问题。业界标准的写法是用Python流行的打包工具<a href="https://pythonhosted.org/setuptools/setuptools.html#developer-s-guide" target="_blank" rel="noopener">setuptools</a>来管理这些事情。这种方式普遍应用于开源项目中。不过这里的核心思想不是用标准化的工具来解决这些问题，而是说，<strong>一个项目一定要有一个安装部署工具</strong>，能快速便捷的在一台新机器上将环境装好、代码部署好和将程序运行起来。</p>
+<p>这个我是踩过坑的。</p>
+<p>我刚开始接触Python写项目的时候，安装环境、部署代码、运行程序这个过程全是手动完成，遇到过以下问题:</p>
+<ol>
+<li>安装环境时经常忘了最近又添加了一个新的Python包，结果一到线上运行，程序就出错了。</li>
+<li>Python包的版本依赖问题，有时候我们程序中使用的是一个版本的Python包，但是官方的已经是最新的包了，通过手动安装就可能装错了。</li>
+<li>如果依赖的包很多的话，一个一个安装这些依赖是很费时的事情。</li>
+<li>新同学开始写项目的时候，将程序跑起来非常麻烦，因为可能经常忘了要怎么安装各种依赖。</li>
+</ol>
+<p><code>setup.py</code>可以将这些事情自动化起来，提高效率、减少出错的概率。”复杂的东西自动化，能自动化的东西一定要自动化。”是一个非常好的习惯。</p>
+<p>setuptools的<a href="https://pythonhosted.org/setuptools/setuptools.html#developer-s-guide" target="_blank" rel="noopener">文档</a>比较庞大，刚接触的话，可能不太好找到切入点。学习技术的方式就是看他人是怎么用的，可以参考一下Python的一个Web框架，flask是如何写的: <a href="https://github.com/mitsuhiko/flask/blob/master/setup.py" target="_blank" rel="noopener">setup.py</a></p>
+<p>当然，简单点自己写个安装脚本（<code>deploy.sh</code>）替代<code>setup.py</code>也未尝不可。</p>
+<h4 id="requirements-txt"><a href="#requirements-txt" class="headerlink" title="requirements.txt"></a>requirements.txt</h4><p>这个文件存在的目的是:</p>
+<ol>
+<li>方便开发者维护软件的包依赖。将开发过程中新增的包添加进这个列表中，避免在<code>setup.py</code>安装依赖时漏掉软件包。</li>
+<li>方便读者明确项目使用了哪些Python包。</li>
+</ol>
+<p>这个文件的格式是每一行包含一个包依赖的说明，通常是<code>flask&gt;=0.10</code>这种格式，要求是这个格式能被<code>pip</code>识别，这样就可以简单的通过 <code>pip install -r requirements.txt</code>来把所有Python包依赖都装好了。具体格式说明： <a href="https://pip.readthedocs.org/en/1.1/requirements.html" target="_blank" rel="noopener">点这里</a>。</p>
+<h4 id="关于配置文件的使用方法"><a href="#关于配置文件的使用方法" class="headerlink" title="关于配置文件的使用方法"></a>关于配置文件的使用方法</h4><h4 id="注意，在上面的目录结构中，没有将conf-py放在源码目录下，而是放在docs-目录下。"><a href="#注意，在上面的目录结构中，没有将conf-py放在源码目录下，而是放在docs-目录下。" class="headerlink" title="注意，在上面的目录结构中，没有将conf.py放在源码目录下，而是放在docs/目录下。"></a>注意，在上面的目录结构中，没有将<code>conf.py</code>放在源码目录下，而是放在<code>docs/</code>目录下。</h4><p>很多项目对配置文件的使用做法是:</p>
+<ol>
+<li>配置文件写在一个或多个python文件中，比如此处的conf.py。</li>
+<li>项目中哪个模块用到这个配置文件就直接通过<code>import conf</code>这种形式来在代码中使用配置。</li>
+</ol>
+<p>这种做法我不太赞同:</p>
+<ol>
+<li>这让单元测试变得困难（因为模块内部依赖了外部配置）</li>
+<li>另一方面配置文件作为用户控制程序的接口，应当可以由用户自由指定该文件的路径。</li>
+<li>程序组件可复用性太差，因为这种贯穿所有模块的代码硬编码方式，使得大部分模块都依赖<code>conf.py</code>这个文件。</li>
+</ol>
+<p>所以，我认为配置的使用，更好的方式是，</p>
+<ol>
+<li>模块的配置都是可以灵活配置的，不受外部配置文件的影响。</li>
+<li>程序的配置也是可以灵活控制的。</li>
+</ol>
+<p>能够佐证这个思想的是，用过nginx和mysql的同学都知道，nginx、mysql这些程序都可以自由的指定用户配置。</p>
+<p>所以，不应当在代码中直接<code>import conf</code>来使用配置文件。上面目录结构中的<code>conf.py</code>，是给出的一个配置样例，不是在写死在程序中直接引用的配置文件。可以通过给<code>main.py</code>启动参数指定配置路径的方式来让程序读取配置内容。当然，这里的<code>conf.py</code>你可以换个类似的名字，比如<code>settings.py</code>。或者你也可以使用其他格式的内容来编写配置文件，比如<code>settings.yaml</code>之类的。</p>
+<h1 id="作业"><a href="#作业" class="headerlink" title="作业"></a>作业</h1>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/wechatpay.jpg" alt="XiaoHua WANG 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/alipay.jpg" alt="XiaoHua WANG 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/老男孩视频/" rel="tag"># 老男孩视频</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/07/13/IT科学技术知识体系结构-Linux运维方向/Linux基础知识/Linux常用命令/内核模块操作命令-lsmod+rmmod+modinfo+modprobe/" rel="next" title="内核模块操作命令-lsmod+rmmod+modinfo+modprobe">
+                <i class="fa fa-chevron-left"></i> 内核模块操作命令-lsmod+rmmod+modinfo+modprobe
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/07/27/IT科学技术知识体系结构-Linux运维方向/内容管理系统/Alfresco/Alfresco/" rel="prev" title="Alfresco">
+                Alfresco <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zMzg1NC8xMDQwNw=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/touxiang.jpg"
+                alt="XiaoHua WANG" />
+            
+              <p class="site-author-name" itemprop="name">XiaoHua WANG</p>
+              <p class="site-description motion-element" itemprop="description">Focus on Linux operations and development.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">107</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">122</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">86</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#装饰器"><span class="nav-number">1.</span> <span class="nav-text">装饰器</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#案例演示"><span class="nav-number">1.1.</span> <span class="nav-text">案例演示</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#原型"><span class="nav-number">1.1.1.</span> <span class="nav-text">原型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#改良"><span class="nav-number">1.1.2.</span> <span class="nav-text">改良</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#匿名函数"><span class="nav-number">2.</span> <span class="nav-text">匿名函数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#生成器"><span class="nav-number">3.</span> <span class="nav-text">生成器</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#迭代器"><span class="nav-number">4.</span> <span class="nav-text">迭代器</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#内置方法"><span class="nav-number">5.</span> <span class="nav-text">内置方法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#json序列化"><span class="nav-number">6.</span> <span class="nav-text">json序列化</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#pickle"><span class="nav-number">7.</span> <span class="nav-text">pickle</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#dumps-和dump-以及loads-和load-区别"><span class="nav-number">8.</span> <span class="nav-text">dumps()和dump()以及loads()和load()区别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#软件目录结构规范"><span class="nav-number">9.</span> <span class="nav-text">软件目录结构规范</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#为什么要设计好目录结构"><span class="nav-number">9.0.0.1.</span> <span class="nav-text">为什么要设计好目录结构?</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#目录组织方式"><span class="nav-number">9.0.0.2.</span> <span class="nav-text">目录组织方式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#关于README的内容"><span class="nav-number">9.0.0.3.</span> <span class="nav-text">关于README的内容</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#关于requirements-txt和setup-py"><span class="nav-number">9.0.0.4.</span> <span class="nav-text">关于requirements.txt和setup.py</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#setup-py"><span class="nav-number">9.0.0.5.</span> <span class="nav-text">setup.py</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#requirements-txt"><span class="nav-number">9.0.0.6.</span> <span class="nav-text">requirements.txt</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#关于配置文件的使用方法"><span class="nav-number">9.0.0.7.</span> <span class="nav-text">关于配置文件的使用方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#注意，在上面的目录结构中，没有将conf-py放在源码目录下，而是放在docs-目录下。"><span class="nav-number">9.0.0.8.</span> <span class="nav-text">注意，在上面的目录结构中，没有将conf.py放在源码目录下，而是放在docs/目录下。</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#作业"><span class="nav-number">10.</span> <span class="nav-text">作业</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">XiaoHua WANG</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("mlSs9Cm0Xv2D9B7cFqbp25Df-gzGzoHsz", "alKheIFly9OVC81YCV7otTrf");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
