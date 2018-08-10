@@ -71,32 +71,6 @@
   </entry>
   
   <entry>
-    <title>Alfresco</title>
-    <link href="http://yoursite.com/2018/07/27/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E5%86%85%E5%AE%B9%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/Alfresco/Alfresco/"/>
-    <id>http://yoursite.com/2018/07/27/IT科学技术知识体系结构-Linux运维方向/内容管理系统/Alfresco/Alfresco/</id>
-    <published>2018-07-27T09:42:20.000Z</published>
-    <updated>2018-07-27T09:42:20.000Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h1><h1 id="安装部署"><a href="#安装部署" class="headerlink" title="安装部署"></a>安装部署</h1><p>Alfresco下载地址:</p><p>　　<a href="https://sourceforge.net/projects/alfresco/files/?source=navbar" target="_blank" rel="noopener">https://sourceforge.net/projects/alfresco/files/?source=navbar</a>   (包含所有版本和文件)</p><p>下载文件:alfresco-community-installer-201701-linux-x64.bin</p><p>安装需要的依赖包:</p><p>[root@alfresco ~]# yum -y install fontconfig libSM libICE libXrender libXext  libGLU  cpus-libs cairo cairo-devel</p><p>[root@alfresco ~]# chmod +x alfresco-community-installer-201701-linux-x64.bin<br>[root@alfresco ~]# umask 0022</p><p>[root@alfresco ~]# ./alfresco-community-installer-201701-linux-x64.bin </p><h1 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h1>]]></content>
-    
-    <summary type="html">
-    
-      Alfresco从入门到实践
-    
-    </summary>
-    
-      <category term="IT科学技术知识体系结构-Linux运维方向" scheme="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/"/>
-    
-      <category term="内容管理系统" scheme="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E5%86%85%E5%AE%B9%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/"/>
-    
-      <category term="Alfresco" scheme="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E5%86%85%E5%AE%B9%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/Alfresco/"/>
-    
-    
-      <category term="Alfresco" scheme="http://yoursite.com/tags/Alfresco/"/>
-    
-  </entry>
-  
-  <entry>
     <title>day04-函数装饰器迭代器生成器</title>
     <link href="http://yoursite.com/2018/07/13/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Python/%E8%80%81%E7%94%B7%E5%AD%A9%E8%A7%86%E9%A2%91%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/day04/day04-%E5%87%BD%E6%95%B0%E8%A3%85%E9%A5%B0%E5%99%A8%E8%BF%AD%E4%BB%A3%E5%99%A8%E7%94%9F%E6%88%90%E5%99%A8/"/>
     <id>http://yoursite.com/2018/07/13/编程语言/Python/老男孩视频学习笔记/day04/day04-函数装饰器迭代器生成器/</id>
@@ -475,6 +449,22 @@
     
     
       <category term="Chrome" scheme="http://yoursite.com/tags/Chrome/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>LVS的8种调度算法</title>
+    <link href="http://yoursite.com/2018/06/25/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E9%AB%98%E5%B9%B6%E5%8F%91/%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/LVS/LVS%E7%9A%848%E7%A7%8D%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95/"/>
+    <id>http://yoursite.com/2018/06/25/IT科学技术知识体系结构-Linux运维方向/高并发/负载均衡/LVS/LVS的8种调度算法/</id>
+    <published>2018-06-25T07:37:09.000Z</published>
+    <updated>2018-06-25T07:37:09.000Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+      <category term="tag1" scheme="http://yoursite.com/tags/tag1/"/>
     
   </entry>
   
