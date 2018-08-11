@@ -1,0 +1,1571 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="cachecloud," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Watchmen1992's Blog" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="本文主要讲述由搜狐视频开源在github上的Redis云平台产品-Cachecloud的安装部署、使用、优化等相关知识。">
+<meta name="keywords" content="cachecloud">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Cachecloud-Redis云平台">
+<meta property="og:url" content="http://yoursite.com/2018/04/28/IT科学技术知识体系结构-Linux运维方向/数据库/Redis/Cachecloud/index.html">
+<meta property="og:site_name" content="Watchmen1992&#39;s Blog">
+<meta property="og:description" content="本文主要讲述由搜狐视频开源在github上的Redis云平台产品-Cachecloud的安装部署、使用、优化等相关知识。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://picture.watchmen.xin/cachecloud/client.png">
+<meta property="og:image" content="http://picture.watchmen.xin/cachecloud/machine.png">
+<meta property="og:image" content="http://picture.watchmen.xin/cachecloud/web.png">
+<meta property="og:updated_time" content="2018-04-28T02:45:56.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Cachecloud-Redis云平台">
+<meta name="twitter:description" content="本文主要讲述由搜狐视频开源在github上的Redis云平台产品-Cachecloud的安装部署、使用、优化等相关知识。">
+<meta name="twitter:image" content="http://picture.watchmen.xin/cachecloud/client.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/04/28/IT科学技术知识体系结构-Linux运维方向/数据库/Redis/Cachecloud/"/>
+
+
+
+
+
+  <title>Cachecloud-Redis云平台 | Watchmen1992's Blog</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?07235ad5687ee838f373b31c7c687d23";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Watchmen1992's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">锦瑟年华当与书香为度，是为不负天地人生。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/28/IT科学技术知识体系结构-Linux运维方向/数据库/Redis/Cachecloud/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="XiaoHua WANG">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/touxiang.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Watchmen1992's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Cachecloud-Redis云平台</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-28T10:45:56+08:00">
+                2018-04-28
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2018-04-28T10:45:56+08:00">
+                2018-04-28
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/IT科学技术知识体系结构-Linux运维方向/" itemprop="url" rel="index">
+                    <span itemprop="name">IT科学技术知识体系结构-Linux运维方向</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/IT科学技术知识体系结构-Linux运维方向/数据库/" itemprop="url" rel="index">
+                    <span itemprop="name">数据库</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/IT科学技术知识体系结构-Linux运维方向/数据库/Redis/" itemprop="url" rel="index">
+                    <span itemprop="name">Redis</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/04/28/IT科学技术知识体系结构-Linux运维方向/数据库/Redis/Cachecloud/" class="leancloud_visitors" data-flag-title="Cachecloud-Redis云平台">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+              <div class="post-description">
+                  本文主要讲述由搜狐视频开源在github上的Redis云平台产品-Cachecloud的安装部署、使用、优化等相关知识。
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Cachecloud介绍"><a href="#Cachecloud介绍" class="headerlink" title="Cachecloud介绍"></a>Cachecloud介绍</h1><p>有关cachecloud的一些基础知识，官方都有非常详细的文档，这里不再花费篇幅进行复述，下面是相关的资料链接，请自行查看。</p>
+<ul>
+<li>github官网：    <a href="https://github.com/sohutv/cachecloud" target="_blank" rel="noopener">https://github.com/sohutv/cachecloud</a></li>
+<li>Wiki:            <a href="https://github.com/sohutv/cachecloud/wiki" target="_blank" rel="noopener">https://github.com/sohutv/cachecloud/wiki</a></li>
+<li>博客：        <a href="https://cachecloud.github.io/" target="_blank" rel="noopener">https://cachecloud.github.io/</a></li>
+<li>官方视频：  <a href="http://my.tv.sohu.com/pl/9100280/index.shtml" target="_blank" rel="noopener">http://my.tv.sohu.com/pl/9100280/index.shtml</a></li>
+</ul>
+<p><strong>简介：</strong></p>
+<blockquote>
+<p>CacheCloud提供一个Redis云管理平台：实现多种类型(Redis Standalone、Redis Sentinel、Redis Cluster)自动部署、解决Redis实例碎片化现象、提供完善统计、监控、运维功能、减少开发人员的运维成本和误操作，提高机器的利用率，提供灵活的伸缩性，提供方便的接入客户端。</p>
+</blockquote>
+<p><strong>提供的功能：</strong></p>
+<ul>
+<li>监控统计：    提供了机器、应用、实例下各个维度数据的监控和统计界面。</li>
+<li>一键开启：    Redis Standalone、Redis Sentinel、Redis Cluster三种类型的应用，无需手动配置初始化。</li>
+<li>Failover：    支持哨兵,集群的高可用模式。</li>
+<li>伸缩：    提供完善的垂直和水平在线伸缩功能。</li>
+<li>完善运维： 提供自动运维和简化运维操作功能，避免纯手工运维出错。</li>
+<li>方便的客户端 方便快捷的客户端接入。</li>
+<li>元数据管理： 提供机器、应用、实例、用户信息管理。</li>
+<li>流程化： 提供申请，运维，伸缩，修改等完善的处理流程</li>
+<li>一键导入： 一键导入已经存在Redis </li>
+</ul>
+<p><strong>须知：</strong></p>
+<ul>
+<li>Redis集群、redis哨兵集群、Redis单实例等在CacheCloud中都是以应用的形式存在，一个应用对应一个appid</li>
+<li>一个redis集群是一个应用，分配一个appid（不管其中有几个节点）</li>
+<li>一个哨兵集群是一个应用，分配一个appid（不管其中有几个主从节点和哨兵节点）</li>
+<li>一个单实例是一个应用，分配一个appid</li>
+</ul>
+<p><strong>如何使用：</strong></p>
+<p>我们在平台上的执行任何操作都需要<code>**账号**</code>，创建的单节点、哨兵、集群等都是以<strong><code>用户申请的应用</code></strong>形式存在的。普通用户的主要工单有</p>
+<ul>
+<li>注册用户申请</li>
+<li>应用申请</li>
+<li>应用扩容</li>
+<li>应用配置修改</li>
+</ul>
+<p>管理员的界面可操作的选项较多，此处不做详细说明。</p>
+<p><strong>客户端如何连接：</strong></p>
+<p>客户端在第一次启动的时候去CacheCloud通过appId拿到Redis的节点信息，之后不会与CacheCloud打交道了。</p>
+<p>流程图如下所示：</p>
+<p><img src="http://picture.watchmen.xin/cachecloud/client.png" alt="客户端连接"></p>
+<h1 id="安装部署"><a href="#安装部署" class="headerlink" title="安装部署"></a>安装部署</h1><p>这里只说单机环境，高可用环境将在下面章节说明：<a href="">CacheCloud高可用架构</a></p>
+<p><strong>环境要求：</strong></p>
+<ul>
+<li>JDK 7+</li>
+<li>Maven 3+</li>
+<li>MySQL 5.5+</li>
+<li>Redis 3+</li>
+</ul>
+<h2 id="基础环境"><a href="#基础环境" class="headerlink" title="基础环境"></a>基础环境</h2><h3 id="JDK-Maven"><a href="#JDK-Maven" class="headerlink" title="JDK+Maven"></a>JDK+Maven</h3><p><strong>JDK：</strong></p>
+<p>步骤：</p>
+<ul>
+<li>下载</li>
+<li>解压</li>
+<li>软链接</li>
+<li>配置系统环境变量</li>
+</ul>
+<p>操作如下：</p>
+<pre><code>[root@qa1-common004 local]# java -version 
+java version &quot;1.8.0_77&quot;
+Java(TM) SE Runtime Environment (build 1.8.0_77-b03)
+Java HotSpot(TM) 64-Bit Server VM (build 25.77-b03, mixed mode)
+
+[root@qa1-common004 local]# which java
+/usr/local/jdk/bin/java
+
+[root@qa1-common004 local]# ll /usr/local/jdk
+lrwxrwxrwx 1 root root 11 Apr 17 17:01 /usr/local/jdk -&gt; jdk1.8.0_77
+</code></pre><p>这里我使用的是1.8版本。</p>
+<p>详细操作请看文章：<a href="">Linux下JDK的安装配置</a></p>
+<p><strong>Maven</strong></p>
+<p>步骤：</p>
+<ul>
+<li>下载  <a href="http://maven.apache.org/download.cgi" target="_blank" rel="noopener">下载链接</a></li>
+<li>解压</li>
+<li>软链接</li>
+<li>配置系统环境变量</li>
+</ul>
+<p>操作如下：</p>
+<pre><code># wget http://www-eu.apache.org/dist/maven/maven-3/3.5.3/binaries/apache-maven-3.5.3-bin.tar.gz
+# tar -zxvf apache-maven-3.5.3-bin.tar.gz -C /usr/local/
+# cd /usr/local/
+# ln -s /usr/local/apache-maven-3.5.3/ /usr/local/maven
+
+# vim /etc/profile  在文件末尾添加以下内容，保存退出
+
+M3_HOME=/usr/local/maven
+export PATH=$M3_HOME/bin:$PATH
+
+[root@host-192-168-8-37 ~]# source /etc/profile
+</code></pre><h3 id="下载CacheCloud项目"><a href="#下载CacheCloud项目" class="headerlink" title="下载CacheCloud项目"></a>下载CacheCloud项目</h3><pre><code># yum -y install git
+# git clone https://github.com/sohutv/cachecloud.git
+
+# ls cachecloud/
+cachecloud-open-client  cachecloud-open-common  cachecloud-open-web  LICENSE  pom.xml  README.md  script
+</code></pre><h3 id="MySQL"><a href="#MySQL" class="headerlink" title="MySQL"></a>MySQL</h3><p>这里安装mysql5.7版本</p>
+<p><strong>配置yum源并安装</strong></p>
+<p>centos6.8 【6.8安装5.6版本，安装5.7时涉及依赖关系过多】</p>
+<pre><code># wget http://repo.mysql.com/mysql-community-release-el6-5.noarch.rpm
+# rpm -ivh mysql-community-release-el6-5.noarch.rpm
+
+# yum -y install  mysql-community-server
+</code></pre><p>centos 7.x 【5.7版本】</p>
+<pre><code># wget https://dev.mysql.com/get/mysql57-community-release-el7-11.noarch.rpm
+# rpm -ivh mysql57-community-release-el7-11.noarch.rpm
+# yum -y install mysql-server
+</code></pre><p><strong>修改mysql配置文件</strong></p>
+<pre><code># vim /etc/my.cnf
+
+[mysqld]
+character-set-server=utf8 
+</code></pre><p><strong>启动</strong></p>
+<pre><code># /etc/init.d/mysqld start
+</code></pre><h4 id="数据库配置"><a href="#数据库配置" class="headerlink" title="数据库配置"></a>数据库配置</h4><p><strong>创建数据库</strong></p>
+<pre><code>mysql&gt; create database cache_cloud default charset utf8;
+Query OK, 1 row affected (0.00 sec)
+</code></pre><p><strong>创建cachecloud用户</strong></p>
+<pre><code>mysql&gt; grant all privileges on cache_cloud.* to &apos;cachecloud&apos;@&apos;%&apos; identified by &apos;Cache_cloud123&apos;;
+Query OK, 0 rows affected (0.00 sec)
+</code></pre><p><strong>导入初始化数据</strong><br>注意，这里已经不是在数据库中了</p>
+<pre><code>[root@qa1-common004 script]# pwd
+/root/software/cachecloud/script
+
+[root@qa1-common004 script]# mysql -u root -p cache_cloud &lt; cachecloud.sql 
+Enter password: 
+</code></pre><h2 id="修改cachecloud配置"><a href="#修改cachecloud配置" class="headerlink" title="修改cachecloud配置"></a>修改cachecloud配置</h2><p><strong>数据库设置</strong></p>
+<pre><code>[root@qa1-common004 swap]# pwd
+/root/software/cachecloud/cachecloud-open-web/src/main/swap
+
+
+[root@qa1-common004 swap]# cat online.properties 
+cachecloud.db.url = jdbc:mysql://172.24.64.132:3306/cache_cloud?useUnicode=true&amp;amp;characterEncoding=UTF-8
+cachecloud.db.user = cachecloud
+cachecloud.db.password = Cache_cloud123 
+cachecloud.maxPoolSize = 20
+
+isClustered = true
+isDebug = false
+spring-file=classpath:spring/spring-online.xml
+log_base=/opt/cachecloud-web/logs
+web.port=8585
+log.level=WARN
+</code></pre><p>注意这里需要提前在数据库中删除匿名用户</p>
+<p><strong>开启机器监控功能</strong></p>
+<pre><code># pwd
+/root/software/cachecloud/cachecloud-open-web/src/main/java/com/sohu/cache/schedule/jobs
+
+# vim ServerJob.java    将稳中的注释去掉，修改之后的文件如下所示：
+</code></pre><p><img src="http://picture.watchmen.xin/cachecloud/machine.png" alt=""></p>
+<p>如果公司已经有完善的监控，那么不建议开启机器监控，能够一定程度上减小数据库的压力。</p>
+<h2 id="cachecloud构建及启动"><a href="#cachecloud构建及启动" class="headerlink" title="cachecloud构建及启动"></a>cachecloud构建及启动</h2><p><strong>项目构建</strong></p>
+<p>在cachecloud的根目录下执行以下maven命令，该命令会进行项目的构建</p>
+<pre><code>[root@qa1-common004 cachecloud]# pwd
+/root/software/cachecloud
+[root@qa1-common004 cachecloud]#
+
+[root@host-192-168-8-37 cachecloud]# mvn clean compile install -Ponline
+[root@host-192-168-8-37 cachecloud]# cd script/ 
+[root@host-192-168-8-37 script]# sh deploy.sh /root/software/
+</code></pre><p><strong>启动</strong></p>
+<pre><code># sh /opt/cachecloud-web/start.sh
+</code></pre><p>启动成功之后的web页面如下图所示：</p>
+<p><img src="http://picture.watchmen.xin/cachecloud/web.png" alt="web"></p>
+<h1 id="实际使用"><a href="#实际使用" class="headerlink" title="实际使用"></a>实际使用</h1><h2 id="redis数据节点初始化"><a href="#redis数据节点初始化" class="headerlink" title="redis数据节点初始化"></a>redis数据节点初始化</h2><p>执行初始化脚本</p>
+<pre><code>sh cachecloud-init.sh cachecloud
+</code></pre><h2 id="添加主机"><a href="#添加主机" class="headerlink" title="添加主机"></a>添加主机</h2><h2 id="redis应用模板配置"><a href="#redis应用模板配置" class="headerlink" title="redis应用模板配置"></a>redis应用模板配置</h2><p><strong>注意：</strong>在部署redis相关应用之前，一定要先进行模板的配置，因为默认配置下，redis的守护进程模式为关系，保护模式也是开启的</p>
+<p><strong>修改配置：</strong></p>
+<ul>
+<li>配置名称：daemonize；配置值：yes;配置说明：是否守护进程</li>
+</ul>
+<p><strong>新增配置：</strong></p>
+<ul>
+<li><p>配置名称：protected-mode；配置值：no;配置说明：保护模式</p>
+</li>
+<li><p>配置名称：bind；配置值：0.0.0.0;配置说明：绑定ip</p>
+</li>
+</ul>
+<font color="red"> 注意：哨兵的配置模板中只需要新增protected-mode参数即可。</font>
+
+
+
+
+<h2 id="部署哨兵应用"><a href="#部署哨兵应用" class="headerlink" title="部署哨兵应用"></a>部署哨兵应用</h2><h2 id="导入已经存在的redis实例"><a href="#导入已经存在的redis实例" class="headerlink" title="导入已经存在的redis实例"></a>导入已经存在的redis实例</h2><h3 id="redis哨兵"><a href="#redis哨兵" class="headerlink" title="redis哨兵"></a>redis哨兵</h3><h1 id="cachecloud使用优化"><a href="#cachecloud使用优化" class="headerlink" title="cachecloud使用优化"></a>cachecloud使用优化</h1><p><strong>哨兵复用问题：</strong></p>
+<p>使用cachecloud部署哨兵集群时，每次生成的哨兵节点都是不一样的，这种情况，会造成一定的资源浪费（每一对主从都需要至少3个哨兵节点，对服务器的端口资源、内存资源等都会造成一定的浪费）</p>
+<p>因此，我们采取复用哨兵节点的方式来实现redis的主从高可用</p>
+<p>实现步骤：</p>
+<ul>
+<li><ol>
+<li>哨兵模板中设置端口，将端口固定，为了后续的配置方便</li>
+</ol>
+</li>
+<li><ol>
+<li>手动创建主从节点</li>
+</ol>
+</li>
+<li><ol>
+<li>哨兵中添加新建的主从节点</li>
+</ol>
+</li>
+<li><ol>
+<li>在cachecloud平台上导入这个应用</li>
+</ol>
+</li>
+</ul>
+<p>相当于其实是导入redis哨兵的方式</p>
+<p>哨兵配置：</p>
+<pre><code>redis-cli -p 6388 sentinel monitor master-test-qa1 172.24.64.134 6385 2&amp;&amp;redis-cli -p 6388 SENTINEL set master-test-qa1 auth-pass redis123&amp;&amp;redis-cli -p 6388 sentinel set master-test-qa1 down-after-milliseconds 20000&amp;&amp;redis-cli -p 6388 sentinel set master-test-qa1 failover-timeout 60000
+</code></pre><p><strong>关闭master节点的持久化</strong></p>
+<p>AOF持久化：appendonly  配置为no</p>
+<h1 id="cachecloud坑-CacheCloud安装部署及使用常见问题及注意事项"><a href="#cachecloud坑-CacheCloud安装部署及使用常见问题及注意事项" class="headerlink" title="cachecloud坑- CacheCloud安装部署及使用常见问题及注意事项"></a>cachecloud坑- CacheCloud安装部署及使用常见问题及注意事项</h1><ul>
+<li><p><strong>数据库版本问题：</strong> 如果使用mysql5.7，则需要进行针对sql文件做一些设置（only_full_group_by模式设置等）</p>
+</li>
+<li><p><strong>cachecloud平台乱码问题：</strong> 需要修改online.properties配置文件中的连接串（使用这种方式：jdbc:mysql://127.0.0.1:3306/cache_cloud?useUnicode=true&amp;characterEncoding=UTF-8）</p>
+</li>
+<li><p><strong>cachecloud后台配置模板：</strong>默认配置下，redis没有开启守护进程运行方式、开启了保护模式等，需要做一些配置修改之后才可以正常启动</p>
+</li>
+<li><p><strong>机器监控数据无法展示问题：</strong>除了在程序文件中去掉相应的代码注释，还需要将cachecloud-open-web/nmon下指定系统版本的nmon文件放到/opt/cachecloud/soft/目录下</p>
+</li>
+<li><p><strong>密码配置问题：</strong>密码配置栏中，输入密码之后，还需要点击更新才可以生效</p>
+</li>
+<li><p><strong>Jedis支持redis版本问题：</strong>Jedis暂时无法稳定支持redis4.x版本，因此涉及到的集群水平扩容等功能是无法实现的（集群创建等还是可以支持的），因此我们建议使用3版本，后续关注Jedis的版本发布情况。</p>
+</li>
+<li><p><strong>应用导入时提示：节点不是存活的</strong> cachecloud节点上需要安装redis，因为他会使用redis-cli 去ping指定的节点，没有返回pong时，则会报错</p>
+</li>
+<li><p><strong>哨兵导入问题：</strong> 如果哨兵是复用的，也就是说一组哨兵节点监听了多对主从节点，那么在导入的时候回出现问题，目前导入功能只支持一个mastername</p>
+</li>
+<li><p><strong>主机名设置问题：</strong>  注意hosts文件需要进行配置</p>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/wechatpay.jpg" alt="XiaoHua WANG 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/alipay.jpg" alt="XiaoHua WANG 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/cachecloud/" rel="tag"># cachecloud</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/04/23/编程语言/Python/基础知识/python零碎知识及版本变化记录/" rel="next" title="python零碎知识及版本变化记录">
+                <i class="fa fa-chevron-left"></i> python零碎知识及版本变化记录
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/04/28/IT科学技术知识体系结构-Linux运维方向/基础环境配置/JDK/Linux下JDK的安装配置/" rel="prev" title="Linux下JDK的安装配置">
+                Linux下JDK的安装配置 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zMzg1NC8xMDQwNw=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/touxiang.jpg"
+                alt="XiaoHua WANG" />
+            
+              <p class="site-author-name" itemprop="name">XiaoHua WANG</p>
+              <p class="site-description motion-element" itemprop="description">Focus on Linux operations and development.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">49</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">133</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">86</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Cachecloud介绍"><span class="nav-number">1.</span> <span class="nav-text">Cachecloud介绍</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装部署"><span class="nav-number">2.</span> <span class="nav-text">安装部署</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基础环境"><span class="nav-number">2.1.</span> <span class="nav-text">基础环境</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#JDK-Maven"><span class="nav-number">2.1.1.</span> <span class="nav-text">JDK+Maven</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#下载CacheCloud项目"><span class="nav-number">2.1.2.</span> <span class="nav-text">下载CacheCloud项目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL"><span class="nav-number">2.1.3.</span> <span class="nav-text">MySQL</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#数据库配置"><span class="nav-number">2.1.3.1.</span> <span class="nav-text">数据库配置</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修改cachecloud配置"><span class="nav-number">2.2.</span> <span class="nav-text">修改cachecloud配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cachecloud构建及启动"><span class="nav-number">2.3.</span> <span class="nav-text">cachecloud构建及启动</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实际使用"><span class="nav-number">3.</span> <span class="nav-text">实际使用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#redis数据节点初始化"><span class="nav-number">3.1.</span> <span class="nav-text">redis数据节点初始化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#添加主机"><span class="nav-number">3.2.</span> <span class="nav-text">添加主机</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#redis应用模板配置"><span class="nav-number">3.3.</span> <span class="nav-text">redis应用模板配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#部署哨兵应用"><span class="nav-number">3.4.</span> <span class="nav-text">部署哨兵应用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#导入已经存在的redis实例"><span class="nav-number">3.5.</span> <span class="nav-text">导入已经存在的redis实例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#redis哨兵"><span class="nav-number">3.5.1.</span> <span class="nav-text">redis哨兵</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#cachecloud使用优化"><span class="nav-number">4.</span> <span class="nav-text">cachecloud使用优化</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#cachecloud坑-CacheCloud安装部署及使用常见问题及注意事项"><span class="nav-number">5.</span> <span class="nav-text">cachecloud坑- CacheCloud安装部署及使用常见问题及注意事项</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">XiaoHua WANG</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("mlSs9Cm0Xv2D9B7cFqbp25Df-gzGzoHsz", "alKheIFly9OVC81YCV7otTrf");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
