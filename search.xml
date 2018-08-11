@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[MAC操作技巧]]></title>
+    <url>%2F2018%2F08%2F11%2F%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6%E5%B7%A5%E5%85%B7%2FMAC%E4%BD%BF%E7%94%A8%2FMAC%E6%93%8D%E4%BD%9C%E6%8A%80%E5%B7%A7%2F</url>
+    <content type="text"><![CDATA[美式键盘对应关系参考链接：https://support.apple.com/zh-cn/HT202676 在Mac的快捷键中经常会有一些符号，比如⌘、⌥、⇧、⌃等，而Mac下只有command键上有一个⌘的符号，而其他按键均没有符号，很多人可能不知道这是什么意思，之所以只有command键上有一个符号，而其他按键上没有，是因为： 只有command健才是Mac下唯一独有的一个特殊按键，而shift、alt（option）、control、caps lock、tab等在其他系统下都有，所以Mac在command键上做一个符号，用于表示这一按键的特殊性； 我们在生活中能接触到的外接键盘基本上都是美式键盘，下面是两种键盘的布局对应关系，在使用外接键盘的时候，需要有充分的了解。 Windows 标志：按下 Command (⌘) 键 退格或删除：按下 Delete 键 回车或 ⏎：按下 Return 键 Alt（左）：按下 Option 键 Alt GR（右）：按下 Option + Control 组合键 应用程序：Apple 键盘上没有这个按键 MAC常用快捷键概览先张一张图 全局操作 ⌃⌘ + f: 进入全屏模式 强制退出应用如果 Mac 上的某个应用停止响应，并且您无法正常退出该应用，则可以使用“强制退出”来关闭该应用。 同时按住三个按键：Option、Command 和 Esc (Escape) 键。这类似于在 PC 上按下 Control-Alt-Delete。或者，在屏幕左上角的苹果 () 菜单中选取“强制退出”。 软件包管理MAC上管理软件包使用Homebrew来实现 MAC必备神器之一，Mac OSX上的软件包管理工具，能在Mac中方便的安装软件或者卸载软件， 简单到只需要一个命令。 安装： 1ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot; 命令参数： 123456brew install 安装软件brew list 列出已安装的软件brew update 更新brewbrew home 用浏览器打开brew的官方网站brew info 显示软件信息brew deps 显示包依赖 其他操作pycharm-光标变粗问题mac下默认的pycharm的光标是为粗体的改写模式，这是因为安装的时候装了ideaVim插件，改为竖线光标的方法：把ideaVim插件去掉（点击pycharm–&gt;preference–&gt;plugins–&gt;搜索ideavim，然后将该插件勾除掉即可） Iterm2操作标签 新建标签：command + t 关闭标签：command + w 切换标签：command + 数字 command + 左右方向键 切换全屏：command + enter 查找：command + f 分屏 垂直分屏：command + d 水平分屏：command + shift + d 切换屏幕：command + option + 方向键 或者 command + [ ] 命令 查看历史命令：command + ; 查看剪贴板历史：command + shift + h 上一条命令：ctrl + p 搜索命令历史：ctrl + r 行内 清除当前行：ctrl + u 到行首：ctrl + a 到行尾：ctrl + e 前进后退：ctrl + f/b (相当于左右方向键) 删除当前光标的字符：ctrl + d 删除光标之前的字符：ctrl + h 删除光标之前的单词：ctrl + w 删除到文本末尾：ctrl + k 交换光标处文本：ctrl + t 其他 清屏1：command + r 清屏2：ctrl + l 清屏3：clear 进入和退出全屏: Command + Enter 查看当前终端中光标的位置: Command + / 开启和关闭背景半透明: Command + u 清屏（重置当前终端）: Command + r 粘贴历史 使用Command + Shift + h 可以呼出粘贴历史，支持模糊检索。还可以设置将粘贴历史保存在磁盘上（Preferences -&gt; General） 即时回放 使用Command + Opt + b 打开即时回放，按Esc退出。即时回放可以记录终端输出的状态，让你“穿越时间”查看终端内容。默认每个会话最多储存4MB的内容，可以在设置中更改（Preferences -&gt; Genernal -&gt; Instant Replay）。]]></content>
+      <categories>
+        <category>常用软件工具</category>
+        <category>MAC操作技巧</category>
+      </categories>
+      <tags>
+        <tag>MAC</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[day05-常用模块学习]]></title>
     <url>%2F2018%2F08%2F08%2F%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80%2FPython%2F%E8%80%81%E7%94%B7%E5%AD%A9%E8%A7%86%E9%A2%91%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%2Fday05-%E5%B8%B8%E7%94%A8%E6%A8%A1%E5%9D%97%E5%AD%A6%E4%B9%A0%2F</url>
     <content type="text"><![CDATA[os模块This module provides a portable way of using operating system dependent functionality os模块主要用于和操作系统之间的交互，这个模块提供了一种方便的使用操作系统函数的方法。 sys模块This module provides access to some variables used or maintained by the interpreter and to functions that interact strongly with the interpreter. sys模块主要用于和python解释器之间的交互，这个模块可供访问由解释器使用或维护的变量和与解释器进行交互的函数。]]></content>
