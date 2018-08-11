@@ -85,7 +85,7 @@
 <meta name="keywords" content="cachecloud">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Cachecloud-Redis云平台">
-<meta property="og:url" content="http://yoursite.com/2018/04/28/IT科学技术知识体系结构-Linux运维方向/数据库/Redis/Cachecloud/index.html">
+<meta property="og:url" content="http://yoursite.com/2018/04/28/IT科学技术知识体系结构-Linux运维方向/数据库/Redis/CacheCloud-Redis云平台/Cachecloud/index.html">
 <meta property="og:site_name" content="Watchmen1992&#39;s Blog">
 <meta property="og:description" content="本文主要讲述由搜狐视频开源在github上的Redis云平台产品-Cachecloud的安装部署、使用、优化等相关知识。">
 <meta property="og:locale" content="zh-Hans">
@@ -126,7 +126,7 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/04/28/IT科学技术知识体系结构-Linux运维方向/数据库/Redis/Cachecloud/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/04/28/IT科学技术知识体系结构-Linux运维方向/数据库/Redis/CacheCloud-Redis云平台/Cachecloud/"/>
 
 
 
@@ -313,7 +313,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/28/IT科学技术知识体系结构-Linux运维方向/数据库/Redis/Cachecloud/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/28/IT科学技术知识体系结构-Linux运维方向/数据库/Redis/CacheCloud-Redis云平台/Cachecloud/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="XiaoHua WANG">
@@ -406,6 +406,17 @@
 
                 
                 
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/IT科学技术知识体系结构-Linux运维方向/数据库/Redis/CacheCloud-Redis云平台/" itemprop="url" rel="index">
+                    <span itemprop="name">CacheCloud-Redis云平台</span>
+                  </a>
+                </span>
+
+                
+                
               
             </span>
           
@@ -416,7 +427,7 @@
 
           
           
-             <span id="/2018/04/28/IT科学技术知识体系结构-Linux运维方向/数据库/Redis/Cachecloud/" class="leancloud_visitors" data-flag-title="Cachecloud-Redis云平台">
+             <span id="/2018/04/28/IT科学技术知识体系结构-Linux运维方向/数据库/Redis/CacheCloud-Redis云平台/Cachecloud/" class="leancloud_visitors" data-flag-title="Cachecloud-Redis云平台">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -453,9 +464,7 @@
       
         <h1 id="Cachecloud介绍"><a href="#Cachecloud介绍" class="headerlink" title="Cachecloud介绍"></a>Cachecloud介绍</h1><p>有关cachecloud的一些基础知识，官方都有非常详细的文档，这里不再花费篇幅进行复述，下面是相关的资料链接，请自行查看。</p>
 <ul>
-<li>github官网：    <a href="https://github.com/sohutv/cachecloud" target="_blank" rel="noopener">https://github.com/sohutv/cachecloud</a></li>
-<li>Wiki:            <a href="https://github.com/sohutv/cachecloud/wiki" target="_blank" rel="noopener">https://github.com/sohutv/cachecloud/wiki</a></li>
-<li>博客：        <a href="https://cachecloud.github.io/" target="_blank" rel="noopener">https://cachecloud.github.io/</a></li>
+<li>github官网：    <a href="https://github.com/sohutv/cachecloud" target="_blank" rel="noopener">https://github.com/sohutv/cachecloud</a><br>   Wiki:            <a href="https://github.com/sohutv/cachecloud/wiki" target="_blank" rel="noopener">https://github.com/sohutv/cachecloud/wiki</a><br>   博客：        <a href="https://cachecloud.github.io/" target="_blank" rel="noopener">https://cachecloud.github.io/</a></li>
 <li>官方视频：  <a href="http://my.tv.sohu.com/pl/9100280/index.shtml" target="_blank" rel="noopener">http://my.tv.sohu.com/pl/9100280/index.shtml</a></li>
 </ul>
 <p><strong>简介：</strong></p>
@@ -464,10 +473,7 @@
 </blockquote>
 <p><strong>提供的功能：</strong></p>
 <ul>
-<li>监控统计：    提供了机器、应用、实例下各个维度数据的监控和统计界面。</li>
-<li>一键开启：    Redis Standalone、Redis Sentinel、Redis Cluster三种类型的应用，无需手动配置初始化。</li>
-<li>Failover：    支持哨兵,集群的高可用模式。</li>
-<li>伸缩：    提供完善的垂直和水平在线伸缩功能。</li>
+<li>监控统计：    提供了机器、应用、实例下各个维度数据的监控和统计界面。<br>   一键开启：    Redis Standalone、Redis Sentinel、Redis Cluster三种类型的应用，无需手动配置初始化。<br>   Failover：    支持哨兵,集群的高可用模式。<br>   伸缩：    提供完善的垂直和水平在线伸缩功能。</li>
 <li>完善运维： 提供自动运维和简化运维操作功能，避免纯手工运维出错。</li>
 <li>方便的客户端 方便快捷的客户端接入。</li>
 <li>元数据管理： 提供机器、应用、实例、用户信息管理。</li>
@@ -581,15 +587,8 @@ Enter password:
 </code></pre><h2 id="修改cachecloud配置"><a href="#修改cachecloud配置" class="headerlink" title="修改cachecloud配置"></a>修改cachecloud配置</h2><p><strong>数据库设置</strong></p>
 <pre><code>[root@qa1-common004 swap]# pwd
 /root/software/cachecloud/cachecloud-open-web/src/main/swap
-
-
-[root@qa1-common004 swap]# cat online.properties 
-cachecloud.db.url = jdbc:mysql://172.24.64.132:3306/cache_cloud?useUnicode=true&amp;amp;characterEncoding=UTF-8
-cachecloud.db.user = cachecloud
-cachecloud.db.password = Cache_cloud123 
-cachecloud.maxPoolSize = 20
-
-isClustered = true
+</code></pre><p>​<br>    [root@qa1-common004 swap]# cat online.properties<br>    cachecloud.db.url = jdbc:mysql://172.24.64.132:3306/cache_cloud?useUnicode=true&amp;characterEncoding=UTF-8<br>    cachecloud.db.user = cachecloud<br>    cachecloud.db.password = Cache_cloud123<br>    cachecloud.maxPoolSize = 20</p>
+<pre><code>isClustered = true
 isDebug = false
 spring-file=classpath:spring/spring-online.xml
 log_base=/opt/cachecloud-web/logs
@@ -876,7 +875,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">133</span>
+                  <span class="site-state-item-count">137</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
