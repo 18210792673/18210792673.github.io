@@ -6,11 +6,11 @@
     <content type="text"><![CDATA[test]]></content>
       <categories>
         <category>IT科学技术知识体系结构-Linux运维方向</category>
-        <category>Git</category>
-        <category>Git基础知识</category>
+        <category>git</category>
+        <category>git基础知识</category>
       </categories>
       <tags>
-        <tag>Git</tag>
+        <tag>git</tag>
       </tags>
   </entry>
   <entry>
