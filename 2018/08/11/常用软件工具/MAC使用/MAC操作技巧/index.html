@@ -105,17 +105,6 @@
 <meta property="og:image" content="http://picture.watchmen.xin/MAC/config_applescript.png">
 <meta property="og:image" content="http://picture.watchmen.xin/MAC/config_lrzsz.png">
 <meta property="og:image" content="http://picture.watchmen.xin/MAC/config_lrzsz_triggers.png">
-<meta property="og:image" content="https://imgsa.baidu.com/exp/w=500/sign=3fb68b5661224f4a5799731339f79044/e850352ac65c1038de0e33b2be119313b07e894a.jpg">
-<meta property="og:image" content="https://imgsa.baidu.com/exp/w=500/sign=f11815145a4e9258a63486eeac82d1d1/c9fcc3cec3fdfc036a7e1ec8d83f8794a4c226b8.jpg">
-<meta property="og:image" content="https://imgsa.baidu.com/exp/w=500/sign=f6bb717897504fc2a25fb005d5dce7f0/6d81800a19d8bc3e68a0fbba8e8ba61ea8d34512.jpg">
-<meta property="og:image" content="https://imgsa.baidu.com/exp/w=500/sign=40c8b28b0646f21fc9345e53c6246b31/0dd7912397dda1443a3690c2beb7d0a20cf48687.jpg">
-<meta property="og:image" content="https://imgsa.baidu.com/exp/w=500/sign=a09404517e8b4710ce2ffdccf3cec3b2/ac4bd11373f08202409a6d4f47fbfbedab641bb1.jpg">
-<meta property="og:image" content="https://imgsa.baidu.com/exp/w=500/sign=cefca462434a20a4311e3cc7a0539847/342ac65c1038534376187b519f13b07ecb8088ef.jpg">
-<meta property="og:image" content="https://imgsa.baidu.com/exp/w=500/sign=9b441888ab86c91708035239f93c70c6/962bd40735fae6cd7507571103b30f2442a70f0a.jpg">
-<meta property="og:image" content="https://imgsa.baidu.com/exp/w=500/sign=b8bb984fd5f9d72a1764101de42b282a/77094b36acaf2edd013bb599811001e9380193fc.jpg">
-<meta property="og:image" content="https://imgsa.baidu.com/exp/w=500/sign=48d1b1b0fb36afc30e0c3f658318eb85/a8014c086e061d9541e5cb4877f40ad162d9ca1b.jpg">
-<meta property="og:image" content="https://imgsa.baidu.com/exp/w=500/sign=031c32ada764034f0fcdc2069fc27980/1e30e924b899a90104efa74611950a7b0308f5ec.jpg">
-<meta property="og:image" content="https://imgsa.baidu.com/exp/w=500/sign=c9fb634140086e066aa83f4b32097b5a/f31fbe096b63f6241a02c6738b44ebf81a4ca367.jpg">
 <meta property="og:updated_time" content="2018-08-11T10:21:58.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MAC操作技巧">
@@ -576,7 +565,25 @@
 <li>开启和关闭背景半透明: Command + u</li>
 <li>清屏（重置当前终端）: Command + r</li>
 </ul>
-<h2 id="连接jumpserver"><a href="#连接jumpserver" class="headerlink" title="连接jumpserver"></a>连接jumpserver</h2><h2 id="实现rz-sz功能"><a href="#实现rz-sz功能" class="headerlink" title="实现rz/sz功能"></a>实现rz/sz功能</h2><p>Mac上iTerm原生不支持rz/sz命令，也就是不支持Zmodem来进行文件传输，不过只要通过简单的配置就可以实现。网上的教程一大把，这里就简单的记录一下过程。</p>
+<h2 id="连接jumpserver"><a href="#连接jumpserver" class="headerlink" title="连接jumpserver"></a>连接jumpserver</h2><ol>
+<li><p>Profile -&gt; Open Profiles… -&gt; Edit Profiles…</p>
+</li>
+<li><p>点击左下角+号</p>
+</li>
+<li><p>输入Profile Name，比如jumper</p>
+</li>
+<li><p>右边Command下选择Command，然后输入</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -i /Users/yourname/.ssh/id_rsa  username@ip -p port</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>关闭所有窗口</p>
+</li>
+<li><p>在Iterm2的一个窗口中选择右键New Tab或者command+o,在弹出的页面中选择刚创建的jumper，然后回车就登录上了。</p>
+</li>
+</ol>
+<p>注意，如果给RSA秘钥设置了密码，又不想每次在登录的时候都输出密码，这个时候我们可以在命令行中输入以下命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-add /Users/yourname/.ssh/id_rsa</span><br></pre></td></tr></table></figure>
+<p>输入一次之后，后续就不用再次输入，注意重启后需要再次输入。</p>
+<h2 id="实现rz-sz功能"><a href="#实现rz-sz功能" class="headerlink" title="实现rz/sz功能"></a>实现rz/sz功能</h2><p>Mac上iTerm原生不支持rz/sz命令，也就是不支持Zmodem来进行文件传输，不过只要通过简单的配置就可以实现。网上的教程一大把，这里就简单的记录一下过程。</p>
 <h3 id="安装lrzsz"><a href="#安装lrzsz" class="headerlink" title="安装lrzsz"></a>安装lrzsz</h3><p>首先安装Homebrew(这里不写这个过程)，然后通过它先给Mac安装lrzsz。在终端下输入brew install lrzsz，静等一会即可安装完毕。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install lrzsz</span><br></pre></td></tr></table></figure>
 <h3 id="下载iTerm2辅助文件"><a href="#下载iTerm2辅助文件" class="headerlink" title="下载iTerm2辅助文件"></a>下载iTerm2辅助文件</h3><p>iTerm不能直接使用lrzsz，不过网上有大神提供了两个辅助脚本。我们只需要把文件下载到 /usr/local/bin/目录下并赋予可执行权限即可。</p>
@@ -595,29 +602,18 @@
 <ol>
 <li>点击菜单栏截图软件的图标，选择退出软件。</li>
 </ol>
-<p><a href="http://jingyan.baidu.com/album/c1a3101e635d6ade646deb56.html?picindex=3" target="_blank" rel="noopener"><img src="https://imgsa.baidu.com/exp/w=500/sign=3fb68b5661224f4a5799731339f79044/e850352ac65c1038de0e33b2be119313b07e894a.jpg" alt="Mac版snipaste截图无法输入中文怎么办"></a></p>
-<p><a href="http://jingyan.baidu.com/album/c1a3101e635d6ade646deb56.html?picindex=4" target="_blank" rel="noopener"><img src="https://imgsa.baidu.com/exp/w=500/sign=f11815145a4e9258a63486eeac82d1d1/c9fcc3cec3fdfc036a7e1ec8d83f8794a4c226b8.jpg" alt="Mac版snipaste截图无法输入中文怎么办"></a></p>
 <ol>
-<li>接着按键盘上面的control+space ，选择拼音输入法。</li>
+<li><p>接着按键盘上面的control+space ，选择拼音输入法。</p>
+</li>
+<li><p>这个时候就可以启动截图软件了，按键盘上的cmmand+space，在黑色框输入软件的名字回车。</p>
+</li>
 </ol>
-<p><a href="http://jingyan.baidu.com/album/c1a3101e635d6ade646deb56.html?picindex=5" target="_blank" rel="noopener"><img src="https://imgsa.baidu.com/exp/w=500/sign=f6bb717897504fc2a25fb005d5dce7f0/6d81800a19d8bc3e68a0fbba8e8ba61ea8d34512.jpg" alt="Mac版snipaste截图无法输入中文怎么办"></a></p>
-<p><a href="http://jingyan.baidu.com/album/c1a3101e635d6ade646deb56.html?picindex=6" target="_blank" rel="noopener"><img src="https://imgsa.baidu.com/exp/w=500/sign=40c8b28b0646f21fc9345e53c6246b31/0dd7912397dda1443a3690c2beb7d0a20cf48687.jpg" alt="Mac版snipaste截图无法输入中文怎么办"></a></p>
-<ol>
-<li>这个时候就可以启动截图软件了，按键盘上的cmmand+space，在黑色框输入软件的名字回车。</li>
-</ol>
-<p><a href="http://jingyan.baidu.com/album/c1a3101e635d6ade646deb56.html?picindex=7" target="_blank" rel="noopener"><img src="https://imgsa.baidu.com/exp/w=500/sign=a09404517e8b4710ce2ffdccf3cec3b2/ac4bd11373f08202409a6d4f47fbfbedab641bb1.jpg" alt="Mac版snipaste截图无法输入中文怎么办"></a></p>
-<p><a href="http://jingyan.baidu.com/album/c1a3101e635d6ade646deb56.html?picindex=8" target="_blank" rel="noopener"><img src="https://imgsa.baidu.com/exp/w=500/sign=cefca462434a20a4311e3cc7a0539847/342ac65c1038534376187b519f13b07ecb8088ef.jpg" alt="Mac版snipaste截图无法输入中文怎么办"></a></p>
 <ol>
 <li>点击软件图标，选择截图或者是按fn+f1，进行桌面的截图。</li>
 </ol>
-<p><a href="http://jingyan.baidu.com/album/c1a3101e635d6ade646deb56.html?picindex=9" target="_blank" rel="noopener"><img src="https://imgsa.baidu.com/exp/w=500/sign=9b441888ab86c91708035239f93c70c6/962bd40735fae6cd7507571103b30f2442a70f0a.jpg" alt="Mac版snipaste截图无法输入中文怎么办"></a></p>
-<p><a href="http://jingyan.baidu.com/album/c1a3101e635d6ade646deb56.html?picindex=10" target="_blank" rel="noopener"><img src="https://imgsa.baidu.com/exp/w=500/sign=b8bb984fd5f9d72a1764101de42b282a/77094b36acaf2edd013bb599811001e9380193fc.jpg" alt="Mac版snipaste截图无法输入中文怎么办"></a></p>
-<p><a href="http://jingyan.baidu.com/album/c1a3101e635d6ade646deb56.html?picindex=11" target="_blank" rel="noopener"><img src="https://imgsa.baidu.com/exp/w=500/sign=48d1b1b0fb36afc30e0c3f658318eb85/a8014c086e061d9541e5cb4877f40ad162d9ca1b.jpg" alt="Mac版snipaste截图无法输入中文怎么办"></a></p>
 <ol>
 <li>在截图上面，按空格键调出截图软件工具条，然后点击工具条上面的T，这个时候就可以在图片上面进行中文的标注了。总结就是用不了重启软件即可。</li>
 </ol>
-<p><a href="http://jingyan.baidu.com/album/c1a3101e635d6ade646deb56.html?picindex=12" target="_blank" rel="noopener"><img src="https://imgsa.baidu.com/exp/w=500/sign=031c32ada764034f0fcdc2069fc27980/1e30e924b899a90104efa74611950a7b0308f5ec.jpg" alt="Mac版snipaste截图无法输入中文怎么办"></a></p>
-<p><a href="http://jingyan.baidu.com/album/c1a3101e635d6ade646deb56.html?picindex=13" target="_blank" rel="noopener"><img src="https://imgsa.baidu.com/exp/w=500/sign=c9fb634140086e066aa83f4b32097b5a/f31fbe096b63f6241a02c6738b44ebf81a4ca367.jpg" alt="Mac版snipaste截图无法输入中文怎么办"></a></p>
 
       
     </div>
