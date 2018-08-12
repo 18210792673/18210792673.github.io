@@ -417,7 +417,7 @@
     <lastmod>2018-06-23T14:08:24.000Z</lastmod>
     <data>
         <display>
-        <title>LF will be replaced by CRLF报警</title>
+        <title>换行符报警问题</title>
         <pubTime>2018-06-23T14:08:24.000Z</pubTime>
         
         <tag>Git</tag>
