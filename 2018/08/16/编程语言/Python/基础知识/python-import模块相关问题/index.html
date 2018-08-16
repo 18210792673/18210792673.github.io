@@ -477,7 +477,12 @@
 <li>import导入为绝对导入</li>
 <li>import 只能导入模块，不能导入模块中的对象（类、函数、变量等)</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Python 中所有加载到内存的模块都放在 sys.modules 。当 import 一个模块时首先会在这个列表中查找是否已经加载了此模块，如果没有加载则从 sys.path 目录中按照模块名称查找模块文件，找到后将模块载入内存，并加到 sys.modules 中。只有存在sys.path中的模块才会被正确导入。</span><br><span class="line"></span><br><span class="line">一个模块不会重复载入。多个不同的模块都可以用 import 引入同一个模块到自己的 Local 名字空间，其实背后的 PyModuleObject 对象只有一个。</span><br><span class="line"></span><br><span class="line">一个容易忽略的问题：import 只能导入模块，不能导入模块中的对象（类、函数、变量等）。例如：模块 A（A.py）中有个函数 getName，另一个模块不能通过 import A.getName 将 getName导入到本模块，只能用 from A import getName。</span><br><span class="line"></span><br><span class="line">同级目录下，可以使用import直接导入所需模块</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>Python 中所有加载到内存的模块都放在 sys.modules 。当 import 一个模块时首先会在这个列表中查找是否已经加载了此模块，如果没有加载则从 sys.path 目录中按照模块名称查找模块文件，找到后将模块载入内存，并加到 sys.modules 中。只有存在sys.path中的模块才会被正确导入。 </p>
+<p>一个模块不会重复载入。多个不同的模块都可以用 import 引入同一个模块到自己的 Local 名字空间，其实背后的 PyModuleObject 对象只有一个。 </p>
+<p>一个容易忽略的问题：import 只能导入模块，不能导入模块中的对象（类、函数、变量等）。例如：模块 A（A.py）中有个函数 getName，另一个模块不能通过 import A.getName 将 getName导入到本模块，只能用 from A import getName。 </p>
+<p>同级目录下，可以使用import直接导入所需模块</p>
+</blockquote>
 <h2 id="使用from语句导入"><a href="#使用from语句导入" class="headerlink" title="使用from语句导入"></a>使用from语句导入</h2><p>很多时候你只想要导入一个模块或库中的某个部分。我们来看看在Python中如何实现这点：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">from functools import lru_cache</span><br></pre></td></tr></table></figure>
 <p>上面这行代码可以让你直接调用<code>lru_cache</code>。如果你按常规的import方式导入<code>functools</code>，那么你就必须像这样调用<code>lru_cache</code>：</p>
