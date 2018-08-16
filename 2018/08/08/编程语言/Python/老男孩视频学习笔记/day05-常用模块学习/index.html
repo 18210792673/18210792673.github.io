@@ -447,7 +447,51 @@
       
 
       
-        <h1 id="os模块"><a href="#os模块" class="headerlink" title="os模块"></a>os模块</h1><p>This module provides a portable way of using operating system dependent functionality</p>
+        <h1 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h1><ol>
+<li><p>定义</p>
+<blockquote>
+<p>模块：本质就是.py结尾的python文件</p>
+<p>用来从逻辑上组织python代码（变量、函数、类、逻辑），目的是实现功能</p>
+<p>包：用来从逻辑上组织模块，本质就是一个目录，必须带有一个<strong>init</strong>.py文件</p>
+<p>导入包的本质其实就是执行该包下的<strong>init</strong>.py文件。</p>
+</blockquote>
+</li>
+<li><p>导入/使用方法</p>
+<blockquote>
+<p>From import和import的区别？</p>
+<p>因为存在定义同名方法等的问题，因此不建议使用import*</p>
+</blockquote>
+</li>
+</ol>
+<ol>
+<li><p>import本质（路径搜索和搜索路径）</p>
+<blockquote>
+<p>导入模块的本质就是把python文件再解释一遍</p>
+</blockquote>
+</li>
+<li><p>导入优化</p>
+</li>
+<li><p>模块的分类</p>
+<blockquote>
+<ul>
+<li>标准库</li>
+<li>开源模块</li>
+<li>自定义模块</li>
+</ul>
+</blockquote>
+</li>
+</ol>
+<h1 id="内置模块"><a href="#内置模块" class="headerlink" title="内置模块"></a>内置模块</h1><h2 id="time与datetime"><a href="#time与datetime" class="headerlink" title="time与datetime"></a>time与datetime</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">import time</span><br><span class="line"></span><br><span class="line"># print(time.clock()) #返回处理器时间,3.3开始已废弃 , 改成了time.process_time()测量处理器运算时间,不包括sleep时间,不稳定,mac上测不出来</span><br><span class="line"># print(time.altzone)  #返回与utc时间的时间差,以秒计算\</span><br><span class="line"># print(time.asctime()) #返回时间格式&quot;Fri Aug 19 11:14:16 2016&quot;,</span><br><span class="line"># print(time.localtime()) #返回本地时间 的struct time对象格式</span><br><span class="line"># print(time.gmtime(time.time()-800000)) #返回utc时间的struc时间对象格式</span><br><span class="line"></span><br><span class="line"># print(time.asctime(time.localtime())) #返回时间格式&quot;Fri Aug 19 11:14:16 2016&quot;,</span><br><span class="line">#print(time.ctime()) #返回Fri Aug 19 12:38:29 2016 格式, 同上</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 日期字符串 转成  时间戳</span><br><span class="line"># string_2_struct = time.strptime(&quot;2016/05/22&quot;,&quot;%Y/%m/%d&quot;) #将 日期字符串 转成 struct时间对象格式</span><br><span class="line"># print(string_2_struct)</span><br><span class="line"># #</span><br><span class="line"># struct_2_stamp = time.mktime(string_2_struct) #将struct时间对象转成时间戳</span><br><span class="line"># print(struct_2_stamp)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#将时间戳转为字符串格式</span><br><span class="line"># print(time.gmtime(time.time()-86640)) #将utc时间戳转换成struct_time格式</span><br><span class="line"># print(time.strftime(&quot;%Y-%m-%d %H:%M:%S&quot;,time.gmtime()) ) #将utc struct_time格式转成指定的字符串格式</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">#时间加减</span><br><span class="line">import datetime</span><br><span class="line"></span><br><span class="line"># print(datetime.datetime.now()) #返回 2016-08-19 12:47:03.941925</span><br><span class="line">#print(datetime.date.fromtimestamp(time.time()) )  # 时间戳直接转成日期格式 2016-08-19</span><br><span class="line"># print(datetime.datetime.now() )</span><br><span class="line"># print(datetime.datetime.now() + datetime.timedelta(3)) #当前时间+3天</span><br><span class="line"># print(datetime.datetime.now() + datetime.timedelta(-3)) #当前时间-3天</span><br><span class="line"># print(datetime.datetime.now() + datetime.timedelta(hours=3)) #当前时间+3小时</span><br><span class="line"># print(datetime.datetime.now() + datetime.timedelta(minutes=30)) #当前时间+30分</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#</span><br><span class="line"># c_time  = datetime.datetime.now()</span><br><span class="line"># print(c_time.replace(minute=3,hour=2)) #时间替换</span><br></pre></td></tr></table></figure>
+<h2 id="random"><a href="#random" class="headerlink" title="random"></a>random</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">随机数</span><br><span class="line"></span><br><span class="line">mport random</span><br><span class="line">print random.random()  随机浮点数，生产0-1之间的随机数，可以查看帮助文档 </span><br><span class="line">print random.randint(1,2) 生成指定范围内的整数 -</span><br><span class="line">print random.randrange(1,10，2) 在指定范围内取值，并且是递增关系，同时不会取最后一个数，间隔是2</span><br><span class="line">print random.choice(&apos;wxh&apos;) 随机取出一个字符</span><br><span class="line"></span><br><span class="line">shufflp用于将一个列表中的元素打乱，执行之后，原有的列表内容将会被改变</span><br><span class="line">p = [&apos;this&apos;,&apos;is&apos;,&apos;for&apos;,&apos;test&apos;]</span><br><span class="line">random.shuffle(p)</span><br><span class="line">print (p)     </span><br><span class="line">执行之后的输出为：[&apos;this&apos;, &apos;for&apos;, &apos;test&apos;, &apos;is&apos;]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">random.sample 从指定序列中随机获取指定长度的片断</span><br><span class="line">p = [&apos;this&apos;,&apos;is&apos;,&apos;for&apos;,&apos;test&apos;]</span><br><span class="line">res = random.sample(p,3)</span><br><span class="line">print (res)</span><br><span class="line">print (p)</span><br><span class="line">执行之后的输出为：</span><br><span class="line">[&apos;is&apos;, &apos;for&apos;, &apos;this&apos;]</span><br><span class="line">[&apos;this&apos;, &apos;is&apos;, &apos;for&apos;, &apos;test&apos;]</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">生成随机验证码</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">import random</span><br><span class="line">checkcode = &apos;&apos;</span><br><span class="line">for i in range(4):</span><br><span class="line">    current = random.randrange(0,4)</span><br><span class="line">    if current != i:</span><br><span class="line">        temp = chr(random.randint(65,90))</span><br><span class="line">    else:</span><br><span class="line">        temp = random.randint(0,9)</span><br><span class="line">    checkcode += str(temp)</span><br><span class="line">print checkcode</span><br></pre></td></tr></table></figure>
+<h2 id="string"><a href="#string" class="headerlink" title="string"></a>string</h2><p>参考链接：<a href="https://docs.python.org/3/library/string.html?highlight=string#module-string" target="_blank" rel="noopener">https://docs.python.org/3/library/string.html?highlight=string#module-string</a></p>
+<p>string.ascii_lowercase        生成小写字母串</p>
+<p>The lowercase letters <code>&#39;abcdefghijklmnopqrstuvwxyz&#39;</code>. This value is not locale-dependent and will not change.</p>
+<p>string.ascii_uppercase        生成大写字母串<br>The uppercase letters <code>&#39;ABCDEFGHIJKLMNOPQRSTUVWXYZ&#39;</code>. This value is not locale-dependent and will not change.</p>
+<p>string.digits        生成数字串</p>
+<p>The string <code>&#39;0123456789&#39;</code>.</p>
+<h1 id="os模块"><a href="#os模块" class="headerlink" title="os模块"></a>os模块</h1><p>This module provides a portable way of using operating system dependent functionality</p>
 <p>os模块主要用于和操作系统之间的交互，这个模块提供了一种方便的使用操作系统函数的方法。</p>
 <h1 id="sys模块"><a href="#sys模块" class="headerlink" title="sys模块"></a>sys模块</h1><p>This module provides access to some variables used or maintained by the interpreter and to functions that interact strongly with the interpreter.</p>
 <p>sys模块主要用于和python解释器之间的交互，这个模块可供访问由解释器使用或维护的变量和与解释器进行交互的函数。</p>
@@ -634,7 +678,7 @@ var jiathis_config={
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">48</span>
+                  <span class="site-state-item-count">50</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -645,7 +689,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">64</span>
+                  <span class="site-state-item-count">57</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -656,7 +700,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">45</span>
+                  <span class="site-state-item-count">44</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -696,7 +740,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#os模块"><span class="nav-number">1.</span> <span class="nav-text">os模块</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#sys模块"><span class="nav-number">2.</span> <span class="nav-text">sys模块</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#基础知识"><span class="nav-number">1.</span> <span class="nav-text">基础知识</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#内置模块"><span class="nav-number">2.</span> <span class="nav-text">内置模块</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#time与datetime"><span class="nav-number">2.1.</span> <span class="nav-text">time与datetime</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#random"><span class="nav-number">2.2.</span> <span class="nav-text">random</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#string"><span class="nav-number">2.3.</span> <span class="nav-text">string</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#os模块"><span class="nav-number">3.</span> <span class="nav-text">os模块</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#sys模块"><span class="nav-number">4.</span> <span class="nav-text">sys模块</span></a></li></ol></div>
             
 
           </div>

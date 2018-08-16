@@ -764,7 +764,23 @@
 </ol>
 <p>能够佐证这个思想的是，用过nginx和mysql的同学都知道，nginx、mysql这些程序都可以自由的指定用户配置。</p>
 <p>所以，不应当在代码中直接<code>import conf</code>来使用配置文件。上面目录结构中的<code>conf.py</code>，是给出的一个配置样例，不是在写死在程序中直接引用的配置文件。可以通过给<code>main.py</code>启动参数指定配置路径的方式来让程序读取配置内容。当然，这里的<code>conf.py</code>你可以换个类似的名字，比如<code>settings.py</code>。或者你也可以使用其他格式的内容来编写配置文件，比如<code>settings.yaml</code>之类的。</p>
-<h1 id="作业"><a href="#作业" class="headerlink" title="作业"></a>作业</h1>
+<h1 id="作业"><a href="#作业" class="headerlink" title="作业"></a>作业</h1><p>作业需求：</p>
+<p>模拟实现一个ATM + 购物商城程序</p>
+<ol>
+<li>额度 15000或自定义</li>
+<li>实现购物商城，买东西加入 购物车，调用信用卡接口结账</li>
+<li>可以提现，手续费5%</li>
+<li>每月22号出账单，每月10号为还款日，过期未还，按欠款总额 万分之5 每日计息</li>
+<li>支持多账户登录</li>
+<li>支持账户间转账</li>
+<li>记录每月日常消费流水</li>
+<li>提供还款接口</li>
+<li>ATM记录操作日志 </li>
+<li>提供管理接口，包括添加账户、用户额度，冻结账户等。。。</li>
+<li>用户认证用装饰器</li>
+</ol>
+<p><strong>相关代码及说明记录在pycharm当中</strong></p>
+
       
     </div>
     
@@ -947,7 +963,7 @@ var jiathis_config={
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">48</span>
+                  <span class="site-state-item-count">50</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -958,7 +974,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">64</span>
+                  <span class="site-state-item-count">57</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -969,7 +985,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">45</span>
+                  <span class="site-state-item-count">44</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
