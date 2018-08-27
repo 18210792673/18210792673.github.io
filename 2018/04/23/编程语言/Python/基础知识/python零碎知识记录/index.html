@@ -460,7 +460,9 @@
 <p>如下方代码所示：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">with open (r&apos;C:\Users\Administrator\PycharmProjects\files\login.txt&apos;,&apos;r&apos;) as file_object:</span><br><span class="line">    for lines in file_object:</span><br><span class="line">      lines = lines.strip(&apos;\n&apos;)</span><br><span class="line">      file_username = lines.split(&apos;:&apos;, 1)[0]</span><br><span class="line">      file_password = lines.split(&apos;:&apos;, 1)[1]</span><br></pre></td></tr></table></figure>
 <h2 id="Python-按行读取文件并去掉换行"><a href="#Python-按行读取文件并去掉换行" class="headerlink" title="Python 按行读取文件并去掉换行"></a>Python 按行读取文件并去掉换行</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">with open(&apos;./activity.sql&apos;, &apos;r&apos;) as fp:</span><br><span class="line">    for line in fp:</span><br><span class="line">        line = line.strip(&apos;\n&apos;)</span><br><span class="line">        print line</span><br><span class="line">        # do something</span><br></pre></td></tr></table></figure>
-<h2 id="python字典追加"><a href="#python字典追加" class="headerlink" title="python字典追加"></a>python字典追加</h2><h1 id="版本变化"><a href="#版本变化" class="headerlink" title="版本变化"></a>版本变化</h1><p>##django##</p>
+<h2 id="python字典追加"><a href="#python字典追加" class="headerlink" title="python字典追加"></a>python字典追加</h2><h2 id="python调用shell命令并获取输出"><a href="#python调用shell命令并获取输出" class="headerlink" title="python调用shell命令并获取输出"></a>python调用shell命令并获取输出</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">code = os.popen(cmd)</span><br><span class="line">check_code = code.read()</span><br><span class="line">code.close()</span><br></pre></td></tr></table></figure>
+<h2 id="查看python执行过程-类似sh-x"><a href="#查看python执行过程-类似sh-x" class="headerlink" title="查看python执行过程-类似sh -x"></a>查看python执行过程-类似sh -x</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#详细追踪 python -m trace --trace script.py </span><br><span class="line"></span><br><span class="line">#显示调用了哪些函数 python -m trace --trackcalls script.py</span><br></pre></td></tr></table></figure>
+<h1 id="版本变化"><a href="#版本变化" class="headerlink" title="版本变化"></a>版本变化</h1><p>##django##</p>
 <p><strong>外键：</strong></p>
 <p>Django2.0版本之后，创建外键时需要在后面加上on_delete</p>
 <pre><code>topic = models.ForeignKey(Topic) 
@@ -682,7 +684,7 @@ var jiathis_config={
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">50</span>
+                  <span class="site-state-item-count">51</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -693,7 +695,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">57</span>
+                  <span class="site-state-item-count">58</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -704,7 +706,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">44</span>
+                  <span class="site-state-item-count">45</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -744,7 +746,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#零碎知识"><span class="nav-number">1.</span> <span class="nav-text">零碎知识</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#删除字符串中指定符号"><span class="nav-number">1.1.</span> <span class="nav-text">删除字符串中指定符号</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Python-按行读取文件并去掉换行"><span class="nav-number">1.2.</span> <span class="nav-text">Python 按行读取文件并去掉换行</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#python字典追加"><span class="nav-number">1.3.</span> <span class="nav-text">python字典追加</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#版本变化"><span class="nav-number">2.</span> <span class="nav-text">版本变化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#应该修改为："><span class="nav-number">2.1.</span> <span class="nav-text">应该修改为：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#pycharm使用"><span class="nav-number">3.</span> <span class="nav-text">pycharm使用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#解决pycharm问题：module-‘pip’-has-no-attribute-‘main’"><span class="nav-number">3.1.</span> <span class="nav-text">解决pycharm问题：module ‘pip’ has no attribute ‘main’</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建directory和python-package的区别"><span class="nav-number">3.2.</span> <span class="nav-text">创建directory和python package的区别</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#python-异常处理"><span class="nav-number">4.</span> <span class="nav-text">python 异常处理</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#零碎知识"><span class="nav-number">1.</span> <span class="nav-text">零碎知识</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#删除字符串中指定符号"><span class="nav-number">1.1.</span> <span class="nav-text">删除字符串中指定符号</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Python-按行读取文件并去掉换行"><span class="nav-number">1.2.</span> <span class="nav-text">Python 按行读取文件并去掉换行</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#python字典追加"><span class="nav-number">1.3.</span> <span class="nav-text">python字典追加</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#python调用shell命令并获取输出"><span class="nav-number">1.4.</span> <span class="nav-text">python调用shell命令并获取输出</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查看python执行过程-类似sh-x"><span class="nav-number">1.5.</span> <span class="nav-text">查看python执行过程-类似sh -x</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#版本变化"><span class="nav-number">2.</span> <span class="nav-text">版本变化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#应该修改为："><span class="nav-number">2.1.</span> <span class="nav-text">应该修改为：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#pycharm使用"><span class="nav-number">3.</span> <span class="nav-text">pycharm使用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#解决pycharm问题：module-‘pip’-has-no-attribute-‘main’"><span class="nav-number">3.1.</span> <span class="nav-text">解决pycharm问题：module ‘pip’ has no attribute ‘main’</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建directory和python-package的区别"><span class="nav-number">3.2.</span> <span class="nav-text">创建directory和python package的区别</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#python-异常处理"><span class="nav-number">4.</span> <span class="nav-text">python 异常处理</span></a></li></ol></div>
             
 
           </div>

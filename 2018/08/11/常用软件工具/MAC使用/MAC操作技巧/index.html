@@ -492,6 +492,8 @@
 <li><p>强制刷新页面（刷新页面缓存）：command+shift+r</p>
 </li>
 </ul>
+<h2 id="切换全屏页面"><a href="#切换全屏页面" class="headerlink" title="切换全屏页面"></a>切换全屏页面</h2><p>ctrl+方向键的左右</p>
+<h2 id="控制中心"><a href="#控制中心" class="headerlink" title="控制中心"></a>控制中心</h2><p>ctrl+上箭头</p>
 <h1 id="软件包管理"><a href="#软件包管理" class="headerlink" title="软件包管理"></a>软件包管理</h1><p>MAC上管理软件包我们一般使用Homebrew来实现</p>
 <p>Homebrew是MAC必备神器之一，作为Mac OSX上的软件包管理工具，它能在Mac中方便的安装软件或者卸载软件， 简单到只需要一个命令。</p>
 <p><strong>安装：</strong></p>
@@ -585,8 +587,8 @@
 </li>
 </ol>
 <p>注意，如果给RSA秘钥设置了密码，又不想每次在登录的时候都输出密码，这个时候我们可以在命令行中输入以下命令</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-add /Users/yourname/.ssh/id_rsa</span><br></pre></td></tr></table></figure>
-<p>输入一次之后，后续就不用再次输入，注意重启后需要再次输入。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-add -K /Users/yourname/.ssh/id_rsa</span><br></pre></td></tr></table></figure>
+<p>输入一次之后，后续就不用再次输入。</p>
 <h2 id="实现rz-sz功能"><a href="#实现rz-sz功能" class="headerlink" title="实现rz/sz功能"></a>实现rz/sz功能</h2><p>Mac上iTerm原生不支持rz/sz命令，也就是不支持Zmodem来进行文件传输，不过只要通过简单的配置就可以实现。网上的教程一大把，这里就简单的记录一下过程。</p>
 <h3 id="安装lrzsz"><a href="#安装lrzsz" class="headerlink" title="安装lrzsz"></a>安装lrzsz</h3><p>首先安装Homebrew(这里不写这个过程)，然后通过它先给Mac安装lrzsz。在终端下输入brew install lrzsz，静等一会即可安装完毕。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install lrzsz</span><br></pre></td></tr></table></figure>
@@ -601,6 +603,10 @@
 <p>配置的具体内容在这里</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Regular expression: rz waiting to receive.\*\*B0100</span><br><span class="line">Action: Run Silent Coprocess</span><br><span class="line">Parameters: /usr/local/bin/iterm2-send-zmodem.sh</span><br><span class="line"></span><br><span class="line">Regular expression: \*\*B00000000000000</span><br><span class="line">Action: Run Silent Coprocess</span><br><span class="line">Parameters: /usr/local/bin/iterm2-recv-zmodem.sh</span><br></pre></td></tr></table></figure>
 <p>重新启动iTerm之后，rz/sz就应该可以正常使用了。</p>
+<h1 id="Forklift操作"><a href="#Forklift操作" class="headerlink" title="Forklift操作"></a>Forklift操作</h1><p>在文件夹中搜索文件：command+s</p>
+<p>常用文件夹-Favorites：alt+command+f</p>
+<p>ftp等传输工具：command+k</p>
+<p>前进/后退：command+[/]</p>
 <h1 id="其他操作"><a href="#其他操作" class="headerlink" title="其他操作"></a>其他操作</h1><h2 id="pycharm-光标变粗问题"><a href="#pycharm-光标变粗问题" class="headerlink" title="pycharm-光标变粗问题"></a>pycharm-光标变粗问题</h2><p>mac下默认的pycharm的光标是为粗体的改写模式，这是因为安装的时候装了ideaVim插件，改为竖线光标的方法：把ideaVim插件去掉（点击pycharm–&gt;preference–&gt;plugins–&gt;搜索ideavim，然后将该插件勾除掉即可） </p>
 <h2 id="MAC版本snipaste截图后无法输入中文问题"><a href="#MAC版本snipaste截图后无法输入中文问题" class="headerlink" title="MAC版本snipaste截图后无法输入中文问题"></a>MAC版本snipaste截图后无法输入中文问题</h2><p>参考资料：<a href="https://jingyan.baidu.com/article/c1a3101e635d6ade646deb56.html" target="_blank" rel="noopener">https://jingyan.baidu.com/article/c1a3101e635d6ade646deb56.html</a></p>
 <ol>
@@ -677,8 +683,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/08/08/编程语言/Python/老男孩视频学习笔记/day05-常用模块学习/" rel="next" title="day05-常用模块学习">
-                <i class="fa fa-chevron-left"></i> day05-常用模块学习
+              <a href="/2018/07/13/编程语言/Python/老男孩视频学习笔记/day04-函数装饰器迭代器生成器/" rel="next" title="day04-函数装饰器迭代器生成器">
+                <i class="fa fa-chevron-left"></i> day04-函数装饰器迭代器生成器
               </a>
             
           </div>
@@ -801,7 +807,7 @@ var jiathis_config={
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">50</span>
+                  <span class="site-state-item-count">51</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -812,7 +818,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">57</span>
+                  <span class="site-state-item-count">58</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -823,7 +829,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">44</span>
+                  <span class="site-state-item-count">45</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -863,7 +869,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#美式键盘对应关系"><span class="nav-number">1.</span> <span class="nav-text">美式键盘对应关系</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MAC常用快捷键"><span class="nav-number">2.</span> <span class="nav-text">MAC常用快捷键</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#概览"><span class="nav-number">2.1.</span> <span class="nav-text">概览</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#全局操作"><span class="nav-number">2.2.</span> <span class="nav-text">全局操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#强制退出应用"><span class="nav-number">2.3.</span> <span class="nav-text">强制退出应用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#强制刷新页面"><span class="nav-number">2.4.</span> <span class="nav-text">强制刷新页面</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#软件包管理"><span class="nav-number">3.</span> <span class="nav-text">软件包管理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MAC下实现AutoHotKey功能"><span class="nav-number">4.</span> <span class="nav-text">MAC下实现AutoHotKey功能</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Iterm2操作"><span class="nav-number">5.</span> <span class="nav-text">Iterm2操作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#快捷键"><span class="nav-number">5.1.</span> <span class="nav-text">快捷键</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#连接jumpserver"><span class="nav-number">5.2.</span> <span class="nav-text">连接jumpserver</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现rz-sz功能"><span class="nav-number">5.3.</span> <span class="nav-text">实现rz/sz功能</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装lrzsz"><span class="nav-number">5.3.1.</span> <span class="nav-text">安装lrzsz</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#下载iTerm2辅助文件"><span class="nav-number">5.3.2.</span> <span class="nav-text">下载iTerm2辅助文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置iTerm2触发器"><span class="nav-number">5.3.3.</span> <span class="nav-text">配置iTerm2触发器</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#其他操作"><span class="nav-number">6.</span> <span class="nav-text">其他操作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#pycharm-光标变粗问题"><span class="nav-number">6.1.</span> <span class="nav-text">pycharm-光标变粗问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MAC版本snipaste截图后无法输入中文问题"><span class="nav-number">6.2.</span> <span class="nav-text">MAC版本snipaste截图后无法输入中文问题</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#美式键盘对应关系"><span class="nav-number">1.</span> <span class="nav-text">美式键盘对应关系</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MAC常用快捷键"><span class="nav-number">2.</span> <span class="nav-text">MAC常用快捷键</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#概览"><span class="nav-number">2.1.</span> <span class="nav-text">概览</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#全局操作"><span class="nav-number">2.2.</span> <span class="nav-text">全局操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#强制退出应用"><span class="nav-number">2.3.</span> <span class="nav-text">强制退出应用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#强制刷新页面"><span class="nav-number">2.4.</span> <span class="nav-text">强制刷新页面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#切换全屏页面"><span class="nav-number">2.5.</span> <span class="nav-text">切换全屏页面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#控制中心"><span class="nav-number">2.6.</span> <span class="nav-text">控制中心</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#软件包管理"><span class="nav-number">3.</span> <span class="nav-text">软件包管理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MAC下实现AutoHotKey功能"><span class="nav-number">4.</span> <span class="nav-text">MAC下实现AutoHotKey功能</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Iterm2操作"><span class="nav-number">5.</span> <span class="nav-text">Iterm2操作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#快捷键"><span class="nav-number">5.1.</span> <span class="nav-text">快捷键</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#连接jumpserver"><span class="nav-number">5.2.</span> <span class="nav-text">连接jumpserver</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现rz-sz功能"><span class="nav-number">5.3.</span> <span class="nav-text">实现rz/sz功能</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装lrzsz"><span class="nav-number">5.3.1.</span> <span class="nav-text">安装lrzsz</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#下载iTerm2辅助文件"><span class="nav-number">5.3.2.</span> <span class="nav-text">下载iTerm2辅助文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置iTerm2触发器"><span class="nav-number">5.3.3.</span> <span class="nav-text">配置iTerm2触发器</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Forklift操作"><span class="nav-number">6.</span> <span class="nav-text">Forklift操作</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#其他操作"><span class="nav-number">7.</span> <span class="nav-text">其他操作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#pycharm-光标变粗问题"><span class="nav-number">7.1.</span> <span class="nav-text">pycharm-光标变粗问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MAC版本snipaste截图后无法输入中文问题"><span class="nav-number">7.2.</span> <span class="nav-text">MAC版本snipaste截图后无法输入中文问题</span></a></li></ol></li></ol></div>
             
 
           </div>

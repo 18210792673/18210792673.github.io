@@ -468,8 +468,10 @@ Name:&quot;&quot;&quot; + name  + &quot;&quot;&quot;
 Age: &quot;&quot;&quot; + age   + &quot;&quot;&quot;
 Job: &quot;&quot;&quot; +  job  +  &quot;&quot;&quot;
 Salary: &quot;&quot;&quot; + salary
-</code></pre><p>​<br>​    print (info)</p>
-<p>使用注释拼接上变量的形式来创建指定的格式，不建议使用字符串拼接的方式去实现，因为它会开辟好几块的内存空间，效率比较低下</p>
+
+
+print (info)
+</code></pre><p>使用注释拼接上变量的形式来创建指定的格式，不建议使用字符串拼接的方式去实现，因为它会开辟好几块的内存空间，效率比较低下</p>
 <p><strong>更高效简单的方法-参数替换</strong></p>
 <p>在shell脚本中，我们使用$符号引用外面定义的变量，在python中也提供了类似的功能。</p>
 <p>在python中使用%s，占位符，相当于$的存在</p>
@@ -478,8 +480,12 @@ Salary: &quot;&quot;&quot; + salary
 age = int(input(&quot;age: &quot;))
 job = input(&quot;job:&quot;)
 salary = input(&quot;salary:&quot;)
-</code></pre><p>​<br>    print(“name”)</p>
-<pre><code>info = &quot;&quot;&quot;
+
+
+print(&quot;name&quot;)
+
+
+info = &quot;&quot;&quot;
 -------- info of %s -----
 name: %s
 age: %d
@@ -544,8 +550,13 @@ password:
 wxh wxh
 </code></pre><p><strong>优化之后的代码：</strong></p>
 <pre><code>import getpass
-</code></pre><p>​<br>    _username = “wxh”<br>    _password = “wxh123”</p>
-<pre><code>username = input(&quot;username: &quot;)
+
+
+
+_username = &quot;wxh&quot;
+_password = &quot;wxh123&quot;
+
+username = input(&quot;username: &quot;)
 password = getpass.getpass(&quot;password: &quot;)
 
 if username == _username and password == _password :
@@ -595,12 +606,56 @@ print (&quot;the right answer is {Age}&quot;.format(Age=wxh_age))
 <p><strong>代码如下：</strong></p>
 <pre><code>wxh_age = 23
 message = &quot;Please input the number of wxh&apos;s age,input 00 to quit:  &quot;
-</code></pre><p>​<br>    tag = True<br>    count = 0<br>    while tag:<br>        guess_age = int(input(message))<br>        if guess_age == 00:<br>            break<br>        elif guess_age == wxh_age:<br>            print(“Yes,you get it!”)<br>            break<br>        elif guess_age &gt; wxh_age:<br>            print(“please guess smaller…”)<br>        else:<br>            print(“plwase guess bigger…”)<br>        count = count + 1<br>        if count == 3:<br>            tag = False<br>            print (“\n”)<br>            print (“You have input too many times,quit now!”)<br>    print (“\n”)<br>    print (“The right age is:{Age} “.format(Age=wxh_age))</p>
-<p>或者</p>
+
+
+
+tag = True
+count = 0
+while tag:
+    guess_age = int(input(message))
+    if guess_age == 00:
+        break
+    elif guess_age == wxh_age:
+        print(&quot;Yes,you get it!&quot;)
+        break
+    elif guess_age &gt; wxh_age:
+        print(&quot;please guess smaller...&quot;)
+    else:
+        print(&quot;plwase guess bigger...&quot;)
+    count = count + 1
+    if count == 3:
+        tag = False
+        print (&quot;\n&quot;)
+        print (&quot;You have input too many times,quit now!&quot;)
+print (&quot;\n&quot;)
+print (&quot;The right age is:{Age} &quot;.format(Age=wxh_age))
+</code></pre><p>或者</p>
 <pre><code>wxh_age = 23
 message = &quot;Please input the number of wxh&apos;s age,input 00 to quit:  &quot;
-</code></pre><p>​<br>    tag = True<br>    count = 0<br>    while tag:<br>        guess_age = int(input(message))<br>        if guess_age == 00:<br>            break<br>        elif guess_age == wxh_age:<br>            print(“Yes,you get it!”)<br>            break<br>        elif guess_age &gt; wxh_age:<br>            print(“please guess smaller…”)<br>        else:<br>            print(“plwase guess bigger…”)<br>        count = count + 1<br>        if count == 3:<br>            tag = False<br>            print (“\n”)<br>    else:<br>            print (“You have input too many time,quit now!”)</p>
-<pre><code>print (&quot;\n&quot;)
+
+
+
+tag = True
+count = 0
+while tag:
+    guess_age = int(input(message))
+    if guess_age == 00:
+        break
+    elif guess_age == wxh_age:
+        print(&quot;Yes,you get it!&quot;)
+        break
+    elif guess_age &gt; wxh_age:
+        print(&quot;please guess smaller...&quot;)
+    else:
+        print(&quot;plwase guess bigger...&quot;)
+    count = count + 1
+    if count == 3:
+        tag = False
+        print (&quot;\n&quot;)
+else:
+        print (&quot;You have input too many time,quit now!&quot;)
+
+print (&quot;\n&quot;)
 print (&quot;The right age is:{Age} &quot;.format(Age=wxh_age))
 </code></pre><p>注意，while也可以和else配合使用，当while所执行的条件不成立时，就会执行else块中的语句</p>
 <p><strong>执行后的输出如下：</strong></p>
@@ -611,24 +666,39 @@ Please input the number of wxh&apos;s age,input 00 to quit:  11
 plwase guess bigger...
 Please input the number of wxh&apos;s age,input 00 to quit:  28
 please guess smaller...
-</code></pre><p>​<br>    You have input too many times,quit now!</p>
-<p>​<br>    The right age is:23 </p>
-<pre><code>Process finished with exit code 0
+
+
+
+You have input too many times,quit now!
+
+
+
+The right age is:23 
+
+Process finished with exit code 0
 </code></pre><p>and</p>
 <pre><code>D:\software\python\python.exe C:/Users/Administrator/PycharmProjects/python14/day1/guess.py
 Please input the number of wxh&apos;s age,input 00 to quit:  11
 plwase guess bigger...
 Please input the number of wxh&apos;s age,input 00 to quit:  23
 Yes,you get it!
-</code></pre><p>​<br>    The right age is:23 </p>
-<pre><code>Process finished with exit code 0
+
+
+
+The right age is:23 
+
+Process finished with exit code 0
 </code></pre><p>and</p>
 <pre><code>D:\software\python\python.exe C:/Users/Administrator/PycharmProjects/python14/day1/guess.py
 Please input the number of wxh&apos;s age,input 00 to quit:  22
 plwase guess bigger...
 Please input the number of wxh&apos;s age,input 00 to quit:  00
-</code></pre><p>​<br>    The right age is:23 </p>
-<pre><code>Process finished with exit code 0
+
+
+
+The right age is:23 
+
+Process finished with exit code 0
 </code></pre><p>将上述代码进行优化，添加重复的功能【达到3次之后，询问用户是否需要继续】</p>
 <pre><code>num = 0
 while num &lt; 3:
@@ -896,7 +966,7 @@ var jiathis_config={
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">50</span>
+                  <span class="site-state-item-count">51</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -907,7 +977,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">57</span>
+                  <span class="site-state-item-count">58</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -918,7 +988,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">44</span>
+                  <span class="site-state-item-count">45</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
