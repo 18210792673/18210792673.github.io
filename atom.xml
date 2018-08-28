@@ -43,6 +43,32 @@
   </entry>
   
   <entry>
+    <title>DNS记录类型简介</title>
+    <link href="http://yoursite.com/2018/08/28/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E7%BD%91%E7%BB%9C%E7%9F%A5%E8%AF%86/DNS/DNS%E8%AE%B0%E5%BD%95%E7%B1%BB%E5%9E%8B%E7%AE%80%E4%BB%8B/"/>
+    <id>http://yoursite.com/2018/08/28/IT科学技术知识体系结构-Linux运维方向/网络知识/DNS/DNS记录类型简介/</id>
+    <published>2018-08-28T03:54:17.000Z</published>
+    <updated>2018-08-28T03:54:17.000Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h1><p>DNS：（Domain Name System，域名系统），因特网上作为域名和<a href="http://baike.baidu.com/view/3930.htm" target="_blank" rel="noopener">IP地址</a>相互映射的一个<a href="http://baike.baidu.com/view/68389.htm" target="_blank" rel="noopener">分布式数据库</a>，能够使用户更方便的访问<a href="http://baike.baidu.com/view/6825.htm" target="_blank" rel="noopener">互联网</a>，而不用去记住能够被机器直接读取的IP数串。通过<a href="http://baike.baidu.com/view/23880.htm" target="_blank" rel="noopener">主机</a>名，最终得到该主机名对应的IP地址的过程叫做域名解析（或主机名解析）。使用端口号53。</p><p>DNS服务器：用于对域名进行解析的域名解析服务器。</p><p>DNS代理：用于代理域名服务器，对客户端的查询请求进行响应（一般是本地查找，查找不到再向代理的服务器转发客户端的查询请求）</p><h1 id="dns记录类型介绍"><a href="#dns记录类型介绍" class="headerlink" title="dns记录类型介绍"></a>dns记录类型介绍</h1><p>A记录：</p><h2 id="A记录"><a href="#A记录" class="headerlink" title="A记录"></a>A记录</h2><p>说明：WEB服务器的IP指向</p><p>A （Address）记录是用来指定主机名（或域名）对应的IP地址记录。用户可以将该域名下的网站服务器指向到自己的web server上。同时也可以设置域名的子域名。通俗来说A记录就是服务器的IP,域名绑定A记录就是告诉DNS,当你输入域名的时候给你引导向设置在DNS的A记录所对应的服务器。 </p><p>简单的说，A记录是指定域名对应的IP地址。</p><h2 id="AAAA记录"><a href="#AAAA记录" class="headerlink" title="AAAA记录"></a>AAAA记录</h2><p>作用同A记录，只不过该记录是将域名解析到一个指定的<strong>IPV6</strong>的IP上</p><h2 id="CNAME记录"><a href="#CNAME记录" class="headerlink" title="CNAME记录"></a>CNAME记录</h2><p>通常称别名解析。可以将注册的不同域名都转到一个域名记录上，由这个域名记录统一解析管理</p><p>这种记录允许您将多个名字映射到同一台计算机。 通常用于同时提供WWW和MAIL服务的计算机。例如，有一台计算机名为“host.mydomain.com”（A记录）。 它同时提供WWW和MAIL服务，为了便于用户访问服务。可以为该计算机设置两个别名（CNAME）：WWW和MAIL。 这两个别名的全称就是“www.mydomain.com”和“mail.mydomain.com”。实际上他们都指向“host.mydomain.com”。</p><p>同样的方法可以用于当您拥有多个域名需要指向同一服务器IP，此时您就可以将一个域名做A记录指向服务器IP然后将其他的域名做别名到之前做A记录的域名上，那么当您的服务器IP地址变更时您就可以不必麻烦的一个一个域名更改指向了 只需要更改做A记录的那个域名其他做别名的那些域名的指向也将自动更改到新的IP地址上了。</p><h2 id="NS记录"><a href="#NS记录" class="headerlink" title="NS记录"></a>NS记录</h2><p>解析服务器记录，用来表明由哪台服务器对该域名进行解析。</p><p>这里的NS记录只对子域名生效。</p><p>例如用户希望由12.34.56.78这台服务器解析news.mydomain.com，则需要设置news.mydomain.com的NS记录。 </p><p>说明： </p><ul><li>“优先级”中的数字越小表示级别越高； </li><li>“IP地址/主机名”中既可以填写IP地址，也可以填写像ns.mydomain.com这样的主机地址，但必须保证该主机地址有效。如，将 news.mydomain.com的NS记录指向到ns.mydomain.com，在设置NS记录的同时还需要设置ns.mydomain.com的 指向，否则NS记录将无法正常解析； </li><li>NS记录优先于A记录。即，如果一个主机地址同时存在NS记录和A记录，则A记录不生效。这里的NS记录只对子域名生效。</li></ul><h2 id="MX记录"><a href="#MX记录" class="headerlink" title="MX记录"></a>MX记录</h2><p>MX（Mail Exchanger）记录是邮件交换记录，它指向一个邮件服务器，用于电子邮件系统发邮件时根据收信人的地址后缀来定位邮件服务器。例如，当Internet上的某用户要发一封信给 user@mydomain.com 时，该用户的邮件系统通过DNS查找mydomain.com这个域名的MX记录，如果MX记录存在， 用户计算机就将邮件发送到MX记录所指定的邮件服务器上。</p><hr><p>其他的记录类型涉及到的时候再详细补充</p>]]></content>
+    
+    <summary type="html">
+    
+      DNS记录类型简介
+    
+    </summary>
+    
+      <category term="IT科学技术知识体系结构-Linux运维方向" scheme="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/"/>
+    
+      <category term="网络知识" scheme="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E7%BD%91%E7%BB%9C%E7%9F%A5%E8%AF%86/"/>
+    
+      <category term="DNS" scheme="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E7%BD%91%E7%BB%9C%E7%9F%A5%E8%AF%86/DNS/"/>
+    
+    
+      <category term="DNS" scheme="http://yoursite.com/tags/DNS/"/>
+    
+  </entry>
+  
+  <entry>
     <title>ubuntu设置ssh服务</title>
     <link href="http://yoursite.com/2018/08/26/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/Linux%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/Linux%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86/ubuntu%E8%AE%BE%E7%BD%AEssh%E6%9C%8D%E5%8A%A1/"/>
     <id>http://yoursite.com/2018/08/26/IT科学技术知识体系结构-Linux运维方向/Linux基础知识/Linux系统管理/ubuntu设置ssh服务/</id>
@@ -505,30 +531,6 @@
     
     
       <category term="每日碎片知识梳理" scheme="http://yoursite.com/tags/%E6%AF%8F%E6%97%A5%E7%A2%8E%E7%89%87%E7%9F%A5%E8%AF%86%E6%A2%B3%E7%90%86/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Typora</title>
-    <link href="http://yoursite.com/2018/06/24/%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6%E5%B7%A5%E5%85%B7/Markdown/Typora/"/>
-    <id>http://yoursite.com/2018/06/24/常用软件工具/Markdown/Typora/</id>
-    <published>2018-06-24T04:05:16.000Z</published>
-    <updated>2018-06-24T04:05:16.000Z</updated>
-    
-    <content type="html"><![CDATA[<p><strong>参考文献：</strong></p><ul><li><u><a href="https://www.typora.io/" target="_blank" rel="noopener">Typora官方网站</a></u></li></ul><h1 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h1><h2 id="软件介绍"><a href="#软件介绍" class="headerlink" title="软件介绍"></a>软件介绍</h2><p>markdown编辑器有很多的选择，对比使用之后，目前在用的是一款叫Typora编辑器，特写文章记录一下。本文只是简单介绍，待亲自上手体验之后方可体会它的美感。</p><p><strong>官方说明：</strong></p><blockquote><p>Typora will give you a seamless experience as both a reader and a writer. It removes the preview window, mode switcher, syntax symbols of markdown source code, and all other unnecessary distractions. Replace them with a real live preview feature to help you concentrate the content itself. </p></blockquote><p>Markdown 编辑器，比较常见的是双栏布局：左边敲源码，右边显示渲染结果。 </p><p>但是Typora 是单栏布局，是真正意义上的所见即所得，摒弃了传统的markdown编辑器的分栏设置（例如markdown pad 2左边是源码，右边是渲染之后的显示效果）以及其他非必须的内容，书写时直接显示成效图。光标一离开，就立刻显示为想要的样子，并且由用户选择何时进入源码模式（输入ctrl+/即可切换源码编辑模式）</p><h1 id="入门实践"><a href="#入门实践" class="headerlink" title="入门实践"></a>入门实践</h1><h2 id="快捷键操作"><a href="#快捷键操作" class="headerlink" title="快捷键操作"></a>快捷键操作</h2><h3 id="标题操作"><a href="#标题操作" class="headerlink" title="标题操作"></a>标题操作</h3><p><strong>插入标题：</strong></p><ul><li><strong>一级标题：</strong>ctrl+1</li><li><strong>二级标题：</strong>ctrl+2</li><li><strong>三级标题：</strong>ctrl+3</li><li><strong>四级标题：</strong>ctrl+4</li><li><strong>五级标题：</strong>ctrl+5</li></ul><p><strong>增大标题级别：</strong>ctrl + =</p><p><strong>减小标题级别：</strong>ctrl + -</p><h3 id="表格操作"><a href="#表格操作" class="headerlink" title="表格操作"></a>表格操作</h3><p><strong>插入表格：</strong></p><ul><li><p>编辑器中插入</p><blockquote><p>直接<strong><code>ctrl+t</code></strong>插入表格，并且在弹出的提示框中可以自由选择表格的行和列数</p></blockquote></li><li><p>外部复制（excel等专业表格软件中复制）</p><blockquote><p>直接复制即可，Typora会自动把excel的格式转换为markdown的语法格式</p></blockquote></li></ul><h3 id="代码块"><a href="#代码块" class="headerlink" title="代码块"></a>代码块</h3><ul><li><p>行内代码块</p><blockquote><p>使用``号将内容包含即可，快捷键为：ctrl+shift+反引号</p></blockquote></li><li><p>行代码块</p><blockquote><p>在开头输入```然后回车，在下方输入内容，内容将会自动的变成代码块的形式</p></blockquote></li><li><p>指定格式的行代码块</p><blockquote><p>在开头输入```bash/python/ruby然后回车，在下方输入内容，内容将会自动的变成指定代码块的形式</p></blockquote></li></ul><h3 id="无序列表"><a href="#无序列表" class="headerlink" title="无序列表"></a>无序列表</h3><ul><li><p>基础无序列表： 使用 - content 即可</p></li><li><p>完成/未完成列表：<code>-[] content or - [x] content</code></p></li><li><p>无序列表缩进问题</p><ul><li>增大列表缩进（也就是右移，子列表）：ctrl+]</li><li>减小列表缩进（也就是左移，父列表）：ctrl+[</li></ul></li></ul><h3 id="网页链接与图片"><a href="#网页链接与图片" class="headerlink" title="网页链接与图片"></a>网页链接与图片</h3><ul><li><p>编辑器中插入网页超链接</p><blockquote><p>直接ctrl+k即可出现相对应的格式</p></blockquote></li><li><p>给文字加上超链接</p><blockquote><p>只需拷贝链接，然后选中文字，按一下ctrl + k，链接就添上了 </p></blockquote></li><li><p>编辑器中插入图片</p><blockquote><p>ctrl+shift+i</p></blockquote></li><li><p>图片拖拽</p><blockquote><p>这个功能可以将拖入图片转化为插入图片，但是这个功能默认是关闭的，需要在设置中手动开启，设置的路径为: Preferences -&gt; Editor</p></blockquote></li></ul><h3 id="切换源码-预览模式"><a href="#切换源码-预览模式" class="headerlink" title="切换源码/预览模式"></a>切换源码/预览模式</h3><p>输入ctrl+/可以再源码模式和成像预览模式之间进行来回切换</p><h3 id="其他常用操作"><a href="#其他常用操作" class="headerlink" title="其他常用操作"></a>其他常用操作</h3><ul><li>文字加粗：ctrl+b</li><li>文字倾斜：ctrl+i</li><li>文字下划线：ctrl+u</li><li>文字删除线：两个波浪线分别在文字的两边<code>~~content~~</code></li><li>清除格式：ctrl+\</li></ul><h3 id="生成目录"><a href="#生成目录" class="headerlink" title="生成目录"></a>生成目录</h3><p>输出[toc]然后回车，将会自动产生一个目录，这个目录抽取了文章的所有标题，自动更新内容</p><h2 id="软件本身操作"><a href="#软件本身操作" class="headerlink" title="软件本身操作"></a>软件本身操作</h2><h3 id="文件"><a href="#文件" class="headerlink" title="文件"></a>文件</h3><h4 id="快速打开"><a href="#快速打开" class="headerlink" title="快速打开"></a>快速打开</h4><p>输入ctrl+p之后，输入关键字，它会在当前文件夹下进行搜索</p><h4 id="打开文件位置"><a href="#打开文件位置" class="headerlink" title="打开文件位置"></a>打开文件位置</h4><p>点击文件之后，在侧边栏中会有<code>打开文件位置</code>的选项，它能进入该文件所在的目录，这个功能十分的方便。</p><h3 id="编辑"><a href="#编辑" class="headerlink" title="编辑"></a>编辑</h3><h4 id="查找"><a href="#查找" class="headerlink" title="查找"></a>查找</h4><p>ctrl+f 进行查找</p><h4 id="替换"><a href="#替换" class="headerlink" title="替换"></a>替换</h4><p>ctrl+h进行替换</p><h4 id="首行缩进"><a href="#首行缩进" class="headerlink" title="首行缩进"></a>首行缩进</h4><p>在其中的空格与换行中，有首行缩进的选项，选中之后，会把所有内容中的首行内容进行缩进两个空格。</p><h3 id="格式"><a href="#格式" class="headerlink" title="格式"></a>格式</h3><h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><p>ctrl+shitf+`</p><h4 id="删除线"><a href="#删除线" class="headerlink" title="删除线"></a>删除线</h4><p>alt+shift+5</p><h4 id="高亮"><a href="#高亮" class="headerlink" title="高亮"></a>高亮</h4><p><code>==</code>content<code>==</code></p><p>效果如下：</p><p>==content==</p><h4 id="清除样式"><a href="#清除样式" class="headerlink" title="清除样式"></a>清除样式</h4><p>ctrl+\</p>]]></content>
-    
-    <summary type="html">
-    
-      Typora软件使用
-    
-    </summary>
-    
-      <category term="常用软件工具" scheme="http://yoursite.com/categories/%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6%E5%B7%A5%E5%85%B7/"/>
-    
-      <category term="Markdown" scheme="http://yoursite.com/categories/%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6%E5%B7%A5%E5%85%B7/Markdown/"/>
-    
-    
-      <category term="Typora" scheme="http://yoursite.com/tags/Typora/"/>
     
   </entry>
   

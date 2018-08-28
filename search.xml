@@ -14,6 +14,19 @@
       </tags>
   </entry>
   <entry>
+    <title><![CDATA[DNS记录类型简介]]></title>
+    <url>%2F2018%2F08%2F28%2FIT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91%2F%E7%BD%91%E7%BB%9C%E7%9F%A5%E8%AF%86%2FDNS%2FDNS%E8%AE%B0%E5%BD%95%E7%B1%BB%E5%9E%8B%E7%AE%80%E4%BB%8B%2F</url>
+    <content type="text"><![CDATA[基础知识DNS：（Domain Name System，域名系统），因特网上作为域名和IP地址相互映射的一个分布式数据库，能够使用户更方便的访问互联网，而不用去记住能够被机器直接读取的IP数串。通过主机名，最终得到该主机名对应的IP地址的过程叫做域名解析（或主机名解析）。使用端口号53。 DNS服务器：用于对域名进行解析的域名解析服务器。 DNS代理：用于代理域名服务器，对客户端的查询请求进行响应（一般是本地查找，查找不到再向代理的服务器转发客户端的查询请求） dns记录类型介绍A记录： A记录说明：WEB服务器的IP指向 A （Address）记录是用来指定主机名（或域名）对应的IP地址记录。用户可以将该域名下的网站服务器指向到自己的web server上。同时也可以设置域名的子域名。通俗来说A记录就是服务器的IP,域名绑定A记录就是告诉DNS,当你输入域名的时候给你引导向设置在DNS的A记录所对应的服务器。 简单的说，A记录是指定域名对应的IP地址。 AAAA记录作用同A记录，只不过该记录是将域名解析到一个指定的IPV6的IP上 CNAME记录通常称别名解析。可以将注册的不同域名都转到一个域名记录上，由这个域名记录统一解析管理 这种记录允许您将多个名字映射到同一台计算机。 通常用于同时提供WWW和MAIL服务的计算机。例如，有一台计算机名为“host.mydomain.com”（A记录）。 它同时提供WWW和MAIL服务，为了便于用户访问服务。可以为该计算机设置两个别名（CNAME）：WWW和MAIL。 这两个别名的全称就是“www.mydomain.com”和“mail.mydomain.com”。实际上他们都指向“host.mydomain.com”。 同样的方法可以用于当您拥有多个域名需要指向同一服务器IP，此时您就可以将一个域名做A记录指向服务器IP然后将其他的域名做别名到之前做A记录的域名上，那么当您的服务器IP地址变更时您就可以不必麻烦的一个一个域名更改指向了 只需要更改做A记录的那个域名其他做别名的那些域名的指向也将自动更改到新的IP地址上了。 NS记录解析服务器记录，用来表明由哪台服务器对该域名进行解析。 这里的NS记录只对子域名生效。 例如用户希望由12.34.56.78这台服务器解析news.mydomain.com，则需要设置news.mydomain.com的NS记录。 说明： “优先级”中的数字越小表示级别越高； “IP地址/主机名”中既可以填写IP地址，也可以填写像ns.mydomain.com这样的主机地址，但必须保证该主机地址有效。如，将 news.mydomain.com的NS记录指向到ns.mydomain.com，在设置NS记录的同时还需要设置ns.mydomain.com的 指向，否则NS记录将无法正常解析； NS记录优先于A记录。即，如果一个主机地址同时存在NS记录和A记录，则A记录不生效。这里的NS记录只对子域名生效。 MX记录MX（Mail Exchanger）记录是邮件交换记录，它指向一个邮件服务器，用于电子邮件系统发邮件时根据收信人的地址后缀来定位邮件服务器。例如，当Internet上的某用户要发一封信给 user@mydomain.com 时，该用户的邮件系统通过DNS查找mydomain.com这个域名的MX记录，如果MX记录存在， 用户计算机就将邮件发送到MX记录所指定的邮件服务器上。 其他的记录类型涉及到的时候再详细补充]]></content>
+      <categories>
+        <category>IT科学技术知识体系结构-Linux运维方向</category>
+        <category>网络知识</category>
+        <category>DNS</category>
+      </categories>
+      <tags>
+        <tag>DNS</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[ubuntu设置ssh服务]]></title>
     <url>%2F2018%2F08%2F26%2FIT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91%2FLinux%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%2FLinux%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86%2Fubuntu%E8%AE%BE%E7%BD%AEssh%E6%9C%8D%E5%8A%A1%2F</url>
     <content type="text"><![CDATA[默认情况下，安装完ubuntu之后，操作系统不会像centos一样会自动把openssh-server给安装上，也就是说，在系统安装完毕之后，我们还需要进行额外的操作，才能通过ssh的方式远程访问我们的ubuntu系统。 基础知识SSH分客户端openssh-client和openssh-server 如果你只是想登陆别的机器，那么只需要安装openssh-client（ubuntu有默认安装，如果没有则sudoapt-get install openssh-client），如果要使本机开放SSH服务就需要安装openssh-server。 安装配置在命令行中使用如下命令进行安装 安装1sudo apt-get install openssh-server 配置ssh-server配置文件位于/etc/ssh/sshd_config，在这里可以定义SSH的服务端口，默认端口是22，你可以自己定义成其他端口号。 通过修改配置文件/etc/ssh/sshd_config，可以进行修改ssh登录端口、禁止root登录等一系列操作，修改端口可以防止被端口扫描。 启动默认情况下，安装完毕之后将会自动启动，我们可用用过ps来查看 1ps -elf | grep sshd 如果没有启动的话，我们执行以下命令启动 1sudo /etc/init.d/ssh start]]></content>
