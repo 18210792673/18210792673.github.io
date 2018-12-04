@@ -501,6 +501,34 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">from image import *</span><br><span class="line">tool = tiff.read(&apos;a.tiff&apos;)</span><br></pre></td></tr></table></figure>
 <p>其实<em> </em> init_ .py可以为空，当其为空时，from Image import *将Image包下<strong>所有的模块都进行引用</strong>，如果想要控制引用的模块，则可以自行定义 <em>all</em></p>
 <h1 id="python-异常处理"><a href="#python-异常处理" class="headerlink" title="python 异常处理"></a>python 异常处理</h1><p>在出现异常的时候，出现一堆error，该选取哪一个error进行try</p>
+<h1 id="python的dict和json的区别"><a href="#python的dict和json的区别" class="headerlink" title="python的dict和json的区别"></a>python的dict和json的区别</h1><p>工作中和其他语言的工程师交流，合作与联调中经常会涉及到数据的传输，这个数据的传输通常为json字符串，这个json格式数据和python自身的dict数据对象非常像，所以很自然的会思考这两者究竟区别在哪里？</p>
+<p><strong>首先，两者不一样</strong></p>
+<h3 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h3><ul>
+<li>Python 的字典是一种数据结构，JSON 是一种数据格式。</li>
+</ul>
+<p>json 就是一个根据某种约定格式编写的纯字符串，不具备任何数据结构的特征。而 python 的字典的字符串表现形式的规则看上去和 json 类似，但是字典本身是一个完整的数据结构，实现了一切自身该有的算法。</p>
+<ul>
+<li>Python的字典key可以是任意可hash对象，json只能是字符串。</li>
+</ul>
+<p>形式上有些相像，但JSON是纯文本的，无法直接操作。</p>
+<ul>
+<li>1.python dict 字符串用单引号，<strong>json强制规定双引号。</strong></li>
+<li>2.python dict 里可以嵌套tuple,json里只有array。 json.dumps({1:2}) 的结果是 ｛”1”:2}； json.dumps((1,2)) 的结果是[1,2]</li>
+<li>3.json key name 必须是字符串,   python 是hashable,  {(1,2):1} 在python里是合法的,因为tuple是hashable type；{[1,2]:1} 在python里TypeError: unhashable “list”</li>
+<li>4.json: true false null ；  python:True False None</li>
+<li><ol>
+<li>python {“me”: “我”} 是合法的；    json 必须是 {“me”: “\u6211”}</li>
+</ol>
+</li>
+</ul>
+<h3 id="联系"><a href="#联系" class="headerlink" title="联系"></a>联系</h3><p>dict 存在于内存中，可以被序列化成 json 格式的数据（string），之后这些数据就可以传输或者存储了。<br> JSON 是一种数据传输格式。<br> 也就是说，这些字符串以 JSON 这样的格式来传输，至于你怎么 parse 这些信息，甚至是是否 parse，是否储存，都不是 JSON 的事情。<br> 用 Python 举个例子: 某段程序可以把字符串 <code>&quot;{A:1, B:2}&quot;</code> parse 成 一对 tuple<code>( (&quot;A&quot;, 1), (&quot;B&quot;, 2) )</code>而不是 dictionary <code>{&quot;A&quot;: 1, &quot;B&quot;: 2}</code>。Python 的 dictionary 是对 Hash Table 这一数据结构的一种实现。它使用其内置的哈希函数来规划键对应的内容的储存位置，从而获得 O(1) 的数据读取速度。所以 JSON 是一种数据传输格式，它能被解析成 Python 的 Dictionary 或者其他形式，但解析成什么内容是和 JSON 这种格式无关的。Python 的 Dictionary 则是 Python 对 Hash Table 的实现，一套从存储到提取都封装好了的方案。</p>
+<h1 id="Python-2-7-12-源码安装pip"><a href="#Python-2-7-12-源码安装pip" class="headerlink" title="Python 2.7.12 源码安装pip"></a>Python 2.7.12 源码安装pip</h1><p>wget  <a href="https://bootstrap.pypa.io/get-pip.py" target="_blank" rel="noopener">https://bootstrap.pypa.io/get-pip.py</a></p>
+<p>./python get-pip.py</p>
+<h1 id="if-name-‘main‘-如何正确理解"><a href="#if-name-‘main‘-如何正确理解" class="headerlink" title="if name == ‘main‘ 如何正确理解?"></a>if <strong>name</strong> == ‘<strong>main</strong>‘ 如何正确理解?</h1><p>这里的作用主要是作为整个程序的一个入口</p>
+<p>对于很多编程语言来说，程序都必须要有一个入口，比如 C，C++，以及完全面向对象的编程语言 Java，C# 等。如果你接触过这些语言，对于程序入口这个概念应该很好理解，C 和 C++ 都需要有一个 main 函数来作为程序的入口，也就是程序的运行会从 main 函数开始。同样，Java 和 C# 必须要有一个包含 Main 方法的主类来作为程序入口。</p>
+<p>而 Python 则有不同，它属于脚本语言，不像编译型语言那样先将程序编译成二进制再运行，而是动态的逐行解释运行。也就是从脚本第一行开始运行，没有统一的入口。</p>
+<p>一个 Python 源码文件除了可以被直接运行外，还可以作为模块（也就是库）被导入。不管是导入还是直接运行，最顶层的代码都会被运行（Python 用缩进来区分代码层次）。而实际上在导入的时候，有一部分代码我们是不希望被运行的。</p>
+<p>详细内容可以看这篇文章：<a href="http://blog.konghy.cn/2017/04/24/python-entry-program/" target="_blank" rel="noopener">http://blog.konghy.cn/2017/04/24/python-entry-program/</a></p>
 
       
     </div>
@@ -684,7 +712,7 @@ var jiathis_config={
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">55</span>
+                  <span class="site-state-item-count">60</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -695,7 +723,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">61</span>
+                  <span class="site-state-item-count">62</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -706,7 +734,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">47</span>
+                  <span class="site-state-item-count">48</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -746,7 +774,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#零碎知识"><span class="nav-number">1.</span> <span class="nav-text">零碎知识</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#删除字符串中指定符号"><span class="nav-number">1.1.</span> <span class="nav-text">删除字符串中指定符号</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Python-按行读取文件并去掉换行"><span class="nav-number">1.2.</span> <span class="nav-text">Python 按行读取文件并去掉换行</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#python字典追加"><span class="nav-number">1.3.</span> <span class="nav-text">python字典追加</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#python调用shell命令并获取输出"><span class="nav-number">1.4.</span> <span class="nav-text">python调用shell命令并获取输出</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查看python执行过程-类似sh-x"><span class="nav-number">1.5.</span> <span class="nav-text">查看python执行过程-类似sh -x</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#版本变化"><span class="nav-number">2.</span> <span class="nav-text">版本变化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#应该修改为："><span class="nav-number">2.1.</span> <span class="nav-text">应该修改为：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#pycharm使用"><span class="nav-number">3.</span> <span class="nav-text">pycharm使用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#解决pycharm问题：module-‘pip’-has-no-attribute-‘main’"><span class="nav-number">3.1.</span> <span class="nav-text">解决pycharm问题：module ‘pip’ has no attribute ‘main’</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建directory和python-package的区别"><span class="nav-number">3.2.</span> <span class="nav-text">创建directory和python package的区别</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#python-异常处理"><span class="nav-number">4.</span> <span class="nav-text">python 异常处理</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#零碎知识"><span class="nav-number">1.</span> <span class="nav-text">零碎知识</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#删除字符串中指定符号"><span class="nav-number">1.1.</span> <span class="nav-text">删除字符串中指定符号</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Python-按行读取文件并去掉换行"><span class="nav-number">1.2.</span> <span class="nav-text">Python 按行读取文件并去掉换行</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#python字典追加"><span class="nav-number">1.3.</span> <span class="nav-text">python字典追加</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#python调用shell命令并获取输出"><span class="nav-number">1.4.</span> <span class="nav-text">python调用shell命令并获取输出</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查看python执行过程-类似sh-x"><span class="nav-number">1.5.</span> <span class="nav-text">查看python执行过程-类似sh -x</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#版本变化"><span class="nav-number">2.</span> <span class="nav-text">版本变化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#应该修改为："><span class="nav-number">2.1.</span> <span class="nav-text">应该修改为：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#pycharm使用"><span class="nav-number">3.</span> <span class="nav-text">pycharm使用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#解决pycharm问题：module-‘pip’-has-no-attribute-‘main’"><span class="nav-number">3.1.</span> <span class="nav-text">解决pycharm问题：module ‘pip’ has no attribute ‘main’</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建directory和python-package的区别"><span class="nav-number">3.2.</span> <span class="nav-text">创建directory和python package的区别</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#python-异常处理"><span class="nav-number">4.</span> <span class="nav-text">python 异常处理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#python的dict和json的区别"><span class="nav-number">5.</span> <span class="nav-text">python的dict和json的区别</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#区别"><span class="nav-number">5.0.1.</span> <span class="nav-text">区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#联系"><span class="nav-number">5.0.2.</span> <span class="nav-text">联系</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Python-2-7-12-源码安装pip"><span class="nav-number">6.</span> <span class="nav-text">Python 2.7.12 源码安装pip</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#if-name-‘main‘-如何正确理解"><span class="nav-number">7.</span> <span class="nav-text">if name == ‘main‘ 如何正确理解?</span></a></li></ol></div>
             
 
           </div>

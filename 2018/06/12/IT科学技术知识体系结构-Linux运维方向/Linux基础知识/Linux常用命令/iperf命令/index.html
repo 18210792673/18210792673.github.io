@@ -453,21 +453,16 @@
 </ul>
 <h1 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h1><h1 id="安装配置"><a href="#安装配置" class="headerlink" title="安装配置"></a>安装配置</h1><p>使用iperf时，涉及服务端和客户端的概念</p>
 <p>因为iperf是使用C语言编写的，因此在安装之前服务器上要安装gcc编译器。</p>
-<h2 id="全局参数"><a href="#全局参数" class="headerlink" title="全局参数"></a>全局参数</h2><h2 id="服务端配置"><a href="#服务端配置" class="headerlink" title="服务端配置"></a>服务端配置</h2><h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><pre><code># wget http://downloads.es.net/pub/iperf/iperf-3.5.tar.gz
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><pre><code># wget http://downloads.es.net/pub/iperf/iperf-3.5.tar.gz
 # tar -zxvf iperf-3.5.tar.gz
 # cd iperf-3.5
 # ./configure; make; make install
-</code></pre><h3 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h3><pre><code># iperf3 -s -D
-</code></pre><p>iperf2版本启动之后，默认的监听端口为：5001</p>
-<p>iperf3版本启动之后，默认的监听端口为：5201</p>
-<p>因为iperf2版本存在很多问题，因此我们现在主要使用iperf3版本进行测试</p>
-<h3 id="补充：服务端启动参数"><a href="#补充：服务端启动参数" class="headerlink" title="补充：服务端启动参数"></a>补充：服务端启动参数</h3><h2 id="客户端配置"><a href="#客户端配置" class="headerlink" title="客户端配置"></a>客户端配置</h2><h3 id="安装-1"><a href="#安装-1" class="headerlink" title="安装"></a>安装</h3><pre><code># wget http://downloads.es.net/pub/iperf/iperf-3.5.tar.gz
-# tar -zxvf iperf-3.5.tar.gz
-# cd iperf-3.5
-# ./configure; make; make install
-</code></pre><p>客户端不需要启动</p>
-<h1 id="实践"><a href="#实践" class="headerlink" title="实践"></a>实践</h1><p><strong>客户端指定发送一个5GB的数据包，每隔5秒钟输出一次传输状态，输出结果的显示单位为MB显示，并发3个线程发送</strong></p>
-<pre><code># iperf  -c 10.11.6.3 -n 5000000000 -p 5201 -i 5 -f M -P 3 
+</code></pre><h3 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h3><p>服务端执行即可，客户端不需要执行</p>
+<pre><code># iperf3 -s -D
+</code></pre><p>iperf3版本启动之后，默认的监听端口为：5201</p>
+<h1 id="实际测试"><a href="#实际测试" class="headerlink" title="实际测试"></a>实际测试</h1><p><strong>客户端指定发送一个5GB的数据包，每隔5秒钟输出一次传输状态，输出结果的显示单位为MB显示，并发3个线程发送</strong></p>
+<p>客户端侧执行</p>
+<pre><code># iperf3  -c 10.11.6.3 -n 5000000000 -p 5201 -i 5 -f M -P 3 
 </code></pre>
       
     </div>
@@ -651,7 +646,7 @@ var jiathis_config={
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">55</span>
+                  <span class="site-state-item-count">60</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -662,7 +657,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">61</span>
+                  <span class="site-state-item-count">62</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -673,7 +668,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">47</span>
+                  <span class="site-state-item-count">48</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -713,7 +708,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#基础知识"><span class="nav-number">1.</span> <span class="nav-text">基础知识</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装配置"><span class="nav-number">2.</span> <span class="nav-text">安装配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#全局参数"><span class="nav-number">2.1.</span> <span class="nav-text">全局参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#服务端配置"><span class="nav-number">2.2.</span> <span class="nav-text">服务端配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装"><span class="nav-number">2.2.1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#启动"><span class="nav-number">2.2.2.</span> <span class="nav-text">启动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#补充：服务端启动参数"><span class="nav-number">2.2.3.</span> <span class="nav-text">补充：服务端启动参数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#客户端配置"><span class="nav-number">2.3.</span> <span class="nav-text">客户端配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装-1"><span class="nav-number">2.3.1.</span> <span class="nav-text">安装</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实践"><span class="nav-number">3.</span> <span class="nav-text">实践</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#基础知识"><span class="nav-number">1.</span> <span class="nav-text">基础知识</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装配置"><span class="nav-number">2.</span> <span class="nav-text">安装配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装"><span class="nav-number">2.0.1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#启动"><span class="nav-number">2.0.2.</span> <span class="nav-text">启动</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实际测试"><span class="nav-number">3.</span> <span class="nav-text">实际测试</span></a></li></ol></div>
             
 
           </div>
