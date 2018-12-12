@@ -183,14 +183,14 @@
 
     
   <url>
-    <loc>http://yoursite.com/2018/08/28/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/Linux%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/Linux%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86/ubuntu%E6%9B%B4%E6%94%B9apt%E6%BA%90/</loc>
+    <loc>http://yoursite.com/2018/08/28/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/Linux%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86/ubuntu%E6%9B%B4%E6%94%B9apt%E6%BA%90/</loc>
     <lastmod>2018-08-28T06:17:44.000Z</lastmod>
     <data>
         <display>
         <title>ubuntu更改apt源</title>
         <pubTime>2018-08-28T06:17:44.000Z</pubTime>
         
-        <tag>ubuntu</tag>
+        <tag>ubuntu更改apt源</tag>
          
          
            
@@ -198,10 +198,7 @@
               <breadCrumb title="IT科学技术知识体系结构-Linux运维方向" url="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/"/>
           
              
-              <breadCrumb title="Linux基础知识" url="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/Linux%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/"/>
-          
-             
-              <breadCrumb title="Linux系统管理" url="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/Linux%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/Linux%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86/"/>
+              <breadCrumb title="Linux系统管理" url="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/Linux%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86/"/>
           
         </display>
     </data>
@@ -209,7 +206,7 @@
 
     
   <url>
-    <loc>http://yoursite.com/2018/08/28/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E7%BD%91%E7%BB%9C%E7%9F%A5%E8%AF%86/DNS/DNS%E8%AE%B0%E5%BD%95%E7%B1%BB%E5%9E%8B%E7%AE%80%E4%BB%8B/</loc>
+    <loc>http://yoursite.com/2018/08/28/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E7%BD%91%E7%BB%9C%E7%9F%A5%E8%AF%86%E5%8F%8A%E7%BD%91%E7%BB%9C%E6%9C%8D%E5%8A%A1/%E7%BD%91%E7%BB%9C%E7%9F%A5%E8%AF%86/DNS/DNS%E8%AE%B0%E5%BD%95%E7%B1%BB%E5%9E%8B%E7%AE%80%E4%BB%8B/</loc>
     <lastmod>2018-08-28T03:54:17.000Z</lastmod>
     <data>
         <display>
@@ -224,25 +221,26 @@
               <breadCrumb title="IT科学技术知识体系结构-Linux运维方向" url="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/"/>
           
              
-              <breadCrumb title="网络知识" url="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E7%BD%91%E7%BB%9C%E7%9F%A5%E8%AF%86/"/>
+              <breadCrumb title="网络知识及网络服务" url="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E7%BD%91%E7%BB%9C%E7%9F%A5%E8%AF%86%E5%8F%8A%E7%BD%91%E7%BB%9C%E6%9C%8D%E5%8A%A1/"/>
           
              
-              <breadCrumb title="DNS" url="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E7%BD%91%E7%BB%9C%E7%9F%A5%E8%AF%86/DNS/"/>
+              <breadCrumb title="网络知识" url="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E7%BD%91%E7%BB%9C%E7%9F%A5%E8%AF%86%E5%8F%8A%E7%BD%91%E7%BB%9C%E6%9C%8D%E5%8A%A1/%E7%BD%91%E7%BB%9C%E7%9F%A5%E8%AF%86/"/>
           
+             
         </display>
     </data>
     </url>
 
     
   <url>
-    <loc>http://yoursite.com/2018/08/26/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/Linux%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/Linux%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86/ubuntu%E8%AE%BE%E7%BD%AEssh%E6%9C%8D%E5%8A%A1/</loc>
+    <loc>http://yoursite.com/2018/08/26/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/Linux%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86/ubuntu%E8%AE%BE%E7%BD%AEssh%E6%9C%8D%E5%8A%A1/</loc>
     <lastmod>2018-08-26T09:49:54.000Z</lastmod>
     <data>
         <display>
         <title>ubuntu设置ssh服务</title>
         <pubTime>2018-08-26T09:49:54.000Z</pubTime>
         
-        <tag>ubuntu</tag>
+        <tag>ubuntu设置ssh服务</tag>
          
          
            
@@ -250,10 +248,7 @@
               <breadCrumb title="IT科学技术知识体系结构-Linux运维方向" url="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/"/>
           
              
-              <breadCrumb title="Linux基础知识" url="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/Linux%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/"/>
-          
-             
-              <breadCrumb title="Linux系统管理" url="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/Linux%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/Linux%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86/"/>
+              <breadCrumb title="Linux系统管理" url="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/Linux%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86/"/>
           
         </display>
     </data>
@@ -339,29 +334,6 @@
 
     
   <url>
-    <loc>http://yoursite.com/2018/08/13/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E8%BF%90%E7%BB%B4%E4%BA%8B%E6%95%85%E8%AE%B0%E5%BD%95/%E8%BF%90%E7%BB%B4%E4%BA%8B%E6%95%85%E8%AE%B0%E5%BD%95/</loc>
-    <lastmod>2018-08-13T08:42:08.000Z</lastmod>
-    <data>
-        <display>
-        <title>运维事故记录</title>
-        <pubTime>2018-08-13T08:42:08.000Z</pubTime>
-        
-        <tag>运维事故记录</tag>
-         
-         
-           
-             
-              <breadCrumb title="IT科学技术知识体系结构-Linux运维方向" url="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/"/>
-          
-             
-              <breadCrumb title="运维事故记录" url="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E8%BF%90%E7%BB%B4%E4%BA%8B%E6%95%85%E8%AE%B0%E5%BD%95/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>http://yoursite.com/2018/08/11/%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6%E5%B7%A5%E5%85%B7/MAC%E4%BD%BF%E7%94%A8/MAC%E6%93%8D%E4%BD%9C%E6%8A%80%E5%B7%A7/</loc>
     <lastmod>2018-08-11T10:21:58.000Z</lastmod>
     <data>
@@ -437,7 +409,7 @@
 
     
   <url>
-    <loc>http://yoursite.com/2018/07/13/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/Linux%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/Linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/%E5%86%85%E6%A0%B8%E6%A8%A1%E5%9D%97%E6%93%8D%E4%BD%9C%E5%91%BD%E4%BB%A4-lsmod+rmmod+modinfo+modprobe/</loc>
+    <loc>http://yoursite.com/2018/07/13/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/Linux%E5%91%BD%E4%BB%A4/%E5%86%85%E6%A0%B8%E6%A8%A1%E5%9D%97%E6%93%8D%E4%BD%9C%E5%91%BD%E4%BB%A4-lsmod+rmmod+modinfo+modprobe/</loc>
     <lastmod>2018-07-13T07:23:11.000Z</lastmod>
     <data>
         <display>
@@ -452,10 +424,7 @@
               <breadCrumb title="IT科学技术知识体系结构-Linux运维方向" url="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/"/>
           
              
-              <breadCrumb title="Linux基础知识" url="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/Linux%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/"/>
-          
-             
-              <breadCrumb title="Linux常用命令" url="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/Linux%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/Linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/"/>
+              <breadCrumb title="Linux命令" url="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/Linux%E5%91%BD%E4%BB%A4/"/>
           
         </display>
     </data>
@@ -515,7 +484,7 @@
 
     
   <url>
-    <loc>http://yoursite.com/2018/07/10/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E9%AB%98%E5%B9%B6%E5%8F%91/%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/4%E5%B1%82%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1-LVS/LVS%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87%E5%8F%8A%E7%9B%91%E6%8E%A7/</loc>
+    <loc>http://yoursite.com/2018/07/10/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E8%BF%90%E7%BB%B4%E6%9E%B6%E6%9E%84/%E9%AB%98%E5%B9%B6%E5%8F%91/%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/4%E5%B1%82%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1-LVS/LVS%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87%E5%8F%8A%E7%9B%91%E6%8E%A7/</loc>
     <lastmod>2018-07-10T08:08:26.000Z</lastmod>
     <data>
         <display>
@@ -530,11 +499,12 @@
               <breadCrumb title="IT科学技术知识体系结构-Linux运维方向" url="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/"/>
           
              
-              <breadCrumb title="高并发" url="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E9%AB%98%E5%B9%B6%E5%8F%91/"/>
+              <breadCrumb title="运维架构" url="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E8%BF%90%E7%BB%B4%E6%9E%B6%E6%9E%84/"/>
           
              
-              <breadCrumb title="负载均衡" url="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E9%AB%98%E5%B9%B6%E5%8F%91/%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/"/>
+              <breadCrumb title="高并发" url="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E8%BF%90%E7%BB%B4%E6%9E%B6%E6%9E%84/%E9%AB%98%E5%B9%B6%E5%8F%91/"/>
           
+             
              
         </display>
     </data>
@@ -594,7 +564,7 @@
 
     
   <url>
-    <loc>http://yoursite.com/2018/06/26/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E9%AB%98%E5%B9%B6%E5%8F%91/%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/2%E5%B1%82%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/Linux%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%8F%8C%E7%BD%91%E5%8D%A1bond%E9%85%8D%E7%BD%AE/</loc>
+    <loc>http://yoursite.com/2018/06/26/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E8%BF%90%E7%BB%B4%E6%9E%B6%E6%9E%84/%E9%AB%98%E5%B9%B6%E5%8F%91/%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/2%E5%B1%82%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/Linux%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%8F%8C%E7%BD%91%E5%8D%A1bond%E9%85%8D%E7%BD%AE/</loc>
     <lastmod>2018-06-26T02:04:42.000Z</lastmod>
     <data>
         <display>
@@ -609,11 +579,12 @@
               <breadCrumb title="IT科学技术知识体系结构-Linux运维方向" url="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/"/>
           
              
-              <breadCrumb title="高并发" url="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E9%AB%98%E5%B9%B6%E5%8F%91/"/>
+              <breadCrumb title="运维架构" url="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E8%BF%90%E7%BB%B4%E6%9E%B6%E6%9E%84/"/>
           
              
-              <breadCrumb title="负载均衡" url="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E9%AB%98%E5%B9%B6%E5%8F%91/%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/"/>
+              <breadCrumb title="高并发" url="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E8%BF%90%E7%BB%B4%E6%9E%B6%E6%9E%84/%E9%AB%98%E5%B9%B6%E5%8F%91/"/>
           
+             
              
         </display>
     </data>
@@ -719,14 +690,14 @@
 
     
   <url>
-    <loc>http://yoursite.com/2018/06/23/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/git/git%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/%E6%8D%A2%E8%A1%8C%E7%AC%A6%E6%8A%A5%E8%AD%A6%E9%97%AE%E9%A2%98/</loc>
+    <loc>http://yoursite.com/2018/06/23/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E7%A8%8B%E5%BA%8F%E7%BC%96%E7%A8%8B/Git/%E6%8D%A2%E8%A1%8C%E7%AC%A6%E6%8A%A5%E8%AD%A6%E9%97%AE%E9%A2%98/</loc>
     <lastmod>2018-06-23T14:08:24.000Z</lastmod>
     <data>
         <display>
         <title>换行符报警问题</title>
         <pubTime>2018-06-23T14:08:24.000Z</pubTime>
         
-        <tag>git</tag>
+        <tag>Git</tag>
          
          
            
@@ -734,10 +705,10 @@
               <breadCrumb title="IT科学技术知识体系结构-Linux运维方向" url="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/"/>
           
              
-              <breadCrumb title="git" url="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/git/"/>
+              <breadCrumb title="程序编程" url="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E7%A8%8B%E5%BA%8F%E7%BC%96%E7%A8%8B/"/>
           
              
-              <breadCrumb title="git基础知识" url="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/git/git%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/"/>
+              <breadCrumb title="Git" url="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E7%A8%8B%E5%BA%8F%E7%BC%96%E7%A8%8B/Git/"/>
           
         </display>
     </data>
@@ -771,7 +742,7 @@
 
     
   <url>
-    <loc>http://yoursite.com/2018/06/12/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/Linux%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/Linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/iperf%E5%91%BD%E4%BB%A4/</loc>
+    <loc>http://yoursite.com/2018/06/12/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/Linux%E5%91%BD%E4%BB%A4/iperf%E5%91%BD%E4%BB%A4/</loc>
     <lastmod>2018-06-12T09:19:32.000Z</lastmod>
     <data>
         <display>
@@ -786,10 +757,7 @@
               <breadCrumb title="IT科学技术知识体系结构-Linux运维方向" url="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/"/>
           
              
-              <breadCrumb title="Linux基础知识" url="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/Linux%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/"/>
-          
-             
-              <breadCrumb title="Linux常用命令" url="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/Linux%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/Linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/"/>
+              <breadCrumb title="Linux命令" url="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/Linux%E5%91%BD%E4%BB%A4/"/>
           
         </display>
     </data>
@@ -849,7 +817,7 @@
 
     
   <url>
-    <loc>http://yoursite.com/2018/06/06/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E7%BD%91%E7%BB%9C%E7%9F%A5%E8%AF%86/%E7%BD%91%E7%BB%9C%E7%A7%91%E6%99%AE%E7%9F%A5%E8%AF%86/%E7%BD%91%E7%BB%9C%E4%B8%93%E7%BA%BF/</loc>
+    <loc>http://yoursite.com/2018/06/06/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E7%BD%91%E7%BB%9C%E7%9F%A5%E8%AF%86%E5%8F%8A%E7%BD%91%E7%BB%9C%E6%9C%8D%E5%8A%A1/%E7%BD%91%E7%BB%9C%E7%9F%A5%E8%AF%86/%E7%BD%91%E7%BB%9C%E7%A7%91%E6%99%AE%E7%9F%A5%E8%AF%86/%E7%BD%91%E7%BB%9C%E4%B8%93%E7%BA%BF/</loc>
     <lastmod>2018-06-06T06:47:50.000Z</lastmod>
     <data>
         <display>
@@ -864,11 +832,12 @@
               <breadCrumb title="IT科学技术知识体系结构-Linux运维方向" url="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/"/>
           
              
-              <breadCrumb title="网络知识" url="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E7%BD%91%E7%BB%9C%E7%9F%A5%E8%AF%86/"/>
+              <breadCrumb title="网络知识及网络服务" url="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E7%BD%91%E7%BB%9C%E7%9F%A5%E8%AF%86%E5%8F%8A%E7%BD%91%E7%BB%9C%E6%9C%8D%E5%8A%A1/"/>
           
              
-              <breadCrumb title="网络科普知识" url="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E7%BD%91%E7%BB%9C%E7%9F%A5%E8%AF%86/%E7%BD%91%E7%BB%9C%E7%A7%91%E6%99%AE%E7%9F%A5%E8%AF%86/"/>
+              <breadCrumb title="网络知识" url="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E7%BD%91%E7%BB%9C%E7%9F%A5%E8%AF%86%E5%8F%8A%E7%BD%91%E7%BB%9C%E6%9C%8D%E5%8A%A1/%E7%BD%91%E7%BB%9C%E7%9F%A5%E8%AF%86/"/>
           
+             
         </display>
     </data>
     </url>
@@ -957,7 +926,7 @@
     <lastmod>2018-05-20T09:19:09.000Z</lastmod>
     <data>
         <display>
-        <title>IT类书籍资料</title>
+        <title>IT书籍资料</title>
         <pubTime>2018-05-20T09:19:09.000Z</pubTime>
         
         <tag>IT书籍资料</tag>
@@ -971,7 +940,7 @@
               <breadCrumb title="IT基础知识" url="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/IT%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/"/>
           
              
-              <breadCrumb title="IT类书籍资料" url="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/IT%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/IT%E7%B1%BB%E4%B9%A6%E7%B1%8D%E8%B5%84%E6%96%99/"/>
+              <breadCrumb title="IT书籍资料" url="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/IT%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/IT%E4%B9%A6%E7%B1%8D%E8%B5%84%E6%96%99/"/>
           
         </display>
     </data>
@@ -1031,7 +1000,7 @@
 
     
   <url>
-    <loc>http://yoursite.com/2018/05/13/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E7%BD%91%E7%BB%9C%E7%9F%A5%E8%AF%86/HTTP/HTTP%E8%AF%B7%E6%B1%82/</loc>
+    <loc>http://yoursite.com/2018/05/13/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E7%BD%91%E7%BB%9C%E7%9F%A5%E8%AF%86%E5%8F%8A%E7%BD%91%E7%BB%9C%E6%9C%8D%E5%8A%A1/%E7%BD%91%E7%BB%9C%E7%9F%A5%E8%AF%86/HTTP/HTTP%E8%AF%B7%E6%B1%82/</loc>
     <lastmod>2018-05-13T11:44:23.000Z</lastmod>
     <data>
         <display>
@@ -1046,11 +1015,12 @@
               <breadCrumb title="IT科学技术知识体系结构-Linux运维方向" url="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/"/>
           
              
-              <breadCrumb title="网络知识" url="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E7%BD%91%E7%BB%9C%E7%9F%A5%E8%AF%86/"/>
+              <breadCrumb title="网络知识及网络服务" url="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E7%BD%91%E7%BB%9C%E7%9F%A5%E8%AF%86%E5%8F%8A%E7%BD%91%E7%BB%9C%E6%9C%8D%E5%8A%A1/"/>
           
              
-              <breadCrumb title="HTTP" url="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E7%BD%91%E7%BB%9C%E7%9F%A5%E8%AF%86/HTTP/"/>
+              <breadCrumb title="网络知识" url="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E7%BD%91%E7%BB%9C%E7%9F%A5%E8%AF%86%E5%8F%8A%E7%BD%91%E7%BB%9C%E6%9C%8D%E5%8A%A1/%E7%BD%91%E7%BB%9C%E7%9F%A5%E8%AF%86/"/>
           
+             
         </display>
     </data>
     </url>
@@ -1343,7 +1313,7 @@
 
     
   <url>
-    <loc>http://yoursite.com/2018/04/02/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E7%BD%91%E7%BB%9C%E7%9F%A5%E8%AF%86/HTTP/Http-Server-%E7%BD%91%E7%BB%9C%E5%A4%84%E7%90%86%E6%A8%A1%E5%9E%8B%E7%9A%84%E8%BF%9B%E5%8C%96%E4%B9%8B%E8%B7%AF/</loc>
+    <loc>http://yoursite.com/2018/04/02/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E7%BD%91%E7%BB%9C%E7%9F%A5%E8%AF%86%E5%8F%8A%E7%BD%91%E7%BB%9C%E6%9C%8D%E5%8A%A1/%E7%BD%91%E7%BB%9C%E7%9F%A5%E8%AF%86/HTTP/Http-Server-%E7%BD%91%E7%BB%9C%E5%A4%84%E7%90%86%E6%A8%A1%E5%9E%8B%E7%9A%84%E8%BF%9B%E5%8C%96%E4%B9%8B%E8%B7%AF/</loc>
     <lastmod>2018-04-02T15:41:29.000Z</lastmod>
     <data>
         <display>
@@ -1358,11 +1328,12 @@
               <breadCrumb title="IT科学技术知识体系结构-Linux运维方向" url="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/"/>
           
              
-              <breadCrumb title="网络知识" url="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E7%BD%91%E7%BB%9C%E7%9F%A5%E8%AF%86/"/>
+              <breadCrumb title="网络知识及网络服务" url="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E7%BD%91%E7%BB%9C%E7%9F%A5%E8%AF%86%E5%8F%8A%E7%BD%91%E7%BB%9C%E6%9C%8D%E5%8A%A1/"/>
           
              
-              <breadCrumb title="HTTP" url="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E7%BD%91%E7%BB%9C%E7%9F%A5%E8%AF%86/HTTP/"/>
+              <breadCrumb title="网络知识" url="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/%E7%BD%91%E7%BB%9C%E7%9F%A5%E8%AF%86%E5%8F%8A%E7%BD%91%E7%BB%9C%E6%9C%8D%E5%8A%A1/%E7%BD%91%E7%BB%9C%E7%9F%A5%E8%AF%86/"/>
           
+             
         </display>
     </data>
     </url>
@@ -1544,29 +1515,6 @@
 
     
   <url>
-    <loc>http://yoursite.com/2018/01/25/%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6%E5%B7%A5%E5%85%B7/Markdown/Markdown%E8%AF%AD%E6%B3%95/</loc>
-    <lastmod>2018-02-04T08:31:24.000Z</lastmod>
-    <data>
-        <display>
-        <title>Markdown从入门到实践</title>
-        <pubTime>2018-01-25T14:08:24.000Z</pubTime>
-        
-        <tag>markdown</tag>
-         
-         
-           
-             
-              <breadCrumb title="常用软件工具" url="http://yoursite.com/categories/%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6%E5%B7%A5%E5%85%B7/"/>
-          
-             
-              <breadCrumb title="Markdown" url="http://yoursite.com/categories/%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6%E5%B7%A5%E5%85%B7/Markdown/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>http://yoursite.com/2018/01/23/%E4%B8%AA%E4%BA%BA%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/Hexo/hello-world/</loc>
     <lastmod>2018-02-04T08:31:24.000Z</lastmod>
     <data>
@@ -1586,6 +1534,29 @@
           
              
               <breadCrumb title="Hexo" url="http://yoursite.com/categories/%E4%B8%AA%E4%BA%BA%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/Hexo/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://yoursite.com/2018/01/25/%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6%E5%B7%A5%E5%85%B7/Markdown/Markdown%E8%AF%AD%E6%B3%95/</loc>
+    <lastmod>2018-02-04T08:31:24.000Z</lastmod>
+    <data>
+        <display>
+        <title>Markdown从入门到实践</title>
+        <pubTime>2018-01-25T14:08:24.000Z</pubTime>
+        
+        <tag>markdown</tag>
+         
+         
+           
+             
+              <breadCrumb title="常用软件工具" url="http://yoursite.com/categories/%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6%E5%B7%A5%E5%85%B7/"/>
+          
+             
+              <breadCrumb title="Markdown" url="http://yoursite.com/categories/%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6%E5%B7%A5%E5%85%B7/Markdown/"/>
           
         </display>
     </data>
