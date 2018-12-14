@@ -531,7 +531,27 @@
 </ul>
 <h1 id="数据写入"><a href="#数据写入" class="headerlink" title="数据写入"></a>数据写入</h1><p>因为dnspod上的数据都是公网地址</p>
 <p>所以要进行匹配，匹配公网之后，替换为对应的内网负载均衡的ip地址</p>
-<h1 id="优化进阶"><a href="#优化进阶" class="headerlink" title="优化进阶"></a>优化进阶</h1><h2 id="主节点数据变更触发机制"><a href="#主节点数据变更触发机制" class="headerlink" title="主节点数据变更触发机制"></a>主节点数据变更触发机制</h2><h2 id="主从数据同步"><a href="#主从数据同步" class="headerlink" title="主从数据同步"></a>主从数据同步</h2><h2 id="dns服务稳定性问题"><a href="#dns服务稳定性问题" class="headerlink" title="dns服务稳定性问题"></a>dns服务稳定性问题</h2>
+<h1 id="优化进阶"><a href="#优化进阶" class="headerlink" title="优化进阶"></a>优化进阶</h1><p>最终实现目标是编写一个平台去管理，在当前时间节点下，先只能做到通过web框架去编写api实现下面这些操作</p>
+<h2 id="主节点zone数据信息变更"><a href="#主节点zone数据信息变更" class="headerlink" title="主节点zone数据信息变更"></a>主节点zone数据信息变更</h2><h3 id="写入"><a href="#写入" class="headerlink" title="写入"></a>写入</h3><p>在master节点上启动django服务，提供api，当数据源有变化时，对端发送POST请求，参数为：</p>
+<ul>
+<li></li>
+</ul>
+<p>收到请求之后进行处理</p>
+<p>注意：因为这个很重要，所以事先定义用户名和密码，生成token，然后才运行更新数据</p>
+<p>写完之后，序列号更新为当天的时间，例如：2007041501</p>
+<p>如果发现当天已经存在，那么在当前的序列号上+1</p>
+<h3 id="修改"><a href="#修改" class="headerlink" title="修改"></a>修改</h3><p>和写入一样，在master节点上启动django服务，提供api，当数据源有变化时，对端发送POST请求</p>
+<h3 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h3><p>和写入一样，在master节点上启动django服务，提供api，当数据源有变化时，对端发送delete请求</p>
+<p>针对主机名的配置，我们不使用提供接口的方式，对主机名的配置，我们编写程序作为客户端，定时的去扫描数据源（阿里云或者jumpserver端）</p>
+<h2 id="主从数据同步"><a href="#主从数据同步" class="headerlink" title="主从数据同步"></a>主从数据同步</h2><p>主从数据同步主要分为2种</p>
+<ul>
+<li>一种是主节点数据变化之后，主动的触发通知机制，发送通知消息给所以slave节点。</li>
+<li>另一种是从节点定期去连接主节点，获取序列号信息，与当前的值进行比较，如果获取的更大则发起数据同步</li>
+</ul>
+<p>结合实际情况，我们选择第一种方式</p>
+<p>那么，当数据变更之后，如何不适用rndc reload的方式</p>
+<h2 id="序列号增长问题"><a href="#序列号增长问题" class="headerlink" title="序列号增长问题"></a>序列号增长问题</h2><p>因为序列号最多为10位数，所以使用传统的日期表示法</p>
+<h2 id="dns服务稳定性问题"><a href="#dns服务稳定性问题" class="headerlink" title="dns服务稳定性问题"></a>dns服务稳定性问题</h2>
       
     </div>
     
@@ -776,7 +796,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文献"><span class="nav-number">1.</span> <span class="nav-text">参考文献</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#背景"><span class="nav-number">2.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#需求概述"><span class="nav-number">3.</span> <span class="nav-text">需求概述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#bind部署需要明确的几个问题"><span class="nav-number">4.</span> <span class="nav-text">bind部署需要明确的几个问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#架构规划这里是拓扑图"><span class="nav-number">5.</span> <span class="nav-text">架构规划这里是拓扑图</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#部署实施"><span class="nav-number">6.</span> <span class="nav-text">部署实施</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#目录分层"><span class="nav-number">6.1.</span> <span class="nav-text">目录分层</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#zone配置"><span class="nav-number">6.2.</span> <span class="nav-text">zone配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#common"><span class="nav-number">6.2.1.</span> <span class="nav-text">common</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数据写入"><span class="nav-number">7.</span> <span class="nav-text">数据写入</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#优化进阶"><span class="nav-number">8.</span> <span class="nav-text">优化进阶</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#主节点数据变更触发机制"><span class="nav-number">8.1.</span> <span class="nav-text">主节点数据变更触发机制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#主从数据同步"><span class="nav-number">8.2.</span> <span class="nav-text">主从数据同步</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#dns服务稳定性问题"><span class="nav-number">8.3.</span> <span class="nav-text">dns服务稳定性问题</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文献"><span class="nav-number">1.</span> <span class="nav-text">参考文献</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#背景"><span class="nav-number">2.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#需求概述"><span class="nav-number">3.</span> <span class="nav-text">需求概述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#bind部署需要明确的几个问题"><span class="nav-number">4.</span> <span class="nav-text">bind部署需要明确的几个问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#架构规划这里是拓扑图"><span class="nav-number">5.</span> <span class="nav-text">架构规划这里是拓扑图</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#部署实施"><span class="nav-number">6.</span> <span class="nav-text">部署实施</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#目录分层"><span class="nav-number">6.1.</span> <span class="nav-text">目录分层</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#zone配置"><span class="nav-number">6.2.</span> <span class="nav-text">zone配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#common"><span class="nav-number">6.2.1.</span> <span class="nav-text">common</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数据写入"><span class="nav-number">7.</span> <span class="nav-text">数据写入</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#优化进阶"><span class="nav-number">8.</span> <span class="nav-text">优化进阶</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#主节点zone数据信息变更"><span class="nav-number">8.1.</span> <span class="nav-text">主节点zone数据信息变更</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#写入"><span class="nav-number">8.1.1.</span> <span class="nav-text">写入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改"><span class="nav-number">8.1.2.</span> <span class="nav-text">修改</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除"><span class="nav-number">8.1.3.</span> <span class="nav-text">删除</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#主从数据同步"><span class="nav-number">8.2.</span> <span class="nav-text">主从数据同步</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#序列号增长问题"><span class="nav-number">8.3.</span> <span class="nav-text">序列号增长问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#dns服务稳定性问题"><span class="nav-number">8.4.</span> <span class="nav-text">dns服务稳定性问题</span></a></li></ol></li></ol></div>
             
 
           </div>
