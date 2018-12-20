@@ -1,0 +1,1675 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="harbor," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Watchmen1992's Blog" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="harbor镜像仓库实战">
+<meta name="keywords" content="harbor">
+<meta property="og:type" content="article">
+<meta property="og:title" content="harbor镜像仓库实战">
+<meta property="og:url" content="http://yoursite.com/2018/12/18/IT科学技术知识体系结构-Linux运维方向/虚拟化/Docker+k8s/harbor/index.html">
+<meta property="og:site_name" content="Watchmen1992&#39;s Blog">
+<meta property="og:description" content="harbor镜像仓库实战">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://camo.githubusercontent.com/e0de62fb4f08efedd2c5abd44786410d3af06c7b/687474703a2f2f7777772e7468696e6b2d666f756e6472792e636f6d2f77702d636f6e74656e742f75706c6f6164732f323031362f30392f61727469636c65315f696d616765322e706e67">
+<meta property="og:updated_time" content="2018-12-18T02:52:05.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="harbor镜像仓库实战">
+<meta name="twitter:description" content="harbor镜像仓库实战">
+<meta name="twitter:image" content="https://camo.githubusercontent.com/e0de62fb4f08efedd2c5abd44786410d3af06c7b/687474703a2f2f7777772e7468696e6b2d666f756e6472792e636f6d2f77702d636f6e74656e742f75706c6f6164732f323031362f30392f61727469636c65315f696d616765322e706e67">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/12/18/IT科学技术知识体系结构-Linux运维方向/虚拟化/Docker+k8s/harbor/"/>
+
+
+
+
+
+  <title>harbor镜像仓库实战 | Watchmen1992's Blog</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?07235ad5687ee838f373b31c7c687d23";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Watchmen1992's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">锦瑟年华当与书香为度，是为不负天地人生。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/18/IT科学技术知识体系结构-Linux运维方向/虚拟化/Docker+k8s/harbor/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="XiaoHua WANG">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/touxiang.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Watchmen1992's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">harbor镜像仓库实战</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-18T10:52:05+08:00">
+                2018-12-18
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2018-12-18T10:52:05+08:00">
+                2018-12-18
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/IT科学技术知识体系结构-Linux运维方向/" itemprop="url" rel="index">
+                    <span itemprop="name">IT科学技术知识体系结构-Linux运维方向</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/IT科学技术知识体系结构-Linux运维方向/虚拟化/" itemprop="url" rel="index">
+                    <span itemprop="name">虚拟化</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/IT科学技术知识体系结构-Linux运维方向/虚拟化/Docker-k8s/" itemprop="url" rel="index">
+                    <span itemprop="name">Docker+k8s</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/12/18/IT科学技术知识体系结构-Linux运维方向/虚拟化/Docker+k8s/harbor/" class="leancloud_visitors" data-flag-title="harbor镜像仓库实战">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+              <div class="post-description">
+                  harbor镜像仓库实战
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h1><ul>
+<li><a href="https://github.com/goharbor/harbor" target="_blank" rel="noopener">github主页</a></li>
+</ul>
+<h1 id="Harbor基础知识"><a href="#Harbor基础知识" class="headerlink" title="Harbor基础知识"></a>Harbor基础知识</h1><h2 id="Features-功能特性"><a href="#Features-功能特性" class="headerlink" title="Features-功能特性"></a>Features-功能特性</h2><ul>
+<li><p><strong>Role based access control</strong>: Users and repositories are organized via ‘projects’ and a user can have different permission for images under a project.</p>
+<blockquote>
+<p>用户和镜像仓库是通过项目关联起来的，不同用户在该项目下拥有不同的权限</p>
+</blockquote>
+</li>
+<li><p><strong>Policy based image replication</strong>: Images can be replicated (synchronized) between multiple registry instances, with auto-retry on errors. Great for load balancing, high availability, multi-datacenter, hybrid and multi-cloud scenarios.</p>
+<blockquote>
+<p>镜像将在多个注册实例中复制，实现高可用、负载均衡、多路选择等功能</p>
+</blockquote>
+</li>
+<li><p><strong>Vulnerability Scanning</strong>: Harbor scans images regularly and warns users of vulnerabilities.</p>
+<blockquote>
+<p>高危扫描：harbor将会在规律的扫描镜像并且提醒用户相关的危险</p>
+</blockquote>
+</li>
+<li><p><strong>LDAP/AD support</strong>: Harbor integrates with existing enterprise LDAP/AD for user authentication and management.</p>
+<blockquote>
+<p>harbor可以聚合企业现在的LDAP/AD等实现用户认证和管理</p>
+</blockquote>
+</li>
+<li><p><strong>Image deletion &amp; garbage collection</strong>: Images can be deleted and their space can be recycled.</p>
+<blockquote>
+<p>镜像删除和垃圾收集</p>
+</blockquote>
+</li>
+<li><p><strong>Notary</strong>: Image authenticity can be ensured.</p>
+<blockquote>
+<p>可以保证镜像的可靠性</p>
+</blockquote>
+</li>
+<li><p><strong>Graphical user portal</strong>: User can easily browse, search repositories and manage projects.</p>
+<blockquote>
+<p>图形化的用户入口：可以浏览，检索，管理项目</p>
+</blockquote>
+</li>
+<li><p><strong>Auditing</strong>: All the operations to the repositories are tracked.</p>
+<blockquote>
+<p>审计：所有的操作都可以被追踪</p>
+</blockquote>
+</li>
+<li><p><strong>RESTful API</strong>: RESTful APIs for most administrative operations, easy to integrate with external systems.</p>
+<blockquote>
+<p>提供api</p>
+</blockquote>
+</li>
+<li><p><strong>Easy deployment</strong>: Provide both an online and offline installer.</p>
+<blockquote>
+<p>部署简单，提供在线和离线两种安装方式</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="Architecture-体系结构"><a href="#Architecture-体系结构" class="headerlink" title="Architecture-体系结构"></a>Architecture-体系结构</h2><p><img src="https://camo.githubusercontent.com/e0de62fb4f08efedd2c5abd44786410d3af06c7b/687474703a2f2f7777772e7468696e6b2d666f756e6472792e636f6d2f77702d636f6e74656e742f75706c6f6164732f323031362f30392f61727469636c65315f696d616765322e706e67" alt="img"></p>
+<p>As depicted in the above diagram, Harbor comprises 6 components:</p>
+<p><strong>Proxy:</strong> Components of Harbor, such as registry, UI and token services, are all behind a reversed proxy. The proxy forwards requests from browsers and Docker clients to various backend services.</p>
+<blockquote>
+<p>harbor使用代理结构，外部的客户端（浏览器或者docker client）访问调用是通过代理层去实现的</p>
+</blockquote>
+<p><strong>Registry:</strong> Responsible for storing Docker images and processing Docker push/pull commands. As Harbor needs to enforce access control to images, the Registry will direct clients to a token service to obtain a valid token for each pull or push request.</p>
+<blockquote>
+<p>注册部分：响应操作docker镜像的请求</p>
+<p>harbor为了确保安全性，客户端在调用的时候，需要取得valid token才可以进行操作</p>
+</blockquote>
+<p><strong>Core services:</strong> Harbor’s core functions, which mainly provides the following services:</p>
+<p><strong>UI:</strong> a graphical user interface to help users manage images on the Registry Webhook: Webhook is a mechanism configured in the Registry so that image status changes in the Registry can be populated to the Webhook endpoint of Harbor. Harbor uses webhook to update logs, initiate replications, and some other functions. Token service: Responsible for issuing a token for every docker push/pull command according to a user’s role of a project. If there is no token in a request sent from a Docker client, the Registry will redirect the request to the token service. Database: Database stores the meta data of projects, users, roles, replication policies and images.</p>
+<blockquote>
+<p>提供一个图形的用户入口，方便用户在注册钩子系统（registry webhook）中管理镜像。</p>
+</blockquote>
+<p><strong>Job services:</strong> used for image replication, local images can be replicated(synchronized) to other Harbor instances.</p>
+<p><strong>Log collector:</strong> Responsible for collecting logs of other modules in a single place.</p>
+<h1 id="安装部署"><a href="#安装部署" class="headerlink" title="安装部署"></a>安装部署</h1><h2 id="参考文献-1"><a href="#参考文献-1" class="headerlink" title="参考文献"></a>参考文献</h2><ul>
+<li><a href="https://github.com/goharbor/harbor/blob/master/docs/installation_guide.md" target="_blank" rel="noopener">官方安装手册</a></li>
+</ul>
+<h2 id="环境要求"><a href="#环境要求" class="headerlink" title="环境要求"></a>环境要求</h2><p>Harbor is deployed as several Docker containers, and, therefore, can be deployed on any Linux distribution that supports Docker. The target host requires Python, Docker, and Docker Compose to be installed.</p>
+<p>harbor是使用docker的方式部署的，整个harbor包含几个容器，因此能够部署在任何只要支持docker的Linux发行版本上。</p>
+<p>目标主机只需要包含：python、docker、docker compose这3个东西即可</p>
+<p><strong>Hardware</strong></p>
+<table>
+<thead>
+<tr>
+<th>Resource</th>
+<th>Capacity</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CPU</td>
+<td>minimal 2 CPU</td>
+<td>4 CPU is prefered</td>
+</tr>
+<tr>
+<td>Mem</td>
+<td>minimal 4GB</td>
+<td>8GB is prefered</td>
+</tr>
+<tr>
+<td>Disk</td>
+<td>minimal 40GB</td>
+<td>160GB is prefered</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Software</strong></p>
+<table>
+<thead>
+<tr>
+<th>Software</th>
+<th>Version</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Python</td>
+<td>version 2.7 or higher</td>
+<td>Note that you may have to install Python on Linux distributions (Gentoo, Arch) that do not come with a Python interpreter installed by default</td>
+</tr>
+<tr>
+<td>Docker engine</td>
+<td>version 1.10 or higher</td>
+<td>For installation instructions, please refer to: <a href="https://docs.docker.com/engine/installation/" target="_blank" rel="noopener">https://docs.docker.com/engine/installation/</a></td>
+</tr>
+<tr>
+<td>Docker Compose</td>
+<td>version 1.6.0 or higher</td>
+<td>For installation instructions, please refer to: <a href="https://docs.docker.com/compose/install/" target="_blank" rel="noopener">https://docs.docker.com/compose/install/</a></td>
+</tr>
+<tr>
+<td>Openssl</td>
+<td>latest is prefered</td>
+<td>Generate certificate and keys for Harbor</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Network ports</strong></p>
+<table>
+<thead>
+<tr>
+<th>Port</th>
+<th>Protocol</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>443</td>
+<td>HTTPS</td>
+<td>Harbor UI and API will accept requests on this port for https protocol</td>
+</tr>
+<tr>
+<td>4443</td>
+<td>HTTPS</td>
+<td>Connections to the Docker Content Trust service for Harbor, only needed when Notary is enabled</td>
+</tr>
+<tr>
+<td>80</td>
+<td>HTTP</td>
+<td>Harbor UI and API will accept requests on this port for http protocol</td>
+</tr>
+</tbody>
+</table>
+<p>官方的安装步骤（The installation steps boil down to the following）：</p>
+<ol>
+<li>Download the installer;</li>
+<li>Configure <strong>harbor.cfg</strong>;</li>
+<li>Run <strong>install.sh</strong> to install and start Harbor;</li>
+</ol>
+<p>下面我们开始实际操作</p>
+<h2 id="下载安装"><a href="#下载安装" class="headerlink" title="下载安装"></a>下载安装</h2><h3 id="下载并解压"><a href="#下载并解压" class="headerlink" title="下载并解压"></a>下载并解压</h3><p><a href="https://github.com/goharbor/harbor/releases" target="_blank" rel="noopener">所有软件包的下载地址</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># tar -xvf harbor-online-installer-&lt;version&gt;.tgz</span><br></pre></td></tr></table></figure>
+<p>当前节点我使用的是harbor.v1.4.0.tar.gz</p>
+<h3 id="安装docker-ce"><a href="#安装docker-ce" class="headerlink" title="安装docker-ce"></a>安装docker-ce</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># sudo yum install -y yum-utils   device-mapper-persistent-data   lvm2</span><br><span class="line"></span><br><span class="line"># sudo yum-config-manager     --add-repo     https://download.docker.com/linux/centos/docker-ce.repo</span><br><span class="line"></span><br><span class="line"># sudo yum install docker-ce</span><br></pre></td></tr></table></figure>
+<h3 id="启动docker"><a href="#启动docker" class="headerlink" title="启动docker"></a>启动docker</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># systemctl start  docker</span><br><span class="line"># systemctl enable  docker</span><br></pre></td></tr></table></figure>
+<h3 id="安装Docker-Compose"><a href="#安装Docker-Compose" class="headerlink" title="安装Docker Compose"></a>安装Docker Compose</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># sudo curl -L &quot;https://github.com/docker/compose/releases/download/1.22.0/docker-compose-$(uname -s)-$(uname -m)&quot; -o /usr/local/bin/docker-compose</span><br><span class="line"></span><br><span class="line"># sudo chmod +x /usr/local/bin/docker-compose</span><br><span class="line"></span><br><span class="line"># docker-compose --version</span><br></pre></td></tr></table></figure>
+<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><h3 id="配置概述"><a href="#配置概述" class="headerlink" title="配置概述"></a>配置概述</h3><p>Configuration parameters are located in the file <strong>harbor.cfg</strong></p>
+<p>There are two categories of parameters in harbor.cfg, <strong>required parameters</strong> and <strong>optional parameters</strong>.</p>
+<ul>
+<li><p><strong>required parameters</strong>: These parameters are required to be set in the configuration file. They will take effect if a user updates them in <code>harbor.cfg</code> and run the <code>install.sh</code> script to reinstall Harbor.</p>
+</li>
+<li><p><strong>optional parameters</strong>: These parameters are optional for updating, i.e. user can leave them as default and update them on Web UI after Harbor is started. If they are set in <code>harbor.cfg</code>, they only take effect in the first launch of Harbor. Subsequent update to these parameters in <code>harbor.cfg</code> will be ignored.</p>
+<p><strong>Note:</strong> If you choose to set these parameters via the UI, be sure to do so right after Harbor is started. In particular, you must set the desired <strong>auth_mode</strong> before registering or creating any new users in Harbor. When there are users in the system (besides the default admin user), <strong>auth_mode</strong> cannot be changed.</p>
+</li>
+</ul>
+<p>配置文件中有2种配置内容，一种是必须配置的参数，一种是可选参数</p>
+<ul>
+<li>必须参数：这是是在配置文件当中必须要存在的参数，当用户修改之后并且重新安装harbor之后生效</li>
+<li>可选参数：这些参数是可以动态更新的，你能够在harbor启动之后，在web界面中进行更新。但是如果你把这些参数直接配置在harbor.cfg配置文件中（默认的配置不算人为配置了），它们只能在你第一次启动harbor的时候加载生效，之后再更新参数将不会生效。这一点需要尤为注意<ul>
+<li>注意1：你使用动态的可选参数方式的时候，首先要确认harbor已经启动</li>
+<li>注意2：有一个特别需要注意的参数，当有用户（除了默认的管理员用户）已经存在于harbor中的时候，<strong>auth_mode</strong>这个参数是不能被修改的。所以你需要在有新的用户注册进harbor之前，设置好认证模式（auth_mode）</li>
+</ul>
+</li>
+</ul>
+<h3 id="配置文件参数详解"><a href="#配置文件参数详解" class="headerlink" title="配置文件参数详解"></a>配置文件参数详解</h3><h4 id="Required-parameters-必需参数"><a href="#Required-parameters-必需参数" class="headerlink" title="Required parameters-必需参数"></a>Required parameters-必需参数</h4><ul>
+<li><p><strong>hostname</strong>: The target host’s hostname, which is used to access the UI and the registry service. It should be the IP address or the fully qualified domain name (FQDN) of your target machine, e.g., <code>192.168.1.10</code> or <code>reg.yourdomain.com</code>. <em>Do NOT use localhost or 127.0.0.1 for the hostname - the registry service needs to be accessible by external clients!</em></p>
+<blockquote>
+<p><strong>hostname一般配置为域名</strong>,也就是整个harbor的入口</p>
+</blockquote>
+</li>
+<li><p><strong>ui_url_protocol</strong>: (<strong>http</strong> or <strong>https</strong>. Default is <strong>http</strong>) The protocol used to access the UI and the token/notification service. If Notary is enabled, this parameter has to be <em>https</em>. By default, this is <em>http</em>. To set up the https protocol, refer to <strong>Configuring Harbor with HTTPS Access</strong>.</p>
+<blockquote>
+<p><strong>走HTT还是HTTPS</strong></p>
+</blockquote>
+</li>
+<li><p><strong>db_password</strong>: The root password for the MySQL database used for <strong>db_auth</strong>. <em>Change this password for any production use!</em></p>
+</li>
+<li><p><strong>max_job_workers</strong>: (default value is <strong>3</strong>) The maximum number of replication workers in job service. For each image replication job, a worker synchronizes all tags of a repository to the remote destination. Increasing this number allows more concurrent replication jobs in the system. However, since each worker consumes a certain amount of network/CPU/IO resources, please carefully pick the value of this attribute based on the hardware resource of the host.</p>
+<blockquote>
+<p><strong>做复制工作的进程数量，默认3个，这些进程，将这些镜像同步到远端的存储中</strong></p>
+<p>每个进程都需要消耗系统的资源，因此合理设置数量</p>
+</blockquote>
+</li>
+<li><p><strong>customize_crt</strong>: (<strong>on</strong> or <strong>off</strong>. Default is <strong>on</strong>) When this attribute is <strong>on</strong>, the prepare script creates private key and root certificate for the generation/verification of the registry’s token. Set this attribute to <strong>off</strong> when the key and root certificate are supplied by external sources. Refer to <a href="https://github.com/goharbor/harbor/blob/master/docs/customize_token_service.md" target="_blank" rel="noopener">Customize Key and Certificate of Harbor Token Service</a> for more info.</p>
+</li>
+<li><p><strong>ssl_cert</strong>: The path of SSL certificate, it’s applied only when the protocol is set to https</p>
+</li>
+<li><p><strong>ssl_cert_key</strong>: The path of SSL key, it’s applied only when the protocol is set to https</p>
+</li>
+<li><p><strong>secretkey_path</strong>: The path of key for encrypt or decrypt the password of a remote registry in a replication policy.</p>
+</li>
+<li><p><strong>log_rotate_count</strong>: Log files are rotated <strong>log_rotate_count</strong> times before being removed. If count is 0, old versions are removed rather than rotated.</p>
+</li>
+<li><p><strong>log_rotate_size</strong>: Log files are rotated only if they grow bigger than <strong>log_rotate_size</strong> bytes. If size is followed by k, the size is assumed to be in kilobytes. If the M is used, the size is in megabytes, and if G is used, the size is in gigabytes. So size 100, size 100k, size 100M and size 100G are all valid.</p>
+</li>
+</ul>
+<h4 id="optional-parameters-动态可选参数"><a href="#optional-parameters-动态可选参数" class="headerlink" title="optional parameters-动态可选参数"></a>optional parameters-动态可选参数</h4><h2 id="harbor启动"><a href="#harbor启动" class="headerlink" title="harbor启动"></a>harbor启动</h2><p>修改完毕之后的配置如下所示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">[root@app028-dev harbor]# less harbor.cfg  | egrep -v &apos;^$|^#&apos;</span><br><span class="line">hostname = dhub-dev.dwbops.com</span><br><span class="line">ui_url_protocol = https</span><br><span class="line">max_job_workers = 3</span><br><span class="line">customize_crt = on</span><br><span class="line">ssl_cert = /data/cert/server.cer</span><br><span class="line">ssl_cert_key = /data/cert/server.key</span><br><span class="line">secretkey_path = /data</span><br><span class="line">admiral_url = NA</span><br><span class="line">log_rotate_count = 50</span><br><span class="line">log_rotate_size = 200M</span><br><span class="line">email_identity =</span><br><span class="line">email_server = smtp.mydomain.com</span><br><span class="line">email_server_port = 25</span><br><span class="line">email_username = sample_admin@mydomain.com</span><br><span class="line">email_password = abc</span><br><span class="line">email_from = admin &lt;sample_admin@mydomain.com&gt;</span><br><span class="line">email_ssl = false</span><br><span class="line">email_insecure = false</span><br><span class="line">harbor_admin_password = dHarbor12345</span><br><span class="line">auth_mode = db_auth</span><br><span class="line">ldap_url = ldaps://ldap.mydomain.com</span><br><span class="line">ldap_basedn = ou=people,dc=mydomain,dc=com</span><br><span class="line">ldap_uid = uid</span><br><span class="line">ldap_scope = 2</span><br><span class="line">ldap_timeout = 5</span><br><span class="line">ldap_verify_cert = true</span><br><span class="line">self_registration = on</span><br><span class="line">token_expiration = 30</span><br><span class="line">project_creation_restriction = everyone</span><br><span class="line">db_host = mysql</span><br><span class="line">db_password = root123</span><br><span class="line">db_port = 3306</span><br><span class="line">db_user = root</span><br><span class="line">redis_url =</span><br><span class="line">clair_db_host = postgres</span><br><span class="line">clair_db_password = password</span><br><span class="line">clair_db_port = 5432</span><br><span class="line">clair_db_username = postgres</span><br><span class="line">clair_db = postgres</span><br><span class="line">uaa_endpoint = uaa.mydomain.org</span><br><span class="line">uaa_clientid = id</span><br><span class="line">uaa_clientsecret = secret</span><br><span class="line">uaa_verify_cert = true</span><br><span class="line">uaa_ca_cert = /path/to/ca.pem</span><br><span class="line">registry_storage_provider_name = filesystem</span><br><span class="line">registry_storage_provider_config =</span><br></pre></td></tr></table></figure>
+<p>自己做测试时，将url类型设置成为http，并且将域名设置成为了：harbor.wxh.com</p>
+<p>修改完配置之后：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo ./install.sh</span><br></pre></td></tr></table></figure>
+<p>整个的安装过程如下所示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost harbor]# ./install.sh</span><br><span class="line"></span><br><span class="line">[Step 0]: checking installation environment ...</span><br><span class="line"></span><br><span class="line">Note: docker version: 18.06.1</span><br><span class="line"></span><br><span class="line">Note: docker-compose version: 1.22.0</span><br><span class="line"></span><br><span class="line">[Step 1]: loading Harbor images ...</span><br><span class="line">651f69aef02c: Loading layer [==================================================&gt;]  135.8MB/135.8MB</span><br><span class="line">40a1aad64343: Loading layer [==================================================&gt;]  23.24MB/23.24MB</span><br><span class="line">3fe2713e4072: Loading layer [==================================================&gt;]  12.16MB/12.16MB</span><br><span class="line">ba3a1eb0e375: Loading layer [==================================================&gt;]   17.3MB/17.3MB</span><br><span class="line">447427ec5e1a: Loading layer [==================================================&gt;]  15.87kB/15.87kB</span><br><span class="line">4ccb4026663c: Loading layer [==================================================&gt;]  3.072kB/3.072kB</span><br><span class="line">16faa95946a1: Loading layer [==================================================&gt;]  29.46MB/29.46MB</span><br><span class="line">Loaded image: vmware/notary-server-photon:v0.5.1-v1.4.0</span><br><span class="line">fa7ba9fd42c9: Loading layer [==================================================&gt;]  10.95MB/10.95MB</span><br><span class="line">4e400f9ae23e: Loading layer [==================================================&gt;]   17.3MB/17.3MB</span><br><span class="line">2802fb27c88b: Loading layer [==================================================&gt;]  15.87kB/15.87kB</span><br><span class="line">e6367a4e1e1e: Loading layer [==================================================&gt;]  3.072kB/3.072kB</span><br><span class="line">8ece8dfcdd98: Loading layer [==================================================&gt;]  28.24MB/28.24MB</span><br><span class="line">Loaded image: vmware/notary-signer-photon:v0.5.1-v1.4.0</span><br><span class="line">a7dd1a8afcaf: Loading layer [==================================================&gt;]  396.7MB/396.7MB</span><br><span class="line">05adebbe496f: Loading layer [==================================================&gt;]  9.216kB/9.216kB</span><br><span class="line">86eb534949fa: Loading layer [==================================================&gt;]  9.216kB/9.216kB</span><br><span class="line">d7f127c69380: Loading layer [==================================================&gt;]   7.68kB/7.68kB</span><br><span class="line">5ac1c4dc5ee9: Loading layer [==================================================&gt;]  1.536kB/1.536kB</span><br><span class="line">d0bec56b5b1a: Loading layer [==================================================&gt;]  9.728kB/9.728kB</span><br><span class="line">4bbe83860556: Loading layer [==================================================&gt;]   2.56kB/2.56kB</span><br><span class="line">e526f9e6769f: Loading layer [==================================================&gt;]  3.072kB/3.072kB</span><br><span class="line">Loaded image: vmware/harbor-db:v1.4.0</span><br><span class="line">1cff102bbda2: Loading layer [==================================================&gt;]  154.1MB/154.1MB</span><br><span class="line">04c9f3e07de1: Loading layer [==================================================&gt;]  10.75MB/10.75MB</span><br><span class="line">7b6c7bf54f5c: Loading layer [==================================================&gt;]  2.048kB/2.048kB</span><br><span class="line">42f8acdb7fe3: Loading layer [==================================================&gt;]  48.13kB/48.13kB</span><br><span class="line">5b6299d0a1df: Loading layer [==================================================&gt;]   10.8MB/10.8MB</span><br><span class="line">Loaded image: vmware/clair-photon:v2.0.1-v1.4.0</span><br><span class="line">6534131f457c: Loading layer [==================================================&gt;]  94.76MB/94.76MB</span><br><span class="line">73f582101e4b: Loading layer [==================================================&gt;]  6.656kB/6.656kB</span><br><span class="line">86d847823c48: Loading layer [==================================================&gt;]  6.656kB/6.656kB</span><br><span class="line">Loaded image: vmware/postgresql-photon:v1.4.0</span><br><span class="line">5cd250d5a352: Loading layer [==================================================&gt;]  23.24MB/23.24MB</span><br><span class="line">ad3fd52b54f3: Loading layer [==================================================&gt;]  14.99MB/14.99MB</span><br><span class="line">13b1e24cc368: Loading layer [==================================================&gt;]  14.99MB/14.99MB</span><br><span class="line">Loaded image: vmware/harbor-adminserver:v1.4.0</span><br><span class="line">c26c69706710: Loading layer [==================================================&gt;]  23.24MB/23.24MB</span><br><span class="line">223f6fe02cc8: Loading layer [==================================================&gt;]  23.45MB/23.45MB</span><br><span class="line">1fc843c8698a: Loading layer [==================================================&gt;]  7.168kB/7.168kB</span><br><span class="line">e09293610ee7: Loading layer [==================================================&gt;]  10.39MB/10.39MB</span><br><span class="line">d59f9780b1d8: Loading layer [==================================================&gt;]  23.44MB/23.44MB</span><br><span class="line">Loaded image: vmware/harbor-ui:v1.4.0</span><br><span class="line">dd4753242e59: Loading layer [==================================================&gt;]  73.07MB/73.07MB</span><br><span class="line">95aed61ca251: Loading layer [==================================================&gt;]  3.584kB/3.584kB</span><br><span class="line">1864f9818562: Loading layer [==================================================&gt;]  3.072kB/3.072kB</span><br><span class="line">da2a19f80b81: Loading layer [==================================================&gt;]  4.096kB/4.096kB</span><br><span class="line">058531639e75: Loading layer [==================================================&gt;]  3.584kB/3.584kB</span><br><span class="line">a84e69fb619b: Loading layer [==================================================&gt;]  10.24kB/10.24kB</span><br><span class="line">Loaded image: vmware/harbor-log:v1.4.0</span><br><span class="line">b1056051f246: Loading layer [==================================================&gt;]  23.24MB/23.24MB</span><br><span class="line">07678065e08b: Loading layer [==================================================&gt;]  19.19MB/19.19MB</span><br><span class="line">a2d9bdb8f5fb: Loading layer [==================================================&gt;]  19.19MB/19.19MB</span><br><span class="line">Loaded image: vmware/harbor-jobservice:v1.4.0</span><br><span class="line">7f58ce57cd5e: Loading layer [==================================================&gt;]  4.805MB/4.805MB</span><br><span class="line">Loaded image: vmware/nginx-photon:v1.4.0</span><br><span class="line">4c8965978b77: Loading layer [==================================================&gt;]  23.24MB/23.24MB</span><br><span class="line">1466c942edde: Loading layer [==================================================&gt;]  2.048kB/2.048kB</span><br><span class="line">ac5c17331735: Loading layer [==================================================&gt;]  2.048kB/2.048kB</span><br><span class="line">86824c7c466a: Loading layer [==================================================&gt;]  2.048kB/2.048kB</span><br><span class="line">fd3bd0e70d67: Loading layer [==================================================&gt;]   22.8MB/22.8MB</span><br><span class="line">b02195d77636: Loading layer [==================================================&gt;]   22.8MB/22.8MB</span><br><span class="line">Loaded image: vmware/registry-photon:v2.6.2-v1.4.0</span><br><span class="line">Loaded image: vmware/photon:1.0</span><br><span class="line">Loaded image: vmware/mariadb-photon:v1.4.0</span><br><span class="line">454c81edbd3b: Loading layer [==================================================&gt;]  135.2MB/135.2MB</span><br><span class="line">e99db1275091: Loading layer [==================================================&gt;]  395.4MB/395.4MB</span><br><span class="line">051e4ee23882: Loading layer [==================================================&gt;]  9.216kB/9.216kB</span><br><span class="line">6cca4437b6f6: Loading layer [==================================================&gt;]  9.216kB/9.216kB</span><br><span class="line">1d48fc08c8bc: Loading layer [==================================================&gt;]   7.68kB/7.68kB</span><br><span class="line">0419724fd942: Loading layer [==================================================&gt;]  1.536kB/1.536kB</span><br><span class="line">526b2156bd7a: Loading layer [==================================================&gt;]  637.8MB/637.8MB</span><br><span class="line">9ebf6900ecbd: Loading layer [==================================================&gt;]  78.34kB/78.34kB</span><br><span class="line">Loaded image: vmware/harbor-db-migrator:1.4</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[Step 2]: preparing environment ...</span><br><span class="line">Generated and saved secret to file: /data/secretkey</span><br><span class="line">Generated configuration file: ./common/config/nginx/nginx.conf</span><br><span class="line">Generated configuration file: ./common/config/adminserver/env</span><br><span class="line">Generated configuration file: ./common/config/ui/env</span><br><span class="line">Generated configuration file: ./common/config/registry/config.yml</span><br><span class="line">Generated configuration file: ./common/config/db/env</span><br><span class="line">Generated configuration file: ./common/config/jobservice/env</span><br><span class="line">Generated configuration file: ./common/config/log/logrotate.conf</span><br><span class="line">Generated configuration file: ./common/config/jobservice/app.conf</span><br><span class="line">Generated configuration file: ./common/config/ui/app.conf</span><br><span class="line">Generated certificate, key file: ./common/config/ui/private_key.pem, cert file: ./common/config/registry/root.crt</span><br><span class="line">The configuration files are ready, please use docker-compose to start the service.</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[Step 3]: checking existing instance of Harbor ...</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[Step 4]: starting Harbor ...</span><br><span class="line">Creating network &quot;harbor_harbor&quot; with the default driver</span><br><span class="line">Creating harbor-log ... done</span><br><span class="line">Creating harbor-db          ... done</span><br><span class="line">Creating registry           ... done</span><br><span class="line">Creating harbor-adminserver ... done</span><br><span class="line">Creating harbor-ui          ... done</span><br><span class="line">Creating nginx              ... done</span><br><span class="line">Creating harbor-jobservice  ... done</span><br><span class="line"></span><br><span class="line">✔ ----Harbor has been installed and started successfully.----</span><br><span class="line"></span><br><span class="line">Now you should be able to visit the admin portal at http://harbor.wxh.com.</span><br><span class="line">For more details, please visit https://github.com/vmware/harbor .</span><br><span class="line"></span><br><span class="line">[root@localhost harbor]#</span><br></pre></td></tr></table></figure>
+<h1 id="镜像操作"><a href="#镜像操作" class="headerlink" title="镜像操作"></a>镜像操作</h1><h2 id="上传镜像"><a href="#上传镜像" class="headerlink" title="上传镜像"></a>上传镜像</h2><p>push的格式为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># docker push reg.yourdomain.com/myproject/myrepo:mytag</span><br></pre></td></tr></table></figure>
+<p>注意首先需要登录： docker login domain_name</p>
+<p><strong>步骤1：登录</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker login domain_name</span><br></pre></td></tr></table></figure>
+<p><strong>步骤2：将要上传的镜像打上标志</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># docker tag hello-world harbor.wxh.com/apps/hello-world</span><br><span class="line"></span><br><span class="line"># docker push harbor.wxh.com/apps/hello-world</span><br></pre></td></tr></table></figure>
+<p>这种上传的话，默认是打上latest的标志</p>
+<p>打上指定的标签使用：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker tag hello-world harbor.wxh.com/apps/hello-world:v1</span><br><span class="line">docker push harbor.wxh.com/apps/hello-world:v1</span><br></pre></td></tr></table></figure>
+<h2 id="harbor镜像删除"><a href="#harbor镜像删除" class="headerlink" title="harbor镜像删除"></a>harbor镜像删除</h2><p>在web页面上删除镜像实际上只是执行的软删除，因为镜像存在很强的文件系统依赖关系</p>
+<p>Harbor的UI界面上先删除镜像，但这个操作并没有删除磁盘上存放的镜像文件，只是镜像文件manifest的映射关系，还需要通过GC来删除。</p>
+<p><strong>CAUTION: If both tag A and tag B refer to the same image, after deleting tag A, B will also get deleted. if you enabled content trust, you need to use notary command line tool to delete the tag’s signature before you delete an image.</strong></p>
+<p>注意，如果标签A和B都指向都一个镜像（比如hello-world的2个镜像），那么删除一个之后，另外一个也会消失</p>
+<p><strong>步骤1：删除镜像tag</strong></p>
+<p>在web页面删除镜像或者使用api接口进行删除</p>
+<p><strong>步骤2：停止Harbor</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose stop</span><br></pre></td></tr></table></figure>
+<p><strong>步骤3：执行gc回收空间</strong></p>
+<ul>
+<li>通过带有–dry-run选项，可以<strong>查看</strong>到将要删除的镜像文件：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -it --name gc --rm --volumes-from registry vmware/registry:2.6.2-photon garbage-collect --dry-run /etc/registry/config.yml1</span><br></pre></td></tr></table></figure>
+<ul>
+<li>不带–dry-run选项，直接<strong>执行删除</strong>：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -it --name gc --rm --volumes-from registry vmware/registry:2.6.2-photon garbage-collect /etc/registry/config.yml1</span><br></pre></td></tr></table></figure>
+<p><strong>步骤4：启动Harbor</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose start</span><br></pre></td></tr></table></figure>
+<h2 id="镜像清理策略"><a href="#镜像清理策略" class="headerlink" title="镜像清理策略"></a>镜像清理策略</h2><p>需求：</p>
+<ul>
+<li>暂时不做删除 repo 的处理【这部分手动处理】</li>
+<li>保留 60 天内创建的所有 tag ，在 60 天之前创建的 tag ，额外保留 10 个；</li>
+<li>标签数只有 1的镜像，不清理</li>
+<li>保留最后一次更新的tag，有些image比较稳定，有可能超过60天都没有修改，但是却一直在用</li>
+<li>针对一些特殊的（比如每天5个tag的镜像，那么60天就有300个），这个单独特殊处理</li>
+</ul>
+<p>最终：</p>
+<ul>
+<li>针对 tag ：保留 60 天内创建的所有 tag ，在 60 天之前创建的 tag ，额外保留 10 个；</li>
+<li>针对 repo ：暂时不做删除 repo 的处理（不太好确定 repo 是否还在使用，理论上讲每个 repo 下至少应该有一个 tag 是被需要的；若打算删除，则建议 repo 负责人自行进行删除操作）；</li>
+<li>私有仓库暂时不做处理；</li>
+</ul>
+<p><strong>具体实现：</strong></p>
+<ul>
+<li>harbor 主要概念的关系：1 个 project -&gt; 每个 project 下具有 N 种不同的 repos &gt; 每个 repo 下具有 M 个 tags</li>
+<li>project 有创建时间，但这个对我们的处理策略来说没有用处；</li>
+<li>repo 有创建时间和 pull 时间，该 pull 时间对应 repo 下任意一个 tag ，最新一次，被拉取的那个时间</li>
+<li>tag 有创建时间，但没有针对 tag 的 pull 时间（harbor 中定义的数据结构中不支持）；</li>
+</ul>
+<p>因此</p>
+<ul>
+<li>保留 60 天内的 tag”，这个根据 tag 的创建时间</li>
+<li>“60 天之外的看 pull 的数量，关注 60 天之外是不是被 pull 过”，由于 pull 数量是针对 repo 整体的，无法对应到具体的 tag ，即在 API 层面无法方便的知道哪些 tag 最近被 pull 过（当然如果一定要做，就只能沟通分析 log 来搞，性价比不高），所以，只能根据 tag 创建时间的先后，“武断”的认为，后创建的 tag 应该是用户最想保留的；</li>
+<li>“如果没有被 pull 过，则只保留最新 5 个 tag”，根据上一条的说明，某个 tag 是否被 pull 过是无法知道的，但目前可以做到根据 tag 的创建时间进行保留（满足保留最新 N 个需求）；</li>
+</ul>
+<h1 id="Harborclient-harbor客户端命令"><a href="#Harborclient-harbor客户端命令" class="headerlink" title="Harborclient-harbor客户端命令"></a>Harborclient-harbor客户端命令</h1><h2 id="参考文献："><a href="#参考文献：" class="headerlink" title="参考文献："></a>参考文献：</h2><ul>
+<li><a href="https://github.com/int32bit/python-harborclient/blob/master/README.zh.md" target="_blank" rel="noopener">主页说明</a></li>
+</ul>
+<h2 id="实际案例"><a href="#实际案例" class="headerlink" title="实际案例"></a>实际案例</h2><h1 id="实战案例"><a href="#实战案例" class="headerlink" title="实战案例"></a>实战案例</h1><h2 id="harbor镜像复制"><a href="#harbor镜像复制" class="headerlink" title="harbor镜像复制"></a>harbor镜像复制</h2><h3 id="参考文献-2"><a href="#参考文献-2" class="headerlink" title="参考文献"></a>参考文献</h3><ul>
+<li><a href="https://github.com/goharbor/harbor/blob/master/docs/user_guide.md" target="_blank" rel="noopener">官网文档</a></li>
+</ul>
+<h3 id="镜像复制概述"><a href="#镜像复制概述" class="headerlink" title="镜像复制概述"></a>镜像复制概述</h3><p>镜像复制有一些基本的概念需要知晓：</p>
+<ul>
+<li><p>该功能是<strong>面向项目</strong>的，系统管理员设置之后，匹配了过滤规则的项目，在触发了事先定义好的触发条件之后，这些项目就会被复制到远程的另一个仓库中。</p>
+</li>
+<li><p>如果在远程镜像仓库中，该项目不存在，那么就会自动创建这个项目</p>
+</li>
+<li><p>如果在远程仓库中，这个项目已经存在，并且配置的用户对这个项目没有写的权限，那么这个操作将会失败</p>
+</li>
+<li>因为网络的原因，在复制传输的过程中，可能会出现一些延迟。如果复制job是因为网络原因而导致失败的，那么这个任务将会在几分钟之后再次尝试，一直尝试，知道网络恢复正常。</li>
+</ul>
+<p><strong>注意：</strong></p>
+<ul>
+<li><p>因为api等原因，不同版本的镜像复制可能会失败，所以尽量使用同一个版本。</p>
+</li>
+<li><p>用户信息不会被复制</p>
+</li>
+</ul>
+<h3 id="创建复制规则"><a href="#创建复制规则" class="headerlink" title="创建复制规则"></a>创建复制规则</h3><p>注意，在创建endpoint的时候，直接test connection是会报错：“harbor Failed to ping endpoint”</p>
+<p>这是因为网络问题导致，在内网访问的时候，还需要额外的添加hosts文件，详见注意事项</p>
+<p>注意：在创建完毕之后，默认不会执行同步，需要手动点击一下replication</p>
+<h3 id="删除replication规则"><a href="#删除replication规则" class="headerlink" title="删除replication规则"></a>删除replication规则</h3><p>删除规则的时候有几个注意事项：</p>
+<ul>
+<li><p>Only rules which have no pending/running/retrying jobs can be deleted.</p>
+<p>也就是说，只有当改规则下面没有正在运行或者等待运行或者正在重传的jobs时，才可以删除</p>
+</li>
+</ul>
+<h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3><p>在创建endpoint的时候，如果事先没有在容器内存配置对端的地址，那么会报连接错误</p>
+<p>官方的issues：<a href="https://github.com/goharbor/harbor/issues/2221" target="_blank" rel="noopener">https://github.com/goharbor/harbor/issues/2221</a></p>
+<h2 id="harbor迁移"><a href="#harbor迁移" class="headerlink" title="harbor迁移"></a>harbor迁移</h2><h3 id="节点完全迁移"><a href="#节点完全迁移" class="headerlink" title="节点完全迁移"></a>节点完全迁移</h3><h3 id="存储迁移"><a href="#存储迁移" class="headerlink" title="存储迁移"></a>存储迁移</h3><h1 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h1><h2 id="证书问题"><a href="#证书问题" class="headerlink" title="证书问题"></a>证书问题</h2><p>证书生成：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openssl req -sha256 -x509 -days 365 -nodes -newkey rsa:4096 -keyout  harbor.wxh.com.key -out harbor.wxh.com.crt</span><br></pre></td></tr></table></figure>
+<p>注意，一些name的字段要配置成为配置文件中配置的域名，例如：harbor.wxh.com</p>
+<p>生成之后，将证书存放到指定位置，然后修改配置文件指向这些证书文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">less harbor.cfg  | egrep -v &quot;^$|^#&quot;</span><br><span class="line">ssl_cert = /data/cert/harbor.wxh.com.crt</span><br><span class="line">ssl_cert_key = /data/cert/harbor.wxh.com.key</span><br></pre></td></tr></table></figure>
+<p>然后需要对docker进行一些配置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /etc/docker/certs.d/harbor.wxh.com</span><br></pre></td></tr></table></figure>
+<p>然后将上面的2个证书文件复制到这个目录之下，并将/data/cert/harbor.wxh.com.crt重命名为/data/cert/harbor.wxh.com.cert</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># pwd;ls</span><br><span class="line">/etc/docker/certs.d/harbor.wxh.com</span><br><span class="line">harbor.wxh.com.crt harbor.wxh.com.key</span><br><span class="line"></span><br><span class="line"># mv harbor.wxh.com.crt harbor.wxh.com.cert</span><br></pre></td></tr></table></figure>
+<h2 id="文件创建为目录问题"><a href="#文件创建为目录问题" class="headerlink" title="文件创建为目录问题"></a>文件创建为目录问题</h2><p>/data1/harbor/data/secretkey  </p>
+<p>在harbor安装之后以及运行过程中，secretkey为文件，而不是目录。</p>
+<p>在一些异常情况可能会出现这个文件变成目录这种问题，当出现这种问题的时候，将该目录清空，然后重新安装即可</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/wechatpay.jpg" alt="XiaoHua WANG 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/alipay.jpg" alt="XiaoHua WANG 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/harbor/" rel="tag"># harbor</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/13/IT科学技术知识体系结构-Linux运维方向/程序编程/Python/基础知识/python操作MySQL/" rel="next" title="python操作MySQL">
+                <i class="fa fa-chevron-left"></i> python操作MySQL
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/12/20/IT科学技术知识体系结构-Linux运维方向/程序编程/Python/基础知识/python可变参数args/" rel="prev" title="python可变参数args">
+                python可变参数args <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zMzg1NC8xMDQwNw=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/touxiang.jpg"
+                alt="XiaoHua WANG" />
+            
+              <p class="site-author-name" itemprop="name">XiaoHua WANG</p>
+              <p class="site-description motion-element" itemprop="description">Focus on Linux operations and development.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">66</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">67</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">54</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文献"><span class="nav-number">1.</span> <span class="nav-text">参考文献</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Harbor基础知识"><span class="nav-number">2.</span> <span class="nav-text">Harbor基础知识</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Features-功能特性"><span class="nav-number">2.1.</span> <span class="nav-text">Features-功能特性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Architecture-体系结构"><span class="nav-number">2.2.</span> <span class="nav-text">Architecture-体系结构</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装部署"><span class="nav-number">3.</span> <span class="nav-text">安装部署</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#参考文献-1"><span class="nav-number">3.1.</span> <span class="nav-text">参考文献</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#环境要求"><span class="nav-number">3.2.</span> <span class="nav-text">环境要求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#下载安装"><span class="nav-number">3.3.</span> <span class="nav-text">下载安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#下载并解压"><span class="nav-number">3.3.1.</span> <span class="nav-text">下载并解压</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装docker-ce"><span class="nav-number">3.3.2.</span> <span class="nav-text">安装docker-ce</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#启动docker"><span class="nav-number">3.3.3.</span> <span class="nav-text">启动docker</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装Docker-Compose"><span class="nav-number">3.3.4.</span> <span class="nav-text">安装Docker Compose</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置"><span class="nav-number">3.4.</span> <span class="nav-text">配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#配置概述"><span class="nav-number">3.4.1.</span> <span class="nav-text">配置概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置文件参数详解"><span class="nav-number">3.4.2.</span> <span class="nav-text">配置文件参数详解</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Required-parameters-必需参数"><span class="nav-number">3.4.2.1.</span> <span class="nav-text">Required parameters-必需参数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#optional-parameters-动态可选参数"><span class="nav-number">3.4.2.2.</span> <span class="nav-text">optional parameters-动态可选参数</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#harbor启动"><span class="nav-number">3.5.</span> <span class="nav-text">harbor启动</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#镜像操作"><span class="nav-number">4.</span> <span class="nav-text">镜像操作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#上传镜像"><span class="nav-number">4.1.</span> <span class="nav-text">上传镜像</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#harbor镜像删除"><span class="nav-number">4.2.</span> <span class="nav-text">harbor镜像删除</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#镜像清理策略"><span class="nav-number">4.3.</span> <span class="nav-text">镜像清理策略</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Harborclient-harbor客户端命令"><span class="nav-number">5.</span> <span class="nav-text">Harborclient-harbor客户端命令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#参考文献："><span class="nav-number">5.1.</span> <span class="nav-text">参考文献：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实际案例"><span class="nav-number">5.2.</span> <span class="nav-text">实际案例</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实战案例"><span class="nav-number">6.</span> <span class="nav-text">实战案例</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#harbor镜像复制"><span class="nav-number">6.1.</span> <span class="nav-text">harbor镜像复制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#参考文献-2"><span class="nav-number">6.1.1.</span> <span class="nav-text">参考文献</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#镜像复制概述"><span class="nav-number">6.1.2.</span> <span class="nav-text">镜像复制概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建复制规则"><span class="nav-number">6.1.3.</span> <span class="nav-text">创建复制规则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除replication规则"><span class="nav-number">6.1.4.</span> <span class="nav-text">删除replication规则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#注意事项"><span class="nav-number">6.1.5.</span> <span class="nav-text">注意事项</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#harbor迁移"><span class="nav-number">6.2.</span> <span class="nav-text">harbor迁移</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#节点完全迁移"><span class="nav-number">6.2.1.</span> <span class="nav-text">节点完全迁移</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#存储迁移"><span class="nav-number">6.2.2.</span> <span class="nav-text">存储迁移</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#常见问题"><span class="nav-number">7.</span> <span class="nav-text">常见问题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#证书问题"><span class="nav-number">7.1.</span> <span class="nav-text">证书问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文件创建为目录问题"><span class="nav-number">7.2.</span> <span class="nav-text">文件创建为目录问题</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">XiaoHua WANG</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("mlSs9Cm0Xv2D9B7cFqbp25Df-gzGzoHsz", "alKheIFly9OVC81YCV7otTrf");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
