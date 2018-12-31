@@ -458,7 +458,8 @@
       
 
       
-        <h1 id="基础概念"><a href="#基础概念" class="headerlink" title="基础概念"></a>基础概念</h1><p><code>*args</code>和<code>**kwargs</code>这两个是python中的可变参数。</p>
+        <h1 id="基础概念"><a href="#基础概念" class="headerlink" title="基础概念"></a>基础概念</h1><p>如果我们在函数被调用前并不知道也不限制将来函数可以接收的参数数量。在这种情况下我们可以使用<code>*args</code>和<code>**kwargs</code>来进行定义函数</p>
+<p><code>*args</code>和<code>**kwargs</code>这两个是python中的可变参数。</p>
 <ul>
 <li><p>args表示任何多个无名参数，它是一个tuple</p>
 </li>
@@ -472,6 +473,8 @@
 <li><p>因此像foo(a=1, b=’2’, c=3, a’, 1, None, )这样调用的话，会提示语法错误“SyntaxError: non-keyword arg after keyword arg”。</p>
 </li>
 <li><p>当两者同时存在时，正确的调用方式应该像是：foo(‘a’,1,a=1,b=2)</p>
+</li>
+<li><p>实际上真正的Python参数传递语法是<code>*</code>和<code>**</code>。<code>*args</code>和<code>**kwargs</code>只是一种约定俗成的编程实践。我们也可以写成<code>*vars</code>和<code>**kvars</code>。</p>
 </li>
 </ul>
 <h1 id="实际案例"><a href="#实际案例" class="headerlink" title="实际案例"></a>实际案例</h1><p>代码如下：</p>
@@ -546,6 +549,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/12/31/IT科学技术知识体系结构-Linux运维方向/IT基础知识/自学计算机科学/IT技术学习网站及学习资料汇总/" rel="prev" title="IT技术学习网站及学习资料汇总">
+                IT技术学习网站及学习资料汇总 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -657,7 +664,7 @@ var jiathis_config={
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">66</span>
+                  <span class="site-state-item-count">68</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -668,7 +675,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">67</span>
+                  <span class="site-state-item-count">68</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -679,7 +686,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">54</span>
+                  <span class="site-state-item-count">55</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

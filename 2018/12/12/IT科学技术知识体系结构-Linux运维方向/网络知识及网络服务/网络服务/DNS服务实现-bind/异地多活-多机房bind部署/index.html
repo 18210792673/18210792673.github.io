@@ -551,7 +551,75 @@
 <p>结合实际情况，我们选择第一种方式</p>
 <p>那么，当数据变更之后，如何不适用rndc reload的方式</p>
 <h2 id="序列号增长问题"><a href="#序列号增长问题" class="headerlink" title="序列号增长问题"></a>序列号增长问题</h2><p>因为序列号最多为10位数，所以使用传统的日期表示法</p>
-<h2 id="dns服务稳定性问题"><a href="#dns服务稳定性问题" class="headerlink" title="dns服务稳定性问题"></a>dns服务稳定性问题</h2>
+<h2 id="dns服务稳定性问题"><a href="#dns服务稳定性问题" class="headerlink" title="dns服务稳定性问题"></a>dns服务稳定性问题</h2><h1 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h1><p>主从节点两边的acl列表需要保持一致，这部分数据是不会同步的</p>
+<p>会同步的只是zone数据</p>
+<p>因此在启动之前，一定要确保主配置文件、acl列表、view配置等都保持一致</p>
+<p>因为主的多个view会共用一些zone（主机名），所以这些zone，view配置中的路径可以一致</p>
+<p>但是从上，每一个view之间不能存在这种通用文件。</p>
+<p>slave的ip地址不止应该在named.conf主配置文件当中定义</p>
+<p>在acl列表中也应该写明，不然会被refused</p>
+<p>在master上：所有的acl列表需要包含slave节点ip</p>
+<p>在salve节点上，所有的acl列表需要包含master节点的ip</p>
+<p>不然：</p>
+<ul>
+<li>主从同步开始时，slave向master发送soa时会被拒绝</li>
+<li>主修改之后发送notify，slave将会拒绝这个消息，因此来源ip不在acl中</li>
+</ul>
+<p>同时存在3个view，在主上修改了view3或view2，但是slave上收到的信息始终是view1的notify</p>
+<p>在这里，只有shidc这个view能收到信息</p>
+<h1 id="主节点-acl配置"><a href="#主节点-acl配置" class="headerlink" title="主节点 acl配置"></a>主节点 acl配置</h1><p>阿里云acl：</p>
+<ul>
+<li>vpc的网段 【必须有】</li>
+<li>阿里云2台dns的ip</li>
+</ul>
+<p>杭州acl：</p>
+<ul>
+<li>杭州机房网段 【必须有】</li>
+<li>杭州机房2台dns服务器的ip  允许这2台主机发送soa请求并给予响应</li>
+</ul>
+<p>上海机房acl</p>
+<ul>
+<li>上海机房网段 【必须有】</li>
+<li>上海机房2台dns服务器</li>
+</ul>
+<h1 id="从节点acl配置"><a href="#从节点acl配置" class="headerlink" title="从节点acl配置"></a>从节点acl配置</h1><ul>
+<li>vpc的网段 【必须有】</li>
+<li>上海主节点的ip地址。为了主节点发送notify发送消息时不拒绝</li>
+</ul>
+<p>杭州acl：</p>
+<ul>
+<li>杭州机房网段 【必须有】</li>
+<li>上海主节点的ip地址。为了主节点发送notify发送消息时不拒绝</li>
+</ul>
+<p>上海机房acl</p>
+<ul>
+<li>上海机房网段 【必须有】</li>
+<li>上海主节点的ip地址。为了主节点发送notify发送消息时不拒绝</li>
+</ul>
+<p>因为从节点需要做备份，所以从节点上需要维护3个view，而不只是所在地域的这一个网段</p>
+<h1 id="测试："><a href="#测试：" class="headerlink" title="测试："></a>测试：</h1><p>有变化的只是杭州idc和阿里云</p>
+<p>测试客户端</p>
+<p>hzidc: common008-dev 192.168.11.88</p>
+<p>Aliyun:  common010-dev 192.168.11.76</p>
+<p>shIDC：common007-dev  192.168.11.84 </p>
+<h1 id="notify配置"><a href="#notify配置" class="headerlink" title="notify配置"></a>notify配置</h1><p>注意，notify的配置需要写在每一个zone里面，不能写在主配置文件当中</p>
+<p>master发送的notify信息中不能携带view信息，slave接收的时候，根据本身的view的配置进行匹配</p>
+<p>如果一个网段存在于多个view当中，那么只有第一个生效，也就是说，如果主节点更新的是view3的数据，如果view1收到之后，那么将会更新view1中的zone信息</p>
+<p>又因为master的ip必须存在于acl中（需要允许master发送的notify，不设置的话主节点发送的消息会被拒绝），</p>
+<p>但是因为acl是从上到下匹配的</p>
+<p>因此slave只能有一个view，也就是说除了主上维护的是全量的数据，其他从节点维护的只是一个view的数据</p>
+<p>也就是说，如果存在同一个ip，那么不管配置几个view，同时生效的只会有一个view</p>
+<h1 id="从节点直接显示文本"><a href="#从节点直接显示文本" class="headerlink" title="从节点直接显示文本"></a>从节点直接显示文本</h1><h1 id="多view主从同步问题"><a href="#多view主从同步问题" class="headerlink" title="多view主从同步问题"></a>多view主从同步问题</h1><p>多个view的主备同步主要是是主备之间每个view都使用共享key进行消息的签名。master的配置和之前的稍微有点小的改动</p>
+<p>大家经常使用bind的时候是划分不同的view的，因为每个view的zone需要单独修改，所以人肉修改是比较麻烦的。这个时候可以使用nsupdate进行批量的操作。只要注意每个view使用正确的记录就行。</p>
+<p>每个view指定一个对应key进行能更新</p>
+<p>最终的实现目的：主从上的数据完全一致，也就是</p>
+<p>参考文献：</p>
+<ul>
+<li><a href="https://blog.gnuers.org/?p=896" target="_blank" rel="noopener">bind多个view的主备同步</a></li>
+</ul>
+<p>#!/bin/bash<br>cd /home/appdeploy/deploy/apps/fortune-unit-service<br>/usr/bin/nohup /usr/local/jdk/bin/java -Dproject.name=fortune-unit-service -verbose:gc -Xloggc:/home/appdeploy/deploy/logs/fortune-unit-service/gc.log -XX:+PrintGCDetails -XX:+PrintGCDateStamps -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/home/appdeploy/deploy/logs/fortune-unit-service/java.hprof -XX:ErrorFile=/home/appdeploy/deploy/logs/fortune-unit-service/java_error.log -Dlogging.file.path=”/home/appdeploy/deploy/logs/fortune-unit-service” -Dspring.cloud.config.label=aliyun.hz.unit1 -Dspring.cloud.config.index=aliyun.hz.unit1 -Dlogging.console.level=off -Dzone=unit1 -Dregion=aliyun.hz -server -Xms3000m -Xmx3000m -XX:MaxNewSize=512m -XX:PermSize=512M -XX:MaxPermSize=512m -XX:ThreadStackSize=512 -XX:-OmitStackTraceInFastThrow -jar fortune-unit-service.jar –spring.profiles.active=production &gt;&gt; /dev/null 2&gt;&amp;1 &amp;</p>
+<p>select h.name as hostname,SUM(tre.value_min) as mem_avail<br>from hosts h,items i,trends_uint tre<br>where<br>h.name like ‘redis%’<br>and  h.status = ‘0’<br>and h.hostid= i.hostid<br>and i.itemid= tre.itemid<br>and i.name = “Available memory”<br>and tre.clock BETWEEN 1545809182 and 1545812782<br>group by hostname,total</p>
+
       
     </div>
     
@@ -734,7 +802,7 @@ var jiathis_config={
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">66</span>
+                  <span class="site-state-item-count">68</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -745,7 +813,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">67</span>
+                  <span class="site-state-item-count">68</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -756,7 +824,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">54</span>
+                  <span class="site-state-item-count">55</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -796,7 +864,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文献"><span class="nav-number">1.</span> <span class="nav-text">参考文献</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#背景"><span class="nav-number">2.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#需求概述"><span class="nav-number">3.</span> <span class="nav-text">需求概述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#bind部署需要明确的几个问题"><span class="nav-number">4.</span> <span class="nav-text">bind部署需要明确的几个问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#架构规划这里是拓扑图"><span class="nav-number">5.</span> <span class="nav-text">架构规划这里是拓扑图</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#部署实施"><span class="nav-number">6.</span> <span class="nav-text">部署实施</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#目录分层"><span class="nav-number">6.1.</span> <span class="nav-text">目录分层</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#zone配置"><span class="nav-number">6.2.</span> <span class="nav-text">zone配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#common"><span class="nav-number">6.2.1.</span> <span class="nav-text">common</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数据写入"><span class="nav-number">7.</span> <span class="nav-text">数据写入</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#优化进阶"><span class="nav-number">8.</span> <span class="nav-text">优化进阶</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#主节点zone数据信息变更"><span class="nav-number">8.1.</span> <span class="nav-text">主节点zone数据信息变更</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#写入"><span class="nav-number">8.1.1.</span> <span class="nav-text">写入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改"><span class="nav-number">8.1.2.</span> <span class="nav-text">修改</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除"><span class="nav-number">8.1.3.</span> <span class="nav-text">删除</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#主从数据同步"><span class="nav-number">8.2.</span> <span class="nav-text">主从数据同步</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#序列号增长问题"><span class="nav-number">8.3.</span> <span class="nav-text">序列号增长问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#dns服务稳定性问题"><span class="nav-number">8.4.</span> <span class="nav-text">dns服务稳定性问题</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文献"><span class="nav-number">1.</span> <span class="nav-text">参考文献</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#背景"><span class="nav-number">2.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#需求概述"><span class="nav-number">3.</span> <span class="nav-text">需求概述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#bind部署需要明确的几个问题"><span class="nav-number">4.</span> <span class="nav-text">bind部署需要明确的几个问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#架构规划这里是拓扑图"><span class="nav-number">5.</span> <span class="nav-text">架构规划这里是拓扑图</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#部署实施"><span class="nav-number">6.</span> <span class="nav-text">部署实施</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#目录分层"><span class="nav-number">6.1.</span> <span class="nav-text">目录分层</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#zone配置"><span class="nav-number">6.2.</span> <span class="nav-text">zone配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#common"><span class="nav-number">6.2.1.</span> <span class="nav-text">common</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数据写入"><span class="nav-number">7.</span> <span class="nav-text">数据写入</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#优化进阶"><span class="nav-number">8.</span> <span class="nav-text">优化进阶</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#主节点zone数据信息变更"><span class="nav-number">8.1.</span> <span class="nav-text">主节点zone数据信息变更</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#写入"><span class="nav-number">8.1.1.</span> <span class="nav-text">写入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改"><span class="nav-number">8.1.2.</span> <span class="nav-text">修改</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除"><span class="nav-number">8.1.3.</span> <span class="nav-text">删除</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#主从数据同步"><span class="nav-number">8.2.</span> <span class="nav-text">主从数据同步</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#序列号增长问题"><span class="nav-number">8.3.</span> <span class="nav-text">序列号增长问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#dns服务稳定性问题"><span class="nav-number">8.4.</span> <span class="nav-text">dns服务稳定性问题</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#注意事项"><span class="nav-number">9.</span> <span class="nav-text">注意事项</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#主节点-acl配置"><span class="nav-number">10.</span> <span class="nav-text">主节点 acl配置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#从节点acl配置"><span class="nav-number">11.</span> <span class="nav-text">从节点acl配置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#测试："><span class="nav-number">12.</span> <span class="nav-text">测试：</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#notify配置"><span class="nav-number">13.</span> <span class="nav-text">notify配置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#从节点直接显示文本"><span class="nav-number">14.</span> <span class="nav-text">从节点直接显示文本</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#多view主从同步问题"><span class="nav-number">15.</span> <span class="nav-text">多view主从同步问题</span></a></li></ol></div>
             
 
           </div>
