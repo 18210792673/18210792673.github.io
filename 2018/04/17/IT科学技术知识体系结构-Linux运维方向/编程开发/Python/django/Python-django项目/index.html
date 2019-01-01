@@ -1,0 +1,2140 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="django," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Watchmen1992's Blog" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="Django项目实践">
+<meta name="keywords" content="django">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Django项目实践">
+<meta property="og:url" content="http://yoursite.com/2018/04/17/IT科学技术知识体系结构-Linux运维方向/编程开发/Python/django/Python-django项目/index.html">
+<meta property="og:site_name" content="Watchmen1992&#39;s Blog">
+<meta property="og:description" content="Django项目实践">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://picture.watchmen.xin/python-django/project.png">
+<meta property="og:image" content="http://picture.watchmen.xin/python-django/apps.png">
+<meta property="og:image" content="http://picture.watchmen.xin/python-django/addapps.png">
+<meta property="og:image" content="http://picture.watchmen.xin/python-django/login.png">
+<meta property="og:image" content="http://picture.watchmen.xin/python-django/addtopic.png">
+<meta property="og:image" content="http://picture.watchmen.xin/python-django/entry.png">
+<meta property="og:image" content="http://picture.watchmen.xin/python-django/chess.png">
+<meta property="og:image" content="http://picture.watchmen.xin/python-django/url.png">
+<meta property="og:image" content="http://picture.watchmen.xin/python-django/addurl.png">
+<meta property="og:image" content="http://picture.watchmen.xin/python-django/web.png">
+<meta property="og:image" content="http://picture.watchmen.xin/python-django/topics.png">
+<meta property="og:image" content="http://picture.watchmen.xin/python-django/topiccontent.png">
+<meta property="og:image" content="http://picture.watchmen.xin/python-django/newtopic2.png">
+<meta property="og:image" content="http://picture.watchmen.xin/python-django/topics2.png">
+<meta property="og:image" content="http://picture.watchmen.xin/python-django/newtopic.png">
+<meta property="og:updated_time" content="2018-04-17T12:07:03.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Django项目实践">
+<meta name="twitter:description" content="Django项目实践">
+<meta name="twitter:image" content="http://picture.watchmen.xin/python-django/project.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/04/17/IT科学技术知识体系结构-Linux运维方向/编程开发/Python/django/Python-django项目/"/>
+
+
+
+
+
+  <title>Django项目实践 | Watchmen1992's Blog</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?07235ad5687ee838f373b31c7c687d23";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Watchmen1992's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">锦瑟年华当与书香为度，是为不负天地人生。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/17/IT科学技术知识体系结构-Linux运维方向/编程开发/Python/django/Python-django项目/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="XiaoHua WANG">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/touxiang.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Watchmen1992's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Django项目实践</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-17T20:07:03+08:00">
+                2018-04-17
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2018-04-17T20:07:03+08:00">
+                2018-04-17
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/IT科学技术知识体系结构-Linux运维方向/" itemprop="url" rel="index">
+                    <span itemprop="name">IT科学技术知识体系结构-Linux运维方向</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/IT科学技术知识体系结构-Linux运维方向/编程开发/" itemprop="url" rel="index">
+                    <span itemprop="name">编程开发</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/IT科学技术知识体系结构-Linux运维方向/编程开发/Python/" itemprop="url" rel="index">
+                    <span itemprop="name">Python</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/IT科学技术知识体系结构-Linux运维方向/编程开发/Python/django/" itemprop="url" rel="index">
+                    <span itemprop="name">django</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/04/17/IT科学技术知识体系结构-Linux运维方向/编程开发/Python/django/Python-django项目/" class="leancloud_visitors" data-flag-title="Django项目实践">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+              <div class="post-description">
+                  Django项目实践
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><strong>基础环境：</strong></p>
+<ul>
+<li>Python3系列（针对环境变量做好软链接，将python3链接为python）<ul>
+<li>sudo apt-get -y install python3</li>
+<li>ln -s /usr/bin/python3 /usr/bin/python</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>pip3(pip2不支持Python3.x，因此我们要安装pip来支持python3)<ul>
+<li>sudo apt-get install python3-pip</li>
+<li>ln -s /usr/bin/pip3 /usr/bin/pip</li>
+<li>pip的升级：pip install –upgrade pip</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>依赖关系（python3-venv）<ul>
+<li>sudo apt-get -y install python3-venv</li>
+</ul>
+</li>
+</ul>
+<h1 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h1><h2 id="创建激活虚拟环境"><a href="#创建激活虚拟环境" class="headerlink" title="创建激活虚拟环境"></a>创建激活虚拟环境</h2><p>要使用django，首先需要建立一个虚拟工作环境。虚拟环境是系统的一个位置，你可以在其中安装包，并将其与其他python包隔离。将项目的库与其他项目分离是有益的。</p>
+<pre><code>创建虚拟环境：
+wxh@wxh-virtual-machine:/opt$ python -m venv ll_env
+
+激活虚拟环境
+(ll_env) wxh@wxh-virtual-machine:/opt$ source ll_env/bin/activate
+
+停止虚拟环境
+(ll_env) wxh@wxh-virtual-machine:/opt$ deactivate 
+</code></pre><p>​    </p>
+<h2 id="安装django"><a href="#安装django" class="headerlink" title="安装django"></a>安装django</h2><p>安装django(python3之后对应的django版本为1.8.1，因此在安装的时候需要额外注意)：</p>
+<pre><code>(ll_env) wxh@wxh-virtual-machine:/opt$ pip install Django
+</code></pre><h1 id="django项目"><a href="#django项目" class="headerlink" title="django项目"></a>django项目</h1><h3 id="创建项目："><a href="#创建项目：" class="headerlink" title="创建项目："></a>创建项目：</h3><pre><code>(ll_env) wxh@wxh-virtual-machine:/opt$ sudo django-admin.py  startproject learning_log .
+</code></pre><p>创建完毕之后的目录结构如下所示：</p>
+<p><img src="http://picture.watchmen.xin/python-django/project.png" alt="目录"></p>
+<p>注意事项：</p>
+<ul>
+<li>命令末尾有有一个句点的存在，如果遗忘，可能出现一些问题。</li>
+</ul>
+<ul>
+<li><code>manage.py文件</code>是一个简单的程序，它接受命令并将其交给django的相关部分去运行，我们将会使用这些命令来管理诸如使用数据库和运行服务器等任务</li>
+</ul>
+<ul>
+<li>目录learning_log有4个文件，其中最重要的的是setting.py、urls.py、wsgi.py。</li>
+</ul>
+<ul>
+<li>setting.py指定django如何与系统交互以及如何管理项目。在开发项目的过程中，我们将修改其中的一些设置，并添加一些设置。</li>
+</ul>
+<ul>
+<li>urls.py告诉django应该创建哪些网页来响应浏览器请求。</li>
+</ul>
+<ul>
+<li><p>wsgi.py帮助django提供它创建的文件。（web server gateway interface）web服务器网关接口的缩写</p>
+</li>
+<li><p><strong><font color="red">在一个目录下，只能创建一个django项目，因为一个目录下不允许存在2个manage.py</font></strong></p>
+</li>
+</ul>
+<h3 id="创建数据库"><a href="#创建数据库" class="headerlink" title="创建数据库"></a>创建数据库</h3><p>django将大部分与项目有关的信息都存储在数据库中，因此我们需要创建一个供django使用的数据库。为给项目“学习笔记”创建数据库，在处于活动虚拟环境中的情况下执行下面的命令：</p>
+<pre><code>(ll_env) wxh@wxh-virtual-machine:/opt$ sudo python manage.py migrate
+</code></pre><h3 id="启动-停止项目"><a href="#启动-停止项目" class="headerlink" title="启动/停止项目"></a>启动/停止项目</h3><p>核实django项目是否正确的创建，执行下面的命令启动：</p>
+<pre><code>python manage.py runserver [port]
+</code></pre><h2 id="创建应用程序"><a href="#创建应用程序" class="headerlink" title="创建应用程序"></a>创建应用程序</h2><p>django由一系列应用程序组成（也可以看成是一系列的功能组件），他们协同工作，让项目成为一个整体。现在我们暂时只创建一个应用程序，它将完成项目的大部分工作。在后面，我们还将再添加一个管理用户账户的应用程序</p>
+<pre><code>(ll_env) wxh@wxh-virtual-machine:/opt$ sudo python manage.py  startapp learning_logs
+</code></pre><p>命令startapp让django创建应用程序所需的基础设施。如果现在查看项目目录，将看到其中新增了一个文件夹learning_logs</p>
+<p><img src="http://picture.watchmen.xin/python-django/apps.png" alt="apps"></p>
+<p>其中最重要的文件是<strong>models、admin和views</strong>，我们将使用models来定义我们要在应用程序中管理的数据</p>
+<p><strong><font color="blue">注意：learning_logs是learning_log项目中的一个应用程序，这个概念要分清。</font></strong></p>
+<h3 id="定义模型"><a href="#定义模型" class="headerlink" title="定义模型"></a>定义模型</h3><p>每位用户都需要在学习笔记中创建很多的主题（例如：数学、英语、语文等等）。用户输入的每个条目（文章，每篇笔记）都要与特定的主题相关联。这些条目将以文本的形式显示。我们还需要存储每个目录的时间戳，以便能够告诉用户每个条目都是什么时候创建的。<br>​<br>    (ll_env) wxh@wxh-virtual-machine:/opt$ cat learning_logs/models.py<br>    from django.db import models</p>
+<pre><code># Create your models here.
+</code></pre><p>我们可以看到这个文件的内容。django事先导入了模块models，让我们自己创建模型。</p>
+<p>模型告诉django如何处理应用程序中存储的数据。<strong>在代码层面，模型就是一个类，就像前面讨论的每个类一样，包含属性和方法。</strong></p>
+<p><strong>我们编写完毕之后的代码如下：</strong></p>
+<pre><code>(ll_env) wxh@wxh-virtual-machine:/opt/learning_logs$ sudo vim models.py
+
+from django.db import models
+
+class Topic(models.Model):
+    &quot;&quot;&quot;用户学习的主题&quot;&quot;&quot;
+    text = models.CharField(max_length=200)
+    date_added = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        &quot;&quot;&quot;返回模型的字符串表示&quot;&quot;&quot;
+        return self.text
+</code></pre><p>我们创建了一个名为Topic的类，它继承了models模块中的类Model-django中一个定义了模型基本功能的类。新建的这个Topic类中，我们只定义了两个属性：text和data_added（也就是拿来保存主题和时间戳）</p>
+<ul>
+<li>属性text是一个CharField——由字符或文本组成的数据（见）。需要存储少量的文本，如名称、标题或城市时，可使用CharField。定义CharField属性时，必须告诉Django该在数据库中预留多少空间。在这里，我们将max_length设置成了200（即200个字符），这对存储大多数主题名来说足够了。</li>
+</ul>
+<ul>
+<li>属性date_added是一个DateTimeField——记录日期和时间的数据（见）。我们传递了实参auto_add_now=True，每当用户创建新主题时，这都让Django将这个属性自动设置成当前日期和时间</li>
+</ul>
+<p>我们需要告诉django，默认应该使用哪个属性来显示有关主题的信息。django调用方法<strong>str</strong>()来显示模型的简单表示，在这里，我们编写了方法<strong>str</strong>(),它返回存储在属性text中的字符串。</p>
+<h3 id="激活模型"><a href="#激活模型" class="headerlink" title="激活模型"></a>激活模型</h3><p>要使用模型，必须让Django将应用程序包含到项目中。为此，打开settings.py（它位于项目learning_log目录下），你将看到一个这样的片段，<strong>这一段的配置告诉Django使用哪些应用程序安装在项目中：</strong></p>
+<pre><code>(ll_env) wxh@wxh-virtual-machine:/opt$ sudo vim learning_log/settings.py
+
+ 33 INSTALLED_APPS = [
+ 34     &apos;django.contrib.admin&apos;,
+ 35     &apos;django.contrib.auth&apos;,
+ 36     &apos;django.contrib.contenttypes&apos;,
+ 37     &apos;django.contrib.sessions&apos;,
+ 38     &apos;django.contrib.messages&apos;,
+ 39     &apos;django.contrib.staticfiles&apos;,
+ 40 ] 
+</code></pre><p>我们将新建的应用程序加载进项目之中，修改之后的配置如下所示：</p>
+<pre><code>33 INSTALLED_APPS = [
+34     &apos;django.contrib.admin&apos;,
+35     &apos;django.contrib.auth&apos;,
+36     &apos;django.contrib.contenttypes&apos;,
+37     &apos;django.contrib.sessions&apos;,
+38     &apos;django.contrib.messages&apos;,
+39     &apos;django.contrib.staticfiles&apos;,
+40         # my appalication
+41     &apos;learning_logs&apos;
+42 ]
+</code></pre><p><img src="http://picture.watchmen.xin/python-django/addapps.png" alt="addapps"></p>
+<p>通过这种将应用程序编组的方式，在项目不断增大，包含更多的应用程序时，可以有效的对应用程序进行跟踪。</p>
+<p><strong>数据库配置：</strong></p>
+<p>接下来，需要让django修改数据库，使其能够存储与模型Topic相关的信息，执行以下命令：<br>​<br>    (ll_env) wxh@wxh-virtual-machine:/opt$ sudo python manage.py makemigrations learning_logs<br>    Migrations for ‘learning_logs’:<br>      learning_logs/migrations/0001_initial.py</p>
+<pre><code>    - Create model Topic
+(ll_env) wxh@wxh-virtual-machine:/opt$ 
+</code></pre><p>命令makemigrations让Django确定该如何修改数据库，使其能够存储与我们定义的新模型相关联的数据。</p>
+<p>输出表明Django创建了一个名为0001_initial.py的迁移文件，这个文件将在数据库中为模型Topic创建一个表。</p>
+<p>下面来应用这种迁移，让Django替我们修改数据库：<br>​<br>    (ll_env) wxh@wxh-virtual-machine:/opt$ sudo python manage.py  migrate<br>    Operations to perform:<br>      Apply all migrations: admin, auth, contenttypes, learning_logs, sessions<br>    Running migrations:<br>      Applying learning_logs.0001_initial… OK</p>
+<blockquote>
+<p><strong>注意：每当需要修改该应用程序管理的数据时（在这里是learning_logs应用程序），都采取如下三个步骤：</strong><br>​    </p>
+<ul>
+<li>修改models.py；</li>
+<li>对learning_logs调用makemigrations;</li>
+<li>让django迁移项目**</li>
+</ul>
+</blockquote>
+<h3 id="django管理网站"><a href="#django管理网站" class="headerlink" title="django管理网站"></a>django管理网站</h3><p>一个网站，需要有管理员来管理网站，django提供的管理网站（admin site）能够轻松的实现。</p>
+<p>接下来，我们将建立管理网站，并通过它使用模型Topic来添加一些主题</p>
+<h4 id="创建超级用户"><a href="#创建超级用户" class="headerlink" title="创建超级用户"></a>创建超级用户</h4><p>创建具备所有权限的用户—超级用户，执行以下命令：</p>
+<pre><code>(ll_env) wxh@wxh-virtual-machine:/opt$ sudo python manage.py  createsuperuser
+Username (leave blank to use &apos;root&apos;): ll_admin
+Email address: 
+Password: 
+Password (again): 
+Superuser created successfully.
+</code></pre><p>注意：django并不存储实际输入的明文密码，而是存储该密码的散列值，每当你输入密码的时候，django都将计算其散列值，并将结果与存储的散列值进行比较。</p>
+<h4 id="向管理网站注册模型"><a href="#向管理网站注册模型" class="headerlink" title="向管理网站注册模型"></a>向管理网站注册模型</h4><p>Django自动在管理网站中添加了一些模型，如User和Group，但对于我们创建的模型，必须手工进行注册。</p>
+<p>我们创建应用程序learning_logs时， Django在models.py所在的目录中创建了一个名为admin.py的文件：<br>​<br>    (ll_env) wxh@wxh-virtual-machine:/opt$ cat learning_logs/admin.py<br>    from django.contrib import admin</p>
+<pre><code># Register your models here.
+</code></pre><p>修改之后的文件为：<br>​<br>    (ll_env) wxh@wxh-virtual-machine:/opt/learning_logs$ sudo vim admin.py </p>
+<pre><code>from django.contrib import admin
+
+from learning_logs.models import Topic
+
+admin.site.register(Topic)
+</code></pre><p>导入我们要注册的模型Topic，再使用admin.site.register方法让django通过管理网站管理我们的模型</p>
+<p>接下来访问：<a href="http://127.0.0.1:8000/admin" target="_blank" rel="noopener">http://127.0.0.1:8000/admin</a><br>可以直接使用我们刚才创建的超级管理员用户的用户名和密码进行登录。</p>
+<p>登录之后的页面如下所示：<br><img src="http://picture.watchmen.xin/python-django/login.png" alt="login"></p>
+<p>这个网页能够让你添加和修改用户和用户组，还可以管理刚才定义的模型Topic相关的数据。</p>
+<p>我们能够看到刚才定义的模型Topic及其相关的数据（当前没有数据）</p>
+<h4 id="添加主题"><a href="#添加主题" class="headerlink" title="添加主题"></a>添加主题</h4><p>向管理网站注册了topic之后，我们需要添加主题，这里添加Chess和Rock Climbing主题。添加完毕之后，如下图所示：</p>
+<p><img src="http://picture.watchmen.xin/python-django/addtopic.png" alt="login"></p>
+<h3 id="定义模型Entry"><a href="#定义模型Entry" class="headerlink" title="定义模型Entry"></a>定义模型Entry</h3><p>当前的模型只是定义了2个属性（主题和时间戳），并不能实际的保存数据，因此我们需要添加模型Entry</p>
+<p><strong>关系：每个条目都会与特定的主题相关联，即多对一的关系。</strong></p>
+<p>修改之后的代码如下图所示：</p>
+<pre><code>(ll_env) wxh@wxh-virtual-machine:/opt/learning_logs$ sudo vim models.py
+
+from django.db import models
+
+class Topic(models.Model):
+    &quot;&quot;&quot;用户学习的主题&quot;&quot;&quot;
+    text = models.CharField(max_length=200)
+    date_added = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        &quot;&quot;&quot;返回模型的字符串表示&quot;&quot;&quot;
+        return self.text
+</code></pre><p>​<br>​    class Entry(models.Model):<br>​        “””学到的有关某个主题的具体知识”””<br>​        topic = models.ForeignKey(Topic,on_delete=models.CASCADE)<br>​        text = models.TextField()<br>​            date_added = models.DateTimeField(auto_now_add=True)<br>​<br>        class Meta:<br>            verbose_name_plural = ‘entries’</p>
+<p>​<br>​        def <strong>str</strong>(self):<br>​            “””返回模型的字符串表示”””<br>​            return self.text[:50] + “…”</p>
+<p>像Topic一样， Entry也继承了Django基类Model。</p>
+<p>第一个属性topic是一个ForeignKey实例。外键是一个数据库术语，它引用了数据库中的另一条记录；这些代码将每个条目关联到特定的主题。每个主题创建时，都给它分配了一个键（或ID）。需要在两项数据之间建立联系时，Django使用与每项信息相关联的键。稍后我们将根据这些联系获取与特定主题相关联的所有条目。</p>
+<p>接下来是属性text，它是一个TextField实例（见）。这种字段不需要长度限制，因为我们不想限制条目的长度。</p>
+<p>属性date_added让我们能够按创建顺序呈现条目，并在每个条目旁边放置时间戳。</p>
+<p>我们在Entry类中嵌套了Meta类。 </p>
+<p>Meta存储用于管理模型的额外信息，在这里，它让我们能够设置一个特殊属性，让Django在需要时使用Entries来表示多个条目。如果没有这个类，Django将使用Entrys来表示多个条目。</p>
+<p>最后，方法<strong>str</strong>()告诉Django，呈现条目时应显示哪些信息。由于条目包含的文本可能很长，我们让Django只显示text的前50个字符（见）。我们还添加了一个省略号，指出显示的并非整个条目。</p>
+<h3 id="迁移模型Entry"><a href="#迁移模型Entry" class="headerlink" title="迁移模型Entry"></a>迁移模型Entry</h3><p>由于我们添加了一个新模型，因此需要再次迁移数据库</p>
+<p>步骤：</p>
+<ul>
+<li>修改models.py</li>
+<li>makemigrations参数</li>
+<li>mkigrate参数</li>
+</ul>
+<p>命令及输出如下所示：</p>
+<pre><code>(ll_env) wxh@wxh-virtual-machine:/opt$ sudo python  manage.py  makemigrations learning_logs
+Migrations for &apos;learning_logs&apos;:
+  learning_logs/migrations/0002_entry.py
+    - Create model Entry
+
+(ll_env) wxh@wxh-virtual-machine:/opt$ sudo python manage.py migrate
+Operations to perform:
+  Apply all migrations: admin, auth, contenttypes, learning_logs, sessions
+Running migrations:
+  Applying learning_logs.0002_entry... OK
+</code></pre><p>生成了一个新的迁移文件0002_entry.py，它告诉django如何修改数据库，使其能够存储与模型Entry相关的信息。</p>
+<p>执行命令migrate，我们发现django应用了这种迁移且一切顺利。</p>
+<h3 id="向管理网站注册Entry"><a href="#向管理网站注册Entry" class="headerlink" title="向管理网站注册Entry"></a>向管理网站注册Entry</h3><p>首先需要修改admin.py</p>
+<pre><code>(ll_env) wxh@wxh-virtual-machine:/opt/learning_logs$ sudo vim admin.py
+
+from django.contrib import admin
+
+from learning_logs.models import Topic,Entry
+
+admin.site.register(Topic)
+admin.site.register(Entry)
+</code></pre><p>然后刷新页面，可以看到新的内容</p>
+<p><img src="http://picture.watchmen.xin/python-django/entry.png" alt="entry"></p>
+<p>接下来，我们添加条目</p>
+<p><img src="http://picture.watchmen.xin/python-django/chess.png" alt="entry"></p>
+<p>为当前两个主题都添加相应的条目：</p>
+<h3 id="django-shell"><a href="#django-shell" class="headerlink" title="django shell"></a>django shell</h3><p>输入一些数据后，就可通过交互式终端会话以编程方式查看这些数据了。这种交互式环境称。为Django shell，是测试项目和排除其故障的理想之地。下面是一个交互式shell会话示例：</p>
+<pre><code>(ll_env) wxh@wxh-virtual-machine:/opt$ sudo python manage.py  shell
+[sudo] password for wxh: 
+Python 3.5.2 (default, Nov 23 2017, 16:37:01) 
+[GCC 5.4.0 20160609] on linux
+Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.
+(InteractiveConsole)
+
+&gt;&gt;&gt; from learning_logs.models import Topic 
+&gt;
+&gt;&gt;&gt; Topic.objects.all()
+&lt;QuerySet [&lt;Topic: Chess&gt;, &lt;Topic: Rock Climbing&gt;]&gt;
+
+&gt;&gt;&gt; topics = Topic.objects.all()
+&gt;&gt;&gt; for topic in topics:
+...     print (topic.id,topic)
+... 
+8 Chess
+9 Rock Climbing
+
+&gt;&gt;&gt; t = Topic.objects.get(id=8)
+&gt;&gt;&gt; t.text
+&apos;Chess&apos;
+
+&gt;&gt;&gt; t.date_added
+datetime.datetime(2018, 4, 23, 12, 51, 16, 430242, tzinfo=&lt;UTC&gt;)
+</code></pre><blockquote>
+<blockquote>
+<blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+<p>命令python manage.py shell启动一个Python解释器，可使用它来探索存储在项目数据库中的数据</p>
+<p>在这里，我们导入了模块learning_logs.models中的模型Topic，然后使用方法Topic.objects.all()来获取<strong><code>模型Topic的所有实例</code></strong>；它返回的是一个列表，称为查询集（queryset）。</p>
+<p>我们可以像遍历列表一样遍历查询集。</p>
+<p>我们将返回的查询集存储在topics中，然后打印每个主题的id属性和字符串表示。从输出可知，主题Chess的ID为2，而Rock Climbing的ID为9。</p>
+<p>知道对象的ID后，就可获取该对象并查看其任何属性。</p>
+<p>我们还可以查看与主题相关联的条目。前面我们给模型Entry定义了属性topic，这是一个ForeignKey，将条目与主题关联起来。利用这种关联， Django能够获取与特定主题相关联的所有条目，如下所示：</p>
+<pre><code>&gt;&gt;&gt; t.entry_set.all()
+&lt;QuerySet [&lt;Entry: The opening is the first part of the game, roughly...&gt;]&gt;
+</code></pre><p>为通过外键关系获取数据，可使用相关模型的小写名称、下划线和单词set。例如，假设你有模型Pizza和Topping，而Topping通过一个外键关联到Pizza；如果你有一个名为my_pizza的对象，表示一张比萨，就可使用代码my_pizza.topping_set.all()来获取这张比萨的所有配料。</p>
+<p>编写用户可请求的网页时，我们将使用这种语法。确认代码能获取所需的数据时， shell很有帮助。如果代码在shell中的行为符合预期，那么它们在项目文件中也能正确地工作。如果代码引发了错误或获取的数据不符合预期，那么在简单的shell环境中排除</p>
+<p>故障要比在生成网页的文件中排除故障容易得多。我们不会太多地使用shell，但应继续使用它来熟悉对存储在项目中的数据进行访问的Django语法。</p>
+<p><strong>注意：每次修改模型后，都需要重启shell,执行Ctr + D</strong></p>
+<h3 id="django-API"><a href="#django-API" class="headerlink" title="django API"></a>django API</h3><p>Once you’ve created your data models, Django automatically gives you a database-abstraction API that lets you <strong><code>create, retrieve, update and delete</code></strong>objects. </p>
+<p><strong>Creating objects</strong></p>
+<pre><code>&gt;&gt;&gt; from learning_logs.models import Topic
+&gt;&gt;&gt; b = Topic(text=&apos;badminton&apos;)
+&gt;&gt;&gt; b.save()
+</code></pre><font color="red">注意： </font>
+
+
+<ul>
+<li>This performs an INSERT SQL statement behind the scenes. Django doesn’t hit the database until you explicitly call save()</li>
+</ul>
+<ul>
+<li>The save() method has no return value</li>
+</ul>
+<p>其他操作，查看：<a href="https://docs.djangoproject.com/en/2.0/topics/db/queries/" target="_blank" rel="noopener">官方资料</a></p>
+<h2 id="创建网页：学习笔记主页"><a href="#创建网页：学习笔记主页" class="headerlink" title="创建网页：学习笔记主页"></a>创建网页：学习笔记主页</h2><p>使用django创建网页的过程通常分为四个阶段：</p>
+<ul>
+<li><p>定义模型</p>
+<blockquote>
+<p>这里我们有Topic模型和Entry模型，模型我们可以理解为就是一个数据库，其中定义了几个字段以及其对应的数据类型，后续我们都是根据这些数据进行操作。</p>
+</blockquote>
+</li>
+<li><p>定义URL</p>
+<blockquote>
+<p>URL模式描述了URL是如何设计的，让Django知道如何将浏览器请求与网站URL匹配，以确定返回哪个网页</p>
+</blockquote>
+</li>
+<li><p>编写视图</p>
+<blockquote>
+<p>每个URL都被映射到特定的视图——视图函数获取并处理网页所需的数据。【<strong><code>也就是URL与内容的映射关系</code></strong>】</p>
+</blockquote>
+</li>
+<li><p>编写模板</p>
+<blockquote>
+<p>视图函数通常调用一个模板，后者生成浏览器能够理解的网页。【也就是内容数据的显示方式，视图<strong><code>前端显示</code></strong>模板】</p>
+</blockquote>
+</li>
+</ul>
+<p>接下来，我们来创建学习笔记的主页。我们将定义该主页的URL、编写其视图函数并创建一个简单的模板</p>
+<p>逻辑关系：</p>
+<p>项目中定义调用的应用程序的模块，然后在具体应用程序中配置URL和视图</p>
+<h3 id="映射URL"><a href="#映射URL" class="headerlink" title="映射URL"></a>映射URL</h3><p>用户通过在浏览器中输入URL以及单击链接来请求网页，因此我们需要确定项目需要哪些URL<br>主 页 的 URL 最 重 要 ， 它 是 用 户 用 来 访 问 项 目 的 基 础 URL 。 当 前 ， 基 础 URL（<a href="http://localhost:8000）返回默认的Django网站，让我们知道正确地建立了项目。我们将修改这一点，将这个基础URL映射到“学习笔记”的主页。" target="_blank" rel="noopener">http://localhost:8000）返回默认的Django网站，让我们知道正确地建立了项目。我们将修改这一点，将这个基础URL映射到“学习笔记”的主页。</a></p>
+<p>打开项目主目录中的urls.py文件（该文件针对整个项目的url配置），默认的内容为：</p>
+<p><img src="http://picture.watchmen.xin/python-django/url.png" alt="url"></p>
+<p>前两行导入了为项目和管理网站管理URL的函数和模块，在这个针对整个项目的urls.py文件中，变量urlpatterns包含<code>项目中的应用程序</code>的URL。</p>
+<p>admin.site.urls模块定义了可在管理网站中请求的所有URL。 </p>
+<p>修改之后的配置文件如下图所示：<br><img src="http://picture.watchmen.xin/python-django/addurl.png" alt="addurl"></p>
+<p>现在，我们需要在learning_logs目录下创建urls.py文件<br>文件内容如下：</p>
+<p>(ll_env) wxh@wxh-virtual-machine:/opt/learning_logs$ sudo vim urls.py</p>
+<p>(ll_env) wxh@wxh-virtual-machine:/opt/learning_logs$ cat urls.py </p>
+<pre><code>&quot;&quot;&quot;定义learning_logs的URL模式&quot;&quot;&quot;
+
+from django.conf.urls import url
+
+from . import views
+
+app_name = &apos;learning_logs&apos;
+urlpatterns = [
+    #主页
+    url(r&apos;^$&apos;,views.index,name=&apos;index&apos;)
+]
+</code></pre><p><strong>讲解：</strong></p>
+<p>实际的URL模式其实是对函数url()的调用，这个函数接受3个实参</p>
+<p>这里的正则表达式让python查找开头和末尾之间没有任何东西的url。</p>
+<p>python忽略项目基础的URL（在这里是:<a href="http://localhost:8000/），因此这个正则表达式与基础URL相匹配，其他的非基础URL都不与这个正则表达式匹配，如果请求的是其他的URL页面，django将会返回一个错误页面。" target="_blank" rel="noopener">http://localhost:8000/），因此这个正则表达式与基础URL相匹配，其他的非基础URL都不与这个正则表达式匹配，如果请求的是其他的URL页面，django将会返回一个错误页面。</a></p>
+<p>url()的第2个实参指定了要调用的视图函数。请求的URL与前面的正则表达式匹配时，django将会调用views.index（这个index视图函数稍后编写）</p>
+<p>第3个实参，将这个url模式的名称指定为index(相当于是alias别名的形式)，让我们在代码的其他地方引用它。每当我们需要提供这个主页的链接时，我们可以直接使用这个名称，而不用编写URL。</p>
+<h3 id="编写视图"><a href="#编写视图" class="headerlink" title="编写视图"></a>编写视图</h3><p>每个URL都被映射到特定的视图函数——视图函数获取并处理网页所需的数据。【<strong><code>也就是URL与内容的映射关系</code></strong>】</p>
+<p>视图函数接受请求中的信息，准备好生成网页所需的数据，再讲这些数据发送给浏览器—这通常还涉及到网页的模板</p>
+<p>learning_logs中的文件views.py是执行命令python manage.py startapp时自动生成的，当前的文件内容如下：</p>
+<pre><code>(ll_env) wxh@wxh-virtual-machine:/opt/learning_logs$ cat views.py 
+from django.shortcuts import render
+
+# Create your views here.
+</code></pre><p>现在，这个文件只导入了函数render()，它根据视图提供的数据渲染响应。修改之后的文件内容如下如所示：<br>​<br>    from django.shortcuts import render</p>
+<pre><code>def index(request):
+    &quot;&quot;&quot;学习笔记的主页&quot;&quot;&quot;
+    return render(request,&apos;learning_logs/index.html&apos;)
+</code></pre><p>当URL被刚才定义的模式匹配之后，django会在views.py文件中查找函数index()，<strong><code>再将请求对象传递给这个视图函数（也就是这里的request）</code></strong>。</p>
+<p>接下来向函数render进行传2个实参，原始的请求对象以及一个用于创建网页的模板（模板目录下的learning_logs目录下的index.html文件）</p>
+<p>下面我们来编写这个模板。</p>
+<h3 id="编写模板"><a href="#编写模板" class="headerlink" title="编写模板"></a>编写模板</h3><p>模板定义了网页的结构，也就是说模板指定了网页是什么样子的。</p>
+<p>每当网页被请求时，django将会填入相关的数据。模板让你能够访问视图提供的任何数据。我们主页视图没有提供任何数据，因此相应的模板非常简单。</p>
+<p><strong>创建目录</strong><br>在目录learning_logs下创建templates目录，用户保存网页模板文件</p>
+<p>然后创建子目录learninig_logs，并在该子目录下新建文件index.html</p>
+<p>文件内容为：</p>
+<p>(ll_env) wxh@wxh-virtual-machine:/opt/learning_logs$ sudo mkdir -p templates/learning_logs</p>
+<p>(ll_env) wxh@wxh-virtual-machine:/opt/learning_logs$ cd templates/learning_logs</p>
+<p>(ll_env) wxh@wxh-virtual-machine:/opt/learning_logs/templates/learning_logs$ sudo vim index.html</p>
+<pre><code>&lt;p&gt;Learning Log&lt;/p&gt;
+&lt;p&gt;Learning Log helps you keep track of your learning, for any topic you&apos;re
+learning about.&lt;/p&gt;
+</code></pre><p>现在重新访问网站，会发现显示的是刚才自定义的这个网页，不再显示django网页。</p>
+<p>如下图所示：</p>
+<p><img src="http://picture.watchmen.xin/python-django/web.png" alt="web"></p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>创建网页的过程看起来会有点复杂，但是将URL、视图和模板分离，效果实际上会更好，这让我们可以分别考虑项目的不同方面。</p>
+<p>例如：数据库专家可以专注于模型，程序员可以专注于视图代码，而web涉及人员可以专注于模板。</p>
+<p><strong>关系：</strong></p>
+<p>访问请求–&gt;url（入：定义url匹配规则，出：视图函数。同时还定义这个url的调用别名）</p>
+<p>–&gt;视图（入：url请求对象，出：创建网页的模板，包含路径和名称信息。动态内容在这里生成）</p>
+<p>–&gt;模板（html网页，其中包含具体的网页内容，这里只是静态内容，接受视图中的动态数据然后组装显示）</p>
+<h2 id="创建其他网页"><a href="#创建其他网页" class="headerlink" title="创建其他网页"></a>创建其他网页</h2><p>接下来，我们创建两个显示数据的网页。</p>
+<ul>
+<li>其中一个列出所有的主题</li>
+<li>另一个显示特定主题的所有条目</li>
+</ul>
+<p>对于每一个网页，我们都将指定URL模式，编写一个视图函数，并编写一个模板。</p>
+<p>为了效率，我们可以先编写一个父模板</p>
+<h3 id="模板继承"><a href="#模板继承" class="headerlink" title="模板继承"></a>模板继承</h3><p><strong>父模板：base.html</strong></p>
+<p>我们在/opt/learning_logs/templates/learning_logs目录下创建base.html【在项目中，每个网页都将继承base.html】</p>
+<p>内容如下：</p>
+<pre><code>&lt;p&gt;
+  &lt;a href=&quot;{ % url &apos;learning_logs:index&apos;% }&quot;&gt;Learning Log&lt;/a&gt;
+&lt;/p&gt;
+
+{ % block content % }{ % endblock content % }
+</code></pre><p>实际效果为：</p>
+<p><br>  <a href="{ % url 'learning_logs:index' % }">Learning Log</a><br></p>
+
+<p>{ % block content % }{ % endblock content % }</p>
+<p><strong>说明：</strong></p>
+<blockquote>
+<p>在当前，所有页面都包含的元素只有顶端的标题。我们将在每个页面中包含这个模板，<strong><code>因此我们将这个标题设置到主页的链接。</code></strong></p>
+<p><strong><code>模板标签</code></strong>是用大括号和百分号{ %% }表示的。模板标签是一小段代码，生成要在网页中显示的信息。</p>
+</blockquote>
+<p>在这里，模板标签{ % url ‘learning_logs:index’% }生成一个URL，该URL与learning_logs/urls.py中定义的名为index的URL模式匹配，也就是说learning_logs是一个命名空间，而index是该命名空间中一个名称独特的URL模式。</p>
+<p><strong>在HTML页面中，链接是使用锚（mao）标签来定义了：</strong><br>​<br>    格式为： <a href="link_url">link text </a></p>
+<p>这里也就是类似markdown的链接使用方式，也可以说是类似Linux中软链接的方式，可以隐藏后端真实的URL串，并且让对外的链接保持最新也要容易得多。</p>
+<h3 id="子模板"><a href="#子模板" class="headerlink" title="子模板"></a>子模板</h3><p>现在我们需要重新编写index.html，使其继承base.html，修改之后的代码如下：</p>
+<pre><code>(ll_env) wxh@wxh-virtual-machine:/opt/learning_logs/templates/learning_logs$ sudo vim index.html 
+
+{ % extends &quot;learning_logs/base.html&quot; % }
+
+{ % block content % }
+&lt;p&gt;Learning Log helps you keep track of your learning, for any topic you&apos;re
+learning about.&lt;/p&gt;
+{ % endblock content % }
+</code></pre><p>子模板的第一行必须包含标签{ % extends % }，让Django知道它继承了哪个父模板。 </p>
+<p>注意：这时候虽然两个文件的目录结构都是一样，但是还是需要制定目录learning_logs。</p>
+<p>这行代码导入了base.html页面的所有内容，让index.html能够指定要在content块中预留的空间中添加的内容。</p>
+<p>在子模板中，只需要包含当前网页特有的内容，这不仅简化了每个模板，还使得网站修改起来容易得多，要修改很多网页都包含的元素，只需要在父模板中修改该元素。</p>
+<p>在大型项目中，我们可以定义多级父模板，有一个用于整个网站的父模板，并且网站的每个主要部分都有一个父模板，每个部分中又去继承这个模板。</p>
+<hr>
+<p><strong>接下来，我们专注于另外两个网页：</strong></p>
+<ul>
+<li>显示全部所有主题的网页</li>
+<li>显示特定主题中条目的网页</li>
+</ul>
+<hr>
+<h3 id="显示所有主题的页面"><a href="#显示所有主题的页面" class="headerlink" title="显示所有主题的页面"></a>显示所有主题的页面</h3><h4 id="URL模式"><a href="#URL模式" class="headerlink" title="URL模式"></a>URL模式</h4><p>首先定义显示所有主题页面的URL。在这里我们使用topics来表示</p>
+<p>完整的URL应该是：<a href="http://localhost:8000/topics" target="_blank" rel="noopener">http://localhost:8000/topics</a></p>
+<p>我们修改urls.py<br>​<br>    “””定义learning_logs的URL模式”””</p>
+<pre><code>from django.conf.urls import url
+
+from . import views
+
+app_name = &apos;learning_logs&apos;
+urlpatterns = [
+    #主页
+    url(r&apos;^$&apos;,views.index,name=&apos;index&apos;),
+    url(r&apos;^topics/$&apos;,views.topics,name=&apos;topics&apos;)
+]
+</code></pre><h4 id="视图函数"><a href="#视图函数" class="headerlink" title="视图函数"></a>视图函数</h4><p>修改views.py，添加上面指定的topics视图函数</p>
+<pre><code>from django.shortcuts import render
+from .models import Topic
+
+def index(request):
+    &quot;&quot;&quot;学习笔记的主页&quot;&quot;&quot;
+    return render(request,&apos;learning_logs/index.html&apos;)
+
+def topics(request):
+    &quot;&quot;&quot;显示所有的主题&quot;&quot;&quot;
+    topics = Topic.object.order_by(&apos;date_added&apos;)
+    context = {&apos;topics&apos;:topics}
+    return render(request,&apos;learning_logs/topics.html&apos;,context)
+</code></pre><p><strong>说明：</strong></p>
+<blockquote>
+<p>需要导入与所需数据相关联的模型，也就是导入Topic类 </p>
+<p>视图函数中包含一个形参（django从服务器收到的访问request对象）</p>
+<p>第一行中，我们查询数据库，请求提供Topic对象，并且按照属性date_added进行排序，然后将返回的查询集存储在topics中</p>
+<p>context定义了一个将要发送给模板的上下文。上下文是一个字典类型，其中的键是我们将在模板中用来访问数据的名称，而值是我们要发送给模板的数据。在这里，我们暂时只是定义了一个键值对，包含我们将要在网页中显示的主题。</p>
+<p>创建使用数据的网页时，除了对象request和模板的路径之外，我们还将变量context传递给render()</p>
+</blockquote>
+<h4 id="模板"><a href="#模板" class="headerlink" title="模板"></a>模板</h4><p>在这里，我们需要定义上面指定的topics网页。页面接受字典context，以便能使用topics()提供的数据。</p>
+<p>创建的topics.html页面内容如下：</p>
+<p>(ll_env) wxh@wxh-virtual-machine:/opt/learning_logs/templates/learning_logs$ sudo vim topics.html</p>
+<pre><code>{ % extends &quot;learning_logs/base.html&quot; % }
+
+{ % block content % }
+
+  &lt;p&gt;Topics&lt;/p&gt;
+
+  &lt;ul&gt;
+    { % for topic in topics % }
+      &lt;li&gt;{{ topic }}&lt;/li&gt;
+    { % empty % }
+      &lt;li&gt; No topics have been added yet.&lt;/li&gt;
+    { % endfor % }
+  &lt;/ul&gt;
+</code></pre><p>​<br>​    { % endblock content % }</p>
+<p><strong>说明：</strong></p>
+<blockquote>
+<p>就像index.html一样，我们首先使用标签{ % extends % }来继承base.html，再开始定义content块。这个网页的主体是一个项目列表，其中列出了用户输入的主题。在标准的HTML中，项目列表被称为无序列表，用标签<code>&lt;ul&gt;&lt;/ul&gt;</code>表示。</p>
+<p>我们使用了一个for循环的模板标签【注意：pytho使用缩进来指出哪些代码是for循环的组成部分，而在模板中，每个for循环都必须使用{ % endfor %标签来显示地指出其结束位置}】</p>
+<p>在这里topics这个变量是从视图函数中传递过来的，因此不需要我们再指定</p>
+</blockquote>
+<p>在HTML中，for循环的格式为：</p>
+<pre><code>{ % for item in list % }
+do something with each item
+{ % endfor % }
+</code></pre><p><code>在循环中，我们要将每个主题转换为一个项目列表项。</code>要在模板中打印变量，需要将<code>变量名用双花括号括起来</code>。每次循环时，代码都被替换为topic的当前值。这些花括号不会出现在网页中，它们只是用于告诉Django我们使用了一个模板变量。 HTML标签<li></li>表示一个项目列表项，在标签对<ul></ul>内部，位于标签<li>和</li>之间的内容都是一个项目列表项。</p>
+<p><strong>修改父模板</strong></p>
+<p>我们现在需要修改父模板(base.html)，使其包含到显示所有主题的页面的链接<br>修改之后的内容如下所示：</p>
+<pre><code>(ll_env) wxh@wxh-virtual-machine:/opt/learning_logs/templates/learning_logs$ cat base.html 
+&lt;p&gt;
+  &lt;a href=&quot;{%url 'learning_logs:index'%}&quot;&gt;Learning Log&lt;/a&gt; - 
+  &lt;a href=&quot;{%url 'learning_logs:topics'%}&quot;&gt;Topics&lt;/a&gt;
+&lt;/p&gt;
+
+{% block content%}{% endblock content%}
+
+
+这个时候刷新页面，显示如下：
+
+![topics](http://picture.watchmen.xin/python-django/alltopics.png)
+
+
+
+### 显示特定主题主所有条目的页面 ###
+
+接下来，我们需要创建一个专注于显示特定主题的页面-**`显示该主题的名称以及该主题的所有条目`**
+
+同样，我们的顺序还是：
+1. 定义URL模式
+2. 编写视图函数
+3. 创建网页模板
+
+此外，我们还需要修改上一个网页（显示所有主题的网页），让每个项目列表都是一个链接，点击之后可以显示相应主题的所有条目
+
+#### URL模式 ####
+
+
+(ll_env) wxh@wxh-virtual-machine:/opt/learning_logs$ sudo  vim urls.py
+
+	"""定义learning_logs的URL模式"""
+	
+	from django.conf.urls import url
+	
+	from . import views
+	
+	app_name = 'learning_logs'
+	urlpatterns = [
+	    #主页
+	    url(r'^$',views.index,name='index'),
+	    url(r'^topics/$',views.topics,name='topics'),
+	    url(r'^topics/(?P<topic_id>\d+)/$',views.topic,name='topic')
+	]
+
+
+**说明：**
+
+r让django将这个字符串视为原始字符串，并指出正则表达式包含在引号内。这个表达式的第二部分**`/(?P<topic_id>\d+)/`**与包含在两个//内的整数内容进行匹配，并将这个整数存储在一个名为topic_id的实参中，这部分表达式捕获URL中的值；
+
+?P<topic_id>将匹配到的值存储到topic_id中，而表达式\d+与包含在两个斜杆内的任何数字都匹配，不管这个数字为多少位
+
+当发现URL与这个模式匹配的时候，django将会调用视图函数topiic()，并将存储在topic_id中的值作为实参传递给它。在这个函数中，我们使用topic_id的值来获取相应的主题
+
+#### 视图 ####
+
+视图topic()需要从数据库中获取指定的主题以及与之相关联的所有条目。如下所示：
+​	
+
+
+(ll_env) wxh@wxh-virtual-machine:/opt/learning_logs$ sudo vim views.py 
+
+	from django.shortcuts import render
+	from .models import Topic
+	
+	def index(request):
+	    """学习笔记的主页"""
+	    return render(request,'learning_logs/index.html')
+	
+	def topics(request):
+	    """显示所有的主题"""
+	    topics = Topic.objects.order_by('date_added')
+	    context = {'topics':topics}
+	    return render(request,'learning_logs/topics.html',context)
+	
+	def topic(request,topic_id):
+	    """显示单个主题及其所有的条目"""
+	    topic = Topic.objects.get(id=topic_id)
+	    entries = topic.entry_set.order_by('-date_added')
+	    context = {'topic':topic,'entries':entries}
+	    return render(request,'learning_logs/topic.html',context)
+
+
+在这个视图函数中，我们有两个形参。这个函数接受正则表达式(?P<topic_id>\d+)捕获的值，并将其存储到topic_id这个形参当中
+
+接下来，我们使用get()来获取指定的主题
+
+下一行中，我们获取与该主题相关联的条目并将它们按照date_add进行排序：date_added前面的减号（-）指定按照降序进行排序，也就是先显示最近的条目，我们将主题和条目都存储在字典context当中，再将这个字典发送给模板topic.html。
+
+
+注意：
+> 第一行和第二行（get和order_by）的代码都被称之为查询，因为它们会向数据中查询特定的信息，在自己的项目中编写这样的查询时，可以现在django shell中先进行试验
+
+> 相比于直接编写视图和网页模板，再在浏览器中检查结果，在shell中执行代码可以更加快速的获得反馈
+
+#### 模板 ####
+
+这个模板需要显示每个主题的名称和其对应条目的内容，如果当前主题不包含任何条目，我们还需要向用户指出这一点。
+
+代码如下：
+
+
+(ll_env) wxh@wxh-virtual-machine:/opt/learning_logs/templates/learning_logs$ sudo vim topic.html
+
+	{% extends "learning_logs/base.html" %}
+	
+	{% block content %}
+	  <p>Topic:{{ topic }}</p>
+	
+	  <p>Entries:</p>
+	  <ul>
+	  {% for entry in entries%}
+	    <li>
+	      <p>{{ entry.date_added|date:'M d, Y H:i'}}</p>
+	      <p>{{ entry.text|linebreaks }}</p>
+	    </li><li>
+	  { % empty % }
+	    </li><li>
+	      There are no entries for this topic yet.
+	    </li><li>
+	  {% endfor %}
+	  </li></ul>
+	
+	{% endblock content %}
+</topic_id></topic_id></topic_id></topic_id></code></pre><p><strong>说明：</strong></p>
+<p>是一个模板变量，在这里变量都是这种表示方式，这里的变量topic，是存储在字典context中的</p>
+<p>在<strong><code>&lt;ul&gt;&lt;/ul&gt;</code></strong>中我们利用for循环定义一个显示每个条目的项目列表（无序列表）</p>
+<blockquote>
+<p>每个列表项目都将列出两项信息：条目的时间戳和完整的文本。</p>
+<p>第一行时间戳：在django中的模板中，竖线（|）表示模板过滤器–【对模板变量的值进行修改的函数】。后面的部分我们称之为：<strong><code>过滤器</code></strong></p>
+<p>过滤之后的时间戳显示格式将是：’M d, Y H:i’以这样的格式显示时间戳： January 1, 2015 23:00</p>
+<p>第二行显示text的完整值，而不仅仅是entry的前50个字符。过滤器linebreaks将包含换行符的长条目转换为浏览器能够理解的格式，避免显示一个不间断的文本块。</p>
+<p>在最后，我们使用模板标签{ % empty % }打印一条消息，告诉用户当前主题还没有条目</p>
+</blockquote>
+<p>注意：代码和说明中的{和%中其实是没有空格的，在这里故意加上空格是因为hexo博客框架无法正常处理。</p>
+<h4 id="将显示所有主题的页面中的每个主题都设置为链接"><a href="#将显示所有主题的页面中的每个主题都设置为链接" class="headerlink" title="将显示所有主题的页面中的每个主题都设置为链接"></a>将显示所有主题的页面中的每个主题都设置为链接</h4><p>在浏览器中查看显示特定主题的页面前，我们需要修改模板topics.html，让每个主题都链接到相应的网页</p>
+<p>如下所示：</p>
+<p>(ll_env) wxh@wxh-virtual-machine:/opt/learning_logs/templates/learning_logs$ sudo vim topics.html<br>​    </p>
+<p><img src="http://picture.watchmen.xin/python-django/topics.png" alt="topics"></p>
+<p>这个时候我们再次刷新页面，再单击其中的一个主题，将会看到类似于下图的页面：</p>
+<p><img src="http://picture.watchmen.xin/python-django/topiccontent.png" alt="topics"></p>
+<hr>
+<h1 id="用户账户"><a href="#用户账户" class="headerlink" title="用户账户"></a>用户账户</h1><p>在这一章节，我们将创建对用户友好而直观的网页，让用户无需通过管理网站就能添加新的主题和条目，以及编辑既有的条目。</p>
+<p>我们还将添加一个用户注册系统，让用户能够创建账户和自己的学习笔记。让任意数量的用户都能与之交互，是Web应用程序的核心所在。</p>
+<h2 id="让用户能够输入数据"><a href="#让用户能够输入数据" class="headerlink" title="让用户能够输入数据"></a>让用户能够输入数据</h2><p>当前，只有超级用户能够通过管理网站输入数据。我们不想让用户与管理网站进行交互，因此我们将使用django的表单创建工具来创建工具让用户能够输入数据的页面</p>
+<p>这部分，主要会涉及以下几种数据</p>
+<ul>
+<li>添加新主题</li>
+<li>添加新条目</li>
+<li>编辑条目</li>
+</ul>
+<h3 id="添加新主题"><a href="#添加新主题" class="headerlink" title="添加新主题"></a>添加新主题</h3><p>在添加新主题时，需要使用到一个输入框【在这里是一个基于表单的页面】</p>
+<h4 id="用户添加主题的表单"><a href="#用户添加主题的表单" class="headerlink" title="用户添加主题的表单"></a>用户添加主题的表单</h4><p>我们需要让用户输入并提交信息的页面是表单</p>
+<blockquote>
+<p>并且在用户输入数据的时候，我们还需要进行验证，确认提供的信息是否是正确的数据类型</p>
+<p>而且信息不是恶意的信息，例如终端服务器的代码。</p>
+<p>然后，我们再对这些有效信息进行处理，并将其保存到数据库的合适地方，这些工作都是由django自动完成。</p>
+</blockquote>
+<p>在django中，创建表单最简单的方式是使用ModeForm，它根据我们在第18章定义的模型中的信息自动创建表单。</p>
+<p>创建一个forms.py文件，并存储到models.py所在目录中</p>
+<p>代码如下：</p>
+<p>(ll_env) wxh@wxh-virtual-machine:/opt/learning_logs$ sudo vim forms.py<br>​<br>    from django import forms</p>
+<pre><code>from .models import Topic
+
+class TopicForm(forms.ModelForm):
+    class Meta:
+        model = Topic
+        fields = [&apos;text&apos;]
+        labels = {&apos;text&apos;:&apos;&apos;}
+</code></pre><p>最简单的ModelForm版本只包含一个内嵌的Meta类，<strong><code>它告诉django根据哪个模型创建表单</code></strong>，以及在表单中包含哪些字段。</p>
+<blockquote>
+<p>在这里，我们根据模型Topic创建一个表单，该表单只包含字段text，下面的代码让django不要为字段text生产标签。</p>
+</blockquote>
+<h4 id="URL定义"><a href="#URL定义" class="headerlink" title="URL定义"></a>URL定义</h4><p>在这里我们创建的url是：<a href="http://localhost:8000/new_topic/" target="_blank" rel="noopener">http://localhost:8000/new_topic/</a></p>
+<p>代码如下：</p>
+<pre><code>&quot;&quot;&quot;定义learning_logs的URL模式&quot;&quot;&quot;
+
+from django.conf.urls import url
+
+from . import views
+
+app_name = &apos;learning_logs&apos;
+urlpatterns = [
+    #主页
+    url(r&apos;^$&apos;,views.index,name=&apos;index&apos;),
+    url(r&apos;^topics/$&apos;,views.topics,name=&apos;topics&apos;),
+    url(r&apos;^topics/(?P&lt;topic_id&gt;\d+)/$&apos;,views.topic,name=&apos;topic&apos;),
+    # 用户添加新主题的网页
+    url(r&apos;^new_topic/$&apos;,views.&apos;new_topic&apos;,name=&apos;new_topic&apos;)
+]
+</code></pre><p>这个url模式将请求交给视图函数new_topic(),接下来我们将编写这个函数</p>
+<h4 id="视图函数new-topic"><a href="#视图函数new-topic" class="headerlink" title="视图函数new_topic()"></a>视图函数new_topic()</h4><p>函数new_topic()需要处理两种情形</p>
+<ul>
+<li>第一种情况是刚进入new_topic网页（在这种情况下，它应该显示一个空表单）</li>
+<li>第二种情况是对提交的表单数据进行处理，并将用户重定向到网页topics</li>
+</ul>
+<p>代码如下：</p>
+<pre><code>from django.shortcuts import render
+from django.http import HttpResponseRedirect
+from django.urls import reverse
+from .models import Topic
+from .forms import TopicForm
+
+def index(request):
+    &quot;&quot;&quot;学习笔记的主页&quot;&quot;&quot;
+    return render(request,&apos;learning_logs/index.html&apos;)
+
+def topics(request):
+    &quot;&quot;&quot;显示所有的主题&quot;&quot;&quot;
+    topics = Topic.objects.order_by(&apos;date_added&apos;)
+    context = {&apos;topics&apos;:topics}
+    return render(request,&apos;learning_logs/topics.html&apos;,context)
+
+def topic(request,topic_id):
+    &quot;&quot;&quot;显示单个主题及其所有的条目&quot;&quot;&quot;
+    topic = Topic.objects.get(id=topic_id)
+    entries = topic.entry_set.order_by(&apos;-date_added&apos;)
+    context = {&apos;topic&apos;:topic,&apos;entries&apos;:entries}
+    return render(request,&apos;learning_logs/topic.html&apos;,context)
+
+def new_topic(request):
+    &quot;&quot;&quot;添加新主题&quot;&quot;&quot;
+    if request.method != &apos;POST&apos;:
+        # 未提交数据：创建一个新表单
+        form = TopicForm()
+    else:
+        # POST提交的数据，对数据进行处理
+        form = TopicForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse(&apos;learning_logs:topics&apos;))
+
+    context = {&apos;form&apos;: form}
+    return render(request,&apos;learning_logs/new_topic.html&apos;,context)
+</code></pre><p><strong>说明：</strong></p>
+<p>在这里，我们我们导入了HttpResponseRedirect类，用户提交主题后，我们会使用这个类将用户重定向到网页topics。</p>
+<p>函数reverse()根据指定的URL模型确定URL，这意味着django将在页面被请求时生成URL。我们还导入了刚才创建的表单TopicFrom</p>
+<h4 id="补充信息：GET请求与POST"><a href="#补充信息：GET请求与POST" class="headerlink" title="补充信息：GET请求与POST"></a>补充信息：GET请求与POST</h4><p>创建Web应用程序时，将用到的两种主要请求类型是GET请求和POST请求。对于只是从服务器读取数据的页面，使用GET请求；在用户需要通过表单提交信息时，通常使用POST请求。</p>
+<p>处理所有表单时，我们都将指定使用POST方法。还有一些其他类型的请求，但这个项目没有使用。</p>
+<p><strong>函数new_topic()将请求对象作为参数。</strong></p>
+<p>用户初次请求该网页时，其浏览器将发送GET请求；</p>
+<p>用户填写并提交表单时，其浏览器将发送POST请求。</p>
+<p>根据请求的类型，我们可以确定用户请求的是空表单（GET请求）还是要求对填写好的表单进行处理（POST请求）。</p>
+<p>如果请求方法不是POST，请求就可能是GET，<br>因此我们需要返回一个空表单（即便请求是其他类型的，返回一个空表单也不会有任何问题）。</p>
+<p>我们创建一个TopicForm实例，将其存储在变量form中，再通过上下文字典将这个表单发送给模板。由于实例化TopicForm时我们没有指定任何实参， Django将创建一个可供用户填写的空表单。</p>
+<p>如果请求方法为POST，将执行else代码块，对提交的表单数据进行处理。我们使用用户输入的数据（它们存储在request.POST中）创建一个TopicForm实例，这样对象form将包含用户提交的信息。</p>
+<p>要将提交的信息保存到数据库，必须先通过检查确定它们是有效的。函数is_valid()核实用户填写了所有必不可少的字段（表单字段默认都是必不可少的），且输入的数据与要求的字段类型一致（例如，字段text少于200个字符，这是我们在第18章中的models.py中指定的）。</p>
+<p>这种自动验证避免了我们去做大量的工作。如果所有字段都有效，我们就可调用save()，将表单中的数据写入数据库。保存数据后，就可离开这个页面了。</p>
+<p>我们使用reverse()获取页面topics的URL，并将其传递给HttpResponseRedirect()，后者将用户的浏览器重定向到页面topics。在页面topics中，用户将在主题列表中看到他刚输入的主题。</p>
+<h4 id="模板new-topic"><a href="#模板new-topic" class="headerlink" title="模板new_topic"></a>模板new_topic</h4><p>下面来创建模板new_topic.html</p>
+<p>代码如下：</p>
+<p>(ll_env) wxh@wxh-virtual-machine:/opt/learning_logs/templates/learning_logs$ sudo vim new_topic.html </p>
+<p><img src="http://picture.watchmen.xin/python-django/newtopic2.png" alt="topics"></p>
+<h4 id="链接到页面new-topic"><a href="#链接到页面new-topic" class="headerlink" title="链接到页面new_topic"></a>链接到页面new_topic</h4><p>接下来，我们在页面topics中添加一个到页面new_topic的链接：</p>
+<p>(ll_env) wxh@wxh-virtual-machine:/opt/learning_logs/templates/learning_logs$ sudo vim topics.html </p>
+<p><img src="http://picture.watchmen.xin/python-django/topics2.png" alt="topics"></p>
+<p>这个时候访问指定页面，可以看到有输入框出现</p>
+<p><img src="http://picture.watchmen.xin/python-django/newtopic.png" alt="topics"></p>
+<h3 id="添加新条目"><a href="#添加新条目" class="headerlink" title="添加新条目"></a>添加新条目</h3><p>现在用户可以添加新主题了，但是他们还想添加新的条目。</p>
+<p>我们再次定义URL，编写视图函数和模板，并连接到添加新条目的网页，但在此之前，我们需要好在forms.py中再添加一个类</p>
+<p><strong>1. 用于添加新条目的表单</strong></p>
+<p>我们需要创建一个与模型Entry相关联的表单，但是这个表单的定制程度比TopicForm要高些</p>
+<p>(ll_env) wxh@wxh-virtual-machine:/opt/learning_logs$ sudo vim forms.py</p>
+<pre><code>from django import forms
+
+from .models import Topic,Entry
+
+class TopicForm(forms.ModelForm):
+    class Meta:
+        model = Topic
+        fields = [&apos;text&apos;]
+        labels = {&apos;text&apos;:&apos;&apos;}
+
+class EntryForm(forms.ModelForm):
+    class Meta:
+        model = Entry
+        fields = [&apos;text&apos;]
+        labels = {&apos;text&apos;:&apos;&apos;}
+        widgets = {&apos;text&apos;:forms.Textarea(attrs={&apos;cols&apos;:80})}
+</code></pre><p><strong>说明：</strong></p>
+<p>在这里，再导入了Entry。我们定义了属性widgets。小部件（widgets）是一个HTML表单元素，例如单行文本框、多行文本区域或者下拉列表。</p>
+<p>通过设置属性widgets，可覆盖Django选择的默认小部件。通过让Django使用forms.Textarea，我们定制了字段’text’的输入小部件，将文本区域的宽度设置为80列，而不是默认的40列。这给用户提供了足够的空间，可以编写有意义的条目。</p>
+<p><strong>2. URL模式new_entry</strong></p>
+<p>在用户添加新条目的页面的URL模式中，需要包含实参topic_id,因为条目必须与特定的主题相关联。该URL模式如下：</p>
+<p>(ll_env) wxh@wxh-virtual-machine:/opt/learning_logs$ sudo vim urls.py </p>
+<pre><code>&quot;&quot;&quot;定义learning_logs的URL模式&quot;&quot;&quot;
+
+from django.conf.urls import url
+
+from . import views
+
+app_name = &apos;learning_logs&apos;
+urlpatterns = [
+    #主页
+    url(r&apos;^$&apos;,views.index,name=&apos;index&apos;),
+    url(r&apos;^topics/$&apos;,views.topics,name=&apos;topics&apos;),
+    url(r&apos;^topics/(?P&lt;topic_id&gt;\d+)/$&apos;,views.topic,name=&apos;topic&apos;),
+    # 用户添加新主题的网页
+    url(r&apos;^new_topic/$&apos;,views.new_topic,name=&apos;new_topic&apos;),
+    #  用户添加新条目的页面
+    url(r&apos;^new_entry/(?P&lt;topic_id&gt;\d+)/$&apos;,views.new_entry,name=&apos;new_entry&apos;)
+]
+</code></pre><p><strong>3. 视图函数new_entry</strong></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/wechatpay.jpg" alt="XiaoHua WANG 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/alipay.jpg" alt="XiaoHua WANG 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/django/" rel="tag"># django</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/04/17/IT科学技术知识体系结构-Linux运维方向/公有云产品/阿里云/VPC从入门到实践/" rel="next" title="VPC从入门到实践">
+                <i class="fa fa-chevron-left"></i> VPC从入门到实践
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/04/22/个人知识体系/运动营养与健康/身体之道/湿气的产生及预防治疗/" rel="prev" title="湿气的产生及预防治疗">
+                湿气的产生及预防治疗 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zMzg1NC8xMDQwNw=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/touxiang.jpg"
+                alt="XiaoHua WANG" />
+            
+              <p class="site-author-name" itemprop="name">XiaoHua WANG</p>
+              <p class="site-description motion-element" itemprop="description">Focus on Linux operations and development.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">54</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">84</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">56</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#环境准备"><span class="nav-number">1.</span> <span class="nav-text">环境准备</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#创建激活虚拟环境"><span class="nav-number">1.1.</span> <span class="nav-text">创建激活虚拟环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装django"><span class="nav-number">1.2.</span> <span class="nav-text">安装django</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#django项目"><span class="nav-number">2.</span> <span class="nav-text">django项目</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建项目："><span class="nav-number">2.0.1.</span> <span class="nav-text">创建项目：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建数据库"><span class="nav-number">2.0.2.</span> <span class="nav-text">创建数据库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#启动-停止项目"><span class="nav-number">2.0.3.</span> <span class="nav-text">启动/停止项目</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建应用程序"><span class="nav-number">2.1.</span> <span class="nav-text">创建应用程序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#定义模型"><span class="nav-number">2.1.1.</span> <span class="nav-text">定义模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#激活模型"><span class="nav-number">2.1.2.</span> <span class="nav-text">激活模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#django管理网站"><span class="nav-number">2.1.3.</span> <span class="nav-text">django管理网站</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#创建超级用户"><span class="nav-number">2.1.3.1.</span> <span class="nav-text">创建超级用户</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#向管理网站注册模型"><span class="nav-number">2.1.3.2.</span> <span class="nav-text">向管理网站注册模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#添加主题"><span class="nav-number">2.1.3.3.</span> <span class="nav-text">添加主题</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#定义模型Entry"><span class="nav-number">2.1.4.</span> <span class="nav-text">定义模型Entry</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#迁移模型Entry"><span class="nav-number">2.1.5.</span> <span class="nav-text">迁移模型Entry</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#向管理网站注册Entry"><span class="nav-number">2.1.6.</span> <span class="nav-text">向管理网站注册Entry</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#django-shell"><span class="nav-number">2.1.7.</span> <span class="nav-text">django shell</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#django-API"><span class="nav-number">2.1.8.</span> <span class="nav-text">django API</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建网页：学习笔记主页"><span class="nav-number">2.2.</span> <span class="nav-text">创建网页：学习笔记主页</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#映射URL"><span class="nav-number">2.2.1.</span> <span class="nav-text">映射URL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编写视图"><span class="nav-number">2.2.2.</span> <span class="nav-text">编写视图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编写模板"><span class="nav-number">2.2.3.</span> <span class="nav-text">编写模板</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">2.2.4.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建其他网页"><span class="nav-number">2.3.</span> <span class="nav-text">创建其他网页</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#模板继承"><span class="nav-number">2.3.1.</span> <span class="nav-text">模板继承</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#子模板"><span class="nav-number">2.3.2.</span> <span class="nav-text">子模板</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#显示所有主题的页面"><span class="nav-number">2.3.3.</span> <span class="nav-text">显示所有主题的页面</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#URL模式"><span class="nav-number">2.3.3.1.</span> <span class="nav-text">URL模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#视图函数"><span class="nav-number">2.3.3.2.</span> <span class="nav-text">视图函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#模板"><span class="nav-number">2.3.3.3.</span> <span class="nav-text">模板</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#将显示所有主题的页面中的每个主题都设置为链接"><span class="nav-number">2.3.3.4.</span> <span class="nav-text">将显示所有主题的页面中的每个主题都设置为链接</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#用户账户"><span class="nav-number">3.</span> <span class="nav-text">用户账户</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#让用户能够输入数据"><span class="nav-number">3.1.</span> <span class="nav-text">让用户能够输入数据</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#添加新主题"><span class="nav-number">3.1.1.</span> <span class="nav-text">添加新主题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#用户添加主题的表单"><span class="nav-number">3.1.1.1.</span> <span class="nav-text">用户添加主题的表单</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#URL定义"><span class="nav-number">3.1.1.2.</span> <span class="nav-text">URL定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#视图函数new-topic"><span class="nav-number">3.1.1.3.</span> <span class="nav-text">视图函数new_topic()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#补充信息：GET请求与POST"><span class="nav-number">3.1.1.4.</span> <span class="nav-text">补充信息：GET请求与POST</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#模板new-topic"><span class="nav-number">3.1.1.5.</span> <span class="nav-text">模板new_topic</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#链接到页面new-topic"><span class="nav-number">3.1.1.6.</span> <span class="nav-text">链接到页面new_topic</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#添加新条目"><span class="nav-number">3.1.2.</span> <span class="nav-text">添加新条目</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">XiaoHua WANG</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("mlSs9Cm0Xv2D9B7cFqbp25Df-gzGzoHsz", "alKheIFly9OVC81YCV7otTrf");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
