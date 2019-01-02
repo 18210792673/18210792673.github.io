@@ -4,6 +4,32 @@
 
     
   <url>
+    <loc>http://yoursite.com/2019/01/02/%E4%B8%AA%E4%BA%BA%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/%E8%AE%A4%E7%9F%A5%E5%8D%87%E7%BA%A7/%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95/%E5%A6%82%E4%BD%95%E8%BE%93%E5%85%A5%E5%92%8C%E8%BE%93%E5%87%BA/</loc>
+    <lastmod>2019-01-02T15:02:40.000Z</lastmod>
+    <data>
+        <display>
+        <title>如何输入和输出</title>
+        <pubTime>2019-01-02T15:02:40.000Z</pubTime>
+        
+        <tag>学习方法</tag>
+         
+         
+           
+             
+              <breadCrumb title="个人知识体系" url="http://yoursite.com/categories/%E4%B8%AA%E4%BA%BA%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/"/>
+          
+             
+              <breadCrumb title="认知升级" url="http://yoursite.com/categories/%E4%B8%AA%E4%BA%BA%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/%E8%AE%A4%E7%9F%A5%E5%8D%87%E7%BA%A7/"/>
+          
+             
+              <breadCrumb title="学习方法" url="http://yoursite.com/categories/%E4%B8%AA%E4%BA%BA%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/%E8%AE%A4%E7%9F%A5%E5%8D%87%E7%BA%A7/%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://yoursite.com/2018/01/25/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/IT%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6%E5%B7%A5%E5%85%B7/TotalCommander%E5%B8%B8%E7%94%A8%E5%BF%AB%E6%8D%B7%E9%94%AE/</loc>
     <lastmod>2019-01-01T07:39:48.383Z</lastmod>
     <data>
@@ -1337,32 +1363,6 @@
 
     
   <url>
-    <loc>http://yoursite.com/2018/01/25/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/IT%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6%E5%B7%A5%E5%85%B7/Markdown%E8%AF%AD%E6%B3%95/</loc>
-    <lastmod>2018-02-04T08:31:24.000Z</lastmod>
-    <data>
-        <display>
-        <title>Markdown从入门到实践</title>
-        <pubTime>2018-01-25T14:08:24.000Z</pubTime>
-        
-        <tag>markdown</tag>
-         
-         
-           
-             
-              <breadCrumb title="IT科学技术知识体系结构-Linux运维方向" url="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/"/>
-          
-             
-              <breadCrumb title="IT基础知识" url="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/IT%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/"/>
-          
-             
-              <breadCrumb title="常用软件工具" url="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/IT%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6%E5%B7%A5%E5%85%B7/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>http://yoursite.com/2018/01/23/%E4%B8%AA%E4%BA%BA%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/Hexo/hello-world/</loc>
     <lastmod>2018-02-04T08:31:24.000Z</lastmod>
     <data>
@@ -1382,6 +1382,32 @@
           
              
               <breadCrumb title="Hexo" url="http://yoursite.com/categories/%E4%B8%AA%E4%BA%BA%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/Hexo/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://yoursite.com/2018/01/25/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/IT%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6%E5%B7%A5%E5%85%B7/Markdown%E8%AF%AD%E6%B3%95/</loc>
+    <lastmod>2018-02-04T08:31:24.000Z</lastmod>
+    <data>
+        <display>
+        <title>Markdown从入门到实践</title>
+        <pubTime>2018-01-25T14:08:24.000Z</pubTime>
+        
+        <tag>markdown</tag>
+         
+         
+           
+             
+              <breadCrumb title="IT科学技术知识体系结构-Linux运维方向" url="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/"/>
+          
+             
+              <breadCrumb title="IT基础知识" url="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/IT%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/"/>
+          
+             
+              <breadCrumb title="常用软件工具" url="http://yoursite.com/categories/IT%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Linux%E8%BF%90%E7%BB%B4%E6%96%B9%E5%90%91/IT%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6%E5%B7%A5%E5%85%B7/"/>
           
         </display>
     </data>
