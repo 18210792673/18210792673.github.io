@@ -89,10 +89,12 @@
 <meta property="og:site_name" content="Watchmen1992&#39;s Blog">
 <meta property="og:description" content="python常见模块+方法+函数">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://picture.watchmen.xin/python/python_modules/subprocess/std.png">
 <meta property="og:updated_time" content="2018-07-11T09:43:49.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="python常见模块+方法+函数">
 <meta name="twitter:description" content="python常见模块+方法+函数">
+<meta name="twitter:image" content="http://picture.watchmen.xin/python/python_modules/subprocess/std.png">
 
 
 
@@ -458,7 +460,12 @@
       
 
       
-        <h1 id="模块"><a href="#模块" class="headerlink" title="模块"></a>模块</h1><h2 id="sys模块"><a href="#sys模块" class="headerlink" title="sys模块"></a>sys模块</h2><h2 id="os模块"><a href="#os模块" class="headerlink" title="os模块"></a>os模块</h2><h2 id="time模块"><a href="#time模块" class="headerlink" title="time模块"></a>time模块</h2><p>在平常的代码中，我们常常需要与时间打交道。在Python中，与时间处理有关的模块包括：time，datetime以及calendar。</p>
+        <h1 id="模块"><a href="#模块" class="headerlink" title="模块"></a>模块</h1><h2 id="re-正则匹配"><a href="#re-正则匹配" class="headerlink" title="re-正则匹配"></a>re-正则匹配</h2><p>正则表达式是一个特殊的字符序列，它能帮助你方便的检查一个字符串是否与某种模式匹配。</p>
+<p>Python 自1.5版本起增加了re 模块，它提供 Perl 风格的正则表达式模式。</p>
+<h3 id="re-match函数"><a href="#re-match函数" class="headerlink" title="re.match函数"></a>re.match函数</h3><p>re.match 尝试从字符串的起始位置匹配一个模式，如果不是起始位置匹配成功的话，match()就返回none。</p>
+<p><strong>函数语法</strong>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">re.match(pattern, string, flags=0)</span><br></pre></td></tr></table></figure>
+<h2 id="sys模块"><a href="#sys模块" class="headerlink" title="sys模块"></a>sys模块</h2><h2 id="os模块"><a href="#os模块" class="headerlink" title="os模块"></a>os模块</h2><h2 id="time模块"><a href="#time模块" class="headerlink" title="time模块"></a>time模块</h2><p>在平常的代码中，我们常常需要与时间打交道。在Python中，与时间处理有关的模块包括：time，datetime以及calendar。</p>
 <p>在开始之前，首先要说明这几点：</p>
 <ol>
 <li><p>在Python中，通常有这几种方式来表示时间：</p>
@@ -580,9 +587,65 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">wxh@wxh-virtual-machine:~/python_files$ cat tt.py </span><br><span class="line">#!/usr/bin/env python2</span><br><span class="line">import sys,commands</span><br><span class="line">cmdline = sys.argv[1]</span><br><span class="line">cmdline1 = sys.argv[2]</span><br><span class="line"></span><br><span class="line">cmd = &quot;ps -ef|grep &quot; + cmdline + &quot;|grep &quot; + cmdline1 + &quot;|grep -v grep|grep -v python|awk &apos;&#123;print $2&#125;&apos;&quot;</span><br><span class="line">res = commands.getstatusoutput(cmd)</span><br><span class="line">print (res)</span><br></pre></td></tr></table></figure>
 <p>执行后输出如下所示：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">wxh@wxh-virtual-machine:~/python_files$ python2 ./tt.py unity-panel-service lockscreen-mode</span><br><span class="line">(0, &apos;126263&apos;)</span><br></pre></td></tr></table></figure>
-<h2 id="subprocess模块"><a href="#subprocess模块" class="headerlink" title="subprocess模块"></a>subprocess模块</h2><p>用于检测linux进程的状态</p>
-<p>实例如下：</p>
-<pre><code>def redis_status(new_port):
+<h2 id="subprocess模块"><a href="#subprocess模块" class="headerlink" title="subprocess模块"></a>subprocess模块</h2><p>从Python 2.4开始，Python引入subprocess模块来管理子进程，以取代一些旧模块的方法：如 os.system、<code>os.spawn*</code>、<code>os.popen*</code>、<code>popen2.*</code>、<code>commands.*</code>等不但可以调用外部的命令作为子进程，而且可以连接到子进程的input/output/error管道，获取相关的返回信息。</p>
+<p>运行python的时候，我们都是在创建并运行一个进程。像Linux进程那样，一个进程可以fork一个子进程，并让这个子进程exec另外一个程序。在Python中，我们通过标准库中的subprocess包来fork一个子进程，并运行一个外部的程序。</p>
+<p>subprocess包中定义有<strong>数个创建子进程的函数</strong>，这些函数分别以不同的方式创建子进程，所以我们可以根据需要来从中选取一个使用。另外subprocess还提供了一些管理标准流(standard stream)和管道(pipe)的工具，从而在进程间使用文本通信。</p>
+<h3 id="shell命令格式"><a href="#shell命令格式" class="headerlink" title="shell命令格式"></a>shell命令格式</h3><p>默认情况下，我们传入的参数（一般是shell命令）是需要使用列表的方式，以空格分开的每一个单独的命令或者参数，是列表的每一个元素</p>
+<p>因为subprocess模块中的各个类和函数的shell参数默认为False，在Linux下，shell=False时, Popen调用os.execvp()执行args指定的程序；</p>
+<p>shell=True时，如果args是字符串，Popen直接调用系统的Shell来执行args指定的程序，如果args是一个序列，则args的第一项是定义程序命令字符串，其它项是调用系统Shell时的附加参数。</p>
+<h3 id="call-check-call-和check-output-函数"><a href="#call-check-call-和check-output-函数" class="headerlink" title="call(),check_call()和check_output()函数"></a>call(),check_call()和check_output()函数</h3><p><strong>subprocess.call()</strong></p>
+<p>父进程等待子进程完成</p>
+<p>返回退出信息(returncode，相当于Linux exit code)</p>
+<p><strong>subprocess.check_call()</strong></p>
+<p>父进程等待子进程完成</p>
+<p>返回0</p>
+<p>检查退出信息，如果returncode不为0，则举出错误subprocess.CalledProcessError，该对象包含有returncode属性，可用try…except…来检查</p>
+<p><strong>subprocess.check_output()</strong></p>
+<p>父进程等待子进程完成</p>
+<p>返回子进程向标准输出的输出结果</p>
+<p>检查退出信息，如果returncode不为0，则举出错误subprocess.CalledProcessError，该对象包含有returncode属性和output属性，output属性为标准输出的输出结果，可用try…except…来检查。</p>
+<p>这三个函数的使用方法相类似，下面来举例说明:</p>
+<ul>
+<li>call()函数</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">p = subprocess.call(&apos;pdd&apos;,shell=True)</span><br><span class="line">print (p)</span><br><span class="line"></span><br><span class="line">执行后输出如下：</span><br><span class="line">127</span><br></pre></td></tr></table></figure>
+<ul>
+<li>check_call函数</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">p = subprocess.check_call(&apos;pdd&apos;,shell=True)</span><br><span class="line">print (p)</span><br><span class="line"></span><br><span class="line">执行后输出如下：</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File &quot;/Users/wangxiaohua/PycharmProjects/private_project/test/test.py&quot;, line 31, in &lt;module&gt;</span><br><span class="line">    p = subprocess.check_call(&apos;pdd&apos;,shell=True)</span><br><span class="line">  File &quot;/usr/local/Cellar/python/3.7.0/Frameworks/Python.framework/Versions/3.7/lib/python3.7/subprocess.py&quot;, line 328, in check_call</span><br><span class="line">    raise CalledProcessError(retcode, cmd)</span><br><span class="line">subprocess.CalledProcessError: Command &apos;pdd&apos; returned non-zero exit status 127.</span><br></pre></td></tr></table></figure>
+<ul>
+<li>check_output()</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">p = subprocess.check_output(&apos;pdd&apos;,shell=True)</span><br><span class="line">print (p)</span><br><span class="line"></span><br><span class="line">执行后输出如下：</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File &quot;/Users/wangxiaohua/PycharmProjects/private_project/test/test.py&quot;, line 31, in &lt;module&gt;</span><br><span class="line">    p = subprocess.check_output(&apos;pdd&apos;,shell=True)</span><br><span class="line">  File &quot;/usr/local/Cellar/python/3.7.0/Frameworks/Python.framework/Versions/3.7/lib/python3.7/subprocess.py&quot;, line 376, in check_output</span><br><span class="line">    **kwargs).stdout</span><br><span class="line">  File &quot;/usr/local/Cellar/python/3.7.0/Frameworks/Python.framework/Versions/3.7/lib/python3.7/subprocess.py&quot;, line 468, in run</span><br><span class="line">    output=stdout, stderr=stderr)</span><br><span class="line">subprocess.CalledProcessError: Command &apos;pdd&apos; returned non-zero exit status 127.</span><br></pre></td></tr></table></figure>
+<h3 id="subprocess-Popen类"><a href="#subprocess-Popen类" class="headerlink" title="subprocess.Popen类"></a>subprocess.Popen类</h3><p>上面的几个函数都是基于Popen()的封装(wrapper)。这些封装的目的在于让我们容易使用子进程，也就是说，我们不需要关心父子进s程通信和回收等问题。当我们想要更个性化我们的需求的时候，就要转向Popen类，该类生成的对象用来代表子进程。</p>
+<p>与上面的封装不同，Popen对象创建后，主程序不会自动等待子进程完成。我们必须调用对象的wait()方法，父进程才会等待 (也就是阻塞block)，举例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">child = subprocess.Popen(&quot;ping -c4 www.baidu.com&quot;,shell=True)</span><br><span class="line"># child.wait()</span><br><span class="line">print (111)</span><br></pre></td></tr></table></figure>
+<p>添加注释和不添加的2次结果分别为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">111</span><br><span class="line"></span><br><span class="line">和</span><br><span class="line"></span><br><span class="line">PING www.baidu.com (115.239.211.112): 56 data bytes</span><br><span class="line">64 bytes from 115.239.211.112: icmp_seq=0 ttl=54 time=49.593 ms</span><br><span class="line">64 bytes from 115.239.211.112: icmp_seq=1 ttl=54 time=20.527 ms</span><br><span class="line">64 bytes from 115.239.211.112: icmp_seq=2 ttl=54 time=30.277 ms</span><br><span class="line">64 bytes from 115.239.211.112: icmp_seq=3 ttl=54 time=12.728 ms</span><br><span class="line"></span><br><span class="line">--- www.baidu.com ping statistics ---</span><br><span class="line">4 packets transmitted, 4 packets received, 0.0% packet loss</span><br><span class="line">round-trip min/avg/max/stddev = 12.728/28.281/49.593/13.786 ms</span><br><span class="line">111</span><br></pre></td></tr></table></figure>
+<p>一些方法和属性：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">child.wait()		   # 等待子进程执行完毕</span><br><span class="line">child.poll()           # 检查子进程状态</span><br><span class="line">child.kill()           # 终止子进程</span><br><span class="line">child.send_signal()    # 向子进程发送信号</span><br><span class="line">child.terminate()      # 终止子进程</span><br><span class="line">child.pid	   		   # 子进程的pid</span><br></pre></td></tr></table></figure>
+<h3 id="子进程的文本流控制"><a href="#子进程的文本流控制" class="headerlink" title="子进程的文本流控制"></a>子进程的文本流控制</h3><p>子进程的标准输入、标准输出和标准错误如下属性分别表示:</p>
+<ol>
+<li>child.stdin</li>
+<li>child.stdout</li>
+<li>child.stderr</li>
+</ol>
+<p>在pycharm中可以看到</p>
+<p><img src="http://picture.watchmen.xin/python/python_modules/subprocess/std.png" alt="std"></p>
+<p>可以在Popen()建立子进程的时候改变标准输入、标准输出和标准错误，并可以利用<strong>subprocess.PIPE</strong>将多个子进程的输入和输出连接在一起，构成管道(pipe)，如下2个例子：</p>
+<p>案例1：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">import subprocess</span><br><span class="line">child1 = subprocess.Popen([&quot;ls&quot;,&quot;-l&quot;], stdout=subprocess.PIPE)</span><br><span class="line">print (child1.stdout.read())</span><br><span class="line">#或者child1.communicate()</span><br><span class="line"></span><br><span class="line">执行后输出如下：</span><br><span class="line">b&apos;total 16\ndrwxr-xr-x  3 wangxiaohua  staff    96 12 10 16:35 __pycache__\n-rw-r--r--  1 wangxiaohua  staff   185 12 10 16:33 custom_except.py\n-rw-r--r--  1 wangxiaohua  staff  1028  1  5 17:54 test.py\n&apos;</span><br><span class="line">可以看到，输出的是byte类型</span><br></pre></td></tr></table></figure>
+<p>案例2：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">import subprocess</span><br><span class="line">child1 = subprocess.Popen([&quot;cat&quot;,&quot;/etc/passwd&quot;], stdout=subprocess.PIPE)</span><br><span class="line">child2 = subprocess.Popen([&quot;grep&quot;,&quot;0:0&quot;],stdin=child1.stdout, stdout=subprocess.PIPE)</span><br><span class="line">out = child2.communicate()</span><br><span class="line"></span><br><span class="line">注意:</span><br><span class="line">	最终的输出是从child2中获取的。</span><br><span class="line">	默认的输出是byte类型，如果要转换成为字符串类型，使用下面这种方式实现。</span><br><span class="line">out_str = str(out[0],encoding=&quot;utf-8&quot;)</span><br></pre></td></tr></table></figure>
+<p>subprocess.PIPE实际上为文本流提供一个缓存区。child1的stdout将文本输出到缓存区，随后child2的stdin从该PIPE中将文本读取走。child2的输出文本也被存放在PIPE中，直到communicate()方法从PIPE中读取出PIPE中的文本。</p>
+<p>注意：</p>
+<ul>
+<li><p>communicate()是Popen对象的一个方法，该方法会阻塞父进程，直到子进程完成。</p>
+</li>
+<li><p>communicate()函数返回一个<code>tuple</code>(标准输出和错误)。所以当你只是标准输出的时候就需要使用[0]获取</p>
+</li>
+</ul>
+<h3 id="实际案例："><a href="#实际案例：" class="headerlink" title="实际案例："></a>实际案例：</h3><h4 id="检测linux进程的状态"><a href="#检测linux进程的状态" class="headerlink" title="检测linux进程的状态"></a>检测linux进程的状态</h4><pre><code>def redis_status(new_port):
     p = subprocess.Popen([&quot;netstat&quot;, &quot;-unptl&quot;], stdout=subprocess.PIPE)
     out, err = p.communicate()
     if (new_port in str(out) ):
@@ -774,7 +837,7 @@ var jiathis_config={
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">55</span>
+                  <span class="site-state-item-count">56</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -796,7 +859,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">50</span>
+                  <span class="site-state-item-count">51</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -836,7 +899,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#模块"><span class="nav-number">1.</span> <span class="nav-text">模块</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#sys模块"><span class="nav-number">1.1.</span> <span class="nav-text">sys模块</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#os模块"><span class="nav-number">1.2.</span> <span class="nav-text">os模块</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#time模块"><span class="nav-number">1.3.</span> <span class="nav-text">time模块</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#获取当前时间戳"><span class="nav-number">1.3.1.</span> <span class="nav-text">获取当前时间戳</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#时间元祖"><span class="nav-number">1.3.2.</span> <span class="nav-text">时间元祖</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#格式化时间"><span class="nav-number">1.3.3.</span> <span class="nav-text">格式化时间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sleep"><span class="nav-number">1.3.4.</span> <span class="nav-text">sleep</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#commands模块-3-x已废弃"><span class="nav-number">1.4.</span> <span class="nav-text">commands模块-3.x已废弃</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#commands-getoutput-‘shell-command’"><span class="nav-number">1.4.1.</span> <span class="nav-text">commands.getoutput(‘shell command’)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#commands-getstatusoutput-‘shell-command’"><span class="nav-number">1.4.2.</span> <span class="nav-text">commands.getstatusoutput(‘shell command’)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#subprocess模块"><span class="nav-number">1.5.</span> <span class="nav-text">subprocess模块</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#方法"><span class="nav-number">2.</span> <span class="nav-text">方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#文件操作"><span class="nav-number">2.1.</span> <span class="nav-text">文件操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#truncate-方法"><span class="nav-number">2.1.1.</span> <span class="nav-text">truncate() 方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#seek-方法"><span class="nav-number">2.1.2.</span> <span class="nav-text">seek()方法</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#模块"><span class="nav-number">1.</span> <span class="nav-text">模块</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#re-正则匹配"><span class="nav-number">1.1.</span> <span class="nav-text">re-正则匹配</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#re-match函数"><span class="nav-number">1.1.1.</span> <span class="nav-text">re.match函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sys模块"><span class="nav-number">1.2.</span> <span class="nav-text">sys模块</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#os模块"><span class="nav-number">1.3.</span> <span class="nav-text">os模块</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#time模块"><span class="nav-number">1.4.</span> <span class="nav-text">time模块</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#获取当前时间戳"><span class="nav-number">1.4.1.</span> <span class="nav-text">获取当前时间戳</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#时间元祖"><span class="nav-number">1.4.2.</span> <span class="nav-text">时间元祖</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#格式化时间"><span class="nav-number">1.4.3.</span> <span class="nav-text">格式化时间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sleep"><span class="nav-number">1.4.4.</span> <span class="nav-text">sleep</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#commands模块-3-x已废弃"><span class="nav-number">1.5.</span> <span class="nav-text">commands模块-3.x已废弃</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#commands-getoutput-‘shell-command’"><span class="nav-number">1.5.1.</span> <span class="nav-text">commands.getoutput(‘shell command’)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#commands-getstatusoutput-‘shell-command’"><span class="nav-number">1.5.2.</span> <span class="nav-text">commands.getstatusoutput(‘shell command’)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#subprocess模块"><span class="nav-number">1.6.</span> <span class="nav-text">subprocess模块</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#shell命令格式"><span class="nav-number">1.6.1.</span> <span class="nav-text">shell命令格式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#call-check-call-和check-output-函数"><span class="nav-number">1.6.2.</span> <span class="nav-text">call(),check_call()和check_output()函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#subprocess-Popen类"><span class="nav-number">1.6.3.</span> <span class="nav-text">subprocess.Popen类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#子进程的文本流控制"><span class="nav-number">1.6.4.</span> <span class="nav-text">子进程的文本流控制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实际案例："><span class="nav-number">1.6.5.</span> <span class="nav-text">实际案例：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#检测linux进程的状态"><span class="nav-number">1.6.5.1.</span> <span class="nav-text">检测linux进程的状态</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#方法"><span class="nav-number">2.</span> <span class="nav-text">方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#文件操作"><span class="nav-number">2.1.</span> <span class="nav-text">文件操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#truncate-方法"><span class="nav-number">2.1.1.</span> <span class="nav-text">truncate() 方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#seek-方法"><span class="nav-number">2.1.2.</span> <span class="nav-text">seek()方法</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
