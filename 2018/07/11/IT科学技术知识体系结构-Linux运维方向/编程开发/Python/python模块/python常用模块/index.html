@@ -460,11 +460,540 @@
       
 
       
-        <h1 id="模块"><a href="#模块" class="headerlink" title="模块"></a>模块</h1><h2 id="re-正则匹配"><a href="#re-正则匹配" class="headerlink" title="re-正则匹配"></a>re-正则匹配</h2><p>正则表达式是一个特殊的字符序列，它能帮助你方便的检查一个字符串是否与某种模式匹配。</p>
+        <h1 id="模块"><a href="#模块" class="headerlink" title="模块"></a>模块</h1><h2 id="subprocess模块"><a href="#subprocess模块" class="headerlink" title="subprocess模块"></a>subprocess模块</h2><p>从Python 2.4开始，Python引入subprocess模块来管理子进程，以取代一些旧模块的方法：如 os.system、<code>os.spawn*</code>、<code>os.popen*</code>、<code>popen2.*</code>、<code>commands.*</code>等不但可以调用外部的命令作为子进程，而且可以连接到子进程的input/output/error管道，获取相关的返回信息。</p>
+<p>运行python的时候，我们都是在创建并运行一个进程。像Linux进程那样，一个进程可以fork一个子进程，并让这个子进程exec另外一个程序。在Python中，我们通过标准库中的subprocess包来fork一个子进程，并运行一个外部的程序。</p>
+<p>subprocess包中定义有<strong>数个创建子进程的函数</strong>，这些函数分别以不同的方式创建子进程，所以我们可以根据需要来从中选取一个使用。另外subprocess还提供了一些管理标准流(standard stream)和管道(pipe)的工具，从而在进程间使用文本通信。</p>
+<h3 id="shell命令格式"><a href="#shell命令格式" class="headerlink" title="shell命令格式"></a>shell命令格式</h3><p>默认情况下，我们传入的参数（一般是shell命令）是需要使用列表的方式，以空格分开的每一个单独的命令或者参数，是列表的每一个元素</p>
+<p>因为subprocess模块中的各个类和函数的shell参数默认为False，在Linux下，shell=False时, Popen调用os.execvp()执行args指定的程序；</p>
+<p>shell=True时，如果args是字符串，Popen直接调用系统的Shell来执行args指定的程序，如果args是一个序列，则args的第一项是定义程序命令字符串，其它项是调用系统Shell时的附加参数。</p>
+<h3 id="call-check-call-和check-output-函数"><a href="#call-check-call-和check-output-函数" class="headerlink" title="call(),check_call()和check_output()函数"></a>call(),check_call()和check_output()函数</h3><p><strong>subprocess.call()</strong></p>
+<p>父进程等待子进程完成</p>
+<p>返回退出信息(returncode，相当于Linux exit code)</p>
+<p><strong>subprocess.check_call()</strong></p>
+<p>父进程等待子进程完成</p>
+<p>返回0</p>
+<p>检查退出信息，如果returncode不为0，则举出错误subprocess.CalledProcessError，该对象包含有returncode属性，可用try…except…来检查</p>
+<p><strong>subprocess.check_output()</strong></p>
+<p>父进程等待子进程完成</p>
+<p>返回子进程向标准输出的输出结果</p>
+<p>检查退出信息，如果returncode不为0，则举出错误subprocess.CalledProcessError，该对象包含有returncode属性和output属性，output属性为标准输出的输出结果，可用try…except…来检查。</p>
+<p>这三个函数的使用方法相类似，下面来举例说明:</p>
+<ul>
+<li>call()函数</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">p = subprocess.call(&apos;pdd&apos;,shell=True)</span><br><span class="line">print (p)</span><br><span class="line"></span><br><span class="line">执行后输出如下：</span><br><span class="line">127</span><br></pre></td></tr></table></figure>
+<ul>
+<li>check_call函数</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">p = subprocess.check_call(&apos;pdd&apos;,shell=True)</span><br><span class="line">print (p)</span><br><span class="line"></span><br><span class="line">执行后输出如下：</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File &quot;/Users/wangxiaohua/PycharmProjects/private_project/test/test.py&quot;, line 31, in &lt;module&gt;</span><br><span class="line">    p = subprocess.check_call(&apos;pdd&apos;,shell=True)</span><br><span class="line">  File &quot;/usr/local/Cellar/python/3.7.0/Frameworks/Python.framework/Versions/3.7/lib/python3.7/subprocess.py&quot;, line 328, in check_call</span><br><span class="line">    raise CalledProcessError(retcode, cmd)</span><br><span class="line">subprocess.CalledProcessError: Command &apos;pdd&apos; returned non-zero exit status 127.</span><br></pre></td></tr></table></figure>
+<ul>
+<li>check_output()</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">p = subprocess.check_output(&apos;pdd&apos;,shell=True)</span><br><span class="line">print (p)</span><br><span class="line"></span><br><span class="line">执行后输出如下：</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File &quot;/Users/wangxiaohua/PycharmProjects/private_project/test/test.py&quot;, line 31, in &lt;module&gt;</span><br><span class="line">    p = subprocess.check_output(&apos;pdd&apos;,shell=True)</span><br><span class="line">  File &quot;/usr/local/Cellar/python/3.7.0/Frameworks/Python.framework/Versions/3.7/lib/python3.7/subprocess.py&quot;, line 376, in check_output</span><br><span class="line">    **kwargs).stdout</span><br><span class="line">  File &quot;/usr/local/Cellar/python/3.7.0/Frameworks/Python.framework/Versions/3.7/lib/python3.7/subprocess.py&quot;, line 468, in run</span><br><span class="line">    output=stdout, stderr=stderr)</span><br><span class="line">subprocess.CalledProcessError: Command &apos;pdd&apos; returned non-zero exit status 127.</span><br></pre></td></tr></table></figure>
+<h3 id="subprocess-Popen类"><a href="#subprocess-Popen类" class="headerlink" title="subprocess.Popen类"></a>subprocess.Popen类</h3><p>上面的几个函数都是基于Popen()的封装(wrapper)。这些封装的目的在于让我们容易使用子进程，也就是说，我们不需要关心父子进s程通信和回收等问题。当我们想要更个性化我们的需求的时候，就要转向Popen类，该类生成的对象用来代表子进程。</p>
+<p>与上面的封装不同，Popen对象创建后，主程序不会自动等待子进程完成。我们必须调用对象的wait()方法，父进程才会等待 (也就是阻塞block)，举例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">child = subprocess.Popen(&quot;ping -c4 www.baidu.com&quot;,shell=True)</span><br><span class="line"># child.wait()</span><br><span class="line">print (111)</span><br></pre></td></tr></table></figure>
+<p>添加注释和不添加的2次结果分别为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">111</span><br><span class="line"></span><br><span class="line">和</span><br><span class="line"></span><br><span class="line">PING www.baidu.com (115.239.211.112): 56 data bytes</span><br><span class="line">64 bytes from 115.239.211.112: icmp_seq=0 ttl=54 time=49.593 ms</span><br><span class="line">64 bytes from 115.239.211.112: icmp_seq=1 ttl=54 time=20.527 ms</span><br><span class="line">64 bytes from 115.239.211.112: icmp_seq=2 ttl=54 time=30.277 ms</span><br><span class="line">64 bytes from 115.239.211.112: icmp_seq=3 ttl=54 time=12.728 ms</span><br><span class="line"></span><br><span class="line">--- www.baidu.com ping statistics ---</span><br><span class="line">4 packets transmitted, 4 packets received, 0.0% packet loss</span><br><span class="line">round-trip min/avg/max/stddev = 12.728/28.281/49.593/13.786 ms</span><br><span class="line">111</span><br></pre></td></tr></table></figure>
+<p>一些方法和属性：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">child.wait()		   # 等待子进程执行完毕</span><br><span class="line">child.poll()           # 检查子进程状态</span><br><span class="line">child.kill()           # 终止子进程</span><br><span class="line">child.send_signal()    # 向子进程发送信号</span><br><span class="line">child.terminate()      # 终止子进程</span><br><span class="line">child.pid	   		   # 子进程的pid</span><br></pre></td></tr></table></figure>
+<h3 id="子进程的文本流控制"><a href="#子进程的文本流控制" class="headerlink" title="子进程的文本流控制"></a>子进程的文本流控制</h3><p>子进程的标准输入、标准输出和标准错误如下属性分别表示:</p>
+<ol>
+<li>child.stdin</li>
+<li>child.stdout</li>
+<li>child.stderr</li>
+</ol>
+<p>在pycharm中可以看到</p>
+<p><img src="http://picture.watchmen.xin/python/python_modules/subprocess/std.png" alt="std"></p>
+<p>可以在Popen()建立子进程的时候改变标准输入、标准输出和标准错误，并可以利用<strong>subprocess.PIPE</strong>将多个子进程的输入和输出连接在一起，构成管道(pipe)，如下2个例子：</p>
+<p>案例1：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">import subprocess</span><br><span class="line">child1 = subprocess.Popen([&quot;ls&quot;,&quot;-l&quot;], stdout=subprocess.PIPE)</span><br><span class="line">print (child1.stdout.read())</span><br><span class="line">#或者child1.communicate()</span><br><span class="line"></span><br><span class="line">执行后输出如下：</span><br><span class="line">b&apos;total 16\ndrwxr-xr-x  3 wangxiaohua  staff    96 12 10 16:35 __pycache__\n-rw-r--r--  1 wangxiaohua  staff   185 12 10 16:33 custom_except.py\n-rw-r--r--  1 wangxiaohua  staff  1028  1  5 17:54 test.py\n&apos;</span><br><span class="line">可以看到，输出的是byte类型</span><br></pre></td></tr></table></figure>
+<p>案例2：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">import subprocess</span><br><span class="line">child1 = subprocess.Popen([&quot;cat&quot;,&quot;/etc/passwd&quot;], stdout=subprocess.PIPE)</span><br><span class="line">child2 = subprocess.Popen([&quot;grep&quot;,&quot;0:0&quot;],stdin=child1.stdout, stdout=subprocess.PIPE)</span><br><span class="line">out = child2.communicate()</span><br><span class="line"></span><br><span class="line">注意:</span><br><span class="line">	最终的输出是从child2中获取的。</span><br><span class="line">	默认的输出是byte类型，如果要转换成为字符串类型，使用下面这种方式实现。</span><br><span class="line">out_str = str(out[0],encoding=&quot;utf-8&quot;)</span><br></pre></td></tr></table></figure>
+<p>subprocess.PIPE实际上为文本流提供一个缓存区。child1的stdout将文本输出到缓存区，随后child2的stdin从该PIPE中将文本读取走。child2的输出文本也被存放在PIPE中，直到communicate()方法从PIPE中读取出PIPE中的文本。</p>
+<p>注意：</p>
+<ul>
+<li><p>communicate()是Popen对象的一个方法，该方法会阻塞父进程，直到子进程完成。</p>
+</li>
+<li><p>communicate()函数返回一个<code>tuple</code>(标准输出和错误)。所以当你只是标准输出的时候就需要使用[0]获取</p>
+</li>
+</ul>
+<h3 id="实际案例："><a href="#实际案例：" class="headerlink" title="实际案例："></a>实际案例：</h3><h4 id="检测linux进程的状态"><a href="#检测linux进程的状态" class="headerlink" title="检测linux进程的状态"></a>检测linux进程的状态</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">def redis_status(new_port):</span><br><span class="line">    p = subprocess.Popen([&quot;netstat&quot;, &quot;-unptl&quot;], stdout=subprocess.PIPE)</span><br><span class="line">    out, err = p.communicate()</span><br><span class="line">    if (new_port in str(out) ):</span><br><span class="line">        print (&quot;redis &#123;PORT&#125; instance is running...&quot;.format(PORT=new_port))</span><br><span class="line">    else:</span><br><span class="line">        print (&quot;start redis &#123;PORT&#125; faild.please check again...&quot;.format(PORT=new_port))</span><br></pre></td></tr></table></figure>
+<h2 id="re-正则匹配模块"><a href="#re-正则匹配模块" class="headerlink" title="re-正则匹配模块"></a>re-正则匹配模块</h2><p>正则表达式是一个特殊的字符序列，它能帮助你方便的检查一个字符串是否与某种模式匹配。</p>
 <p>Python 自1.5版本起增加了re 模块，它提供 Perl 风格的正则表达式模式。</p>
-<h3 id="re-match函数"><a href="#re-match函数" class="headerlink" title="re.match函数"></a>re.match函数</h3><p>re.match 尝试从字符串的起始位置匹配一个模式，如果不是起始位置匹配成功的话，match()就返回none。</p>
+<h3 id="re-match函数"><a href="#re-match函数" class="headerlink" title="re.match函数"></a>re.match函数</h3><p>re.match 尝试从字符串的<strong>起始位置匹配</strong>一个模式，如果不是起始位置匹配成功的话，match()就返回none。</p>
 <p><strong>函数语法</strong>：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">re.match(pattern, string, flags=0)</span><br></pre></td></tr></table></figure>
+<p>函数参数说明：</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>pattern</td>
+<td>匹配的正则表达式</td>
+</tr>
+<tr>
+<td>string</td>
+<td>要匹配的字符串。</td>
+</tr>
+<tr>
+<td>flags</td>
+<td>标志位，用于控制正则表达式的匹配方式，如：是否区分大小写，多行匹配等等。参见：<a href="http://www.runoob.com/python/python-reg-expressions.html#flags" target="_blank" rel="noopener">正则表达式修饰符 - 可选标志</a></td>
+</tr>
+</tbody>
+</table>
+<p>匹配成功re.match方法<font color="red"><strong>返回一个匹配的对象</strong></font>，否则返回None。</p>
+<p>我们可以使用group(num) 或 groups() 匹配对象函数来获取匹配表达式。</p>
+<table>
+<thead>
+<tr>
+<th>匹配对象方法</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>group(num=0)</td>
+<td>匹配的整个表达式的字符串，group() 可以一次输入多个组号，在这种情况下它将返回一个包含那些组所对应值的元组。</td>
+</tr>
+<tr>
+<td>groups()</td>
+<td>返回一个包含所有小组字符串的元组，从 1 到 所含的小组号。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="re-search方法"><a href="#re-search方法" class="headerlink" title="re.search方法"></a>re.search方法</h3><p>re.search 扫描整个字符串并返回第一个成功的匹配。</p>
+<p>函数语法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">re.search(pattern, string, flags=0)</span><br></pre></td></tr></table></figure>
+<p>函数参数说明：</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>pattern</td>
+<td>匹配的正则表达式</td>
+</tr>
+<tr>
+<td>string</td>
+<td>要匹配的字符串。</td>
+</tr>
+<tr>
+<td>flags</td>
+<td>标志位，用于控制正则表达式的匹配方式，如：是否区分大小写，多行匹配等等。</td>
+</tr>
+</tbody>
+</table>
+<p>匹配成功re.search方法返回一个匹配的对象，否则返回None。</p>
+<p>我们可以使用group(num) 或 groups() 匹配对象函数来获取匹配表达式。</p>
+<table>
+<thead>
+<tr>
+<th>匹配对象方法</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>group(num=0)</td>
+<td>匹配的整个表达式的字符串，group() 可以一次输入多个组号，在这种情况下它将返回一个包含那些组所对应值的元组。</td>
+</tr>
+<tr>
+<td>groups()</td>
+<td>返回一个包含所有小组字符串的元组，从 1 到 所含的小组号。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="re-match与re-search的区别"><a href="#re-match与re-search的区别" class="headerlink" title="re.match与re.search的区别"></a>re.match与re.search的区别</h3><p>re.match只匹配字符串的开始，如果字符串开始不符合正则表达式，则匹配失败，函数返回None；而re.search匹配整个字符串，直到找到一个匹配。</p>
+<h3 id="检索和替换"><a href="#检索和替换" class="headerlink" title="检索和替换"></a>检索和替换</h3><p>Python 的 re 模块提供了re.sub用于替换字符串中的匹配项。</p>
+<p>语法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">re.sub(pattern, repl, string, count=0, flags=0)</span><br></pre></td></tr></table></figure>
+<p>参数：</p>
+<ul>
+<li>pattern : 正则中的模式字符串。</li>
+<li>repl : 替换的字符串，也可为一个函数。</li>
+<li>string : 要被查找替换的原始字符串。</li>
+<li>count : 模式匹配后替换的最大次数，默认 0 表示替换所有的匹配。</li>
+</ul>
+<p>示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/python</span><br><span class="line"># -*- coding: UTF-8 -*-</span><br><span class="line"> </span><br><span class="line">import re</span><br><span class="line"> </span><br><span class="line">phone = &quot;2004-959-559 # 这是一个国外电话号码&quot;</span><br><span class="line"> </span><br><span class="line"># 删除字符串中的 Python注释 </span><br><span class="line">num = re.sub(r&apos;#.*$&apos;, &quot;&quot;, phone)</span><br><span class="line">print &quot;电话号码是: &quot;, num</span><br><span class="line"> </span><br><span class="line"># 删除非数字(-)的字符串 </span><br><span class="line">num = re.sub(r&apos;\D&apos;, &quot;&quot;, phone)</span><br><span class="line">print &quot;电话号码是 : &quot;, num</span><br></pre></td></tr></table></figure>
+<p>执行后输出如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">电话号码是:  2004-959-559 </span><br><span class="line">电话号码是 :  2004959559</span><br></pre></td></tr></table></figure>
+<h3 id="findall"><a href="#findall" class="headerlink" title="findall"></a>findall</h3><p>在字符串中找到正则表达式所匹配的所有子串，并<strong>返回一个列表</strong>，如果没有找到匹配的，则返回空列表。</p>
+<p><strong>注意：</strong> match 和 search 是匹配一次，而 findall是匹配所有。</p>
+<p>语法格式为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">findall(string[, pos[, endpos]])</span><br></pre></td></tr></table></figure>
+<p>参数：</p>
+<ul>
+<li>string : 待匹配的字符串。</li>
+<li>pos : 可选参数，指定字符串的起始位置，默认为 0。</li>
+<li>endpos : 可选参数，指定字符串的结束位置，默认为字符串的长度。</li>
+</ul>
+<h3 id="re-finditer"><a href="#re-finditer" class="headerlink" title="re.finditer"></a>re.finditer</h3><p>和 findall 类似，在字符串中找到正则表达式所匹配的所有子串，并把它们作为<strong>一个迭代器返回</strong>。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">re.finditer(pattern, string, flags=0)</span><br></pre></td></tr></table></figure>
+<p>参数：</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>pattern</td>
+<td>匹配的正则表达式</td>
+</tr>
+<tr>
+<td>string</td>
+<td>要匹配的字符串。</td>
+</tr>
+<tr>
+<td>flags</td>
+<td>标志位，用于控制正则表达式的匹配方式，如：是否区分大小写，多行匹配等等。参见：<a href="http://www.runoob.com/python/python-reg-expressions.html#flags" target="_blank" rel="noopener">正则表达式修饰符 - 可选标志</a></td>
+</tr>
+</tbody>
+</table>
+<h3 id="re-split"><a href="#re-split" class="headerlink" title="re.split"></a>re.split</h3><p>split 方法按照能够匹配的子串将字符串分割后返回列表，它的使用形式如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">re.split(pattern, string[, maxsplit=0, flags=0])</span><br></pre></td></tr></table></figure>
+<p>参数：</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>pattern</td>
+<td>匹配的正则表达式</td>
+</tr>
+<tr>
+<td>string</td>
+<td>要匹配的字符串。</td>
+</tr>
+<tr>
+<td>maxsplit</td>
+<td>分隔次数，maxsplit=1 分隔一次，默认为 0，不限制次数。</td>
+</tr>
+<tr>
+<td>flags</td>
+<td>标志位，用于控制正则表达式的匹配方式，如：是否区分大小写，多行匹配等等。参见：<a href="http://www.runoob.com/python/python-reg-expressions.html#flags" target="_blank" rel="noopener">正则表达式修饰符 - 可选标志</a></td>
+</tr>
+</tbody>
+</table>
+<h3 id="正则表达式修饰符-可选标志"><a href="#正则表达式修饰符-可选标志" class="headerlink" title="正则表达式修饰符 - 可选标志"></a>正则表达式修饰符 - 可选标志</h3><p>正则表达式可以包含一些可选标志修饰符来控制匹配的模式。修饰符被指定为一个可选的标志。多个标志可以通过按位 OR(|) 它们来指定。如 re.I | re.M 被设置成 I 和 M 标志：</p>
+<table>
+<thead>
+<tr>
+<th>修饰符</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>re.I</td>
+<td>使匹配对大小写不敏感</td>
+</tr>
+<tr>
+<td>re.L</td>
+<td>做本地化识别（locale-aware）匹配</td>
+</tr>
+<tr>
+<td>re.M</td>
+<td>多行匹配，影响 ^ 和 $</td>
+</tr>
+<tr>
+<td>re.S</td>
+<td>使 . 匹配包括换行在内的所有字符</td>
+</tr>
+<tr>
+<td>re.U</td>
+<td>根据Unicode字符集解析字符。这个标志影响 \w, \W, \b, \B.</td>
+</tr>
+<tr>
+<td>re.X</td>
+<td>该标志通过给予你更灵活的格式以便你将正则表达式写得更易于理解。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="正则表达式模式"><a href="#正则表达式模式" class="headerlink" title="正则表达式模式"></a>正则表达式模式</h3><p>模式字符串使用特殊的语法来表示一个正则表达式：</p>
+<p>字母和数字表示他们自身。一个正则表达式模式中的字母和数字匹配同样的字符串。</p>
+<p>多数字母和数字前加一个反斜杠时会拥有不同的含义。</p>
+<p>标点符号只有被转义时才匹配自身，否则它们表示特殊的含义。</p>
+<p>反斜杠本身需要使用反斜杠转义。</p>
+<p>由于正则表达式通常都包含反斜杠，所以你最好使用原始字符串来表示它们。模式元素(如 r’\t’，等价于 ‘\t’)匹配相应的特殊字符。</p>
+<p>下表列出了正则表达式模式语法中的特殊元素。如果你使用模式的同时提供了可选的标志参数，某些模式元素的含义会改变。</p>
+<table>
+<thead>
+<tr>
+<th>模式</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>^</td>
+<td>匹配字符串的开头</td>
+</tr>
+<tr>
+<td>$</td>
+<td>匹配字符串的末尾。</td>
+</tr>
+<tr>
+<td>.</td>
+<td>匹配任意字符，除了换行符，当re.DOTALL标记被指定时，则可以匹配包括换行符的任意字符。</td>
+</tr>
+<tr>
+<td>[…]</td>
+<td>用来表示一组字符,单独列出：[amk] 匹配 ‘a’，’m’或’k’</td>
+</tr>
+<tr>
+<td>[^…]</td>
+<td>不在[]中的字符：[^abc] 匹配除了a,b,c之外的字符。</td>
+</tr>
+<tr>
+<td>re*</td>
+<td>匹配0个或多个的表达式。</td>
+</tr>
+<tr>
+<td>re+</td>
+<td>匹配1个或多个的表达式。</td>
+</tr>
+<tr>
+<td>re?</td>
+<td>匹配0个或1个由前面的正则表达式定义的片段，非贪婪方式</td>
+</tr>
+<tr>
+<td>re{ n}</td>
+<td>精确匹配 n 个前面表达式。例如， o{2} 不能匹配 “Bob” 中的 “o”，但是能匹配 “food” 中的两个 o。</td>
+</tr>
+<tr>
+<td>re{ n,}</td>
+<td>匹配 n 个前面表达式。例如， o{2,} 不能匹配”Bob”中的”o”，但能匹配 “foooood”中的所有 o。”o{1,}” 等价于 “o+”。”o{0,}” 则等价于 “o*”。</td>
+</tr>
+<tr>
+<td>re{ n, m}</td>
+<td>匹配 n 到 m 次由前面的正则表达式定义的片段，贪婪方式</td>
+</tr>
+<tr>
+<td>a\</td>
+<td>b</td>
+<td>匹配a或b</td>
+</tr>
+<tr>
+<td>(re)</td>
+<td>匹配括号内的表达式，也表示一个组</td>
+</tr>
+<tr>
+<td>(?imx)</td>
+<td>正则表达式包含三种可选标志：i, m, 或 x 。只影响括号中的区域。</td>
+</tr>
+<tr>
+<td>(?-imx)</td>
+<td>正则表达式关闭 i, m, 或 x 可选标志。只影响括号中的区域。</td>
+</tr>
+<tr>
+<td>(?: re)</td>
+<td>类似 (…), 但是不表示一个组</td>
+</tr>
+<tr>
+<td>(?imx: re)</td>
+<td>在括号中使用i, m, 或 x 可选标志</td>
+</tr>
+<tr>
+<td>(?-imx: re)</td>
+<td>在括号中不使用i, m, 或 x 可选标志</td>
+</tr>
+<tr>
+<td>(?#…)</td>
+<td>注释.</td>
+</tr>
+<tr>
+<td>(?= re)</td>
+<td>前向肯定界定符。如果所含正则表达式，以 … 表示，在当前位置成功匹配时成功，否则失败。但一旦所含表达式已经尝试，匹配引擎根本没有提高；模式的剩余部分还要尝试界定符的右边。</td>
+</tr>
+<tr>
+<td>(?! re)</td>
+<td>前向否定界定符。与肯定界定符相反；当所含表达式不能在字符串当前位置匹配时成功</td>
+</tr>
+<tr>
+<td>(?&gt; re)</td>
+<td>匹配的独立模式，省去回溯。</td>
+</tr>
+<tr>
+<td>\w</td>
+<td>匹配字母数字及下划线</td>
+</tr>
+<tr>
+<td>\W</td>
+<td>匹配非字母数字及下划线</td>
+</tr>
+<tr>
+<td>\s</td>
+<td>匹配任意空白字符，等价于 [\t\n\r\f].</td>
+</tr>
+<tr>
+<td>\S</td>
+<td>匹配任意非空字符</td>
+</tr>
+<tr>
+<td>\d</td>
+<td>匹配任意数字，等价于 [0-9].</td>
+</tr>
+<tr>
+<td>\D</td>
+<td>匹配任意非数字</td>
+</tr>
+<tr>
+<td>\A</td>
+<td>匹配字符串开始</td>
+</tr>
+<tr>
+<td>\Z</td>
+<td>匹配字符串结束，如果是存在换行，只匹配到换行前的结束字符串。</td>
+</tr>
+<tr>
+<td>\z</td>
+<td>匹配字符串结束</td>
+</tr>
+<tr>
+<td>\G</td>
+<td>匹配最后匹配完成的位置。</td>
+</tr>
+<tr>
+<td>\b</td>
+<td>匹配一个单词边界，也就是指单词和空格间的位置。例如， ‘er\b’ 可以匹配”never” 中的 ‘er’，但不能匹配 “verb” 中的 ‘er’。</td>
+</tr>
+<tr>
+<td>\B</td>
+<td>匹配非单词边界。’er\B’ 能匹配 “verb” 中的 ‘er’，但不能匹配 “never” 中的 ‘er’。</td>
+</tr>
+<tr>
+<td>\n, \t, 等.</td>
+<td>匹配一个换行符。匹配一个制表符。等</td>
+</tr>
+<tr>
+<td>\1…\9</td>
+<td>匹配第n个分组的内容。</td>
+</tr>
+<tr>
+<td>\10</td>
+<td>匹配第n个分组的内容，如果它经匹配。否则指的是八进制字符码的表达式。</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="正则表达式实例"><a href="#正则表达式实例" class="headerlink" title="正则表达式实例"></a>正则表达式实例</h3><h4 id="字符匹配"><a href="#字符匹配" class="headerlink" title="字符匹配"></a>字符匹配</h4><table>
+<thead>
+<tr>
+<th>实例</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>python</td>
+<td>匹配 “python”.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="字符类"><a href="#字符类" class="headerlink" title="字符类"></a>字符类</h4><table>
+<thead>
+<tr>
+<th>实例</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>[Pp]ython</td>
+<td>匹配 “Python” 或 “python”</td>
+</tr>
+<tr>
+<td>rub[ye]</td>
+<td>匹配 “ruby” 或 “rube”</td>
+</tr>
+<tr>
+<td>[aeiou]</td>
+<td>匹配中括号内的任意一个字母</td>
+</tr>
+<tr>
+<td>[0-9]</td>
+<td>匹配任何数字。类似于 [0123456789]</td>
+</tr>
+<tr>
+<td>[a-z]</td>
+<td>匹配任何小写字母</td>
+</tr>
+<tr>
+<td>[A-Z]</td>
+<td>匹配任何大写字母</td>
+</tr>
+<tr>
+<td>[a-zA-Z0-9]</td>
+<td>匹配任何字母及数字</td>
+</tr>
+<tr>
+<td>[^aeiou]</td>
+<td>除了aeiou字母以外的所有字符</td>
+</tr>
+<tr>
+<td>[^0-9]</td>
+<td>匹配除了数字外的字符</td>
+</tr>
+</tbody>
+</table>
+<h4 id="特殊字符类"><a href="#特殊字符类" class="headerlink" title="特殊字符类"></a>特殊字符类</h4><table>
+<thead>
+<tr>
+<th>实例</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>.</td>
+<td>匹配除 “\n” 之外的任何单个字符。要匹配包括 ‘\n’ 在内的任何字符，请使用象 ‘[.\n]’ 的模式。</td>
+</tr>
+<tr>
+<td>\d</td>
+<td>匹配一个数字字符。等价于 [0-9]。</td>
+</tr>
+<tr>
+<td>\D</td>
+<td>匹配一个非数字字符。等价于 [^0-9]。</td>
+</tr>
+<tr>
+<td>\s</td>
+<td>匹配任何空白字符，包括空格、制表符、换页符等等。等价于 [ \f\n\r\t\v]。</td>
+</tr>
+<tr>
+<td>\S</td>
+<td>匹配任何非空白字符。等价于 [^ \f\n\r\t\v]。</td>
+</tr>
+<tr>
+<td>\w</td>
+<td>匹配包括下划线的任何单词字符。等价于’[A-Za-z0-9_]’。</td>
+</tr>
+<tr>
+<td>\W</td>
+<td>匹配任何非单词字符。等价于 ‘[^A-Za-z0-9_]’。</td>
+</tr>
+</tbody>
+</table>
+<p>app643-app671</p>
+<p>28</p>
 <h2 id="sys模块"><a href="#sys模块" class="headerlink" title="sys模块"></a>sys模块</h2><h2 id="os模块"><a href="#os模块" class="headerlink" title="os模块"></a>os模块</h2><h2 id="time模块"><a href="#time模块" class="headerlink" title="time模块"></a>time模块</h2><p>在平常的代码中，我们常常需要与时间打交道。在Python中，与时间处理有关的模块包括：time，datetime以及calendar。</p>
 <p>在开始之前，首先要说明这几点：</p>
 <ol>
@@ -587,72 +1116,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">wxh@wxh-virtual-machine:~/python_files$ cat tt.py </span><br><span class="line">#!/usr/bin/env python2</span><br><span class="line">import sys,commands</span><br><span class="line">cmdline = sys.argv[1]</span><br><span class="line">cmdline1 = sys.argv[2]</span><br><span class="line"></span><br><span class="line">cmd = &quot;ps -ef|grep &quot; + cmdline + &quot;|grep &quot; + cmdline1 + &quot;|grep -v grep|grep -v python|awk &apos;&#123;print $2&#125;&apos;&quot;</span><br><span class="line">res = commands.getstatusoutput(cmd)</span><br><span class="line">print (res)</span><br></pre></td></tr></table></figure>
 <p>执行后输出如下所示：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">wxh@wxh-virtual-machine:~/python_files$ python2 ./tt.py unity-panel-service lockscreen-mode</span><br><span class="line">(0, &apos;126263&apos;)</span><br></pre></td></tr></table></figure>
-<h2 id="subprocess模块"><a href="#subprocess模块" class="headerlink" title="subprocess模块"></a>subprocess模块</h2><p>从Python 2.4开始，Python引入subprocess模块来管理子进程，以取代一些旧模块的方法：如 os.system、<code>os.spawn*</code>、<code>os.popen*</code>、<code>popen2.*</code>、<code>commands.*</code>等不但可以调用外部的命令作为子进程，而且可以连接到子进程的input/output/error管道，获取相关的返回信息。</p>
-<p>运行python的时候，我们都是在创建并运行一个进程。像Linux进程那样，一个进程可以fork一个子进程，并让这个子进程exec另外一个程序。在Python中，我们通过标准库中的subprocess包来fork一个子进程，并运行一个外部的程序。</p>
-<p>subprocess包中定义有<strong>数个创建子进程的函数</strong>，这些函数分别以不同的方式创建子进程，所以我们可以根据需要来从中选取一个使用。另外subprocess还提供了一些管理标准流(standard stream)和管道(pipe)的工具，从而在进程间使用文本通信。</p>
-<h3 id="shell命令格式"><a href="#shell命令格式" class="headerlink" title="shell命令格式"></a>shell命令格式</h3><p>默认情况下，我们传入的参数（一般是shell命令）是需要使用列表的方式，以空格分开的每一个单独的命令或者参数，是列表的每一个元素</p>
-<p>因为subprocess模块中的各个类和函数的shell参数默认为False，在Linux下，shell=False时, Popen调用os.execvp()执行args指定的程序；</p>
-<p>shell=True时，如果args是字符串，Popen直接调用系统的Shell来执行args指定的程序，如果args是一个序列，则args的第一项是定义程序命令字符串，其它项是调用系统Shell时的附加参数。</p>
-<h3 id="call-check-call-和check-output-函数"><a href="#call-check-call-和check-output-函数" class="headerlink" title="call(),check_call()和check_output()函数"></a>call(),check_call()和check_output()函数</h3><p><strong>subprocess.call()</strong></p>
-<p>父进程等待子进程完成</p>
-<p>返回退出信息(returncode，相当于Linux exit code)</p>
-<p><strong>subprocess.check_call()</strong></p>
-<p>父进程等待子进程完成</p>
-<p>返回0</p>
-<p>检查退出信息，如果returncode不为0，则举出错误subprocess.CalledProcessError，该对象包含有returncode属性，可用try…except…来检查</p>
-<p><strong>subprocess.check_output()</strong></p>
-<p>父进程等待子进程完成</p>
-<p>返回子进程向标准输出的输出结果</p>
-<p>检查退出信息，如果returncode不为0，则举出错误subprocess.CalledProcessError，该对象包含有returncode属性和output属性，output属性为标准输出的输出结果，可用try…except…来检查。</p>
-<p>这三个函数的使用方法相类似，下面来举例说明:</p>
-<ul>
-<li>call()函数</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">p = subprocess.call(&apos;pdd&apos;,shell=True)</span><br><span class="line">print (p)</span><br><span class="line"></span><br><span class="line">执行后输出如下：</span><br><span class="line">127</span><br></pre></td></tr></table></figure>
-<ul>
-<li>check_call函数</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">p = subprocess.check_call(&apos;pdd&apos;,shell=True)</span><br><span class="line">print (p)</span><br><span class="line"></span><br><span class="line">执行后输出如下：</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File &quot;/Users/wangxiaohua/PycharmProjects/private_project/test/test.py&quot;, line 31, in &lt;module&gt;</span><br><span class="line">    p = subprocess.check_call(&apos;pdd&apos;,shell=True)</span><br><span class="line">  File &quot;/usr/local/Cellar/python/3.7.0/Frameworks/Python.framework/Versions/3.7/lib/python3.7/subprocess.py&quot;, line 328, in check_call</span><br><span class="line">    raise CalledProcessError(retcode, cmd)</span><br><span class="line">subprocess.CalledProcessError: Command &apos;pdd&apos; returned non-zero exit status 127.</span><br></pre></td></tr></table></figure>
-<ul>
-<li>check_output()</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">p = subprocess.check_output(&apos;pdd&apos;,shell=True)</span><br><span class="line">print (p)</span><br><span class="line"></span><br><span class="line">执行后输出如下：</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File &quot;/Users/wangxiaohua/PycharmProjects/private_project/test/test.py&quot;, line 31, in &lt;module&gt;</span><br><span class="line">    p = subprocess.check_output(&apos;pdd&apos;,shell=True)</span><br><span class="line">  File &quot;/usr/local/Cellar/python/3.7.0/Frameworks/Python.framework/Versions/3.7/lib/python3.7/subprocess.py&quot;, line 376, in check_output</span><br><span class="line">    **kwargs).stdout</span><br><span class="line">  File &quot;/usr/local/Cellar/python/3.7.0/Frameworks/Python.framework/Versions/3.7/lib/python3.7/subprocess.py&quot;, line 468, in run</span><br><span class="line">    output=stdout, stderr=stderr)</span><br><span class="line">subprocess.CalledProcessError: Command &apos;pdd&apos; returned non-zero exit status 127.</span><br></pre></td></tr></table></figure>
-<h3 id="subprocess-Popen类"><a href="#subprocess-Popen类" class="headerlink" title="subprocess.Popen类"></a>subprocess.Popen类</h3><p>上面的几个函数都是基于Popen()的封装(wrapper)。这些封装的目的在于让我们容易使用子进程，也就是说，我们不需要关心父子进s程通信和回收等问题。当我们想要更个性化我们的需求的时候，就要转向Popen类，该类生成的对象用来代表子进程。</p>
-<p>与上面的封装不同，Popen对象创建后，主程序不会自动等待子进程完成。我们必须调用对象的wait()方法，父进程才会等待 (也就是阻塞block)，举例：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">child = subprocess.Popen(&quot;ping -c4 www.baidu.com&quot;,shell=True)</span><br><span class="line"># child.wait()</span><br><span class="line">print (111)</span><br></pre></td></tr></table></figure>
-<p>添加注释和不添加的2次结果分别为：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">111</span><br><span class="line"></span><br><span class="line">和</span><br><span class="line"></span><br><span class="line">PING www.baidu.com (115.239.211.112): 56 data bytes</span><br><span class="line">64 bytes from 115.239.211.112: icmp_seq=0 ttl=54 time=49.593 ms</span><br><span class="line">64 bytes from 115.239.211.112: icmp_seq=1 ttl=54 time=20.527 ms</span><br><span class="line">64 bytes from 115.239.211.112: icmp_seq=2 ttl=54 time=30.277 ms</span><br><span class="line">64 bytes from 115.239.211.112: icmp_seq=3 ttl=54 time=12.728 ms</span><br><span class="line"></span><br><span class="line">--- www.baidu.com ping statistics ---</span><br><span class="line">4 packets transmitted, 4 packets received, 0.0% packet loss</span><br><span class="line">round-trip min/avg/max/stddev = 12.728/28.281/49.593/13.786 ms</span><br><span class="line">111</span><br></pre></td></tr></table></figure>
-<p>一些方法和属性：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">child.wait()		   # 等待子进程执行完毕</span><br><span class="line">child.poll()           # 检查子进程状态</span><br><span class="line">child.kill()           # 终止子进程</span><br><span class="line">child.send_signal()    # 向子进程发送信号</span><br><span class="line">child.terminate()      # 终止子进程</span><br><span class="line">child.pid	   		   # 子进程的pid</span><br></pre></td></tr></table></figure>
-<h3 id="子进程的文本流控制"><a href="#子进程的文本流控制" class="headerlink" title="子进程的文本流控制"></a>子进程的文本流控制</h3><p>子进程的标准输入、标准输出和标准错误如下属性分别表示:</p>
-<ol>
-<li>child.stdin</li>
-<li>child.stdout</li>
-<li>child.stderr</li>
-</ol>
-<p>在pycharm中可以看到</p>
-<p><img src="http://picture.watchmen.xin/python/python_modules/subprocess/std.png" alt="std"></p>
-<p>可以在Popen()建立子进程的时候改变标准输入、标准输出和标准错误，并可以利用<strong>subprocess.PIPE</strong>将多个子进程的输入和输出连接在一起，构成管道(pipe)，如下2个例子：</p>
-<p>案例1：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">import subprocess</span><br><span class="line">child1 = subprocess.Popen([&quot;ls&quot;,&quot;-l&quot;], stdout=subprocess.PIPE)</span><br><span class="line">print (child1.stdout.read())</span><br><span class="line">#或者child1.communicate()</span><br><span class="line"></span><br><span class="line">执行后输出如下：</span><br><span class="line">b&apos;total 16\ndrwxr-xr-x  3 wangxiaohua  staff    96 12 10 16:35 __pycache__\n-rw-r--r--  1 wangxiaohua  staff   185 12 10 16:33 custom_except.py\n-rw-r--r--  1 wangxiaohua  staff  1028  1  5 17:54 test.py\n&apos;</span><br><span class="line">可以看到，输出的是byte类型</span><br></pre></td></tr></table></figure>
-<p>案例2：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">import subprocess</span><br><span class="line">child1 = subprocess.Popen([&quot;cat&quot;,&quot;/etc/passwd&quot;], stdout=subprocess.PIPE)</span><br><span class="line">child2 = subprocess.Popen([&quot;grep&quot;,&quot;0:0&quot;],stdin=child1.stdout, stdout=subprocess.PIPE)</span><br><span class="line">out = child2.communicate()</span><br><span class="line"></span><br><span class="line">注意:</span><br><span class="line">	最终的输出是从child2中获取的。</span><br><span class="line">	默认的输出是byte类型，如果要转换成为字符串类型，使用下面这种方式实现。</span><br><span class="line">out_str = str(out[0],encoding=&quot;utf-8&quot;)</span><br></pre></td></tr></table></figure>
-<p>subprocess.PIPE实际上为文本流提供一个缓存区。child1的stdout将文本输出到缓存区，随后child2的stdin从该PIPE中将文本读取走。child2的输出文本也被存放在PIPE中，直到communicate()方法从PIPE中读取出PIPE中的文本。</p>
-<p>注意：</p>
-<ul>
-<li><p>communicate()是Popen对象的一个方法，该方法会阻塞父进程，直到子进程完成。</p>
-</li>
-<li><p>communicate()函数返回一个<code>tuple</code>(标准输出和错误)。所以当你只是标准输出的时候就需要使用[0]获取</p>
-</li>
-</ul>
-<h3 id="实际案例："><a href="#实际案例：" class="headerlink" title="实际案例："></a>实际案例：</h3><h4 id="检测linux进程的状态"><a href="#检测linux进程的状态" class="headerlink" title="检测linux进程的状态"></a>检测linux进程的状态</h4><pre><code>def redis_status(new_port):
-    p = subprocess.Popen([&quot;netstat&quot;, &quot;-unptl&quot;], stdout=subprocess.PIPE)
-    out, err = p.communicate()
-    if (new_port in str(out) ):
-        print (&quot;redis {PORT} instance is running...&quot;.format(PORT=new_port))
-    else:
-        print (&quot;start redis {PORT} faild.please check again...&quot;.format(PORT=new_port))
-</code></pre><h1 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h1><h2 id="文件操作"><a href="#文件操作" class="headerlink" title="文件操作"></a>文件操作</h2><h3 id="truncate-方法"><a href="#truncate-方法" class="headerlink" title="truncate() 方法"></a>truncate() 方法</h3><p><strong>truncate()</strong> 方法用于截断文件，如果指定了可选参数 size，则表示截断文件的 size 个字符。 </p>
+<h1 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h1><h2 id="文件操作"><a href="#文件操作" class="headerlink" title="文件操作"></a>文件操作</h2><h3 id="truncate-方法"><a href="#truncate-方法" class="headerlink" title="truncate() 方法"></a>truncate() 方法</h3><p><strong>truncate()</strong> 方法用于截断文件，如果指定了可选参数 size，则表示截断文件的 size 个字符。 </p>
 <p>如果没有指定 size，则从当前位置起截断（截断余下的所有字符）；截断之后 size 后面的所有字符被删除。 </p>
 <h3 id="seek-方法"><a href="#seek-方法" class="headerlink" title="seek()方法"></a>seek()方法</h3>
       
@@ -837,7 +1301,7 @@ var jiathis_config={
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">56</span>
+                  <span class="site-state-item-count">59</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -848,7 +1312,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">58</span>
+                  <span class="site-state-item-count">59</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -859,7 +1323,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">51</span>
+                  <span class="site-state-item-count">54</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -899,7 +1363,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#模块"><span class="nav-number">1.</span> <span class="nav-text">模块</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#re-正则匹配"><span class="nav-number">1.1.</span> <span class="nav-text">re-正则匹配</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#re-match函数"><span class="nav-number">1.1.1.</span> <span class="nav-text">re.match函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sys模块"><span class="nav-number">1.2.</span> <span class="nav-text">sys模块</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#os模块"><span class="nav-number">1.3.</span> <span class="nav-text">os模块</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#time模块"><span class="nav-number">1.4.</span> <span class="nav-text">time模块</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#获取当前时间戳"><span class="nav-number">1.4.1.</span> <span class="nav-text">获取当前时间戳</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#时间元祖"><span class="nav-number">1.4.2.</span> <span class="nav-text">时间元祖</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#格式化时间"><span class="nav-number">1.4.3.</span> <span class="nav-text">格式化时间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sleep"><span class="nav-number">1.4.4.</span> <span class="nav-text">sleep</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#commands模块-3-x已废弃"><span class="nav-number">1.5.</span> <span class="nav-text">commands模块-3.x已废弃</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#commands-getoutput-‘shell-command’"><span class="nav-number">1.5.1.</span> <span class="nav-text">commands.getoutput(‘shell command’)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#commands-getstatusoutput-‘shell-command’"><span class="nav-number">1.5.2.</span> <span class="nav-text">commands.getstatusoutput(‘shell command’)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#subprocess模块"><span class="nav-number">1.6.</span> <span class="nav-text">subprocess模块</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#shell命令格式"><span class="nav-number">1.6.1.</span> <span class="nav-text">shell命令格式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#call-check-call-和check-output-函数"><span class="nav-number">1.6.2.</span> <span class="nav-text">call(),check_call()和check_output()函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#subprocess-Popen类"><span class="nav-number">1.6.3.</span> <span class="nav-text">subprocess.Popen类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#子进程的文本流控制"><span class="nav-number">1.6.4.</span> <span class="nav-text">子进程的文本流控制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实际案例："><span class="nav-number">1.6.5.</span> <span class="nav-text">实际案例：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#检测linux进程的状态"><span class="nav-number">1.6.5.1.</span> <span class="nav-text">检测linux进程的状态</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#方法"><span class="nav-number">2.</span> <span class="nav-text">方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#文件操作"><span class="nav-number">2.1.</span> <span class="nav-text">文件操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#truncate-方法"><span class="nav-number">2.1.1.</span> <span class="nav-text">truncate() 方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#seek-方法"><span class="nav-number">2.1.2.</span> <span class="nav-text">seek()方法</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#模块"><span class="nav-number">1.</span> <span class="nav-text">模块</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#subprocess模块"><span class="nav-number">1.1.</span> <span class="nav-text">subprocess模块</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#shell命令格式"><span class="nav-number">1.1.1.</span> <span class="nav-text">shell命令格式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#call-check-call-和check-output-函数"><span class="nav-number">1.1.2.</span> <span class="nav-text">call(),check_call()和check_output()函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#subprocess-Popen类"><span class="nav-number">1.1.3.</span> <span class="nav-text">subprocess.Popen类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#子进程的文本流控制"><span class="nav-number">1.1.4.</span> <span class="nav-text">子进程的文本流控制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实际案例："><span class="nav-number">1.1.5.</span> <span class="nav-text">实际案例：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#检测linux进程的状态"><span class="nav-number">1.1.5.1.</span> <span class="nav-text">检测linux进程的状态</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#re-正则匹配模块"><span class="nav-number">1.2.</span> <span class="nav-text">re-正则匹配模块</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#re-match函数"><span class="nav-number">1.2.1.</span> <span class="nav-text">re.match函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#re-search方法"><span class="nav-number">1.2.2.</span> <span class="nav-text">re.search方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#re-match与re-search的区别"><span class="nav-number">1.2.3.</span> <span class="nav-text">re.match与re.search的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#检索和替换"><span class="nav-number">1.2.4.</span> <span class="nav-text">检索和替换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#findall"><span class="nav-number">1.2.5.</span> <span class="nav-text">findall</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#re-finditer"><span class="nav-number">1.2.6.</span> <span class="nav-text">re.finditer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#re-split"><span class="nav-number">1.2.7.</span> <span class="nav-text">re.split</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#正则表达式修饰符-可选标志"><span class="nav-number">1.2.8.</span> <span class="nav-text">正则表达式修饰符 - 可选标志</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#正则表达式模式"><span class="nav-number">1.2.9.</span> <span class="nav-text">正则表达式模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#正则表达式实例"><span class="nav-number">1.2.10.</span> <span class="nav-text">正则表达式实例</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#字符匹配"><span class="nav-number">1.2.10.1.</span> <span class="nav-text">字符匹配</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#字符类"><span class="nav-number">1.2.10.2.</span> <span class="nav-text">字符类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#特殊字符类"><span class="nav-number">1.2.10.3.</span> <span class="nav-text">特殊字符类</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sys模块"><span class="nav-number">1.3.</span> <span class="nav-text">sys模块</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#os模块"><span class="nav-number">1.4.</span> <span class="nav-text">os模块</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#time模块"><span class="nav-number">1.5.</span> <span class="nav-text">time模块</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#获取当前时间戳"><span class="nav-number">1.5.1.</span> <span class="nav-text">获取当前时间戳</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#时间元祖"><span class="nav-number">1.5.2.</span> <span class="nav-text">时间元祖</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#格式化时间"><span class="nav-number">1.5.3.</span> <span class="nav-text">格式化时间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sleep"><span class="nav-number">1.5.4.</span> <span class="nav-text">sleep</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#commands模块-3-x已废弃"><span class="nav-number">1.6.</span> <span class="nav-text">commands模块-3.x已废弃</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#commands-getoutput-‘shell-command’"><span class="nav-number">1.6.1.</span> <span class="nav-text">commands.getoutput(‘shell command’)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#commands-getstatusoutput-‘shell-command’"><span class="nav-number">1.6.2.</span> <span class="nav-text">commands.getstatusoutput(‘shell command’)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#方法"><span class="nav-number">2.</span> <span class="nav-text">方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#文件操作"><span class="nav-number">2.1.</span> <span class="nav-text">文件操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#truncate-方法"><span class="nav-number">2.1.1.</span> <span class="nav-text">truncate() 方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#seek-方法"><span class="nav-number">2.1.2.</span> <span class="nav-text">seek()方法</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
