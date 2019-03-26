@@ -1,0 +1,1477 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="redis集群," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Watchmen1992's Blog" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="Redis集群相关知识">
+<meta name="keywords" content="redis集群">
+<meta property="og:type" content="article">
+<meta property="og:title" content="redis集群">
+<meta property="og:url" content="http://yoursite.com/2019/02/16/IT科学技术知识体系结构-Linux运维方向/数据库/Redis/Redis集群/redis集群/index.html">
+<meta property="og:site_name" content="Watchmen1992&#39;s Blog">
+<meta property="og:description" content="Redis集群相关知识">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-02-16T03:20:59.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="redis集群">
+<meta name="twitter:description" content="Redis集群相关知识">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/02/16/IT科学技术知识体系结构-Linux运维方向/数据库/Redis/Redis集群/redis集群/"/>
+
+
+
+
+
+  <title>redis集群 | Watchmen1992's Blog</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?07235ad5687ee838f373b31c7c687d23";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Watchmen1992's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">锦瑟年华当与书香为度，是为不负天地人生。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/16/IT科学技术知识体系结构-Linux运维方向/数据库/Redis/Redis集群/redis集群/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="XiaoHua WANG">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/touxiang.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Watchmen1992's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">redis集群</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-16T11:20:59+08:00">
+                2019-02-16
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-02-16T11:20:59+08:00">
+                2019-02-16
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/IT科学技术知识体系结构-Linux运维方向/" itemprop="url" rel="index">
+                    <span itemprop="name">IT科学技术知识体系结构-Linux运维方向</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/IT科学技术知识体系结构-Linux运维方向/数据库/" itemprop="url" rel="index">
+                    <span itemprop="name">数据库</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/IT科学技术知识体系结构-Linux运维方向/数据库/Redis/" itemprop="url" rel="index">
+                    <span itemprop="name">Redis</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/IT科学技术知识体系结构-Linux运维方向/数据库/Redis/Redis集群/" itemprop="url" rel="index">
+                    <span itemprop="name">Redis集群</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/02/16/IT科学技术知识体系结构-Linux运维方向/数据库/Redis/Redis集群/redis集群/" class="leancloud_visitors" data-flag-title="redis集群">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+              <div class="post-description">
+                  Redis集群相关知识
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h1><h2 id="数据分布"><a href="#数据分布" class="headerlink" title="数据分布"></a>数据分布</h2><p>常见的数据分布方式有：哈希分区和顺序分区。Redis集群使用的是哈希分析，因此这里主要关注哈希分区。</p>
+<p>Hash（哈希）也叫散列，指的是一类特征，也就是把任意长度的<a href="https://baike.baidu.com/item/%E8%BE%93%E5%85%A5/5481954" target="_blank" rel="noopener">输入</a>（又叫做预映射pre-image）通过散列算法变换成固定长度的<a href="https://baike.baidu.com/item/%E8%BE%93%E5%87%BA/11056752" target="_blank" rel="noopener">输出</a>，该输出就是散列值或者叫hash值。</p>
+<p>因此只要是符合这个特征的方式（因为会存在很多不同的算法实现）都可以叫做哈希方式。</p>
+<p>常见的哈希分区主要有以下几种（Redis集群使用的是第三种）：</p>
+<ul>
+<li><p>节点取余。使用特定的值，例如Redis的key名称或者指定id，然后根据节点数量计算出哈希值（hash(key)%N）。但是这种方式在节点数量变化时，映射关系会变化，会涉及到数据牵引。</p>
+</li>
+<li><p>一致性哈希。可以参考这篇文章：<a href="https://www.jianshu.com/p/e8fb89bb3a61" target="_blank" rel="noopener">https://www.jianshu.com/p/e8fb89bb3a61</a></p>
+</li>
+<li>虚拟槽分区（优化后的一致性哈希）。在一个哈希环之后，定义出16364个节点，然后将这些物理的节点动态的分配给集群节点，让每一个节点负责一定数量的slot。在数据写入的时候，hash（key）–&gt;[0,16383]，实际的计算公式为：slot=CRC16(key)&amp;16383。<ul>
+<li>一个slot实际上一个物理的存储节点，由于这些slot是不会发生变化的（在默认的一致性哈希中数量会发生变化，由此会对数据产生影响），所有也就保证了集群数据的可靠性和平衡性。</li>
+</ul>
+</li>
+</ul>
+<p>Redis集群使用虚拟槽分区的特点：</p>
+<ul>
+<li>解耦数据和节点之间的关系，简化了扩容和缩容的难度。因此实际存储的slot数量是不变的，变化的只是分配关系。</li>
+<li>每一个集群节点本身去维护节点和slot的映射关系，不需要客户端或者代理服务去维护这个映射关系。</li>
+<li>支持集群节点、slot、key等之间的映射关系查询，通过获取这些信息，可以用于数据路由、在线伸缩等场景。</li>
+</ul>
+<p>Redis集群中的每一个节点会分配若干个slot。</p>
+<p>作为分布式解决方案，需要为每一个集群节点定义一个固定的id，也就是上面说的哈希值，外层哈希计算之后然后进行分布式的存储。</p>
+<h2 id="集群功能的限制"><a href="#集群功能的限制" class="headerlink" title="集群功能的限制"></a>集群功能的限制</h2><p>Redis集群相对于单实例模式，在功能上会有一些限制</p>
+<ul>
+<li>不支持链式复制。也就是从节点只能复制主节点，不能复制从节点。</li>
+<li>key的批量操作，只支持在同一个slot中的key。</li>
+<li>key的事务操作，只支持在同一个slot中，当多个key分布在不同槽时无法使用事务功能。</li>
+<li>只支持db0</li>
+</ul>
+<h1 id="集群创建"><a href="#集群创建" class="headerlink" title="集群创建"></a>集群创建</h1><p>集群的创建过程也比较简单，只需要3个步骤：</p>
+<ol>
+<li>准备节点</li>
+<li>节点握手，组成集群</li>
+<li>为每个节点分配slot槽</li>
+<li>创建主从关系</li>
+</ol>
+<h2 id="集群节点创建"><a href="#集群节点创建" class="headerlink" title="集群节点创建"></a>集群节点创建</h2><p>在配置文件中开启：cluster-enabled yes即可让节点运行在集群模式之下。</p>
+<p>建议为所有的集群节点规划统一的配置。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[root@common007-dev.novalocal conf]# cat redis-cluster-6379.conf # 以下只显示部分核心的配置</span><br><span class="line">daemonize yes</span><br><span class="line">dir &quot;/home/cachecloud/data&quot;</span><br><span class="line">port 6379</span><br><span class="line">protected-mode no</span><br><span class="line">bind 0.0.0.0</span><br><span class="line"></span><br><span class="line">cluster-enabled yes</span><br><span class="line">cluster-node-timeout 15000</span><br><span class="line">cluster-config-file &quot;nodes-6379.conf&quot;</span><br></pre></td></tr></table></figure>
+<h3 id="关于集群配置文件"><a href="#关于集群配置文件" class="headerlink" title="关于集群配置文件"></a>关于集群配置文件</h3><p>集群模式的Redis除了原有的配置文件之外，又加了一份集群配置文件。当集群内节点信息发生变化，例如添加节点、节点下线、故障转移等时，节点会自动保存这些信息到集群配置文件。</p>
+<p>需要注意的是：</p>
+<ul>
+<li><p>Redis实例会自动维护集群配置文件，不要手动修改。防止节点重启时产生集群信息错乱。</p>
+</li>
+<li><p>集群配置文件会存储在指定的dir路径下。也就是说和aof、rdb等数据文件再同一个路径下。</p>
+</li>
+</ul>
+<h2 id="集群节点握手"><a href="#集群节点握手" class="headerlink" title="集群节点握手"></a>集群节点握手</h2><p>节点握手是指一批运行在集群模式下的节点通过gossip协议彼此通信，感知对方的过程。</p>
+<p>使用命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; cluster meet 127.0.0.1 6380</span><br></pre></td></tr></table></figure>
+<p>注意：我们只需要在其中一个节点执行cluster meet命令即可，握手状态会通过消息在集群内进行传播，最终所有的节点都会发现其他节点并发起握手流程。最后我们执行cluster nodes命令去查看验证效果即可。</p>
+<p>所有集群节点都握手建立连接之后，此时集群处于下线状态。</p>
+<h2 id="为集群节点分配slot"><a href="#为集群节点分配slot" class="headerlink" title="为集群节点分配slot"></a>为集群节点分配slot</h2><p>Redis集群把所有数据都映射到16384个slot当中，每个key都会映射到一个固定的slot当中，只有当节点分配了slot，才能响应和这些slot关联的key命令。</p>
+<p>因为在交互模式下，不能批量的输入slot的范围，因此使用这种非交互的方式进行添加slot </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[cachecloud@common007-dev.novalocal logs]$ redis-cli  -p 7000 CLUSTER ADDSLOTS &#123;0..16383&#125;</span><br><span class="line">OK</span><br></pre></td></tr></table></figure>
+<h2 id="集群的从节点"><a href="#集群的从节点" class="headerlink" title="集群的从节点"></a>集群的从节点</h2><p>可以看到，和sentinel等方式不一样，节点的主从关系我们没有在配置文件当中使用slaveof进行指定，在当前状态下，每一个集群的节点都是master。</p>
+<p>一般情况下我们会对半，一半为master，一半为slave，因此在上面分配slot时，如果节点总数为6，那么将16384个slot进行三等分，分配之后，还剩下3个节点时为空，这个时候，我们执行以下命令。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6380&gt; cluster replicate 集群node的id</span><br></pre></td></tr></table></figure>
+<h2 id="redis-trib-rb方式创建"><a href="#redis-trib-rb方式创建" class="headerlink" title="redis-trib.rb方式创建"></a>redis-trib.rb方式创建</h2><p>使用这种方式首先需要解决ruby的相关问题，默认使用yum安装的版本太低，无法正确安装Redis</p>
+<p>ruby的官方网站为：<a href="http://www.rvm.io/" target="_blank" rel="noopener">http://www.rvm.io/</a></p>
+<p>整个的操作过程为：</p>
+<p>第1步：解决ruby问题</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"># gpg2 --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB</span><br><span class="line"></span><br><span class="line">下载rvm</span><br><span class="line"># curl -sSL https://get.rvm.io | bash -s stable</span><br><span class="line"></span><br><span class="line">查找配置文件</span><br><span class="line"># find / -name rvm.sh</span><br><span class="line"></span><br><span class="line">配置文件生效</span><br><span class="line"># source /etc/profile.d/rvm.sh </span><br><span class="line"></span><br><span class="line">下载rvm依赖</span><br><span class="line"># rvm requirements </span><br><span class="line"></span><br><span class="line">查看rvm库ruby版本</span><br><span class="line"># rvm list known</span><br><span class="line"></span><br><span class="line">安装ruby指定版本</span><br><span class="line"># rvm install ruby-2.4.1</span><br><span class="line"></span><br><span class="line">使用ruby版本默认</span><br><span class="line"># rvm use 2.4.1 default</span><br><span class="line"></span><br><span class="line">安装Redis</span><br><span class="line"># gem install redis</span><br></pre></td></tr></table></figure>
+<p>可能还需要：yum install -y rubygems</p>
+<p>第2步：启动集群节点</p>
+<p>第3步：创建Redis集群</p>
+<p>接下来我们创建Redis集群</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">使用 --replicas 1 创建 每个master带一个 slave 指令</span><br><span class="line"># ./redis-trib.rb create --replicas 1   192.168.11.84:7000 192.168.11.84:7001 192.168.11.84:7002 192.168.11.11:7000 192.168.11.11:7001 192.168.11.11:7002</span><br></pre></td></tr></table></figure>
+<p>如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">[cachecloud@common007-dev.novalocal src]$ ./redis-trib.rb create --replicas 1   192.168.11.84:7000 192.168.11.84:7001 192.168.11.84:7002 192.168.11.11:7000 192.168.11.11:7001 192.168.11.11:7002</span><br><span class="line">&gt;&gt;&gt; Creating cluster</span><br><span class="line">&gt;&gt;&gt; Performing hash slots allocation on 6 nodes...</span><br><span class="line">Using 3 masters:</span><br><span class="line">192.168.11.84:7000</span><br><span class="line">192.168.11.11:7000</span><br><span class="line">192.168.11.84:7001</span><br><span class="line">Adding replica 192.168.11.11:7001 to 192.168.11.84:7000</span><br><span class="line">Adding replica 192.168.11.84:7002 to 192.168.11.11:7000</span><br><span class="line">Adding replica 192.168.11.11:7002 to 192.168.11.84:7001</span><br><span class="line">M: 2fcb0a92c0b055e9e0c0ec7a279a1c33e400b92c 192.168.11.84:7000</span><br><span class="line">   slots:0-5460 (5461 slots) master</span><br><span class="line">M: 94d79d6303e6de4745ec4f1dd61d51d61f73919e 192.168.11.84:7001</span><br><span class="line">   slots:10923-16383 (5461 slots) master</span><br><span class="line">S: 1c6db7f5c2998db943cb26bf9716d13a367034b9 192.168.11.84:7002</span><br><span class="line">   replicates 1073c42cefa1e192ff219e554c843cbdc1eabd80</span><br><span class="line">M: 1073c42cefa1e192ff219e554c843cbdc1eabd80 192.168.11.11:7000</span><br><span class="line">   slots:5461-10922 (5462 slots) master</span><br><span class="line">S: 8c911465ef9118912ab848f6a9e5790027b0d4fa 192.168.11.11:7001</span><br><span class="line">   replicates 2fcb0a92c0b055e9e0c0ec7a279a1c33e400b92c</span><br><span class="line">S: 39f885d55462cd7fc4e975317da9db19abcc1835 192.168.11.11:7002</span><br><span class="line">   replicates 94d79d6303e6de4745ec4f1dd61d51d61f73919e</span><br><span class="line">Can I set the above configuration? (type &apos;yes&apos; to accept): yes</span><br><span class="line">&gt;&gt;&gt; Nodes configuration updated</span><br><span class="line">&gt;&gt;&gt; Assign a different config epoch to each node</span><br><span class="line">&gt;&gt;&gt; Sending CLUSTER MEET messages to join the cluster</span><br><span class="line">Waiting for the cluster to join....</span><br><span class="line">&gt;&gt;&gt; Performing Cluster Check (using node 192.168.11.84:7000)</span><br><span class="line">M: 2fcb0a92c0b055e9e0c0ec7a279a1c33e400b92c 192.168.11.84:7000</span><br><span class="line">   slots:0-5460 (5461 slots) master</span><br><span class="line">   1 additional replica(s)</span><br><span class="line">S: 8c911465ef9118912ab848f6a9e5790027b0d4fa 192.168.11.11:7001</span><br><span class="line">   slots: (0 slots) slave</span><br><span class="line">   replicates 2fcb0a92c0b055e9e0c0ec7a279a1c33e400b92c</span><br><span class="line">M: 94d79d6303e6de4745ec4f1dd61d51d61f73919e 192.168.11.84:7001</span><br><span class="line">   slots:10923-16383 (5461 slots) master</span><br><span class="line">   1 additional replica(s)</span><br><span class="line">M: 1073c42cefa1e192ff219e554c843cbdc1eabd80 192.168.11.11:7000</span><br><span class="line">   slots:5461-10922 (5462 slots) master</span><br><span class="line">   1 additional replica(s)</span><br><span class="line">S: 1c6db7f5c2998db943cb26bf9716d13a367034b9 192.168.11.84:7002</span><br><span class="line">   slots: (0 slots) slave</span><br><span class="line">   replicates 1073c42cefa1e192ff219e554c843cbdc1eabd80</span><br><span class="line">S: 39f885d55462cd7fc4e975317da9db19abcc1835 192.168.11.11:7002</span><br><span class="line">   slots: (0 slots) slave</span><br><span class="line">   replicates 94d79d6303e6de4745ec4f1dd61d51d61f73919e</span><br><span class="line">[OK] All nodes agree about slots configuration.</span><br><span class="line">&gt;&gt;&gt; Check for open slots...</span><br><span class="line">&gt;&gt;&gt; Check slots coverage...</span><br><span class="line">[OK] All 16384 slots covered.</span><br></pre></td></tr></table></figure>
+<p>192.168.11.84:7000:2048<br>192.168.11.11:7001:2048<br>192.168.11.11:7000:2048<br>192.168.11.84:7002:2048<br>192.168.11.84:7001:2048<br>192.168.11.11:7002:2048</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">./redis-trib.rb create --replicas 1  10.11.4.1:6526 10.11.4.2:6526 10.11.4.3:6526 10.11.4.4:6526 10.11.4.5:6526 10.11.4.6:6526</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"> ./redis-trib.rb create --replicas 1  10.11.4.1:6527 10.11.4.2:6527 10.11.4.3:6527 10.11.4.4:6527 10.11.4.5:6527 10.11.4.6:6527</span><br><span class="line"> </span><br><span class="line">  ./redis-trib.rb create --replicas 1  10.11.4.1:6528 10.11.4.2:6528 10.11.4.3:6528 10.11.4.4:6528 10.11.4.5:6528 10.11.4.6:6528</span><br><span class="line">  </span><br><span class="line">   ./redis-trib.rb create --replicas 1  10.11.4.1:6529 10.11.4.2:6529 10.11.4.3:6529 10.11.4.4:6529 10.11.4.5:6529 10.11.4.6:6529</span><br></pre></td></tr></table></figure>
+<p>10.11.4.1:6526:8192</p>
+<p>10.11.4.4:6526:8192</p>
+<p>10.11.4.2:6526:8192</p>
+<p>10.11.4.5:6526:8192</p>
+<p>10.11.4.3:6526:8192</p>
+<p>10.11.4.6:6526:8192</p>
+<p>10.11.4.1:6529:8192<br>10.11.4.4:6529:8192<br>10.11.4.2:6529:8192<br>10.11.4.5:6529:8192<br>10.11.4.3:6529:8192<br>10.11.4.6:6529:8192</p>
+<h1 id="集群运维"><a href="#集群运维" class="headerlink" title="集群运维"></a>集群运维</h1><h2 id="集群伸缩"><a href="#集群伸缩" class="headerlink" title="集群伸缩"></a>集群伸缩</h2><p>Redis集群可以实现对节点的灵活上下线控制，其中的原理可以抽象为槽和对应数据在不同节点之间的灵活移动。</p>
+<p>也就是：<font color="red"><strong>集群伸缩=slot槽和数据在节点之间的移动</strong></font></p>
+<h2 id="集群扩容"><a href="#集群扩容" class="headerlink" title="集群扩容"></a>集群扩容</h2><p>整个集群的扩容操作可以分为以下步骤：</p>
+<ol>
+<li>启动新节点</li>
+<li>加入现有集群</li>
+<li>迁移slot和数据</li>
+</ol>
+<h3 id="新集群节点创建"><a href="#新集群节点创建" class="headerlink" title="新集群节点创建"></a>新集群节点创建</h3><p>和之前的配置一样，在配置文件中设置cluster-enabled为yes，然后启动即可。</p>
+<h3 id="加入现有集群"><a href="#加入现有集群" class="headerlink" title="加入现有集群"></a>加入现有集群</h3><p>其实也就是一个meet操作</p>
+<p>在随便一个集群节点当中执行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; cluster meet ip port</span><br></pre></td></tr></table></figure>
+<p>即可将该节点加入现有集群当中，注意，这里应该是加入了2个节点（另一个后续会作为从节点）</p>
+<p>1. 152</p>
+<p>multi-message-gw-service</p>
+<p>rider-station-base-service</p>
+<p>221</p>
+<p>red-packet-unit-service</p>
+<p>105</p>
+<p>rider-elastic-probe</p>
+<p>153</p>
+<p>rich-unit-service</p>
+<p>220 </p>
+<p>order-rule-unit-service</p>
+<p>candidate-select-service</p>
+<p>dispatch-alg-config</p>
+<p>dispatch-bywaydegree-provider</p>
+<p>dispatch-config-dispatch-mode</p>
+<p>dispatch-consistent-service</p>
+<p>dispatch-fairy-provider</p>
+<p>dispatch-pathplan-rider</p>
+<p>dispatch-pathplan-service</p>
+<p>dispatch-revise-params</p>
+<p>dispatch-timer-task</p>
+<p>grab-order-service</p>
+<p>lbs-provider</p>
+<p>lbs-rider-position-service</p>
+<p>lbs-rider-space-service</p>
+<p>order-diagnose-service</p>
+<p>package-order-service</p>
+<p>parameter-service</p>
+<p>recommend-config-provider</p>
+<p>rider-gateway-current-limit</p>
+<p>rider-invert-select</p>
+<p>system-dispatch</p>
+<p>/usr/bin/nohup /usr/local/jdk/bin/java -Dproject.name=${name} -Dlogging.file.path=”/home/${start_user}/deploy/logs/${name}” -Dmonitor.file.path=”/home/${start_user}/deploy/logs/monitor” -Daction.file.path=”/home/${start_user}/deploy/logs/action/“ -Dbigdata.file.path=”/home/${start_user}/deploy/logs/bigdata/“ -Ddisconf.env=${disconf_env} -Ddisconf.enable.remote.conf=true -Ddisconf.conf_server_host=${disconf_url} &lt;#if zone??  &amp;&amp; zone != “”&gt; -Dspring.cloud.config.label=${region}.${zone} -Dspring.cloud.config.index=${region}.${zone} -Dzone=${zone} &lt;/#if&gt; &lt;#if region??  &amp;&amp; region != “”&gt; -Dregion=${region} &lt;/#if&gt; &lt;#if service_chain??&gt; -javaagent:/home/${start_user}/deploy/tools/service-chain-1.0-RELEASE.jar -Xbootclasspath/a:/home/${start_user}/deploy/tools/transmittable-thread-local-2.5.1.jar -javaagent:/home/${start_user}/deploy/tools/transmittable-thread-local-2.5.1.jar -Dservice-chain=${service_chain} &lt;/#if&gt; -Dlogging.console.level=off -server &lt;#if config_prefix == “production”&gt; -Xmx4g -Xms4g &lt;#else&gt; -Xms${xms}m -Xmx${xmx}m &lt;/#if&gt;  -XX:NewRatio=1 -XX:MetaspaceSize=128m -XX:MaxMetaspaceSize=512m -XX:+UseConcMarkSweepGC -XX:+CMSParallelRemarkEnabled -XX:+CMSScavengeBeforeRemark -XX:+ParallelRefProcEnabled -XX:+CMSParallelInitialMarkEnabled -XX:CMSInitiatingOccupancyFraction=75 -XX:+UseCMSInitiatingOccupancyOnly -XX:+ExplicitGCInvokesConcurrent -XX:+AlwaysPreTouch -server -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=”/home/${start_user}/deploy/logs/${name}/“ -XX:-UseBiasedLocking -XX:AutoBoxCacheMax=20000 -XX:+UseCondCardMark -XX:+PrintGCDetails -XX:+PrintGCDateStamps -XX:+PrintHeapAtGC -XX:+PrintJNIGCStalls -XX:+PrintTenuringDistribution -XX:+PrintGCApplicationStoppedTime -XX:+PrintPromotionFailure -XX:+PrintCommandLineFlags -XX:-OmitStackTraceInFastThrow -Xloggc:/dev/shm/${name}-gc.log -XX:ErrorFile=/home/${start_user}/deploy/logs/${name}/hs<em>err</em>%p.log -XX:+UseGCLogFileRotation -XX:NumberOfGCLogFiles=2 -XX:GCLogFileSize=20M -Djava.security.egd=file:/dev/./urandom -Dlog4j.shutdownHookEnabled=false -jar ${name}.jar –spring.profiles.active=${config_prefix} &gt; &lt;#if config_prefix == “production” || config_prefix == “dwd-pre”&gt; /dev/null &lt;#else&gt; /home/${start_user}/deploy/logs/${name}/${name}-start.log &lt;/#if&gt; 2&gt;&amp;1 &amp;</p>
+<p>-server -Xmx4g -Xms4g -XX:NewRatio=1 -XX:MetaspaceSize=128m -XX:MaxMetaspaceSize=512m -XX:+UseConcMarkSweepGC -XX:+CMSParallelRemarkEnabled -XX:+CMSScavengeBeforeRemark -XX:+ParallelRefProcEnabled -XX:+CMSParallelInitialMarkEnabled -XX:CMSInitiatingOccupancyFraction=75 -XX:+UseCMSInitiatingOccupancyOnly -XX:+ExplicitGCInvokesConcurrent -XX:+AlwaysPreTouch -server -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=”/home/appdeploy/deploy/logs/scan-order-service/“ -XX:-UseBiasedLocking -XX:AutoBoxCacheMax=20000 -XX:+UseCondCardMark -XX:+PrintGCDetails -XX:+PrintGCDateStamps -XX:+PrintHeapAtGC -XX:+PrintJNIGCStalls -XX:+PrintTenuringDistribution -XX:+PrintGCApplicationStoppedTime -XX:+PrintPromotionFailure -XX:+PrintCommandLineFlags -XX:-OmitStackTraceInFastThrow -Xloggc:/dev/shm/scan-order-service-gc.log -XX:ErrorFile=/home/appdeploy/deploy/logs/scan-order-service/hs<em>err</em>%p.log -XX:+UseGCLogFileRotation -XX:NumberOfGCLogFiles=2 -XX:GCLogFileSize=20M -Djava.security.egd=file:/dev/./urandom -Dlog4j.shutdownHookEnabled=false -jar scan-order-service.jar –spring.profiles.active=production &gt; /dev/null 2&gt;&amp;1 &amp;</p>
+<p>上海的多活环境，jvm内存1.5G。<br>没问题的话，下面这个模板就作为你们所有应用部署上海机房的默认启动脚本了，有问题跟我说下。</p>
+<p>#!/bin/bash<br>mkdir -p /home/${start_user}/deploy/logs/${name}<br>cd /home/${start_user}/deploy/apps/${name}<br>/usr/bin/nohup /usr/local/jdk/bin/java -Dproject.name=${name} -verbose:gc -Xloggc:/home/${start_user}/deploy/logs/${name}/gc.log -XX:+PrintGCDetails -XX:+PrintGCDateStamps -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/home/${start_user}/deploy/logs/${name}/java.hprof -XX:ErrorFile=/home/${start_user}/deploy/logs/${name}/java_error.log -Dlogging.file.path=”/home/${start_user}/deploy/logs/${name}” &lt;#if zone??  &amp;&amp; zone != “”&gt; -Dspring.cloud.config.label=${region}.${zone} -Dspring.application.index=${region}.${zone} -Dlogging.console.level=off -Dzone=${zone} &lt;/#if&gt; &lt;#if region??  &amp;&amp; region != “”&gt; -Dregion=${region} &lt;/#if&gt; &lt;#if service_chain??&gt; -javaagent:/home/${start_user}/deploy/tools/service-chain-1.0-RELEASE.jar -Xbootclasspath/a:/home/${start_user}/deploy/tools/transmittable-thread-local-2.5.1.jar -javaagent:/home/${start_user}/deploy/tools/transmittable-thread-local-2.5.1.jar -Dservice-chain=${service_chain} &lt;/#if&gt; -Dmonitor.file.path=/home/${start_user}/deploy/logs/monitor -Daction.file.path=/home/${start_user}/deploy/logs/action/ -Dbigdata.file.path=/home/${start_user}/deploy/logs/bigdata/ -Ddisconf.env=${disconf_env} -Ddisconf.enable.remote.conf=true -Ddisconf.conf_server_host=${disconf_url} -server -Xms${xms}m -Xmx${xmx}m -XX:MaxNewSize=${max_new_size}m  -XX:ThreadStackSize=${thread_stack_size} -jar ${name}.jar –spring.profiles.active=${config_prefix} &gt;/home/${start_user}/deploy/logs/${name}/${name}-start.log 2&gt;&amp;1 &amp;</p>
+<p>#!/bin/bash<br>mkdir -p /home/${start_user}/deploy/logs/${name}<br>cd /home/${start_user}/deploy/apps/${name}<br>/usr/bin/nohup /usr/local/jdk/bin/java -Dproject.name=${name} -Dlogging.file.path=”/home/${start_user}/deploy/logs/${name}” &lt;#if zone??  &amp;&amp; zone != “”&gt; -Dspring.cloud.config.label=${region}.${zone} -Dspring.application.index=${region}.${zone} -Dspring.application.name=fortune-unit-service-primary -Dlogging.console.level=off -Dzone=${zone} &lt;/#if&gt; &lt;#if region??  &amp;&amp; region != “”&gt; -Dregion=${region} &lt;/#if&gt; &lt;#if service_chain??&gt; -javaagent:/home/${start_user}/deploy/tools/service-chain-1.0-RELEASE.jar -Xbootclasspath/a:/home/${start_user}/deploy/tools/transmittable-thread-local-2.5.1.jar -javaagent:/home/${start_user}/deploy/tools/transmittable-thread-local-2.5.1.jar -Dservice-chain=${service_chain} &lt;/#if&gt; -server -Xms3000m -Xmx3000m -XX:MaxNewSize=${max_new_size}m  -XX:ThreadStackSize=${thread_stack_size} -jar ${name}.jar –spring.profiles.active=${config_prefix} &gt; &lt;#if config_prefix == “production” || config_prefix == “dwd-pre” || config_prefix == “production-sh”&gt; /dev/null &lt;#else&gt; /home/${start_user}/deploy/logs/${name}/${name}-start.log &lt;/#if&gt; 2&gt;&amp;1 &amp;</p>
+<p>grant all on zentaopro.* to ‘dev’@’192.168.%’ identified by ‘zentao123’;</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/wechatpay.jpg" alt="XiaoHua WANG 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/alipay.jpg" alt="XiaoHua WANG 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/redis集群/" rel="tag"># redis集群</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/01/26/个人知识体系/英语学习/英语学习方法及路线/语言学基础/" rel="next" title="语言学基础">
+                <i class="fa fa-chevron-left"></i> 语言学基础
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/02/19/IT科学技术知识体系结构-Linux运维方向/Linux系统管理/centos升级openssh/" rel="prev" title="centos升级openssh">
+                centos升级openssh <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zMzg1NC8xMDQwNw=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/touxiang.jpg"
+                alt="XiaoHua WANG" />
+            
+              <p class="site-author-name" itemprop="name">XiaoHua WANG</p>
+              <p class="site-description motion-element" itemprop="description">Focus on Linux operations and development.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">67</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">68</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">62</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#基础知识"><span class="nav-number">1.</span> <span class="nav-text">基础知识</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#数据分布"><span class="nav-number">1.1.</span> <span class="nav-text">数据分布</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#集群功能的限制"><span class="nav-number">1.2.</span> <span class="nav-text">集群功能的限制</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#集群创建"><span class="nav-number">2.</span> <span class="nav-text">集群创建</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#集群节点创建"><span class="nav-number">2.1.</span> <span class="nav-text">集群节点创建</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#关于集群配置文件"><span class="nav-number">2.1.1.</span> <span class="nav-text">关于集群配置文件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#集群节点握手"><span class="nav-number">2.2.</span> <span class="nav-text">集群节点握手</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为集群节点分配slot"><span class="nav-number">2.3.</span> <span class="nav-text">为集群节点分配slot</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#集群的从节点"><span class="nav-number">2.4.</span> <span class="nav-text">集群的从节点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#redis-trib-rb方式创建"><span class="nav-number">2.5.</span> <span class="nav-text">redis-trib.rb方式创建</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#集群运维"><span class="nav-number">3.</span> <span class="nav-text">集群运维</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#集群伸缩"><span class="nav-number">3.1.</span> <span class="nav-text">集群伸缩</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#集群扩容"><span class="nav-number">3.2.</span> <span class="nav-text">集群扩容</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#新集群节点创建"><span class="nav-number">3.2.1.</span> <span class="nav-text">新集群节点创建</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#加入现有集群"><span class="nav-number">3.2.2.</span> <span class="nav-text">加入现有集群</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">XiaoHua WANG</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("mlSs9Cm0Xv2D9B7cFqbp25Df-gzGzoHsz", "alKheIFly9OVC81YCV7otTrf");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

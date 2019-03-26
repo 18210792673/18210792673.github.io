@@ -1064,183 +1064,22 @@ r让django将这个字符串视为原始字符串，并指出正则表达式包�
 	
 	{% endblock content %}
 </topic_id></topic_id></topic_id></topic_id></code></pre><p><strong>说明：</strong></p>
-<p>是一个模板变量，在这里变量都是这种表示方式，这里的变量topic，是存储在字典context中的</p>
-<p>在<strong><code>&lt;ul&gt;&lt;/ul&gt;</code></strong>中我们利用for循环定义一个显示每个条目的项目列表（无序列表）</p>
-<blockquote>
-<p>每个列表项目都将列出两项信息：条目的时间戳和完整的文本。</p>
-<p>第一行时间戳：在django中的模板中，竖线（|）表示模板过滤器–【对模板变量的值进行修改的函数】。后面的部分我们称之为：<strong><code>过滤器</code></strong></p>
-<p>过滤之后的时间戳显示格式将是：’M d, Y H:i’以这样的格式显示时间戳： January 1, 2015 23:00</p>
-<p>第二行显示text的完整值，而不仅仅是entry的前50个字符。过滤器linebreaks将包含换行符的长条目转换为浏览器能够理解的格式，避免显示一个不间断的文本块。</p>
-<p>在最后，我们使用模板标签{ % empty % }打印一条消息，告诉用户当前主题还没有条目</p>
-</blockquote>
-<p>注意：代码和说明中的{和%中其实是没有空格的，在这里故意加上空格是因为hexo博客框架无法正常处理。</p>
-<h4 id="将显示所有主题的页面中的每个主题都设置为链接"><a href="#将显示所有主题的页面中的每个主题都设置为链接" class="headerlink" title="将显示所有主题的页面中的每个主题都设置为链接"></a>将显示所有主题的页面中的每个主题都设置为链接</h4><p>在浏览器中查看显示特定主题的页面前，我们需要修改模板topics.html，让每个主题都链接到相应的网页</p>
-<p>如下所示：</p>
-<p>(ll_env) wxh@wxh-virtual-machine:/opt/learning_logs/templates/learning_logs$ sudo vim topics.html<br>​    </p>
-<p><img src="http://picture.watchmen.xin/python-django/topics.png" alt="topics"></p>
-<p>这个时候我们再次刷新页面，再单击其中的一个主题，将会看到类似于下图的页面：</p>
-<p><img src="http://picture.watchmen.xin/python-django/topiccontent.png" alt="topics"></p>
-<hr>
-<h1 id="用户账户"><a href="#用户账户" class="headerlink" title="用户账户"></a>用户账户</h1><p>在这一章节，我们将创建对用户友好而直观的网页，让用户无需通过管理网站就能添加新的主题和条目，以及编辑既有的条目。</p>
-<p>我们还将添加一个用户注册系统，让用户能够创建账户和自己的学习笔记。让任意数量的用户都能与之交互，是Web应用程序的核心所在。</p>
-<h2 id="让用户能够输入数据"><a href="#让用户能够输入数据" class="headerlink" title="让用户能够输入数据"></a>让用户能够输入数据</h2><p>当前，只有超级用户能够通过管理网站输入数据。我们不想让用户与管理网站进行交互，因此我们将使用django的表单创建工具来创建工具让用户能够输入数据的页面</p>
-<p>这部分，主要会涉及以下几种数据</p>
-<ul>
-<li>添加新主题</li>
-<li>添加新条目</li>
-<li>编辑条目</li>
-</ul>
-<h3 id="添加新主题"><a href="#添加新主题" class="headerlink" title="添加新主题"></a>添加新主题</h3><p>在添加新主题时，需要使用到一个输入框【在这里是一个基于表单的页面】</p>
-<h4 id="用户添加主题的表单"><a href="#用户添加主题的表单" class="headerlink" title="用户添加主题的表单"></a>用户添加主题的表单</h4><p>我们需要让用户输入并提交信息的页面是表单</p>
-<blockquote>
-<p>并且在用户输入数据的时候，我们还需要进行验证，确认提供的信息是否是正确的数据类型</p>
-<p>而且信息不是恶意的信息，例如终端服务器的代码。</p>
-<p>然后，我们再对这些有效信息进行处理，并将其保存到数据库的合适地方，这些工作都是由django自动完成。</p>
-</blockquote>
-<p>在django中，创建表单最简单的方式是使用ModeForm，它根据我们在第18章定义的模型中的信息自动创建表单。</p>
-<p>创建一个forms.py文件，并存储到models.py所在目录中</p>
-<p>代码如下：</p>
-<p>(ll_env) wxh@wxh-virtual-machine:/opt/learning_logs$ sudo vim forms.py<br>​<br>​    from django import forms<br>​<br>    from .models import Topic</p>
-<pre><code>class TopicForm(forms.ModelForm):
-    class Meta:
-        model = Topic
-        fields = [&apos;text&apos;]
-        labels = {&apos;text&apos;:&apos;&apos;}
-</code></pre><p>最简单的ModelForm版本只包含一个内嵌的Meta类，<strong><code>它告诉django根据哪个模型创建表单</code></strong>，以及在表单中包含哪些字段。</p>
-<blockquote>
-<p>在这里，我们根据模型Topic创建一个表单，该表单只包含字段text，下面的代码让django不要为字段text生产标签。</p>
-</blockquote>
-<h4 id="URL定义"><a href="#URL定义" class="headerlink" title="URL定义"></a>URL定义</h4><p>在这里我们创建的url是：<a href="http://localhost:8000/new_topic/" target="_blank" rel="noopener">http://localhost:8000/new_topic/</a></p>
-<p>代码如下：</p>
-<pre><code>&quot;&quot;&quot;定义learning_logs的URL模式&quot;&quot;&quot;
-
-from django.conf.urls import url
-
-from . import views
-
-app_name = &apos;learning_logs&apos;
-urlpatterns = [
-    #主页
-    url(r&apos;^$&apos;,views.index,name=&apos;index&apos;),
-    url(r&apos;^topics/$&apos;,views.topics,name=&apos;topics&apos;),
-    url(r&apos;^topics/(?P&lt;topic_id&gt;\d+)/$&apos;,views.topic,name=&apos;topic&apos;),
-    # 用户添加新主题的网页
-    url(r&apos;^new_topic/$&apos;,views.&apos;new_topic&apos;,name=&apos;new_topic&apos;)
-]
-</code></pre><p>这个url模式将请求交给视图函数new_topic(),接下来我们将编写这个函数</p>
-<h4 id="视图函数new-topic"><a href="#视图函数new-topic" class="headerlink" title="视图函数new_topic()"></a>视图函数new_topic()</h4><p>函数new_topic()需要处理两种情形</p>
-<ul>
-<li>第一种情况是刚进入new_topic网页（在这种情况下，它应该显示一个空表单）</li>
-<li>第二种情况是对提交的表单数据进行处理，并将用户重定向到网页topics</li>
-</ul>
-<p>代码如下：</p>
-<pre><code>from django.shortcuts import render
-from django.http import HttpResponseRedirect
-from django.urls import reverse
-from .models import Topic
-from .forms import TopicForm
-
-def index(request):
-    &quot;&quot;&quot;学习笔记的主页&quot;&quot;&quot;
-    return render(request,&apos;learning_logs/index.html&apos;)
-
-def topics(request):
-    &quot;&quot;&quot;显示所有的主题&quot;&quot;&quot;
-    topics = Topic.objects.order_by(&apos;date_added&apos;)
-    context = {&apos;topics&apos;:topics}
-    return render(request,&apos;learning_logs/topics.html&apos;,context)
-
-def topic(request,topic_id):
-    &quot;&quot;&quot;显示单个主题及其所有的条目&quot;&quot;&quot;
-    topic = Topic.objects.get(id=topic_id)
-    entries = topic.entry_set.order_by(&apos;-date_added&apos;)
-    context = {&apos;topic&apos;:topic,&apos;entries&apos;:entries}
-    return render(request,&apos;learning_logs/topic.html&apos;,context)
-
-def new_topic(request):
-    &quot;&quot;&quot;添加新主题&quot;&quot;&quot;
-    if request.method != &apos;POST&apos;:
-        # 未提交数据：创建一个新表单
-        form = TopicForm()
-    else:
-        # POST提交的数据，对数据进行处理
-        form = TopicForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return HttpResponseRedirect(reverse(&apos;learning_logs:topics&apos;))
-
-    context = {&apos;form&apos;: form}
-    return render(request,&apos;learning_logs/new_topic.html&apos;,context)
-</code></pre><p><strong>说明：</strong></p>
-<p>在这里，我们我们导入了HttpResponseRedirect类，用户提交主题后，我们会使用这个类将用户重定向到网页topics。</p>
-<p>函数reverse()根据指定的URL模型确定URL，这意味着django将在页面被请求时生成URL。我们还导入了刚才创建的表单TopicFrom</p>
-<h4 id="补充信息：GET请求与POST"><a href="#补充信息：GET请求与POST" class="headerlink" title="补充信息：GET请求与POST"></a>补充信息：GET请求与POST</h4><p>创建Web应用程序时，将用到的两种主要请求类型是GET请求和POST请求。对于只是从服务器读取数据的页面，使用GET请求；在用户需要通过表单提交信息时，通常使用POST请求。</p>
-<p>处理所有表单时，我们都将指定使用POST方法。还有一些其他类型的请求，但这个项目没有使用。</p>
-<p><strong>函数new_topic()将请求对象作为参数。</strong></p>
-<p>用户初次请求该网页时，其浏览器将发送GET请求；</p>
-<p>用户填写并提交表单时，其浏览器将发送POST请求。</p>
-<p>根据请求的类型，我们可以确定用户请求的是空表单（GET请求）还是要求对填写好的表单进行处理（POST请求）。</p>
-<p>如果请求方法不是POST，请求就可能是GET，<br>因此我们需要返回一个空表单（即便请求是其他类型的，返回一个空表单也不会有任何问题）。</p>
-<p>我们创建一个TopicForm实例，将其存储在变量form中，再通过上下文字典将这个表单发送给模板。由于实例化TopicForm时我们没有指定任何实参， Django将创建一个可供用户填写的空表单。</p>
-<p>如果请求方法为POST，将执行else代码块，对提交的表单数据进行处理。我们使用用户输入的数据（它们存储在request.POST中）创建一个TopicForm实例，这样对象form将包含用户提交的信息。</p>
-<p>要将提交的信息保存到数据库，必须先通过检查确定它们是有效的。函数is_valid()核实用户填写了所有必不可少的字段（表单字段默认都是必不可少的），且输入的数据与要求的字段类型一致（例如，字段text少于200个字符，这是我们在第18章中的models.py中指定的）。</p>
-<p>这种自动验证避免了我们去做大量的工作。如果所有字段都有效，我们就可调用save()，将表单中的数据写入数据库。保存数据后，就可离开这个页面了。</p>
-<p>我们使用reverse()获取页面topics的URL，并将其传递给HttpResponseRedirect()，后者将用户的浏览器重定向到页面topics。在页面topics中，用户将在主题列表中看到他刚输入的主题。</p>
-<h4 id="模板new-topic"><a href="#模板new-topic" class="headerlink" title="模板new_topic"></a>模板new_topic</h4><p>下面来创建模板new_topic.html</p>
-<p>代码如下：</p>
-<p>(ll_env) wxh@wxh-virtual-machine:/opt/learning_logs/templates/learning_logs$ sudo vim new_topic.html </p>
-<p><img src="http://picture.watchmen.xin/python-django/newtopic2.png" alt="topics"></p>
-<h4 id="链接到页面new-topic"><a href="#链接到页面new-topic" class="headerlink" title="链接到页面new_topic"></a>链接到页面new_topic</h4><p>接下来，我们在页面topics中添加一个到页面new_topic的链接：</p>
-<p>(ll_env) wxh@wxh-virtual-machine:/opt/learning_logs/templates/learning_logs$ sudo vim topics.html </p>
-<p><img src="http://picture.watchmen.xin/python-django/topics2.png" alt="topics"></p>
-<p>这个时候访问指定页面，可以看到有输入框出现</p>
-<p><img src="http://picture.watchmen.xin/python-django/newtopic.png" alt="topics"></p>
-<h3 id="添加新条目"><a href="#添加新条目" class="headerlink" title="添加新条目"></a>添加新条目</h3><p>现在用户可以添加新主题了，但是他们还想添加新的条目。</p>
-<p>我们再次定义URL，编写视图函数和模板，并连接到添加新条目的网页，但在此之前，我们需要好在forms.py中再添加一个类</p>
-<p><strong>1. 用于添加新条目的表单</strong></p>
-<p>我们需要创建一个与模型Entry相关联的表单，但是这个表单的定制程度比TopicForm要高些</p>
-<p>(ll_env) wxh@wxh-virtual-machine:/opt/learning_logs$ sudo vim forms.py</p>
-<pre><code>from django import forms
-
-from .models import Topic,Entry
-
-class TopicForm(forms.ModelForm):
-    class Meta:
-        model = Topic
-        fields = [&apos;text&apos;]
-        labels = {&apos;text&apos;:&apos;&apos;}
-
-class EntryForm(forms.ModelForm):
-    class Meta:
-        model = Entry
-        fields = [&apos;text&apos;]
-        labels = {&apos;text&apos;:&apos;&apos;}
-        widgets = {&apos;text&apos;:forms.Textarea(attrs={&apos;cols&apos;:80})}
-</code></pre><p><strong>说明：</strong></p>
-<p>在这里，再导入了Entry。我们定义了属性widgets。小部件（widgets）是一个HTML表单元素，例如单行文本框、多行文本区域或者下拉列表。</p>
-<p>通过设置属性widgets，可覆盖Django选择的默认小部件。通过让Django使用forms.Textarea，我们定制了字段’text’的输入小部件，将文本区域的宽度设置为80列，而不是默认的40列。这给用户提供了足够的空间，可以编写有意义的条目。</p>
-<p><strong>2. URL模式new_entry</strong></p>
-<p>在用户添加新条目的页面的URL模式中，需要包含实参topic_id,因为条目必须与特定的主题相关联。该URL模式如下：</p>
-<p>(ll_env) wxh@wxh-virtual-machine:/opt/learning_logs$ sudo vim urls.py </p>
-<pre><code>&quot;&quot;&quot;定义learning_logs的URL模式&quot;&quot;&quot;
-
-from django.conf.urls import url
-
-from . import views
-
-app_name = &apos;learning_logs&apos;
-urlpatterns = [
-    #主页
-    url(r&apos;^$&apos;,views.index,name=&apos;index&apos;),
-    url(r&apos;^topics/$&apos;,views.topics,name=&apos;topics&apos;),
-    url(r&apos;^topics/(?P&lt;topic_id&gt;\d+)/$&apos;,views.topic,name=&apos;topic&apos;),
-    # 用户添加新主题的网页
-    url(r&apos;^new_topic/$&apos;,views.new_topic,name=&apos;new_topic&apos;),
-    #  用户添加新条目的页面
-    url(r&apos;^new_entry/(?P&lt;topic_id&gt;\d+)/$&apos;,views.new_entry,name=&apos;new_entry&apos;)
-]
-</code></pre><p><strong>3. 视图函数new_entry</strong></p>
-
+是一个模板变量，在这里变量都是这种表示方式，这里的变量topic，是存储在字典context中的<br><br>在<strong><code>&lt;ul&gt;&lt;/ul&gt;</code></strong>中我们利用for循环定义一个显示每个条目的项目列表（无序列表）<br>&gt; 每个列表项目都将列出两项信息：条目的时间戳和完整的文本。<br>&gt;<br>&gt; 第一行时间戳：在django中的模板中，竖线（|）表示模板过滤器–【对模板变量的值进行修改的函数】。后面的部分我们称之为：<strong><code>过滤器</code></strong><br>&gt;<br>&gt; 过滤之后的时间戳显示格式将是：’M d, Y H:i’以这样的格式显示时间戳： January 1, 2015 23:00<br>&gt;<br>&gt; 第二行显示text的完整值，而不仅仅是entry的前50个字符。过滤器linebreaks将包含换行符的长条目转换为浏览器能够理解的格式，避免显示一个不间断的文本块。<br><br>&gt; 在最后，我们使用模板标签{ % empty % }打印一条消息，告诉用户当前主题还没有条目<br><br><br><br>注意：代码和说明中的{和%中其实是没有空格的，在这里故意加上空格是因为hexo博客框架无法正常处理。<br><br>####  将显示所有主题的页面中的每个主题都设置为链接 ####<br><br><br>在浏览器中查看显示特定主题的页面前，我们需要修改模板topics.html，让每个主题都链接到相应的网页<br><br>如下所示：<br><br><br>(ll_env) wxh@wxh-virtual-machine:/opt/learning_logs/templates/learning_logs$ sudo vim topics.html<br>​<br><br><img src="http://picture.watchmen.xin/python-django/topics.png" alt="topics"><br><br><br>这个时候我们再次刷新页面，再单击其中的一个主题，将会看到类似于下图的页面：<br><br><br><img src="http://picture.watchmen.xin/python-django/topiccontent.png" alt="topics"><br><br>—<br><br># 用户账户 #<br><br>在这一章节，我们将创建对用户友好而直观的网页，让用户无需通过管理网站就能添加新的主题和条目，以及编辑既有的条目。<br><br>我们还将添加一个用户注册系统，让用户能够创建账户和自己的学习笔记。让任意数量的用户都能与之交互，是Web应用程序的核心所在。<br><br>## 让用户能够输入数据 ##<br><br>当前，只有超级用户能够通过管理网站输入数据。我们不想让用户与管理网站进行交互，因此我们将使用django的表单创建工具来创建工具让用户能够输入数据的页面<br><br>这部分，主要会涉及以下几种数据<br><br>- 添加新主题<br>- 添加新条目<br>- 编辑条目<br><br><br>### 添加新主题 ###<br><br>在添加新主题时，需要使用到一个输入框【在这里是一个基于表单的页面】<br><br>#### 用户添加主题的表单<br><br>我们需要让用户输入并提交信息的页面是表单<br><br>&gt; 并且在用户输入数据的时候，我们还需要进行验证，确认提供的信息是否是正确的数据类型<br><br>&gt; 而且信息不是恶意的信息，例如终端服务器的代码。<br><br>&gt; 然后，我们再对这些有效信息进行处理，并将其保存到数据库的合适地方，这些工作都是由django自动完成。<br><br><br><br>在django中，创建表单最简单的方式是使用ModeForm，它根据我们在第18章定义的模型中的信息自动创建表单。<br><br>创建一个forms.py文件，并存储到models.py所在目录中<br><br>代码如下：<br><br><br>(ll_env) wxh@wxh-virtual-machine:/opt/learning_logs$ sudo vim forms.py<br>​<br>​    from django import forms<br>​<br>    from .models import Topic<br><br>    class TopicForm(forms.ModelForm):<br>        class Meta:<br>            model = Topic<br>            fields = [‘text’]<br>            labels = {‘text’:’’}<br><br>最简单的ModelForm版本只包含一个内嵌的Meta类，<strong><code>它告诉django根据哪个模型创建表单</code></strong>，以及在表单中包含哪些字段。<br>&gt; 在这里，我们根据模型Topic创建一个表单，该表单只包含字段text，下面的代码让django不要为字段text生产标签。<br><br>#### URL定义<br><br>在这里我们创建的url是：<a href="http://localhost:8000/new_topic/" target="_blank" rel="noopener">http://localhost:8000/new_topic/</a><br><br>代码如下：<br><br><br>    “””定义learning_logs的URL模式”””<br><br>    from django.conf.urls import url<br><br>    from . import views<br><br>    app_name = ‘learning_logs’<br>    urlpatterns = [<br>        #主页<br>        url(r’^$’,views.index,name=’index’),<br>        url(r’^topics/$’,views.topics,name=’topics’),<br>        url(r’^topics/(?P<topic_id>\d+)/$’,views.topic,name=’topic’),<br>        # 用户添加新主题的网页<br>        url(r’^new_topic/$’,views.’new_topic’,name=’new_topic’)<br>    ]<br><br>这个url模式将请求交给视图函数new_topic(),接下来我们将编写这个函数<br><br>#### 视图函数new_topic() ####<br><br>函数new_topic()需要处理两种情形<br><br>- 第一种情况是刚进入new_topic网页（在这种情况下，它应该显示一个空表单）<br>- 第二种情况是对提交的表单数据进行处理，并将用户重定向到网页topics<br><br>代码如下：<br><br><br>    from django.shortcuts import render<br>    from django.http import HttpResponseRedirect<br>    from django.urls import reverse<br>    from .models import Topic<br>    from .forms import TopicForm<br><br>    def index(request):<br>        “””学习笔记的主页”””<br>        return render(request,’learning_logs/index.html’)<br><br>    def topics(request):<br>        “””显示所有的主题”””<br>        topics = Topic.objects.order_by(‘date_added’)<br>        context = {‘topics’:topics}<br>        return render(request,’learning_logs/topics.html’,context)<br><br>    def topic(request,topic_id):<br>        “””显示单个主题及其所有的条目”””<br>        topic = Topic.objects.get(id=topic_id)<br>        entries = topic.entry_set.order_by(‘-date_added’)<br>        context = {‘topic’:topic,’entries’:entries}<br>        return render(request,’learning_logs/topic.html’,context)<br><br>    def new_topic(request):<br>        “””添加新主题”””<br>        if request.method != ‘POST’:<br>            # 未提交数据：创建一个新表单<br>            form = TopicForm()<br>        else:<br>            # POST提交的数据，对数据进行处理<br>            form = TopicForm(request.POST)<br>            if form.is_valid():<br>                form.save()<br>                return HttpResponseRedirect(reverse(‘learning_logs:topics’))<br><br>        context = {‘form’: form}<br>        return render(request,’learning_logs/new_topic.html’,context)<br><br><br><br><br><br><strong>说明：</strong><br><br>在这里，我们我们导入了HttpResponseRedirect类，用户提交主题后，我们会使用这个类将用户重定向到网页topics。<br><br>函数reverse()根据指定的URL模型确定URL，这意味着django将在页面被请求时生成URL。我们还导入了刚才创建的表单TopicFrom<br><br><br>#### 补充信息：GET请求与POST ####<br><br><br><br>创建Web应用程序时，将用到的两种主要请求类型是GET请求和POST请求。对于只是从服务器读取数据的页面，使用GET请求；在用户需要通过表单提交信息时，通常使用POST请求。<br><br>处理所有表单时，我们都将指定使用POST方法。还有一些其他类型的请求，但这个项目没有使用。<br><br><strong>函数new_topic()将请求对象作为参数。</strong><br><br>用户初次请求该网页时，其浏览器将发送GET请求；<br><br>用户填写并提交表单时，其浏览器将发送POST请求。<br><br>根据请求的类型，我们可以确定用户请求的是空表单（GET请求）还是要求对填写好的表单进行处理（POST请求）。<br><br>如果请求方法不是POST，请求就可能是GET，<br>因此我们需要返回一个空表单（即便请求是其他类型的，返回一个空表单也不会有任何问题）。<br><br>我们创建一个TopicForm实例，将其存储在变量form中，再通过上下文字典将这个表单发送给模板。由于实例化TopicForm时我们没有指定任何实参， Django将创建一个可供用户填写的空表单。<br><br>如果请求方法为POST，将执行else代码块，对提交的表单数据进行处理。我们使用用户输入的数据（它们存储在request.POST中）创建一个TopicForm实例，这样对象form将包含用户提交的信息。<br><br><br>要将提交的信息保存到数据库，必须先通过检查确定它们是有效的。函数is_valid()核实用户填写了所有必不可少的字段（表单字段默认都是必不可少的），且输入的数据与要求的字段类型一致（例如，字段text少于200个字符，这是我们在第18章中的models.py中指定的）。<br><br>这种自动验证避免了我们去做大量的工作。如果所有字段都有效，我们就可调用save()，将表单中的数据写入数据库。保存数据后，就可离开这个页面了。<br><br>我们使用reverse()获取页面topics的URL，并将其传递给HttpResponseRedirect()，后者将用户的浏览器重定向到页面topics。在页面topics中，用户将在主题列表中看到他刚输入的主题。<br><br><br>#### 模板new_topic ####<br><br>下面来创建模板new_topic.html<br><br>代码如下：<br><br><br>(ll_env) wxh@wxh-virtual-machine:/opt/learning_logs/templates/learning_logs$ sudo vim new_topic.html<br><br><img src="http://picture.watchmen.xin/python-django/newtopic2.png" alt="topics"><br><br><br><br>#### 链接到页面new_topic ####<br><br>接下来，我们在页面topics中添加一个到页面new_topic的链接：<br><br><br><br>(ll_env) wxh@wxh-virtual-machine:/opt/learning_logs/templates/learning_logs$ sudo vim topics.html<br><br><br><img src="http://picture.watchmen.xin/python-django/topics2.png" alt="topics"><br><br><br><br>这个时候访问指定页面，可以看到有输入框出现<br><br><br><img src="http://picture.watchmen.xin/python-django/newtopic.png" alt="topics"><br><br><br>### 添加新条目 ###<br><br>现在用户可以添加新主题了，但是他们还想添加新的条目。<br><br>我们再次定义URL，编写视图函数和模板，并连接到添加新条目的网页，但在此之前，我们需要好在forms.py中再添加一个类<br><br><strong>1. 用于添加新条目的表单</strong><br><br>我们需要创建一个与模型Entry相关联的表单，但是这个表单的定制程度比TopicForm要高些<br><br><br>(ll_env) wxh@wxh-virtual-machine:/opt/learning_logs$ sudo vim forms.py<br><br>    from django import forms<br><br>    from .models import Topic,Entry<br><br>    class TopicForm(forms.ModelForm):<br>        class Meta:<br>            model = Topic<br>            fields = [‘text’]<br>            labels = {‘text’:’’}<br><br>    class EntryForm(forms.ModelForm):<br>        class Meta:<br>            model = Entry<br>            fields = [‘text’]<br>            labels = {‘text’:’’}<br>            widgets = {‘text’:forms.Textarea(attrs={‘cols’:80})}<br><br><br><br><strong>说明：</strong><br><br>在这里，再导入了Entry。我们定义了属性widgets。小部件（widgets）是一个HTML表单元素，例如单行文本框、多行文本区域或者下拉列表。<br><br>通过设置属性widgets，可覆盖Django选择的默认小部件。通过让Django使用forms.Textarea，我们定制了字段’text’的输入小部件，将文本区域的宽度设置为80列，而不是默认的40列。这给用户提供了足够的空间，可以编写有意义的条目。<br><br><strong>2. URL模式new_entry</strong><br><br>在用户添加新条目的页面的URL模式中，需要包含实参topic_id,因为条目必须与特定的主题相关联。该URL模式如下：<br><br><br>(ll_env) wxh@wxh-virtual-machine:/opt/learning_logs$ sudo vim urls.py<br><br>    “””定义learning_logs的URL模式”””<br><br>    from django.conf.urls import url<br><br>    from . import views<br><br>    app_name = ‘learning_logs’<br>    urlpatterns = [<br>        #主页<br>        url(r’^$’,views.index,name=’index’),<br>        url(r’^topics/$’,views.topics,name=’topics’),<br>        url(r’^topics/(?P<topic_id>\d+)/$’,views.topic,name=’topic’),<br>        # 用户添加新主题的网页<br>        url(r’^new_topic/$’,views.new_topic,name=’new_topic’),<br>        #  用户添加新条目的页面<br>        url(r’^new_entry/(?P<topic_id>\d+)/$’,views.new_entry,name=’new_entry’)<br>    ]<br><br><br><br><br><strong>3. 视图函数new_entry</strong><br><br><br><br><br><br><br><br># django安全相关<br><br>默认情况下，使用delete等http方法的时候会返回报错信息：<br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Forbidden (CSRF cookie not set.): /api/projects/repo</span><br><span class="line">[19/Mar/2019 06:59:48] &quot;DELETE /api/projects/repo?region=dev&amp;repo_name=watchmen/test HTTP/1.1&quot; 403 2868</span><br></pre></td></tr></table></figure>
+<p>解决：</p>
+<p>到setting里面注释掉下面的注释位置就好、</p>
+<p>例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">MIDDLEWARE = [</span><br><span class="line">    &apos;django.middleware.security.SecurityMiddleware&apos;,</span><br><span class="line">    &apos;django.contrib.sessions.middleware.SessionMiddleware&apos;,</span><br><span class="line">    &apos;django.middleware.common.CommonMiddleware&apos;,</span><br><span class="line">    #&apos;django.middleware.csrf.CsrfViewMiddleware&apos;,</span><br><span class="line">    &apos;django.contrib.auth.middleware.AuthenticationMiddleware&apos;,</span><br><span class="line">    &apos;django.contrib.messages.middleware.MessageMiddleware&apos;,</span><br><span class="line">    &apos;django.middleware.clickjacking.XFrameOptionsMiddleware&apos;,</span><br><span class="line"></span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<h1 id="sqlite3版本问题"><a href="#sqlite3版本问题" class="headerlink" title="sqlite3版本问题"></a>sqlite3版本问题</h1><p>在服务器上运行django项目的时候，会出现版本过低的问题</p>
+<p>报错：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">django.db.utils.NotSupportedError: URIs not supported</span><br></pre></td></tr></table></figure>
+<p>解决：升级sqlite3版本</p>
+<p>找到</p>
+<p>python3.6/site-packages/django/db/backends/sqlite3/base.py</p>
+<p>搜索修改内容</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kwargs.update(&#123;&apos;uri&apos;: False&#125;)  #这里原来是True，修改为False就可以了</span><br></pre></td></tr></table></figure>
+<h1 id="django监控所有接口问题"><a href="#django监控所有接口问题" class="headerlink" title="django监控所有接口问题"></a>django监控所有接口问题</h1><p>使用以下命令启动时，</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nohup /application/python3/bin/python3 manage.py  runserver 0.0.0.0:8000 &gt; /dev/null 2&gt;&amp;1 &amp;</span><br></pre></td></tr></table></figure>
+</topic_id></topic_id></topic_id>
       
     </div>
     
@@ -1423,7 +1262,7 @@ var jiathis_config={
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">59</span>
+                  <span class="site-state-item-count">67</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1434,7 +1273,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">59</span>
+                  <span class="site-state-item-count">68</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -1445,7 +1284,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">54</span>
+                  <span class="site-state-item-count">62</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -1485,7 +1324,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#环境准备"><span class="nav-number">1.</span> <span class="nav-text">环境准备</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#创建激活虚拟环境"><span class="nav-number">1.1.</span> <span class="nav-text">创建激活虚拟环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装django"><span class="nav-number">1.2.</span> <span class="nav-text">安装django</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#django项目"><span class="nav-number">2.</span> <span class="nav-text">django项目</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建项目："><span class="nav-number">2.0.1.</span> <span class="nav-text">创建项目：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建数据库"><span class="nav-number">2.0.2.</span> <span class="nav-text">创建数据库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#启动-停止项目"><span class="nav-number">2.0.3.</span> <span class="nav-text">启动/停止项目</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建应用程序"><span class="nav-number">2.1.</span> <span class="nav-text">创建应用程序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#定义模型"><span class="nav-number">2.1.1.</span> <span class="nav-text">定义模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#激活模型"><span class="nav-number">2.1.2.</span> <span class="nav-text">激活模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#django管理网站"><span class="nav-number">2.1.3.</span> <span class="nav-text">django管理网站</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#创建超级用户"><span class="nav-number">2.1.3.1.</span> <span class="nav-text">创建超级用户</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#向管理网站注册模型"><span class="nav-number">2.1.3.2.</span> <span class="nav-text">向管理网站注册模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#添加主题"><span class="nav-number">2.1.3.3.</span> <span class="nav-text">添加主题</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#定义模型Entry"><span class="nav-number">2.1.4.</span> <span class="nav-text">定义模型Entry</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#迁移模型Entry"><span class="nav-number">2.1.5.</span> <span class="nav-text">迁移模型Entry</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#向管理网站注册Entry"><span class="nav-number">2.1.6.</span> <span class="nav-text">向管理网站注册Entry</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#django-shell"><span class="nav-number">2.1.7.</span> <span class="nav-text">django shell</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#django-API"><span class="nav-number">2.1.8.</span> <span class="nav-text">django API</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建网页：学习笔记主页"><span class="nav-number">2.2.</span> <span class="nav-text">创建网页：学习笔记主页</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#映射URL"><span class="nav-number">2.2.1.</span> <span class="nav-text">映射URL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编写视图"><span class="nav-number">2.2.2.</span> <span class="nav-text">编写视图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编写模板"><span class="nav-number">2.2.3.</span> <span class="nav-text">编写模板</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">2.2.4.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建其他网页"><span class="nav-number">2.3.</span> <span class="nav-text">创建其他网页</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#模板继承"><span class="nav-number">2.3.1.</span> <span class="nav-text">模板继承</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#子模板"><span class="nav-number">2.3.2.</span> <span class="nav-text">子模板</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#显示所有主题的页面"><span class="nav-number">2.3.3.</span> <span class="nav-text">显示所有主题的页面</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#URL模式"><span class="nav-number">2.3.3.1.</span> <span class="nav-text">URL模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#视图函数"><span class="nav-number">2.3.3.2.</span> <span class="nav-text">视图函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#模板"><span class="nav-number">2.3.3.3.</span> <span class="nav-text">模板</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#将显示所有主题的页面中的每个主题都设置为链接"><span class="nav-number">2.3.3.4.</span> <span class="nav-text">将显示所有主题的页面中的每个主题都设置为链接</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#用户账户"><span class="nav-number">3.</span> <span class="nav-text">用户账户</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#让用户能够输入数据"><span class="nav-number">3.1.</span> <span class="nav-text">让用户能够输入数据</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#添加新主题"><span class="nav-number">3.1.1.</span> <span class="nav-text">添加新主题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#用户添加主题的表单"><span class="nav-number">3.1.1.1.</span> <span class="nav-text">用户添加主题的表单</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#URL定义"><span class="nav-number">3.1.1.2.</span> <span class="nav-text">URL定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#视图函数new-topic"><span class="nav-number">3.1.1.3.</span> <span class="nav-text">视图函数new_topic()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#补充信息：GET请求与POST"><span class="nav-number">3.1.1.4.</span> <span class="nav-text">补充信息：GET请求与POST</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#模板new-topic"><span class="nav-number">3.1.1.5.</span> <span class="nav-text">模板new_topic</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#链接到页面new-topic"><span class="nav-number">3.1.1.6.</span> <span class="nav-text">链接到页面new_topic</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#添加新条目"><span class="nav-number">3.1.2.</span> <span class="nav-text">添加新条目</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#环境准备"><span class="nav-number">1.</span> <span class="nav-text">环境准备</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#创建激活虚拟环境"><span class="nav-number">1.1.</span> <span class="nav-text">创建激活虚拟环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装django"><span class="nav-number">1.2.</span> <span class="nav-text">安装django</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#django项目"><span class="nav-number">2.</span> <span class="nav-text">django项目</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建项目："><span class="nav-number">2.0.1.</span> <span class="nav-text">创建项目：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建数据库"><span class="nav-number">2.0.2.</span> <span class="nav-text">创建数据库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#启动-停止项目"><span class="nav-number">2.0.3.</span> <span class="nav-text">启动/停止项目</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建应用程序"><span class="nav-number">2.1.</span> <span class="nav-text">创建应用程序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#定义模型"><span class="nav-number">2.1.1.</span> <span class="nav-text">定义模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#激活模型"><span class="nav-number">2.1.2.</span> <span class="nav-text">激活模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#django管理网站"><span class="nav-number">2.1.3.</span> <span class="nav-text">django管理网站</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#创建超级用户"><span class="nav-number">2.1.3.1.</span> <span class="nav-text">创建超级用户</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#向管理网站注册模型"><span class="nav-number">2.1.3.2.</span> <span class="nav-text">向管理网站注册模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#添加主题"><span class="nav-number">2.1.3.3.</span> <span class="nav-text">添加主题</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#定义模型Entry"><span class="nav-number">2.1.4.</span> <span class="nav-text">定义模型Entry</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#迁移模型Entry"><span class="nav-number">2.1.5.</span> <span class="nav-text">迁移模型Entry</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#向管理网站注册Entry"><span class="nav-number">2.1.6.</span> <span class="nav-text">向管理网站注册Entry</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#django-shell"><span class="nav-number">2.1.7.</span> <span class="nav-text">django shell</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#django-API"><span class="nav-number">2.1.8.</span> <span class="nav-text">django API</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建网页：学习笔记主页"><span class="nav-number">2.2.</span> <span class="nav-text">创建网页：学习笔记主页</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#映射URL"><span class="nav-number">2.2.1.</span> <span class="nav-text">映射URL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编写视图"><span class="nav-number">2.2.2.</span> <span class="nav-text">编写视图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编写模板"><span class="nav-number">2.2.3.</span> <span class="nav-text">编写模板</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">2.2.4.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建其他网页"><span class="nav-number">2.3.</span> <span class="nav-text">创建其他网页</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#模板继承"><span class="nav-number">2.3.1.</span> <span class="nav-text">模板继承</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#子模板"><span class="nav-number">2.3.2.</span> <span class="nav-text">子模板</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#显示所有主题的页面"><span class="nav-number">2.3.3.</span> <span class="nav-text">显示所有主题的页面</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#URL模式"><span class="nav-number">2.3.3.1.</span> <span class="nav-text">URL模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#视图函数"><span class="nav-number">2.3.3.2.</span> <span class="nav-text">视图函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#模板"><span class="nav-number">2.3.3.3.</span> <span class="nav-text">模板</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#sqlite3版本问题"><span class="nav-number">3.</span> <span class="nav-text">sqlite3版本问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#django监控所有接口问题"><span class="nav-number">4.</span> <span class="nav-text">django监控所有接口问题</span></a></li></ol></div>
             
 
           </div>
