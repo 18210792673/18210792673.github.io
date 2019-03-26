@@ -488,17 +488,17 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chown -R nfsnobody.nfsnobody /sharedir/</span><br></pre></td></tr></table></figure>
 <p>把NFS共享目录赋予 NFS默认用户nfsnobody用户和用户组权限，如不设置，会导致NFS客户端无法在挂载好的共享目录中写入数据</p>
 <h3 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h3><p>启动 rpc服务并设置成开机自启动：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/etc/init.d/rpcbind start</span><br><span class="line">chkconfig rpcbind on</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># /etc/init.d/rpcbind start</span><br><span class="line"># chkconfig rpcbind on</span><br></pre></td></tr></table></figure>
 <p>启动 nfs服务并设置成开机自启动：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/etc/init.d/nfs start</span><br><span class="line">chkconfig nfs on</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># /etc/init.d/nfs start</span><br><span class="line"># chkconfig nfs on</span><br></pre></td></tr></table></figure>
 <p>在centos 7下的操作：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">#  systemctl enable rpcbind</span><br><span class="line"># sudo systemctl enable nfs</span><br><span class="line"></span><br><span class="line"># sudo systemctl start rpcbind</span><br><span class="line"># sudo systemctl start nfs</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">如果开启了防火墙，还需要进行设置</span><br><span class="line"># firewall-cmd --zone=public --permanent --add-service=rpc-bind</span><br><span class="line">success</span><br><span class="line"># firewall-cmd --zone=public --permanent --add-service=mountd</span><br><span class="line">success</span><br><span class="line"># firewall-cmd --zone=public --permanent --add-service=nfs</span><br><span class="line">success</span><br><span class="line"># firewall-cmd --reload</span><br><span class="line">success</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"># systemctl enable rpcbind</span><br><span class="line"># systemctl enable nfs</span><br><span class="line"></span><br><span class="line"># systemctl start rpcbind</span><br><span class="line"># systemctl start nfs</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">如果开启了防火墙，还需要进行设置</span><br><span class="line"># firewall-cmd --zone=public --permanent --add-service=rpc-bind</span><br><span class="line">success</span><br><span class="line"># firewall-cmd --zone=public --permanent --add-service=mountd</span><br><span class="line">success</span><br><span class="line"># firewall-cmd --zone=public --permanent --add-service=nfs</span><br><span class="line">success</span><br><span class="line"># firewall-cmd --reload</span><br><span class="line">success</span><br></pre></td></tr></table></figure>
 <h2 id="客户端部署"><a href="#客户端部署" class="headerlink" title="客户端部署"></a>客户端部署</h2><h3 id="安装nfs-与-rpc-相关软件包-1"><a href="#安装nfs-与-rpc-相关软件包-1" class="headerlink" title="安装nfs 与 rpc 相关软件包"></a>安装nfs 与 rpc 相关软件包</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># yum -y install nfs-utils rpcbind</span><br></pre></td></tr></table></figure>
 <p>注意：在centos7下其实只需要安装nfs-utils即可，因为rpcbind 属于它的依赖，yum会自动安装上。</p>
 <h3 id="配置启动"><a href="#配置启动" class="headerlink" title="配置启动"></a>配置启动</h3><p>设置 rpcbind 服务的开机启动</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo systemctl enable rpcbind</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#  systemctl enable rpcbind</span><br></pre></td></tr></table></figure>
 <p>启动 NFS 服务</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo systemctl start rpcbind</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#  systemctl start rpcbind</span><br></pre></td></tr></table></figure>
 <p>注意：</p>
 <ul>
 <li>客户端不需要打开防火墙，因为客户端时发出请求方，网络能连接到服务端即可。 </li>
@@ -506,13 +506,13 @@
 </ul>
 <h2 id="客户端挂载服务端"><a href="#客户端挂载服务端" class="headerlink" title="客户端挂载服务端"></a>客户端挂载服务端</h2><p>客户端连接服务端其实就是正常的挂载操作，只不过对象从本地变成了远端</p>
 <p>先查服务端的共享目录</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ showmount -e 192.168.0.101</span><br><span class="line">Export list for 192.168.0.101:</span><br><span class="line">/data 192.168.0.0/24</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># showmount -e 192.168.0.101</span><br><span class="line">Export list for 192.168.0.101:</span><br><span class="line">/data 192.168.0.0/24</span><br></pre></td></tr></table></figure>
 <p>在客户端创建目录</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo mkdir /data</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># mkdir /data</span><br></pre></td></tr></table></figure>
 <p>挂载</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo mount -t nfs 192.168.0.101:/data /data</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># mount -t nfs 192.168.0.101:/data /data</span><br></pre></td></tr></table></figure>
 <p>当然，可以写到fstab中，设置为开机自启动。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ cat /etc/fstab</span><br><span class="line">在文件末尾添加一下内容</span><br><span class="line"></span><br><span class="line">192.168.0.101:/data /data nfs defaults 0 0</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># cat /etc/fstab</span><br><span class="line">在文件末尾添加一下内容</span><br><span class="line"></span><br><span class="line">192.168.0.101:/data /data nfs defaults 0 0</span><br></pre></td></tr></table></figure>
 <h2 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h2><ul>
 <li>showmount -e 服务器的IP地址        #查看服务端的的共享配置</li>
 <li><p>mount  -t nfs IP地址:/目录   /目录             # 挂载</p>
@@ -550,9 +550,6 @@
 </li>
 <li><p>启动服务</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># service autofs restart</span><br><span class="line"># chkconfig autofs on</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>测试</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@test02 ~]# ls /data/nfsdir2</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
 
