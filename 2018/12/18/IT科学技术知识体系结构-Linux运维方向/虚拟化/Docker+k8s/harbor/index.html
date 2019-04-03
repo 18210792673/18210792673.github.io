@@ -452,59 +452,7 @@
         <h1 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h1><ul>
 <li><a href="https://github.com/goharbor/harbor" target="_blank" rel="noopener">github主页</a></li>
 </ul>
-<h1 id="Harbor基础知识"><a href="#Harbor基础知识" class="headerlink" title="Harbor基础知识"></a>Harbor基础知识</h1><h2 id="Features-功能特性"><a href="#Features-功能特性" class="headerlink" title="Features-功能特性"></a>Features-功能特性</h2><ul>
-<li><p><strong>Role based access control</strong>: Users and repositories are organized via ‘projects’ and a user can have different permission for images under a project.</p>
-<blockquote>
-<p>用户和镜像仓库是通过项目关联起来的，不同用户在该项目下拥有不同的权限</p>
-</blockquote>
-</li>
-<li><p><strong>Policy based image replication</strong>: Images can be replicated (synchronized) between multiple registry instances, with auto-retry on errors. Great for load balancing, high availability, multi-datacenter, hybrid and multi-cloud scenarios.</p>
-<blockquote>
-<p>镜像将在多个注册实例中复制，实现高可用、负载均衡、多路选择等功能</p>
-</blockquote>
-</li>
-<li><p><strong>Vulnerability Scanning</strong>: Harbor scans images regularly and warns users of vulnerabilities.</p>
-<blockquote>
-<p>高危扫描：harbor将会在规律的扫描镜像并且提醒用户相关的危险</p>
-</blockquote>
-</li>
-<li><p><strong>LDAP/AD support</strong>: Harbor integrates with existing enterprise LDAP/AD for user authentication and management.</p>
-<blockquote>
-<p>harbor可以聚合企业现在的LDAP/AD等实现用户认证和管理</p>
-</blockquote>
-</li>
-<li><p><strong>Image deletion &amp; garbage collection</strong>: Images can be deleted and their space can be recycled.</p>
-<blockquote>
-<p>镜像删除和垃圾收集</p>
-</blockquote>
-</li>
-<li><p><strong>Notary</strong>: Image authenticity can be ensured.</p>
-<blockquote>
-<p>可以保证镜像的可靠性</p>
-</blockquote>
-</li>
-<li><p><strong>Graphical user portal</strong>: User can easily browse, search repositories and manage projects.</p>
-<blockquote>
-<p>图形化的用户入口：可以浏览，检索，管理项目</p>
-</blockquote>
-</li>
-<li><p><strong>Auditing</strong>: All the operations to the repositories are tracked.</p>
-<blockquote>
-<p>审计：所有的操作都可以被追踪</p>
-</blockquote>
-</li>
-<li><p><strong>RESTful API</strong>: RESTful APIs for most administrative operations, easy to integrate with external systems.</p>
-<blockquote>
-<p>提供api</p>
-</blockquote>
-</li>
-<li><p><strong>Easy deployment</strong>: Provide both an online and offline installer.</p>
-<blockquote>
-<p>部署简单，提供在线和离线两种安装方式</p>
-</blockquote>
-</li>
-</ul>
-<h2 id="Architecture-体系结构"><a href="#Architecture-体系结构" class="headerlink" title="Architecture-体系结构"></a>Architecture-体系结构</h2><p><img src="https://camo.githubusercontent.com/e0de62fb4f08efedd2c5abd44786410d3af06c7b/687474703a2f2f7777772e7468696e6b2d666f756e6472792e636f6d2f77702d636f6e74656e742f75706c6f6164732f323031362f30392f61727469636c65315f696d616765322e706e67" alt="img"></p>
+<h1 id="Harbor基础知识"><a href="#Harbor基础知识" class="headerlink" title="Harbor基础知识"></a>Harbor基础知识</h1><h2 id="Architecture-体系结构"><a href="#Architecture-体系结构" class="headerlink" title="Architecture-体系结构"></a>Architecture-体系结构</h2><p><img src="https://camo.githubusercontent.com/e0de62fb4f08efedd2c5abd44786410d3af06c7b/687474703a2f2f7777772e7468696e6b2d666f756e6472792e636f6d2f77702d636f6e74656e742f75706c6f6164732f323031362f30392f61727469636c65315f696d616765322e706e67" alt="img"></p>
 <p>As depicted in the above diagram, Harbor comprises 6 components:</p>
 <p><strong>Proxy:</strong> Components of Harbor, such as registry, UI and token services, are all behind a reversed proxy. The proxy forwards requests from browsers and Docker clients to various backend services.</p>
 <blockquote>
@@ -623,7 +571,7 @@
 <p>下面我们开始实际操作</p>
 <h2 id="下载安装"><a href="#下载安装" class="headerlink" title="下载安装"></a>下载安装</h2><h3 id="下载并解压"><a href="#下载并解压" class="headerlink" title="下载并解压"></a>下载并解压</h3><p><a href="https://github.com/goharbor/harbor/releases" target="_blank" rel="noopener">所有软件包的下载地址</a></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># tar -xvf harbor-online-installer-&lt;version&gt;.tgz</span><br></pre></td></tr></table></figure>
-<p>当前节点我使用的是harbor.v1.4.0.tar.gz</p>
+<p>当前时间节点我使用的是harbor.v1.4.0.tar.gz</p>
 <h3 id="安装docker-ce"><a href="#安装docker-ce" class="headerlink" title="安装docker-ce"></a>安装docker-ce</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># sudo yum install -y yum-utils   device-mapper-persistent-data   lvm2</span><br><span class="line"></span><br><span class="line"># sudo yum-config-manager     --add-repo     https://download.docker.com/linux/centos/docker-ce.repo</span><br><span class="line"></span><br><span class="line"># sudo yum install docker-ce</span><br></pre></td></tr></table></figure>
 <h3 id="启动docker"><a href="#启动docker" class="headerlink" title="启动docker"></a>启动docker</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># systemctl start  docker</span><br><span class="line"># systemctl enable  docker</span><br></pre></td></tr></table></figure>
 <h3 id="安装Docker-Compose"><a href="#安装Docker-Compose" class="headerlink" title="安装Docker Compose"></a>安装Docker Compose</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># sudo curl -L &quot;https://github.com/docker/compose/releases/download/1.22.0/docker-compose-$(uname -s)-$(uname -m)&quot; -o /usr/local/bin/docker-compose</span><br><span class="line"></span><br><span class="line"># sudo chmod +x /usr/local/bin/docker-compose</span><br><span class="line"></span><br><span class="line"># docker-compose --version</span><br></pre></td></tr></table></figure>
@@ -802,6 +750,70 @@
 <p>也就是说，要不要每个harbor都使用同一个db</p>
 <p>LB的检测机制，能否有比端口更好的方式</p>
 <p>然后异地多活的每一个harbor集群通过分布式的方式组合起来，使用consul来记录信息</p>
+<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><h3 id="共享存储部署"><a href="#共享存储部署" class="headerlink" title="共享存储部署"></a>共享存储部署</h3><p>在开发环境使用nfs进行测试，在阿里云环境使用nas存储，在IDC机房使用分布式存储。</p>
+<p>存储的部署实施略，下面说一下在harbor中的配置</p>
+<h3 id="db数据库创建"><a href="#db数据库创建" class="headerlink" title="db数据库创建"></a>db数据库创建</h3><p>在harbor高版本后，只支持pg，相关的部署这里就不记录了，可以看我的postgresql相关文章</p>
+<p>创建数据库名称为：registry</p>
+<p>数据库配置</p>
+<h3 id="Redis创建"><a href="#Redis创建" class="headerlink" title="Redis创建"></a>Redis创建</h3><h3 id="templates文件配置"><a href="#templates文件配置" class="headerlink" title="templates文件配置"></a>templates文件配置</h3><p>external mysql的配置在common/templates/adminserver/env中，数据库配置修改为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">DATABASE_TYPE=mysql</span><br><span class="line">MYSQL_HOST=$db_host</span><br><span class="line">MYSQL_PORT=$db_port</span><br><span class="line">MYSQL_USR=$db_user</span><br><span class="line">MYSQL_PWD=$db_password</span><br><span class="line">MYSQL_DATABASE=rds_unit_harbor</span><br></pre></td></tr></table></figure>
+<p>因为使用了外部的数据库，因为dbname不是默认的，其他的使用harbor.cfg中的变量传入即可。</p>
+<p>还有一个关键配置，那就是将RESET由false改为true。<a href="http://tonybai.com/2017/06/09/setup-a-high-availability-private-registry-based-on-harbor-and-cephfs/" target="_blank" rel="noopener">只有改为true，adminserver启动时，才能读取更新后的配置</a>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">RESET=true</span><br></pre></td></tr></table></figure>
+<p>Redis的连接配置在common/templates/ui/env中(在1.7版本中为core)，我们需要新增一行：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">_REDIS_URL=redis_ip:6379,100,password,0</span><br></pre></td></tr></table></figure>
+<h3 id="docker-compose-yml文件配置"><a href="#docker-compose-yml文件配置" class="headerlink" title="docker-compose.yml文件配置"></a>docker-compose.yml文件配置</h3><p>docker-compose.yml是docker-compose工具标准配置文件，用于配置docker-compose即将启动的容器服务。针对该配置文件，我们主要做三点修改：</p>
+<ol>
+<li><p>修改volumes路径，将存储修改为我们事先创建的共享存储<br>由/data/xxx 改为：/data/harbor_storage/</p>
+<p>具体配置为：</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">/data/registry:/storage:z</span><br><span class="line">修改为：</span><br><span class="line">/data/harbor_storage:/storage:z</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>由于使用外部数据库，因此需要删除数据库 service以及其他 service对数据库 service的依赖 (depends_on)</p>
+</li>
+</ol>
+<ol>
+<li>修改对proxy外服务端口 ports: 8070:80</li>
+</ol>
+<h3 id="harbor-cfg文件配置"><a href="#harbor-cfg文件配置" class="headerlink" title="harbor.cfg文件配置"></a>harbor.cfg文件配置</h3><p>在该文件中，</p>
+<p>修改一下内容：</p>
+<ul>
+<li>hostname的域名配置，因为https在前端使用nginx去实现。因此也不需要证书相关文件和配置</li>
+<li>数据库连接配置</li>
+<li>redis连接配置</li>
+</ul>
+<p>修改的内容如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"># vim harbor.cfg</span><br><span class="line"></span><br><span class="line">hostname = dhub-test.dwbops.com</span><br><span class="line"></span><br><span class="line">db_host = rm-bp188fb70hknd9gi2o.mysql.rds.aliyuncs.com</span><br><span class="line">db_password = Devuser123</span><br><span class="line">db_port = 3306</span><br><span class="line">db_user = devuser</span><br><span class="line"></span><br><span class="line">redis_host = 192.168.1.196</span><br><span class="line">redis_port = 6379</span><br><span class="line">redis_password = H5DUg@_redis</span><br></pre></td></tr></table></figure>
+<p>注意，所有实例节点的配置都需要保持一致</p>
+<h2 id="login失败问题"><a href="#login失败问题" class="headerlink" title="login失败问题"></a>login失败问题</h2><p>在多实例节点时，在登录是可能会出现登录不上的情况</p>
+<p>node1:</p>
+<p>node1节点上调用了token服务</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Mar 28 11:31:27 172.18.0.1 proxy[1116]: 192.168.1.155 - &quot;GET /service/token?account=admin&amp;client_id=docker&amp;offline_token=true&amp;service=harbor-registry HTTP/1.1&quot; 200 893 &quot;-&quot; &quot;docker/18.06.1-ce go/go1.10.3 git-commit/e68fc7a kernel/4.15.0-46-generic os/linux arch/amd64 UpstreamClient(Docker-Client/18.06.1-ce \x5C(linux\x5C))&quot; 0.029 0.029 .</span><br></pre></td></tr></table></figure>
+<p>node2:</p>
+<p>但是在node2节点上</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Mar 28 11:23:33 172.19.0.1 proxy[1335]: 192.168.1.155 - &quot;GET /v2/ HTTP/1.1&quot; 401 87 &quot;-&quot; &quot;docker/18.06.1-ce go/go1.10.3 git-commit/e68fc7a kernel/4.15.0-46-generic os/linux arch/amd64 UpstreamClient(Docker-Client/18.06.1-ce \x5C(linux\x5C))&quot; 0.007 0.007 .</span><br><span class="line">Mar 28 11:23:33 172.19.0.1 proxy[1335]: 192.168.1.155 - &quot;GET /v2/ HTTP/1.1&quot; 401 87 &quot;-&quot; &quot;docker/18.06.1-ce go/go1.10.3 git-commit/e68fc7a kernel/4.15.0-46-generic os/linux arch/amd64 UpstreamClient(Docker-Client/18.06.1-ce \x5C(linux\x5C))&quot; 0.004 0.004 .</span><br></pre></td></tr></table></figure>
+<p>要知道这个问题的原因，还要回溯到harbor的实现过程</p>
+<p>wiki上对docker login流程给了简明扼要的解释。大致的流程是:</p>
+<ul>
+<li>docker向registry发起请求，由于registry是基于token auth的，因此registry回复应答，告诉docker client去哪个URL去获取token；</li>
+<li>docker client根据应答中的URL向token service(ui)发起请求，通过user和passwd获取token；如果user和passwd在db中通过了验证，那么token service将用自己的私钥(harbor/common/config/ui/private_key.pem)生成一个token，返回给docker client端；</li>
+<li>docker client获得token后再向registry发起login请求，registry用自己的证书(harbor/common/config/registry/root.crt)对token进行校验。通过则返回成功，否则返回失败。</li>
+</ul>
+<p>从这个原理，我们可以知道问题就出在docker client多次向Harbor发起请求这个环节：对于每次请求，nginx可能会转发给不同的节点处理，因此不同请求可能落到不同的node上。这样当docker client拿着node1上token service分配的token去到node2的registry上鉴权时，就会出现鉴权失败的情况。</p>
+<p>因此，解决这个问题的方法是：<strong>统一私钥和证书</strong></p>
+<p>token service的私钥(harbor/common/config/ui/private_key.pem)和registry的证书(harbor/common/config/registry/root.crt)都是在prepare时生成的，两个节点都独立prepare过，因此两个node上的private_key.pem和root.crt是不同的，这就是问题根源。</p>
+<p>解决这个问题很简单，就是统一私钥和证书。比如：将node1上的private_key.pem和root.crt复制到node2上，并重新创建node2上的container：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">// node2上</span><br><span class="line"></span><br><span class="line">将node1上的harbor/common/config/ui/private_key.pem复制到node2上的harbor/common/config/ui/private_key.pem；</span><br><span class="line">将node1上的harbor/common/config/registry/root.crt复制到harbor/common/config/registry/root.crt；</span><br><span class="line"></span><br><span class="line">$ docker-compose down -v</span><br><span class="line">$ docker-compose up -d</span><br></pre></td></tr></table></figure>
+<p>更换了private_key.pem和root.crt的node2上的Harbor启动后，再进行login测试，就会100%成功了！</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># docker login -u admin -p passwd http://hub.my-domain.com:36666</span><br><span class="line">Login Succeeded</span><br></pre></td></tr></table></figure>
+<p>注意：</p>
+<ul>
+<li>不是修改模板中的文件</li>
+<li>修改之后不能再次执行prepare，否则会刷掉原来的文件重新生成</li>
+<li>使用tar包的形式进行传输解压，保留文件权限</li>
+</ul>
+<h2 id="login成功，但是push失败问题"><a href="#login成功，但是push失败问题" class="headerlink" title="login成功，但是push失败问题"></a>login成功，但是push失败问题</h2><p>在harbor的template的nginx配置文件中，把以下内容进行注释</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@node009-dev nginx]# cat nginx.http.conf</span><br><span class="line">#proxy_set_header X-Forwarded-Proto $$scheme;</span><br></pre></td></tr></table></figure>
+<h2 id="在线gc失败问题"><a href="#在线gc失败问题" class="headerlink" title="在线gc失败问题"></a>在线gc失败问题</h2><p>在harbor1.7中，register进行了拆分，我们的存储配置需要在registry和registryctl中都进行配置</p>
 
       
     </div>
@@ -985,7 +997,7 @@ var jiathis_config={
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">67</span>
+                  <span class="site-state-item-count">69</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -996,7 +1008,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">68</span>
+                  <span class="site-state-item-count">70</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -1007,7 +1019,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">62</span>
+                  <span class="site-state-item-count">64</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -1047,7 +1059,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文献"><span class="nav-number">1.</span> <span class="nav-text">参考文献</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Harbor基础知识"><span class="nav-number">2.</span> <span class="nav-text">Harbor基础知识</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Features-功能特性"><span class="nav-number">2.1.</span> <span class="nav-text">Features-功能特性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Architecture-体系结构"><span class="nav-number">2.2.</span> <span class="nav-text">Architecture-体系结构</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装部署"><span class="nav-number">3.</span> <span class="nav-text">安装部署</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#参考文献-1"><span class="nav-number">3.1.</span> <span class="nav-text">参考文献</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#环境要求"><span class="nav-number">3.2.</span> <span class="nav-text">环境要求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#下载安装"><span class="nav-number">3.3.</span> <span class="nav-text">下载安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#下载并解压"><span class="nav-number">3.3.1.</span> <span class="nav-text">下载并解压</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装docker-ce"><span class="nav-number">3.3.2.</span> <span class="nav-text">安装docker-ce</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#启动docker"><span class="nav-number">3.3.3.</span> <span class="nav-text">启动docker</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装Docker-Compose"><span class="nav-number">3.3.4.</span> <span class="nav-text">安装Docker Compose</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置"><span class="nav-number">3.4.</span> <span class="nav-text">配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#配置概述"><span class="nav-number">3.4.1.</span> <span class="nav-text">配置概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置文件参数详解"><span class="nav-number">3.4.2.</span> <span class="nav-text">配置文件参数详解</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Required-parameters-必需参数"><span class="nav-number">3.4.2.1.</span> <span class="nav-text">Required parameters-必需参数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#optional-parameters-动态可选参数"><span class="nav-number">3.4.2.2.</span> <span class="nav-text">optional parameters-动态可选参数</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#harbor启动"><span class="nav-number">3.5.</span> <span class="nav-text">harbor启动</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#镜像操作"><span class="nav-number">4.</span> <span class="nav-text">镜像操作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#上传镜像"><span class="nav-number">4.1.</span> <span class="nav-text">上传镜像</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#harbor镜像删除"><span class="nav-number">4.2.</span> <span class="nav-text">harbor镜像删除</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#镜像清理策略"><span class="nav-number">4.3.</span> <span class="nav-text">镜像清理策略</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Harborclient-harbor客户端命令"><span class="nav-number">5.</span> <span class="nav-text">Harborclient-harbor客户端命令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#参考文献："><span class="nav-number">5.1.</span> <span class="nav-text">参考文献：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实际案例"><span class="nav-number">5.2.</span> <span class="nav-text">实际案例</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实战案例"><span class="nav-number">6.</span> <span class="nav-text">实战案例</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#harbor镜像复制"><span class="nav-number">6.1.</span> <span class="nav-text">harbor镜像复制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#参考文献-2"><span class="nav-number">6.1.1.</span> <span class="nav-text">参考文献</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#镜像复制概述"><span class="nav-number">6.1.2.</span> <span class="nav-text">镜像复制概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建复制规则"><span class="nav-number">6.1.3.</span> <span class="nav-text">创建复制规则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除replication规则"><span class="nav-number">6.1.4.</span> <span class="nav-text">删除replication规则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#注意事项"><span class="nav-number">6.1.5.</span> <span class="nav-text">注意事项</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#harbor迁移"><span class="nav-number">6.2.</span> <span class="nav-text">harbor迁移</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#节点完全迁移"><span class="nav-number">6.2.1.</span> <span class="nav-text">节点完全迁移</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#存储迁移"><span class="nav-number">6.2.2.</span> <span class="nav-text">存储迁移</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#常见问题"><span class="nav-number">7.</span> <span class="nav-text">常见问题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#证书问题"><span class="nav-number">7.1.</span> <span class="nav-text">证书问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文件创建为目录问题"><span class="nav-number">7.2.</span> <span class="nav-text">文件创建为目录问题</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#harbor升级-支持在线gc"><span class="nav-number">8.</span> <span class="nav-text">harbor升级-支持在线gc</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#harbor高可用"><span class="nav-number">9.</span> <span class="nav-text">harbor高可用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#架构规划"><span class="nav-number">9.1.</span> <span class="nav-text">架构规划</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文献"><span class="nav-number">1.</span> <span class="nav-text">参考文献</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Harbor基础知识"><span class="nav-number">2.</span> <span class="nav-text">Harbor基础知识</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Architecture-体系结构"><span class="nav-number">2.1.</span> <span class="nav-text">Architecture-体系结构</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装部署"><span class="nav-number">3.</span> <span class="nav-text">安装部署</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#参考文献-1"><span class="nav-number">3.1.</span> <span class="nav-text">参考文献</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#环境要求"><span class="nav-number">3.2.</span> <span class="nav-text">环境要求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#下载安装"><span class="nav-number">3.3.</span> <span class="nav-text">下载安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#下载并解压"><span class="nav-number">3.3.1.</span> <span class="nav-text">下载并解压</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装docker-ce"><span class="nav-number">3.3.2.</span> <span class="nav-text">安装docker-ce</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#启动docker"><span class="nav-number">3.3.3.</span> <span class="nav-text">启动docker</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装Docker-Compose"><span class="nav-number">3.3.4.</span> <span class="nav-text">安装Docker Compose</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置"><span class="nav-number">3.4.</span> <span class="nav-text">配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#配置概述"><span class="nav-number">3.4.1.</span> <span class="nav-text">配置概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置文件参数详解"><span class="nav-number">3.4.2.</span> <span class="nav-text">配置文件参数详解</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Required-parameters-必需参数"><span class="nav-number">3.4.2.1.</span> <span class="nav-text">Required parameters-必需参数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#optional-parameters-动态可选参数"><span class="nav-number">3.4.2.2.</span> <span class="nav-text">optional parameters-动态可选参数</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#harbor启动"><span class="nav-number">3.5.</span> <span class="nav-text">harbor启动</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#镜像操作"><span class="nav-number">4.</span> <span class="nav-text">镜像操作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#上传镜像"><span class="nav-number">4.1.</span> <span class="nav-text">上传镜像</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#harbor镜像删除"><span class="nav-number">4.2.</span> <span class="nav-text">harbor镜像删除</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#镜像清理策略"><span class="nav-number">4.3.</span> <span class="nav-text">镜像清理策略</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Harborclient-harbor客户端命令"><span class="nav-number">5.</span> <span class="nav-text">Harborclient-harbor客户端命令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#参考文献："><span class="nav-number">5.1.</span> <span class="nav-text">参考文献：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实际案例"><span class="nav-number">5.2.</span> <span class="nav-text">实际案例</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实战案例"><span class="nav-number">6.</span> <span class="nav-text">实战案例</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#harbor镜像复制"><span class="nav-number">6.1.</span> <span class="nav-text">harbor镜像复制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#参考文献-2"><span class="nav-number">6.1.1.</span> <span class="nav-text">参考文献</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#镜像复制概述"><span class="nav-number">6.1.2.</span> <span class="nav-text">镜像复制概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建复制规则"><span class="nav-number">6.1.3.</span> <span class="nav-text">创建复制规则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除replication规则"><span class="nav-number">6.1.4.</span> <span class="nav-text">删除replication规则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#注意事项"><span class="nav-number">6.1.5.</span> <span class="nav-text">注意事项</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#harbor迁移"><span class="nav-number">6.2.</span> <span class="nav-text">harbor迁移</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#节点完全迁移"><span class="nav-number">6.2.1.</span> <span class="nav-text">节点完全迁移</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#存储迁移"><span class="nav-number">6.2.2.</span> <span class="nav-text">存储迁移</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#常见问题"><span class="nav-number">7.</span> <span class="nav-text">常见问题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#证书问题"><span class="nav-number">7.1.</span> <span class="nav-text">证书问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文件创建为目录问题"><span class="nav-number">7.2.</span> <span class="nav-text">文件创建为目录问题</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#harbor升级-支持在线gc"><span class="nav-number">8.</span> <span class="nav-text">harbor升级-支持在线gc</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#harbor高可用"><span class="nav-number">9.</span> <span class="nav-text">harbor高可用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#架构规划"><span class="nav-number">9.1.</span> <span class="nav-text">架构规划</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现"><span class="nav-number">9.2.</span> <span class="nav-text">实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#共享存储部署"><span class="nav-number">9.2.1.</span> <span class="nav-text">共享存储部署</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#db数据库创建"><span class="nav-number">9.2.2.</span> <span class="nav-text">db数据库创建</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Redis创建"><span class="nav-number">9.2.3.</span> <span class="nav-text">Redis创建</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#templates文件配置"><span class="nav-number">9.2.4.</span> <span class="nav-text">templates文件配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#docker-compose-yml文件配置"><span class="nav-number">9.2.5.</span> <span class="nav-text">docker-compose.yml文件配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#harbor-cfg文件配置"><span class="nav-number">9.2.6.</span> <span class="nav-text">harbor.cfg文件配置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#login失败问题"><span class="nav-number">9.3.</span> <span class="nav-text">login失败问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#login成功，但是push失败问题"><span class="nav-number">9.4.</span> <span class="nav-text">login成功，但是push失败问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在线gc失败问题"><span class="nav-number">9.5.</span> <span class="nav-text">在线gc失败问题</span></a></li></ol></li></ol></div>
             
 
           </div>

@@ -513,12 +513,19 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># mount -t nfs 192.168.0.101:/data /data</span><br></pre></td></tr></table></figure>
 <p>当然，可以写到fstab中，设置为开机自启动。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># cat /etc/fstab</span><br><span class="line">在文件末尾添加一下内容</span><br><span class="line"></span><br><span class="line">192.168.0.101:/data /data nfs defaults 0 0</span><br></pre></td></tr></table></figure>
-<h2 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h2><ul>
-<li>showmount -e 服务器的IP地址        #查看服务端的的共享配置</li>
+<h1 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h1><ul>
+<li><p>showmount -e 服务器的IP地址        #查看服务端的的共享配置</p>
+</li>
 <li><p>mount  -t nfs IP地址:/目录   /目录             # 挂载</p>
 <p>例如：mount 192.168.4.5:/common  /common</p>
 </li>
-<li><p>exportfs -rv</p>
+<li><p>exportfs</p>
+<ul>
+<li>-a：表示全部挂载或者全部卸载</li>
+<li>-r：表示重新挂载</li>
+<li>-u：表示卸载某一个目录</li>
+<li>-v：表示显示共享目录</li>
+</ul>
 </li>
 </ul>
 <h1 id="其他配置案例"><a href="#其他配置案例" class="headerlink" title="其他配置案例"></a>其他配置案例</h1><h2 id="案例1"><a href="#案例1" class="headerlink" title="案例1"></a>案例1</h2><p>共享/common目录，192.168.0.0网络的主机均可以只读访问</p>
@@ -620,6 +627,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/03/27/IT科学技术知识体系结构-Linux运维方向/数据库/PostgreSQL/PostgreSQL安装部署及使用/" rel="prev" title="PostgreSQL安装部署及使用">
+                PostgreSQL安装部署及使用 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -731,7 +742,7 @@ var jiathis_config={
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">67</span>
+                  <span class="site-state-item-count">69</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -742,7 +753,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">68</span>
+                  <span class="site-state-item-count">70</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -753,7 +764,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">62</span>
+                  <span class="site-state-item-count">64</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -793,7 +804,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#基础知识"><span class="nav-number">1.</span> <span class="nav-text">基础知识</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#系统架构"><span class="nav-number">1.1.</span> <span class="nav-text">系统架构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RPC"><span class="nav-number">1.2.</span> <span class="nav-text">RPC</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#流程"><span class="nav-number">1.3.</span> <span class="nav-text">流程</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#部署"><span class="nav-number">2.</span> <span class="nav-text">部署</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#服务端部署"><span class="nav-number">2.1.</span> <span class="nav-text">服务端部署</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装nfs-与-rpc-相关软件包"><span class="nav-number">2.1.1.</span> <span class="nav-text">安装nfs 与 rpc 相关软件包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置"><span class="nav-number">2.1.2.</span> <span class="nav-text">配置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#配置说明"><span class="nav-number">2.1.2.1.</span> <span class="nav-text">配置说明</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#配置案例"><span class="nav-number">2.1.2.2.</span> <span class="nav-text">配置案例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#启动"><span class="nav-number">2.1.3.</span> <span class="nav-text">启动</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#客户端部署"><span class="nav-number">2.2.</span> <span class="nav-text">客户端部署</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装nfs-与-rpc-相关软件包-1"><span class="nav-number">2.2.1.</span> <span class="nav-text">安装nfs 与 rpc 相关软件包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置启动"><span class="nav-number">2.2.2.</span> <span class="nav-text">配置启动</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#客户端挂载服务端"><span class="nav-number">2.3.</span> <span class="nav-text">客户端挂载服务端</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常用命令"><span class="nav-number">2.4.</span> <span class="nav-text">常用命令</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#其他配置案例"><span class="nav-number">3.</span> <span class="nav-text">其他配置案例</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#案例1"><span class="nav-number">3.1.</span> <span class="nav-text">案例1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#案例2"><span class="nav-number">3.2.</span> <span class="nav-text">案例2</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#案例3"><span class="nav-number">3.3.</span> <span class="nav-text">案例3</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#案例4-root权限管理"><span class="nav-number">3.4.</span> <span class="nav-text">案例4-root权限管理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#案例5-触发挂载"><span class="nav-number">3.5.</span> <span class="nav-text">案例5-触发挂载</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#基础知识"><span class="nav-number">1.</span> <span class="nav-text">基础知识</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#系统架构"><span class="nav-number">1.1.</span> <span class="nav-text">系统架构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RPC"><span class="nav-number">1.2.</span> <span class="nav-text">RPC</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#流程"><span class="nav-number">1.3.</span> <span class="nav-text">流程</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#部署"><span class="nav-number">2.</span> <span class="nav-text">部署</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#服务端部署"><span class="nav-number">2.1.</span> <span class="nav-text">服务端部署</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装nfs-与-rpc-相关软件包"><span class="nav-number">2.1.1.</span> <span class="nav-text">安装nfs 与 rpc 相关软件包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置"><span class="nav-number">2.1.2.</span> <span class="nav-text">配置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#配置说明"><span class="nav-number">2.1.2.1.</span> <span class="nav-text">配置说明</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#配置案例"><span class="nav-number">2.1.2.2.</span> <span class="nav-text">配置案例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#启动"><span class="nav-number">2.1.3.</span> <span class="nav-text">启动</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#客户端部署"><span class="nav-number">2.2.</span> <span class="nav-text">客户端部署</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装nfs-与-rpc-相关软件包-1"><span class="nav-number">2.2.1.</span> <span class="nav-text">安装nfs 与 rpc 相关软件包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置启动"><span class="nav-number">2.2.2.</span> <span class="nav-text">配置启动</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#客户端挂载服务端"><span class="nav-number">2.3.</span> <span class="nav-text">客户端挂载服务端</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#常用命令"><span class="nav-number">3.</span> <span class="nav-text">常用命令</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#其他配置案例"><span class="nav-number">4.</span> <span class="nav-text">其他配置案例</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#案例1"><span class="nav-number">4.1.</span> <span class="nav-text">案例1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#案例2"><span class="nav-number">4.2.</span> <span class="nav-text">案例2</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#案例3"><span class="nav-number">4.3.</span> <span class="nav-text">案例3</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#案例4-root权限管理"><span class="nav-number">4.4.</span> <span class="nav-text">案例4-root权限管理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#案例5-触发挂载"><span class="nav-number">4.5.</span> <span class="nav-text">案例5-触发挂载</span></a></li></ol></li></ol></div>
             
 
           </div>
