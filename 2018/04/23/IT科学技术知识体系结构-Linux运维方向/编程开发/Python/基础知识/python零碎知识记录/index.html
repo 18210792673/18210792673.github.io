@@ -547,6 +547,15 @@
 <p>比如在进行模板配置文件的修改，修改指定行的内容等等。</p>
 <p>目前碰到的实际案例有Redis的模板配置文件的修改，bind的zone数据文件中的serial等的修改</p>
 <h1 id="时间戳转换"><a href="#时间戳转换" class="headerlink" title="时间戳转换"></a>时间戳转换</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">now_time = time.strftime(&quot;%H:%M:%S&quot;)</span><br><span class="line">today = datetime.date.today()</span><br><span class="line">past_date = today - datetime.timedelta(days=days)</span><br><span class="line">today_time = str(today) + &quot; &quot; + now_time</span><br><span class="line">past_day_time = str(past_date) + &quot; &quot; + now_time</span><br><span class="line"># 将时间转换成为时间戳</span><br><span class="line">start_time = int(time.mktime(time.strptime(today_time, &quot;%Y-%m-%d %H:%M:%S&quot;)))</span><br><span class="line">end_time = int(time.mktime(time.strptime(past_day_time, &quot;%Y-%m-%d %H:%M:%S&quot;)))</span><br></pre></td></tr></table></figure>
+<h1 id="Python-requests-post方法中data与json参数区别"><a href="#Python-requests-post方法中data与json参数区别" class="headerlink" title="Python requests.post方法中data与json参数区别"></a>Python requests.post方法中data与json参数区别</h1><p>在通过requests.post()进行POST请求时，传入报文的参数有两个，一个是data，一个是json。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">data与json既可以是str类型，也可以是dict类型。</span><br></pre></td></tr></table></figure>
+<p>区别：</p>
+<p>1、不管<code>json</code>是<code>str</code>还是<code>dict</code>，如果不指定<code>headers</code>中的<code>content-type</code>，默认为<code>application/json</code></p>
+<p>2、<code>data</code>为<code>dict</code>时，如果不指定<code>content-type</code>，默认为<code>application/x-www-form-urlencoded</code>，相当于普通form表单提交的形式</p>
+<p>3、<code>data</code>为<code>str</code>时，如果不指定<code>content-type</code>，默认为<code>application/json</code></p>
+<p>4、用data参数提交数据时，<code>request.body</code>的内容则为<code>a=1&amp;b=2</code>的这种形式，用json参数提交数据时，<code>request.body</code>的内容则为’{“<code>a&quot;: 1, &quot;b&quot;: 2}&#39;</code>的这种形式</p>
+<h1 id="python-添加项目目录"><a href="#python-添加项目目录" class="headerlink" title="python 添加项目目录"></a>python 添加项目目录</h1><p>代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">import os</span><br><span class="line">import sys</span><br><span class="line">current_dir = os.path.abspath(os.path.dirname(__file__))</span><br><span class="line">parent_dir = os.path.dirname(current_dir)</span><br><span class="line">sys.path.append(parent_dir)</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -730,7 +739,7 @@ var jiathis_config={
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">69</span>
+                  <span class="site-state-item-count">72</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -741,7 +750,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">70</span>
+                  <span class="site-state-item-count">72</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -752,7 +761,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">64</span>
+                  <span class="site-state-item-count">66</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -792,7 +801,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#删除字符串中指定符号"><span class="nav-number">1.</span> <span class="nav-text">删除字符串中指定符号</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#查看python执行过程-类似sh-x"><span class="nav-number">2.</span> <span class="nav-text">查看python执行过程-类似sh -x</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#版本变化"><span class="nav-number">3.</span> <span class="nav-text">版本变化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#应该修改为："><span class="nav-number">3.1.</span> <span class="nav-text">应该修改为：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#pycharm使用"><span class="nav-number">4.</span> <span class="nav-text">pycharm使用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#解决pycharm问题：module-‘pip’-has-no-attribute-‘main’"><span class="nav-number">4.1.</span> <span class="nav-text">解决pycharm问题：module ‘pip’ has no attribute ‘main’</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建directory和python-package的区别"><span class="nav-number">4.2.</span> <span class="nav-text">创建directory和python package的区别</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#python的dict和json的区别"><span class="nav-number">5.</span> <span class="nav-text">python的dict和json的区别</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#区别"><span class="nav-number">5.0.1.</span> <span class="nav-text">区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#联系"><span class="nav-number">5.0.2.</span> <span class="nav-text">联系</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Python-2-7-12-源码安装pip"><span class="nav-number">6.</span> <span class="nav-text">Python 2.7.12 源码安装pip</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#if-name-‘main‘-如何正确理解"><span class="nav-number">7.</span> <span class="nav-text">if __name__ == ‘main‘ 如何正确理解?</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#获取当前py文件目录"><span class="nav-number">8.</span> <span class="nav-text">获取当前py文件目录</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#byte类型和str类型之间的转换"><span class="nav-number">9.</span> <span class="nav-text">byte类型和str类型之间的转换</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#python实现sed功能"><span class="nav-number">10.</span> <span class="nav-text">python实现sed功能</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#时间戳转换"><span class="nav-number">11.</span> <span class="nav-text">时间戳转换</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#删除字符串中指定符号"><span class="nav-number">1.</span> <span class="nav-text">删除字符串中指定符号</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#查看python执行过程-类似sh-x"><span class="nav-number">2.</span> <span class="nav-text">查看python执行过程-类似sh -x</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#版本变化"><span class="nav-number">3.</span> <span class="nav-text">版本变化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#应该修改为："><span class="nav-number">3.1.</span> <span class="nav-text">应该修改为：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#pycharm使用"><span class="nav-number">4.</span> <span class="nav-text">pycharm使用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#解决pycharm问题：module-‘pip’-has-no-attribute-‘main’"><span class="nav-number">4.1.</span> <span class="nav-text">解决pycharm问题：module ‘pip’ has no attribute ‘main’</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建directory和python-package的区别"><span class="nav-number">4.2.</span> <span class="nav-text">创建directory和python package的区别</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#python的dict和json的区别"><span class="nav-number">5.</span> <span class="nav-text">python的dict和json的区别</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#区别"><span class="nav-number">5.0.1.</span> <span class="nav-text">区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#联系"><span class="nav-number">5.0.2.</span> <span class="nav-text">联系</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Python-2-7-12-源码安装pip"><span class="nav-number">6.</span> <span class="nav-text">Python 2.7.12 源码安装pip</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#if-name-‘main‘-如何正确理解"><span class="nav-number">7.</span> <span class="nav-text">if __name__ == ‘main‘ 如何正确理解?</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#获取当前py文件目录"><span class="nav-number">8.</span> <span class="nav-text">获取当前py文件目录</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#byte类型和str类型之间的转换"><span class="nav-number">9.</span> <span class="nav-text">byte类型和str类型之间的转换</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#python实现sed功能"><span class="nav-number">10.</span> <span class="nav-text">python实现sed功能</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#时间戳转换"><span class="nav-number">11.</span> <span class="nav-text">时间戳转换</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Python-requests-post方法中data与json参数区别"><span class="nav-number">12.</span> <span class="nav-text">Python requests.post方法中data与json参数区别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#python-添加项目目录"><span class="nav-number">13.</span> <span class="nav-text">python 添加项目目录</span></a></li></ol></div>
             
 
           </div>

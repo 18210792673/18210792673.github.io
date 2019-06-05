@@ -596,6 +596,7 @@
 </tbody>
 </table>
 <p>其中<code>logging.basicConfig(**kwargs)</code>函数用于指定“要记录的日志级别”、“日志格式”、“日志输出位置”、“日志文件的打开模式”等信息，其他几个都是用于记录各个级别日志的函数。</p>
+<p>使用这个模块提供的这些函数，不需要进行额外的相关配置（其中涉及到配置的，其实也就是一个logging.basicConfig(**kwargs)  方法）就可以使用日志功能，其实就是相当于在linux中的立即生效以及永久生效。这些函数其实底层也是调用的四大组件去实现功能，只不过使用了一些默认值。</p>
 <p><strong>logging模块日志系统的四大组件</strong></p>
 <table>
 <thead>
@@ -607,7 +608,7 @@
 <tbody>
 <tr>
 <td>loggers</td>
-<td>提供应用程序代码直接使用的接口</td>
+<td>提供应用程序代码直接使用的接口，可以理解为入口，最外层的代理层</td>
 </tr>
 <tr>
 <td>handlers</td>
@@ -837,11 +838,12 @@
 <ul>
 <li>日志器/记录器（logger）需要通过处理器（handler）将日志信息输出到目标位置，如：文件、sys.stdout、网络等；</li>
 <li>不同的处理器（handler）可以将日志输出到不同的位置；</li>
-<li>日志器（logger）可以设置多个处理器（handler）将同一条日志记录输出到不同的位置；</li>
+<li>日志器（logger）可以设置多个处理器（handler）将同一条日志记录输出到不同的位置；这里的意思也就是说，当日志器接收到一个请求之后，会把这个日志信息发送给所有的处理器，至于具体的输出情况则是由处理器去控制</li>
 <li>每个处理器（handler）都可以设置自己的过滤器（filter）实现日志过滤，从而只保留感兴趣的日志；</li>
 <li>每个处理器（handler）都可以设置自己的格式器（formatter）实现同一条日志以不同的格式输出到不同的地方。</li>
 </ul>
 <p>简单点说就是：<strong>日志器（logger）是入口</strong>，真正干活儿的是处理器（handler），处理器（handler）还可以通过过滤器（filter）和格式器（formatter）对要输出的日志内容做过滤和格式化等处理操作。</p>
+<p>总结：日志器logger是一个入口，它本身不处理任何的请求，只是将接受到的请求转发给后端的所有处理器，可以类比为4层转发的机制（它所能做的一些设置只是例如设置最低日志等级这种）。真正实现灵活控制的是处理器(handler)，handler接受到日志之后，根据自身的过滤规则和格式器，决定是否要记录，以及按照什么格式进行记录。</p>
 <h3 id="四大组件相关类及其常用方法"><a href="#四大组件相关类及其常用方法" class="headerlink" title="四大组件相关类及其常用方法"></a>四大组件相关类及其常用方法</h3><p>下面介绍下与logging四大组件相关的类：Logger, Handler, Filter, Formatter。</p>
 <h4 id="logger类"><a href="#logger类" class="headerlink" title="logger类"></a>logger类</h4><p>Logger对象，也就是日志器有3个任务要做：</p>
 <ul>
@@ -1225,7 +1227,7 @@ var jiathis_config={
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">69</span>
+                  <span class="site-state-item-count">72</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1236,7 +1238,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">70</span>
+                  <span class="site-state-item-count">72</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -1247,7 +1249,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">64</span>
+                  <span class="site-state-item-count">66</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

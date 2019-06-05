@@ -1,0 +1,1433 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="zookeeper," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Watchmen1992's Blog" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="zookeeper日志管理">
+<meta name="keywords" content="zookeeper">
+<meta property="og:type" content="article">
+<meta property="og:title" content="zookeeper日志管理">
+<meta property="og:url" content="http://yoursite.com/2019/04/08/IT科学技术知识体系结构-Linux运维方向/运维架构/分布式/zookeeper/zookeeper日志管理/index.html">
+<meta property="og:site_name" content="Watchmen1992&#39;s Blog">
+<meta property="og:description" content="zookeeper日志管理">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-04-08T08:43:59.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="zookeeper日志管理">
+<meta name="twitter:description" content="zookeeper日志管理">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/04/08/IT科学技术知识体系结构-Linux运维方向/运维架构/分布式/zookeeper/zookeeper日志管理/"/>
+
+
+
+
+
+  <title>zookeeper日志管理 | Watchmen1992's Blog</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?07235ad5687ee838f373b31c7c687d23";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Watchmen1992's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">锦瑟年华当与书香为度，是为不负天地人生。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/08/IT科学技术知识体系结构-Linux运维方向/运维架构/分布式/zookeeper/zookeeper日志管理/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="XiaoHua WANG">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/touxiang.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Watchmen1992's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">zookeeper日志管理</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-08T16:43:59+08:00">
+                2019-04-08
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-04-08T16:43:59+08:00">
+                2019-04-08
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/IT科学技术知识体系结构-Linux运维方向/" itemprop="url" rel="index">
+                    <span itemprop="name">IT科学技术知识体系结构-Linux运维方向</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/IT科学技术知识体系结构-Linux运维方向/运维架构/" itemprop="url" rel="index">
+                    <span itemprop="name">运维架构</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/IT科学技术知识体系结构-Linux运维方向/运维架构/分布式/" itemprop="url" rel="index">
+                    <span itemprop="name">分布式</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/IT科学技术知识体系结构-Linux运维方向/运维架构/分布式/zookeeper/" itemprop="url" rel="index">
+                    <span itemprop="name">zookeeper</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/04/08/IT科学技术知识体系结构-Linux运维方向/运维架构/分布式/zookeeper/zookeeper日志管理/" class="leancloud_visitors" data-flag-title="zookeeper日志管理">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+              <div class="post-description">
+                  zookeeper日志管理
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h1><h2 id="日志分类"><a href="#日志分类" class="headerlink" title="日志分类"></a>日志分类</h2><p>zookeeper服务器会产生三类日志：</p>
+<ul>
+<li>事务日志</li>
+<li>快照日志</li>
+<li>log4j日志。</li>
+</ul>
+<p>在zookeeper默认配置文件zoo.cfg（可以修改文件名）中有一个配置项dataDir，该配置项用于配置zookeeper<strong>快照日志和事务日志</strong>的存储地址。</p>
+<p>在官方提供的默认参考配置文件zoo_sample.cfg中，只有dataDir配置项。</p>
+<p>其实在实际应用中，还可以为事务日志专门配置存储地址，配置项名称为<strong>dataLogDir</strong>，在zoo_sample.cfg中并未体现出来。在没有dataLogDir配置项的时候，zookeeper默认将事务日志文件和快照日志文件都存储在dataDir对应的目录下。</p>
+<p>建议将事务日志（dataLogDir）与快照日志（dataLog）单独配置，因为当zookeeper集群进行频繁的数据读写操作是，会产生大量的事务日志信息，将两类日志分开存储会提高系统性能，而且，可以允许将两类日志存在在不同的存储介质上，减少磁盘压力。</p>
+<h2 id="log4j-运行日志"><a href="#log4j-运行日志" class="headerlink" title="log4j-运行日志"></a>log4j-运行日志</h2><p>log4j用于记录zookeeper集群服务器运行日志，该日志的配置地址在conf/目录下的log4j.properties文件中，该文件中有一个配置项为“zookeeper.log.dir=.”，表示log4j日志文件在与执行程序（<a href="http://zkserver.sh/" target="_blank" rel="noopener">zkServer.sh</a>）在同一目录下。<a href="http://xn--zkserver-fm2pi0w5y6i.sh/" target="_blank" rel="noopener">当执行zkServer.sh</a> 时，在该文件夹下会产生zookeeper.out日志文件。下面主要介绍事务日志与快照日志。</p>
+<h2 id="事务日志"><a href="#事务日志" class="headerlink" title="事务日志"></a>事务日志</h2><h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><p>事务日志指zookeeper系统在正常运行过程中，针对所有的更新操作，在返回客户端“更新成功”的响应前，zookeeper会保证已经将本次更新操作的事务日志已经写到磁盘上，只有这样，整个更新操作才会生效。</p>
+<p>根据上文所述，可以通过zoo.cfg文件中的dataLogDir配置项找到事物日志存储地点：<br>dataDir=/home/kafka/data/zookeeper<br>在datalog/目录下存在一个文件夹version-2，该文件夹中保存着事物日志文件:<br>log.504e25800<br>日志文件的命名规则为log.<strong>，文件大小为64MB，</strong>表示写入该日志的第一个事务的ID，十六进制表示。</p>
+<h3 id="事务日志可视化"><a href="#事务日志可视化" class="headerlink" title="事务日志可视化"></a>事务日志可视化</h3><p>zookeeper的事务日志为二进制文件，不能通过vim等工具直接访问。其实可以通过zookeeper自带的jar包读取事务日志文件。<br>首先将libs中的slf4j-api-1.6.1.jar文件和zookeeper根目录下的zookeeper-3.4.8.jar文件复制到临时文件夹tmplibs中，然后执行如下命令,将日志内容输出至a.txt文件中：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># java -classpath .:slf4j-api-1.6.1.jar:zookeeper-3.4.8.jar org.apache.zookeeper.server.LogFormatter /home/zookeeper/2181/data/version-2/log.2f019aaf7f &gt; a.txt</span><br></pre></td></tr></table></figure>
+<h3 id="日志分析"><a href="#日志分析" class="headerlink" title="日志分析"></a><strong>日志分析</strong></h3><p>第一行：ZooKeeper Transactional Log File with dbid 0 txnlog format version 2</p>
+<p>上面的代码分析中有说到每个日志文件都有一个这就是那里所说的日志头，这里magic没有输出，只输出了dbid还有version；</p>
+<p>第二行：15-8-12 下午03时59分53秒 session 0x14f20ea71c10000 cxid 0x0 zxid 0x1 createSession 4000这也就是具体的事务日志内容了，这里是说xxx时间有一个sessionid为0x14f20ea71c10000、cxid为0x0、zxid 为0x1、类型为createSession、超时时间为4000毫秒</p>
+<p>第三行：15-8-12 下午03时59分54秒 session 0x14f20ea71c10000 cxid 0x1 zxid 0x2 create ‘/solinx0000000000,#736f6c696e78,v{s{31,s{‘world,’anyone}}},F,1sessionID 为0x14f20ea71c10000，cxid：0x01、zxid：0x02、创建了一个节点路径为：/solinx0000000000、节点内容 为：#736f6c696e78(经过ASCII，实际内容为solinx)、acl为world:anyone任何人都可以管理该节点、节点不是 ephemeral节点的、父节点子版本：1</p>
+<p>第四行：15-8-12 下午04时15分56秒 session 0x14f20ea71c10000 cxid 0x0 zxid 0x3 closeSession null这里是说xxx时间有一个sessionid为0x14f20ea71c10000、cxid为0x0、zxid为0x3、类型为 closeSession</p>
+<h2 id="快照日志"><a href="#快照日志" class="headerlink" title="快照日志"></a>快照日志</h2><p>zookeeper的数据在内存中是以树形结构进行存储的，而快照就是每隔一段时间就会把整个DataTree的数据序列化后存储在磁盘中，这就是zookeeper的快照文件。</p>
+<p>zookeeper快照日志的存储路径同样可以在zoo.cfg中查看，如上文截图所示。访问dataDir路径可以看到version-2文件夹:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dataDir=/home/zookeeper/2181/data</span><br></pre></td></tr></table></figure>
+<p>zookeeper快照文件的命名规则为snapshot.<strong>，其中</strong>表示zookeeper触发快照的那个瞬间，提交的最后一个事务的ID。</p>
+<p>与上面说的事务日志文件一样，Zookeeper也为快照文件提供了可视化的工具：org.apache.zookeeper.server包中的SnapshotFormatter类，接下来就使用该工具输出该事务日志文件，并解释该数据；</p>
+<h3 id="SnapshotFormatter工具使用"><a href="#SnapshotFormatter工具使用" class="headerlink" title="SnapshotFormatter工具使用"></a>SnapshotFormatter工具使用</h3><p>命令如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># java -classpath .:slf4j-api-1.6.1.jar:zookeeper-3.4.8.jar org.apache.zookeeper.server.SnapshotFormatter /home/zookeeper/2181/data/version-2/snapshot.2f019b7bc0 |less</span><br></pre></td></tr></table></figure>
+<p>输出如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">ZNode Details (count=105078):</span><br><span class="line">----</span><br><span class="line">/</span><br><span class="line">  cZxid = 0x00000000000000</span><br><span class="line">  ctime = Thu Jan 01 08:00:00 CST 1970</span><br><span class="line">  mZxid = 0x00000000000000</span><br><span class="line">  mtime = Thu Jan 01 08:00:00 CST 1970</span><br><span class="line">  pZxid = 0x00002c05e92d48</span><br><span class="line">  cversion = 71</span><br><span class="line">  dataVersion = 0</span><br><span class="line">  aclVersion = 0</span><br><span class="line">  ephemeralOwner = 0x00000000000000</span><br><span class="line">  dataLength = 0</span><br><span class="line">----</span><br><span class="line">/com</span><br><span class="line">  cZxid = 0x0000010003a93a</span><br><span class="line">  ctime = Mon Mar 06 00:26:24 CST 2017</span><br><span class="line">  mZxid = 0x0000010003a93a</span><br><span class="line">  mtime = Mon Mar 06 00:26:24 CST 2017</span><br><span class="line">  pZxid = 0x0000010003a93b</span><br><span class="line">  cversion = 1</span><br><span class="line">  dataVersion = 0</span><br><span class="line">  aclVersion = 0</span><br><span class="line">  ephemeralOwner = 0x00000000000000</span><br><span class="line">  dataLength = 0</span><br><span class="line">  </span><br><span class="line">......</span><br></pre></td></tr></table></figure>
+<h3 id="快照分析"><a href="#快照分析" class="headerlink" title="快照分析"></a>快照分析</h3><p>快照文件就很容易看得懂了，这就是Zookeeper整个节点数据的输出；<br>第一行：ZNode Details (count=105078):ZNode节点数总共有105078个<br>/<br>cZxid = 0x00000000000000<br>ctime = Thu Jan 01 08:00:00 CST 1970<br>mZxid = 0x00000000000000<br>mtime = Thu Jan 01 08:00:00 CST 1970<br>pZxid = 0x00002c05e92d48<br>cversion = 71<br>dataVersion = 0<br>aclVersion = 0<br>ephemeralOwner = 0x00000000000000<br>dataLength = 0</p>
+<p>这么一段数据是说：</p>
+<p>根节点/：<br>cZxid：创建节点时的ZXID<br>ctime：创建节点的时间<br>mZxid：节点最新一次更新发生时的zxid<br>mtime：最近一次节点更新的时间<br>pZxid：父节点的zxid<br>cversion：子节点更新次数<br>dataVersion：节点数据更新次数<br>aclVersion：节点acl更新次数<br>ephemeralOwner：如果节点为ephemeral节点则该值为sessionid，否则为0<br>dataLength：该节点数据的长度<br>快照文件的末尾：<br>Session Details (sid, timeout, ephemeralCount): 0x14f211584840000, 4000, 0 0x14f211399480001, 4000, 0</p>
+<p>这里是说当前抓取快照文件的时间Zookeeper中Session的详情，有两个session超时时间都是4000毫秒ephemeral节点为0；</p>
+<h3 id="日志清理"><a href="#日志清理" class="headerlink" title="日志清理"></a>日志清理</h3><p>在zookeeper 3.4.0以后，zookeeper提供了自动清理snapshot和事务日志功能</p>
+<p>通过配置zoo.cfg下的autopurge.snapRetainCount和autopurge.purgeInterval这两个参数实现日志文件的定时清理。</p>
+<ul>
+<li>autopurge.snapRetainCount这个参数指定了需要保留的文件数目，默认保留3个；</li>
+<li>autopurge.purgeInterval这个参数指定了清理频率，单位是小时，需要填写一个1或者更大的数据，默认0表示不开启自动清理功能。</li>
+</ul>
+<h1 id="zk配置文件详解"><a href="#zk配置文件详解" class="headerlink" title="zk配置文件详解"></a>zk配置文件详解</h1><h2 id="zoo-cfg"><a href="#zoo-cfg" class="headerlink" title="zoo.cfg"></a>zoo.cfg</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">[zookeeper@common001-dev.novalocal conf]$ cat zoo.cfg</span><br><span class="line"></span><br><span class="line"># The number of milliseconds of each tick</span><br><span class="line">tickTime=2000</span><br><span class="line"># The number of ticks that the initial</span><br><span class="line"># synchronization phase can take</span><br><span class="line">initLimit=10</span><br><span class="line"># The number of ticks that can pass between</span><br><span class="line"># sending a request and getting an acknowledgement</span><br><span class="line">syncLimit=5</span><br><span class="line"># the directory where the snapshot is stored.</span><br><span class="line"># do not use /tmp for storage, /tmp here is just</span><br><span class="line"># example sakes.</span><br><span class="line">dataDir=/home/zookeeper/2181/data</span><br><span class="line"># the port at which the clients will connect</span><br><span class="line">clientPort=2181</span><br><span class="line"># the maximum number of client connections.</span><br><span class="line"># increase this if you need to handle more clients</span><br><span class="line">maxClientCnxns=0</span><br><span class="line">#</span><br><span class="line"># Be sure to read the maintenance section of the</span><br><span class="line"># administrator guide before turning on autopurge.</span><br><span class="line">#</span><br><span class="line"># http://zookeeper.apache.org/doc/current/zookeeperAdmin.html#sc_maintenance</span><br><span class="line">#</span><br><span class="line"># The number of snapshots to retain in dataDir</span><br><span class="line">autopurge.snapRetainCount=3</span><br><span class="line"># Purge task interval in hours</span><br><span class="line"># Set to &quot;0&quot; to disable auto purge feature</span><br><span class="line">autopurge.purgeInterval=1</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">server.1=192.168.11.29:2888:3888</span><br><span class="line">server.2=192.168.11.32:2888:3888</span><br><span class="line">server.3=192.168.11.20:2888:3888</span><br></pre></td></tr></table></figure>
+<h3 id="基础配置"><a href="#基础配置" class="headerlink" title="基础配置"></a>基础配置</h3><ul>
+<li>tickTime 基本事件单元，以毫秒为单位。它用来控制心跳和超时，默认情况下最小的会话超时时间为两倍的 tickTime。</li>
+<li>dataDir是存放内存数据库快照的位置；</li>
+<li>dataLogDir 是事务日志目录；</li>
+<li>clientPort是client连接的端口。</li>
+<li>initLimit：这个配置项是用来配置 Zookeeper 接受客户端（这里所说的客户端不是用户连接 Zookeeper 服务器的客户端，而是 Zookeeper 服务器集群中连接到 Leader 的 Follower 服务器）初始化连接时最长能忍受多少个心跳时间间隔数。当已经超过5个心跳的时间（也就是 tickTime）长度后 Zookeeper服务器还没有收到客户端的返回信息，那么表明这个客户端连接失败。总的时间长度就是 5 * 2000=10 秒</li>
+<li>syncLimit：这个配置项标识 Leader 与 Follower 之间发送消息，请求和应答时间长度，最长不能超过多少个 tickTime 的时间长度，总的时间长度就是 2 * 2000=4 秒</li>
+</ul>
+<h3 id="server段"><a href="#server段" class="headerlink" title="server段"></a>server段</h3><p>server.X代表组成整个服务的机器，当服务启动时，会在数据目录下查找这个文件myid,这个文件中存有服务器的号码。</p>
+<p>配置格式：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">server.A=B：C：D</span><br></pre></td></tr></table></figure>
+<ul>
+<li>A 是一个数字，表示这个是第几号服务器；</li>
+<li>B 是这个服务器的 ip 地址；</li>
+<li>C 表示的是这个服务器与集群中的 Leader 服务器交换信息的端口；</li>
+<li>D 表示的是万一集群中的 Leader 服务器挂了，需要一个端口来重新进行选举，选出一个新的 Leader，而这个端口就是用来执行选举时服务器相互通信的端口。如果是伪集群的配置方式，由于 B 都是一样，所以不同的 Zookeeper 实例通信端口号不能一样，所以要给它们分配不同的端口号。</li>
+</ul>
+<p>除了修改 zoo.cfg 配置文件，集群模式下还要配置一个文件 myid，这个文件在 dataDir 目录下，这个文件里面就有一个数据就是 A 的值，Zookeeper 启动时会读取这个文件，拿到里面的数据与 zoo.cfg 里面的配置信息比较从而判断到底是那个 server。</p>
+<h3 id="myid配置"><a href="#myid配置" class="headerlink" title="myid配置"></a>myid配置</h3><p>在dataDir所定义的目录下新建myid文件，本例中在/home/zookeeper/2181/data下新建myid文件，填入各主机之ID。如192.168.11.29主机的myid文件内容为1。</p>
+<h3 id="maxClientCnxns"><a href="#maxClientCnxns" class="headerlink" title="maxClientCnxns"></a>maxClientCnxns</h3><p>maxClientCnxns默认值60，这个连接数不是针对某个ip的，请注意这个限制的使用范围</p>
+<p>指的是单台客户端机器与单台zookeeper服务器之间的连接数限制，不是针对指定客户端IP，也不是zookeeper集群的连接数限制</p>
+<h1 id="日志管理配置修改"><a href="#日志管理配置修改" class="headerlink" title="日志管理配置修改"></a>日志管理配置修改</h1><p><strong>注意，如果Zookeeper集群只有3个实例，那么日志修改务必先修改follower 节点的配置，再修改leader 节点的配置，否则可能会导致问题。</strong></p>
+<h2 id="配置集群运行日志并设置切割"><a href="#配置集群运行日志并设置切割" class="headerlink" title="配置集群运行日志并设置切割"></a>配置集群运行日志并设置切割</h2><p>操作文件：log4j.properties</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">zookeeper.root.logger=INFO, ROLLINGFILE</span><br><span class="line"></span><br><span class="line">log4j.appender.ROLLINGFILE.MaxFileSize=100MB # 每个日志文件的最大size为100M</span><br><span class="line">log4j.appender.ROLLINGFILE.MaxBackupIndex=50 # 保留5个G的日志</span><br></pre></td></tr></table></figure>
+<p>操作文件：bin/zkEnv.sh文件</p>
+<p>将</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">if [ &quot;x$&#123;ZOO_LOG_DIR&#125;&quot; = &quot;x&quot; ]</span><br><span class="line">then</span><br><span class="line">    ZOO_LOG_DIR=&quot;.&quot;</span><br><span class="line">fi</span><br><span class="line">if [ &quot;x$&#123;ZOO_LOG4J_PROP&#125;&quot; = &quot;x&quot; ]</span><br><span class="line">then</span><br><span class="line">    ZOO_LOG4J_PROP=&quot;INFO,CONSOLE&quot;</span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
+<p>修改成：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">if [ &quot;x$&#123;ZOO_LOG_DIR&#125;&quot; = &quot;x&quot; ]</span><br><span class="line">then</span><br><span class="line">    ZOO_LOG_DIR=&quot;/home/zookeeper/2181/logs&quot;</span><br><span class="line">fi</span><br><span class="line">if [ &quot;x$&#123;ZOO_LOG4J_PROP&#125;&quot; = &quot;x&quot; ]</span><br><span class="line">then</span><br><span class="line">    ZOO_LOG4J_PROP=&quot;INFO,ROLLINGFILE&quot;</span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
+<p>注意：log4j.properties中的zookeeper.root.logger的值需要和zkEnv.sh文件的配置ZOO_LOG4J_PROP保持一致。</p>
+<p>去除<strong>zookeeper.out 文件</strong></p>
+<p>操作文件：bin/zkServer.sh</p>
+<p>注释如下内容：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># _ZOO_DAEMON_OUT=&quot;$ZOO_LOG_DIR/zookeeper.out&quot;</span><br></pre></td></tr></table></figure>
+<p>将如下内容：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">nohup &quot;$JAVA&quot; &quot;-Dzookeeper.log.dir=$&#123;ZOO_LOG_DIR&#125;&quot; &quot;-Dzookeeper.root.logger=$&#123;ZOO_LOG4J_PROP&#125;&quot; \</span><br><span class="line">    -cp &quot;$CLASSPATH&quot; $JVMFLAGS $ZOOMAIN &quot;$ZOOCFG&quot; &gt; &quot;$_ZOO_DAEMON_OUT&quot; 2&gt;&amp;1 &lt; /dev/null &amp;</span><br></pre></td></tr></table></figure>
+<p>修改为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">nohup &quot;$JAVA&quot; &quot;-Dzookeeper.log.dir=$&#123;ZOO_LOG_DIR&#125;&quot; &quot;-Dzookeeper.root.logger=$&#123;ZOO_LOG4J_PROP&#125;&quot; \</span><br><span class="line">    -cp &quot;$CLASSPATH&quot; $JVMFLAGS $ZOOMAIN &quot;$ZOOCFG&quot; &gt;&amp;1 &lt; /dev/null &amp;</span><br></pre></td></tr></table></figure>
+<p>然后重启zk即可</p>
+<h2 id="事务日志-1"><a href="#事务日志-1" class="headerlink" title="事务日志"></a>事务日志</h2><p>操作文件：zoo.cfg</p>
+<p>在zoo.cfg文件的中添加如下这行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dataLogDir=/home/zookeeper/2181/data/event</span><br></pre></td></tr></table></figure>
+<p>这部分是可选操作，默认不配置的话就会使用快照日志的配置。一般不进行额外配置</p>
+<h2 id="快照日志-1"><a href="#快照日志-1" class="headerlink" title="快照日志"></a>快照日志</h2><p>操作文件：zoo.cfg</p>
+<p>快照日志不需要额外的处理，默认的配置就是针对快照日志，也就是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">dataDir=/home/zookeeper/2181/data</span><br><span class="line">autopurge.snapRetainCount=10	# 需要保留的文件数目，默认设置为3个；</span><br><span class="line">autopurge.purgeInterval=24	# 清理频率，默认单位是小时</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/wechatpay.jpg" alt="XiaoHua WANG 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/alipay.jpg" alt="XiaoHua WANG 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/zookeeper/" rel="tag"># zookeeper</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/27/IT科学技术知识体系结构-Linux运维方向/数据库/PostgreSQL/PostgreSQL安装部署及使用/" rel="next" title="PostgreSQL安装部署及使用">
+                <i class="fa fa-chevron-left"></i> PostgreSQL安装部署及使用
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/06/04/IT科学技术知识体系结构-Linux运维方向/Linux命令/tcpdump/" rel="prev" title="tcpdump">
+                tcpdump <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zMzg1NC8xMDQwNw=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/touxiang.jpg"
+                alt="XiaoHua WANG" />
+            
+              <p class="site-author-name" itemprop="name">XiaoHua WANG</p>
+              <p class="site-description motion-element" itemprop="description">Focus on Linux operations and development.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">72</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">72</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">66</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#基础知识"><span class="nav-number">1.</span> <span class="nav-text">基础知识</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#日志分类"><span class="nav-number">1.1.</span> <span class="nav-text">日志分类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#log4j-运行日志"><span class="nav-number">1.2.</span> <span class="nav-text">log4j-运行日志</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#事务日志"><span class="nav-number">1.3.</span> <span class="nav-text">事务日志</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#概念"><span class="nav-number">1.3.1.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#事务日志可视化"><span class="nav-number">1.3.2.</span> <span class="nav-text">事务日志可视化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#日志分析"><span class="nav-number">1.3.3.</span> <span class="nav-text">日志分析</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#快照日志"><span class="nav-number">1.4.</span> <span class="nav-text">快照日志</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#SnapshotFormatter工具使用"><span class="nav-number">1.4.1.</span> <span class="nav-text">SnapshotFormatter工具使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#快照分析"><span class="nav-number">1.4.2.</span> <span class="nav-text">快照分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#日志清理"><span class="nav-number">1.4.3.</span> <span class="nav-text">日志清理</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#zk配置文件详解"><span class="nav-number">2.</span> <span class="nav-text">zk配置文件详解</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#zoo-cfg"><span class="nav-number">2.1.</span> <span class="nav-text">zoo.cfg</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基础配置"><span class="nav-number">2.1.1.</span> <span class="nav-text">基础配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#server段"><span class="nav-number">2.1.2.</span> <span class="nav-text">server段</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#myid配置"><span class="nav-number">2.1.3.</span> <span class="nav-text">myid配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#maxClientCnxns"><span class="nav-number">2.1.4.</span> <span class="nav-text">maxClientCnxns</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#日志管理配置修改"><span class="nav-number">3.</span> <span class="nav-text">日志管理配置修改</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#配置集群运行日志并设置切割"><span class="nav-number">3.1.</span> <span class="nav-text">配置集群运行日志并设置切割</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#事务日志-1"><span class="nav-number">3.2.</span> <span class="nav-text">事务日志</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#快照日志-1"><span class="nav-number">3.3.</span> <span class="nav-text">快照日志</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">XiaoHua WANG</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("mlSs9Cm0Xv2D9B7cFqbp25Df-gzGzoHsz", "alKheIFly9OVC81YCV7otTrf");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
