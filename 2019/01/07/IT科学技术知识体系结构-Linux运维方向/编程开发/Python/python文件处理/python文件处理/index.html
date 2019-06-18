@@ -624,6 +624,25 @@
 </tr>
 </tbody>
 </table>
+<h2 id="关于-Buffering"><a href="#关于-Buffering" class="headerlink" title="关于 Buffering"></a>关于 Buffering</h2><p>官方解释如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">The optional buffering argument specifies the file’s desired buffer size: 0 means unbuffered, 1 means line buffered, any other positive value means use a buffer of (approximately) that size. A negative buffering means to use the system default, which is usually line buffered for tty devices and fully buffered for other files. If omitted, the system default is used.</span><br></pre></td></tr></table></figure>
+<p>缓冲的目的：是为了减少系统的io调用。只有当符合一定条件(比如缓冲数量)时才调用io。</p>
+<p>缓冲分以下几种： </p>
+<ul>
+<li><p>全缓冲 : open函数的buffering设置大于1的整数n,n为缓冲区大小，linux默认为page的大小4096 满了n 个字节才会写入磁盘 。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">f=open(“demo.txt”,’w’,buffering=10)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>行缓冲 : open 函数的buffering设置为1, 每写一行就会将缓冲区写入磁盘。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">f=open(“demo.txt”,’w’,buffering=1)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>无缓冲 : open 函数的buffering设置为0 有输入就写入磁盘。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">f=open(“demo.txt”,’w,’,buffering=0)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>系统缓存：open 函数的buffering设置小于0，由操作系统决定何时写入磁盘</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">f=open(“demo.txt”,’w,’,buffering=-1)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>如果没有设置，那么默认值就是使用系统缓存</p>
 
       
     </div>
@@ -818,7 +837,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">72</span>
+                  <span class="site-state-item-count">75</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -829,7 +848,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">66</span>
+                  <span class="site-state-item-count">67</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -869,7 +888,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#基础知识"><span class="nav-number">1.</span> <span class="nav-text">基础知识</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#语法"><span class="nav-number">1.1.</span> <span class="nav-text">语法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#open"><span class="nav-number">1.1.1.</span> <span class="nav-text">open()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#file-对象"><span class="nav-number">1.1.2.</span> <span class="nav-text">file 对象</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#基础知识"><span class="nav-number">1.</span> <span class="nav-text">基础知识</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#语法"><span class="nav-number">1.1.</span> <span class="nav-text">语法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#open"><span class="nav-number">1.1.1.</span> <span class="nav-text">open()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#file-对象"><span class="nav-number">1.1.2.</span> <span class="nav-text">file 对象</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关于-Buffering"><span class="nav-number">1.2.</span> <span class="nav-text">关于 Buffering</span></a></li></ol></li></ol></div>
             
 
           </div>
