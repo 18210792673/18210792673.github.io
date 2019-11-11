@@ -730,7 +730,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[named@host1 etc]$  rndc  reload  dwd.gds-sh IN shidc</span><br><span class="line">zone reload up-to-date</span><br><span class="line"></span><br><span class="line">注意：reload zone [class [view]]对应的实际执行格式是zone IN view</span><br><span class="line">这个执行之后就有通知从域复制的作用</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>单纯通知某个zone的信息</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[named@host1 common]$ rndc notify dwd.gds-sh  IN shidc</span><br><span class="line">zone notify queued</span><br><span class="line"></span><br><span class="line">注意：经过实际的测试，使用该命名不能实现通知从节点复制域的功能</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[named@host1 common]$ rndc notify dwd.gds-sh  IN shidc</span><br><span class="line">zone notify queued</span><br><span class="line"></span><br><span class="line">注意：经过实际的测试，使用该命令不能实现通知从节点复制域的功能</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>刷新某个view的缓存数据</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[named@host1 common]$ rndc flush shidc</span><br></pre></td></tr></table></figure>
@@ -1023,6 +1023,164 @@
 <li>主配置文件named.conf的”;”不能少。</li>
 <li>通常 DNS 查询的时候，是以 udp 协议来查询的， 但是万一没有办法查询到完整的信息时，就会再次的以 tcp 来重新查询的！所以启动 DNS 的 daemon (就是 named ) 时，会同时启动 tcp 及 udp 的 port 53 ,所以如果涉及到一些防火墙配置的时候，记得需要同时放行 tcp, udp port 53 </li>
 </ul>
+<h1 id="案例-多机房异地多活dns建设"><a href="#案例-多机房异地多活dns建设" class="headerlink" title="案例-多机房异地多活dns建设"></a>案例-多机房异地多活dns建设</h1><h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>在实现多机房异地多活时，将服务分散到多个机房之后，一个核心的问题就是自建DNS，实现根据不同来源的ip段，返回相对应zone中的nginx服务端ip地址，只有这样才能</p>
+<h2 id="需求概述"><a href="#需求概述" class="headerlink" title="需求概述"></a>需求概述</h2><p><strong>需要实现的功能如下：</strong></p>
+<ul>
+<li>DNS服务端采取主从结构，阿里云端为master，IDC机房端为slave，数据保持一致</li>
+<li>阿里云VPC内网IP地址作为dns客户端访问时，返回VPC内机房的nginx服务器IP地址</li>
+<li>IDC机房内网IP地址作为dns客户端访问时，返回IDC机房的nginx服务器IP地址</li>
+<li>杭州的公网IP地址访问SLB的公网地址，上海的公网IP地址访问IDC机房的IP地址</li>
+<li>总结：dns客户端请求到的永远是最距离最近服务器</li>
+</ul>
+<h2 id="bind部署需要明确的几个问题"><a href="#bind部署需要明确的几个问题" class="headerlink" title="bind部署需要明确的几个问题"></a>bind部署需要明确的几个问题</h2><ol>
+<li><p>主从关系</p>
+<p>暂定：阿里云为主，其他为从</p>
+</li>
+<li><p>服务器配置</p>
+<ul>
+<li>阿里云端需要重新购置机器吗？是的话可用区及配置？</li>
+<li>IDC机房端的机器规划，挑一台common机器</li>
+</ul>
+</li>
+<li><p>匹配ip转发规则</p>
+<ul>
+<li>根据阿里云网段、机房网段等不同网段进行匹配转发</li>
+<li>dns客户端请求域名之后，分别返回阿里云nginx服务的地址，机房的nginx服务器对应的vip</li>
+<li>因此，阿里云端的请求的域名就有2条记录，机房端就一条记录</li>
+</ul>
+</li>
+<li><p>服务器端dns服务器配置</p>
+<p>服务端预计配置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># cat /etc/resolv.conf</span><br><span class="line">nameserver 机房1dns服务器ip </span><br><span class="line">nameserver 机房2dns服务器ip</span><br></pre></td></tr></table></figure>
+<p>所有的dns客户端，在请求dns服务的时候 ，可能会连接到距离较远的服务器，但是获取记录之后将不会有影响。这里的第一次开销就保持这样吗？还是说这个也需要做优化，暂时没想到太好的方法</p>
+</li>
+<li><p>域名记录同步实现方式【这个目前是主要矛盾】</p>
+<ul>
+<li>数据源为dnspod</li>
+<li>如何同步dnspod上的记录到自建dns（我的想法：每隔3/5分钟去调用dnspod的api获取结果，根据对应的公网ip，去判断是阿里云还是机房的记录，然后追加进对应的zone数据文件，并且增大复制偏移量的值）</li>
+<li>那么这个时候就存在一个问题：当一个域名只存在一个地方的时候，其他地域的主机将无法访问，因为没有记录到对应的zone数据文件中。所以需要每个地域都配置并且注册到dnspod上</li>
+</ul>
+</li>
+<li><p>主服务器有数据更新之后，触发通知的实现方式</p>
+<p>我这边看下是否有更好的方式，没有的话暂时使用reload的方式</p>
+</li>
+<li><p>移动端配置？</p>
+<p>移动端需要考虑吗？</p>
+</li>
+</ol>
+<p>总结：</p>
+<ul>
+<li>阿里云走内网的slb</li>
+</ul>
+<p>并不是所有的域名都需要配置成为多机房，只有一些特定的域名需要配置成为多记录的方式</p>
+<p>当只有一条记录的时候，我们所有的配置文件中都配置成为这一个记录</p>
+<p>当有3条记录的时候，我们将数据分发到3个配置文件当中</p>
+<p>当只有一条记录的时候，每个数据文件都记录这个内容，保证解析成功</p>
+<h2 id="架构规划这里是拓扑图"><a href="#架构规划这里是拓扑图" class="headerlink" title="架构规划这里是拓扑图"></a>架构规划这里是拓扑图</h2><p>讲解</p>
+<ol>
+<li>主从结构</li>
+<li>Bind 视图和zone功能，实现根据来源ip进行判断</li>
+<li>现在的所有域名导入</li>
+</ol>
+<h2 id="部署实施"><a href="#部署实施" class="headerlink" title="部署实施"></a>部署实施</h2><h3 id="目录分层"><a href="#目录分层" class="headerlink" title="目录分层"></a>目录分层</h3><p>并不是所有的域名都需要根据地域不同返回不同的ip</p>
+<p>我们根据不不同的地域创建了不同的zone目录，目录下有相同名称的zone数据文件</p>
+<p>所以这个时候我们就可以进行匹配，当匹配到一个域名只有一个解析ip的时候，我们就把这条记录写入到3个不同的目录下的相同域名zone文件中</p>
+<p>当匹配到有3个解析ip的时候，我们就对这个信息做处理，把对应的ip写入到对应的目录下的zone文件当中。</p>
+<h3 id="zone配置"><a href="#zone配置" class="headerlink" title="zone配置"></a>zone配置</h3><h3 id="common"><a href="#common" class="headerlink" title="common"></a>common</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[named@host1 common]$ pwd;ls</span><br><span class="line">/home/named/bind/chroot/var/named/zone/common</span><br><span class="line">dwb.dgt.zone  dwd.gds-sh.zone  ecs.east1-b.zone  ecs.east1-e.zone  ecs.east1-g.zone</span><br></pre></td></tr></table></figure>
+<p>zone文件配置模板：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">[named@host1 common]$ cat dwd.gds-sh.zone</span><br><span class="line"></span><br><span class="line">$TTL      86400</span><br><span class="line">@            IN SOA  dwd.gds-sh.  admin.dwd.gds-sh. (</span><br><span class="line">                      1                ; serial</span><br><span class="line">                      3H                ; refresh</span><br><span class="line">                      15M                ; retry</span><br><span class="line">                      1W                ; expiry</span><br><span class="line">                      1D )              ; minimum</span><br><span class="line">        IN         NS     dns.dwd.gds-sh.</span><br><span class="line">dns     IN      A      10.11.4.11</span><br><span class="line">dns     IN      A      10.11.4.12</span><br><span class="line">dns     IN      A      10.10.10.72</span><br><span class="line">dns     IN      A      10.10.10.73</span><br><span class="line">dns     IN      A      172.24.139.193</span><br><span class="line">dns     IN      A      172.24.139.194</span><br><span class="line">lvs001     IN      A      10.11.0.11</span><br><span class="line">lvs002     IN      A      11.11.0.12</span><br></pre></td></tr></table></figure>
+<p>说明：</p>
+<ul>
+<li>为了便于后期分析及拍错等操作，我们在每个zone配置文件中都添加上6条ns记录</li>
+</ul>
+<h2 id="数据写入"><a href="#数据写入" class="headerlink" title="数据写入"></a>数据写入</h2><p>因为dnspod上的数据都是公网地址</p>
+<p>所以要进行匹配，匹配公网之后，替换为对应的内网负载均衡的ip地址</p>
+<h2 id="优化进阶"><a href="#优化进阶" class="headerlink" title="优化进阶"></a>优化进阶</h2><p>最终实现目标是编写一个平台去管理，在当前时间节点下，先只能做到通过web框架去编写api实现下面这些操作</p>
+<h2 id="主节点zone数据信息变更"><a href="#主节点zone数据信息变更" class="headerlink" title="主节点zone数据信息变更"></a>主节点zone数据信息变更</h2><h3 id="写入"><a href="#写入" class="headerlink" title="写入"></a>写入</h3><p>在master节点上启动django服务，提供api，当数据源有变化时，对端发送POST请求，参数为：</p>
+<ul>
+<li></li>
+</ul>
+<p>收到请求之后进行处理</p>
+<p>注意：因为这个很重要，所以事先定义用户名和密码，生成token，然后才运行更新数据</p>
+<p>写完之后，序列号更新为当天的时间，例如：2007041501</p>
+<p>如果发现当天已经存在，那么在当前的序列号上+1</p>
+<h3 id="修改"><a href="#修改" class="headerlink" title="修改"></a>修改</h3><p>和写入一样，在master节点上启动django服务，提供api，当数据源有变化时，对端发送POST请求</p>
+<h3 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h3><p>和写入一样，在master节点上启动django服务，提供api，当数据源有变化时，对端发送delete请求</p>
+<p>针对主机名的配置，我们不使用提供接口的方式，对主机名的配置，我们编写程序作为客户端，定时的去扫描数据源（阿里云或者jumpserver端）</p>
+<h2 id="主从数据同步-1"><a href="#主从数据同步-1" class="headerlink" title="主从数据同步"></a>主从数据同步</h2><p>主从数据同步主要分为2种</p>
+<ul>
+<li>一种是主节点数据变化之后，主动的触发通知机制，发送通知消息给所以slave节点。</li>
+<li>另一种是从节点定期去连接主节点，获取序列号信息，与当前的值进行比较，如果获取的更大则发起数据同步</li>
+</ul>
+<p>结合实际情况，我们选择第一种方式</p>
+<p>那么，当数据变更之后，如何不适用rndc reload的方式</p>
+<h2 id="序列号增长问题"><a href="#序列号增长问题" class="headerlink" title="序列号增长问题"></a>序列号增长问题</h2><p>因为序列号最多为10位数，所以使用传统的日期表示法</p>
+<h2 id="dns服务稳定性问题"><a href="#dns服务稳定性问题" class="headerlink" title="dns服务稳定性问题"></a>dns服务稳定性问题</h2><h2 id="注意事项-2"><a href="#注意事项-2" class="headerlink" title="注意事项"></a>注意事项</h2><p>主从节点两边的acl列表需要保持一致，这部分数据是不会同步的</p>
+<p>会同步的只是zone数据</p>
+<p>因此在启动之前，一定要确保主配置文件、acl列表、view配置等都保持一致</p>
+<p>因为主的多个view会共用一些zone（主机名），所以这些zone，view配置中的路径可以一致</p>
+<p>但是从上，每一个view之间不能存在这种通用文件。</p>
+<p>slave的ip地址不止应该在named.conf主配置文件当中定义</p>
+<p>在acl列表中也应该写明，不然会被refused</p>
+<p>在master上：所有的acl列表需要包含slave节点ip</p>
+<p>在salve节点上，所有的acl列表需要包含master节点的ip</p>
+<p>不然：</p>
+<ul>
+<li>主从同步开始时，slave向master发送soa时会被拒绝</li>
+<li>主修改之后发送notify，slave将会拒绝这个消息，因此来源ip不在acl中</li>
+</ul>
+<p>同时存在3个view，在主上修改了view3或view2，但是slave上收到的信息始终是view1的notify</p>
+<p>在这里，只有shidc这个view能收到信息</p>
+<h2 id="主节点-acl配置"><a href="#主节点-acl配置" class="headerlink" title="主节点 acl配置"></a>主节点 acl配置</h2><p>阿里云acl：</p>
+<ul>
+<li>vpc的网段 【必须有】</li>
+<li>阿里云2台dns的ip</li>
+</ul>
+<p>杭州acl：</p>
+<ul>
+<li>杭州机房网段 【必须有】</li>
+<li>杭州机房2台dns服务器的ip  允许这2台主机发送soa请求并给予响应</li>
+</ul>
+<p>上海机房acl</p>
+<ul>
+<li>上海机房网段 【必须有】</li>
+<li>上海机房2台dns服务器</li>
+</ul>
+<h2 id="从节点acl配置"><a href="#从节点acl配置" class="headerlink" title="从节点acl配置"></a>从节点acl配置</h2><ul>
+<li>vpc的网段 【必须有】</li>
+<li>上海主节点的ip地址。为了主节点发送notify发送消息时不拒绝</li>
+</ul>
+<p>杭州acl：</p>
+<ul>
+<li>杭州机房网段 【必须有】</li>
+<li>上海主节点的ip地址。为了主节点发送notify发送消息时不拒绝</li>
+</ul>
+<p>上海机房acl</p>
+<ul>
+<li>上海机房网段 【必须有】</li>
+<li>上海主节点的ip地址。为了主节点发送notify发送消息时不拒绝</li>
+</ul>
+<p>因为从节点需要做备份，所以从节点上需要维护3个view，而不只是所在地域的这一个网段</p>
+<h2 id="测试："><a href="#测试：" class="headerlink" title="测试："></a>测试：</h2><p>有变化的只是杭州idc和阿里云</p>
+<p>测试客户端</p>
+<p>hzidc: common008-dev 192.168.11.88</p>
+<p>Aliyun:  common010-dev 192.168.11.76</p>
+<p>shIDC：common007-dev  192.168.11.84 </p>
+<h2 id="notify配置"><a href="#notify配置" class="headerlink" title="notify配置"></a>notify配置</h2><p>注意，notify的配置需要写在每一个zone里面，不能写在主配置文件当中</p>
+<p>master发送的notify信息中不能携带view信息，slave接收的时候，根据本身的view的配置进行匹配</p>
+<p>如果一个网段存在于多个view当中，那么只有第一个生效，也就是说，如果主节点更新的是view3的数据，如果view1收到之后，那么将会更新view1中的zone信息</p>
+<p>又因为master的ip必须存在于acl中（需要允许master发送的notify，不设置的话主节点发送的消息会被拒绝），</p>
+<p>但是因为acl是从上到下匹配的</p>
+<p>因此slave只能有一个view，也就是说除了主上维护的是全量的数据，其他从节点维护的只是一个view的数据</p>
+<p>也就是说，如果存在同一个ip，那么不管配置几个view，同时生效的只会有一个view</p>
+<h2 id="从节点直接显示文本"><a href="#从节点直接显示文本" class="headerlink" title="从节点直接显示文本"></a>从节点直接显示文本</h2><h2 id="多view主从同步问题"><a href="#多view主从同步问题" class="headerlink" title="多view主从同步问题"></a>多view主从同步问题</h2><p>多个view的主备同步主要是是主备之间每个view都使用共享key进行消息的签名。master的配置和之前的稍微有点小的改动</p>
+<p>大家经常使用bind的时候是划分不同的view的，因为每个view的zone需要单独修改，所以人肉修改是比较麻烦的。这个时候可以使用nsupdate进行批量的操作。只要注意每个view使用正确的记录就行。</p>
+<p>每个view指定一个对应key进行能更新</p>
+<p>最终的实现目的：主从上的数据完全一致，也就是</p>
+<p>参考文献：</p>
+<ul>
+<li><a href="https://blog.gnuers.org/?p=896" target="_blank" rel="noopener">bind多个view的主备同步</a></li>
+</ul>
 
       
     </div>
@@ -1206,7 +1364,7 @@ var jiathis_config={
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">66</span>
+                  <span class="site-state-item-count">64</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1217,7 +1375,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">74</span>
+                  <span class="site-state-item-count">67</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -1228,7 +1386,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">68</span>
+                  <span class="site-state-item-count">58</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -1268,7 +1426,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文献"><span class="nav-number">1.</span> <span class="nav-text">参考文献</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#基本概念"><span class="nav-number">2.</span> <span class="nav-text">基本概念</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#具体部署"><span class="nav-number">3.</span> <span class="nav-text">具体部署</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#部署方式"><span class="nav-number">3.1.</span> <span class="nav-text">部署方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建用户"><span class="nav-number">3.2.</span> <span class="nav-text">创建用户</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#依赖关系"><span class="nav-number">3.3.</span> <span class="nav-text">依赖关系</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#下载bind"><span class="nav-number">3.4.</span> <span class="nav-text">下载bind</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装"><span class="nav-number">3.5.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置"><span class="nav-number">3.6.</span> <span class="nav-text">配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#通用配置"><span class="nav-number">3.6.1.</span> <span class="nav-text">通用配置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-创建chroot目录"><span class="nav-number">3.6.1.1.</span> <span class="nav-text">1. 创建chroot目录</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-生成配置文件"><span class="nav-number">3.6.1.2.</span> <span class="nav-text">2. 生成配置文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-下载name-root文件（13个根服务器的配置）"><span class="nav-number">3.6.1.3.</span> <span class="nav-text">3. 下载name.root文件（13个根服务器的配置）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-创建localhost-zone文件"><span class="nav-number">3.6.1.4.</span> <span class="nav-text">4. 创建localhost.zone文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-创建文件localhost-rev"><span class="nav-number">3.6.1.5.</span> <span class="nav-text">5. 创建文件localhost.rev</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-修改named-conf配置文件"><span class="nav-number">3.6.1.6.</span> <span class="nav-text">6. 修改named.conf配置文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-创建zone相关文件"><span class="nav-number">3.6.1.7.</span> <span class="nav-text">7. 创建zone相关文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-检查配置文件"><span class="nav-number">3.6.1.8.</span> <span class="nav-text">8. 检查配置文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#9-检查正向和反向zone配置文件"><span class="nav-number">3.6.1.9.</span> <span class="nav-text">9. 检查正向和反向zone配置文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#10-检查自定义zone配置文件"><span class="nav-number">3.6.1.10.</span> <span class="nav-text">10. 检查自定义zone配置文件</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#主从-主辅同步配置"><span class="nav-number">3.6.2.</span> <span class="nav-text">主从/主辅同步配置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#master-主配置"><span class="nav-number">3.6.2.1.</span> <span class="nav-text">master/主配置</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#修改named-conf配置文件"><span class="nav-number">3.6.2.1.1.</span> <span class="nav-text">修改named.conf配置文件</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#slave-辅配置"><span class="nav-number">3.6.2.2.</span> <span class="nav-text">slave/辅配置</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#修改named-conf配置文件-1"><span class="nav-number">3.6.2.2.1.</span> <span class="nav-text">修改named.conf配置文件</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#子域授权配置"><span class="nav-number">3.6.3.</span> <span class="nav-text">子域授权配置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#步骤1-master端配置"><span class="nav-number">3.6.3.1.</span> <span class="nav-text">步骤1. master端配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#步骤2-下层dns服务器"><span class="nav-number">3.6.3.2.</span> <span class="nav-text">步骤2. 下层dns服务器</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#view-视图解析配置"><span class="nav-number">3.6.4.</span> <span class="nav-text">view-视图解析配置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#acl列表"><span class="nav-number">3.6.4.1.</span> <span class="nav-text">acl列表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#view区块配置"><span class="nav-number">3.6.4.2.</span> <span class="nav-text">view区块配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#测试"><span class="nav-number">3.6.4.3.</span> <span class="nav-text">测试</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#启动"><span class="nav-number">3.7.</span> <span class="nav-text">启动</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#命令行启动"><span class="nav-number">3.7.1.</span> <span class="nav-text">命令行启动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#启动脚本"><span class="nav-number">3.7.2.</span> <span class="nav-text">启动脚本</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#功能测试"><span class="nav-number">3.8.</span> <span class="nav-text">功能测试</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#监控"><span class="nav-number">4.</span> <span class="nav-text">监控</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#bind总结"><span class="nav-number">5.</span> <span class="nav-text">bind总结</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#rndc命令"><span class="nav-number">5.1.</span> <span class="nav-text">rndc命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#概述"><span class="nav-number">5.1.1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常用命令"><span class="nav-number">5.1.2.</span> <span class="nav-text">常用命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实际案例"><span class="nav-number">5.1.3.</span> <span class="nav-text">实际案例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#named-conf配置文件详解"><span class="nav-number">5.2.</span> <span class="nav-text">named.conf配置文件详解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#acl"><span class="nav-number">5.2.1.</span> <span class="nav-text">acl</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#include"><span class="nav-number">5.2.2.</span> <span class="nav-text">include</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#key-controls"><span class="nav-number">5.2.3.</span> <span class="nav-text">key+controls</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#options"><span class="nav-number">5.2.4.</span> <span class="nav-text">options</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#logging"><span class="nav-number">5.2.5.</span> <span class="nav-text">logging</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#channel"><span class="nav-number">5.2.5.1.</span> <span class="nav-text">channel</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#category"><span class="nav-number">5.2.5.2.</span> <span class="nav-text">category</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#view"><span class="nav-number">5.2.6.</span> <span class="nav-text">view</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#zone"><span class="nav-number">5.2.7.</span> <span class="nav-text">zone</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#zone配置文件详解"><span class="nav-number">5.3.</span> <span class="nav-text">zone配置文件详解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#TTL-86400"><span class="nav-number">5.3.1.</span> <span class="nav-text">$TTL      86400</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#"><span class="nav-number">5.3.2.</span> <span class="nav-text">@</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SOA"><span class="nav-number">5.3.3.</span> <span class="nav-text">SOA</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#注意事项"><span class="nav-number">5.3.4.</span> <span class="nav-text">注意事项</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#有关rndc"><span class="nav-number">5.4.</span> <span class="nav-text">有关rndc</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#启动用户"><span class="nav-number">5.5.</span> <span class="nav-text">启动用户</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#递归查询"><span class="nav-number">5.6.</span> <span class="nav-text">递归查询</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#相关问题"><span class="nav-number">5.7.</span> <span class="nav-text">相关问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#主从数据同步"><span class="nav-number">5.7.1.</span> <span class="nav-text">主从数据同步</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Name-Servers-in-Multiple-Roles导致不能实现域名穿透"><span class="nav-number">5.7.2.</span> <span class="nav-text">Name Servers in Multiple Roles导致不能实现域名穿透</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#注意事项-1"><span class="nav-number">5.8.</span> <span class="nav-text">注意事项</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文献"><span class="nav-number">1.</span> <span class="nav-text">参考文献</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#基本概念"><span class="nav-number">2.</span> <span class="nav-text">基本概念</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#具体部署"><span class="nav-number">3.</span> <span class="nav-text">具体部署</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#部署方式"><span class="nav-number">3.1.</span> <span class="nav-text">部署方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建用户"><span class="nav-number">3.2.</span> <span class="nav-text">创建用户</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#依赖关系"><span class="nav-number">3.3.</span> <span class="nav-text">依赖关系</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#下载bind"><span class="nav-number">3.4.</span> <span class="nav-text">下载bind</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装"><span class="nav-number">3.5.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置"><span class="nav-number">3.6.</span> <span class="nav-text">配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#通用配置"><span class="nav-number">3.6.1.</span> <span class="nav-text">通用配置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-创建chroot目录"><span class="nav-number">3.6.1.1.</span> <span class="nav-text">1. 创建chroot目录</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-生成配置文件"><span class="nav-number">3.6.1.2.</span> <span class="nav-text">2. 生成配置文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-下载name-root文件（13个根服务器的配置）"><span class="nav-number">3.6.1.3.</span> <span class="nav-text">3. 下载name.root文件（13个根服务器的配置）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-创建localhost-zone文件"><span class="nav-number">3.6.1.4.</span> <span class="nav-text">4. 创建localhost.zone文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-创建文件localhost-rev"><span class="nav-number">3.6.1.5.</span> <span class="nav-text">5. 创建文件localhost.rev</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-修改named-conf配置文件"><span class="nav-number">3.6.1.6.</span> <span class="nav-text">6. 修改named.conf配置文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-创建zone相关文件"><span class="nav-number">3.6.1.7.</span> <span class="nav-text">7. 创建zone相关文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-检查配置文件"><span class="nav-number">3.6.1.8.</span> <span class="nav-text">8. 检查配置文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#9-检查正向和反向zone配置文件"><span class="nav-number">3.6.1.9.</span> <span class="nav-text">9. 检查正向和反向zone配置文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#10-检查自定义zone配置文件"><span class="nav-number">3.6.1.10.</span> <span class="nav-text">10. 检查自定义zone配置文件</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#主从-主辅同步配置"><span class="nav-number">3.6.2.</span> <span class="nav-text">主从/主辅同步配置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#master-主配置"><span class="nav-number">3.6.2.1.</span> <span class="nav-text">master/主配置</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#修改named-conf配置文件"><span class="nav-number">3.6.2.1.1.</span> <span class="nav-text">修改named.conf配置文件</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#slave-辅配置"><span class="nav-number">3.6.2.2.</span> <span class="nav-text">slave/辅配置</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#修改named-conf配置文件-1"><span class="nav-number">3.6.2.2.1.</span> <span class="nav-text">修改named.conf配置文件</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#子域授权配置"><span class="nav-number">3.6.3.</span> <span class="nav-text">子域授权配置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#步骤1-master端配置"><span class="nav-number">3.6.3.1.</span> <span class="nav-text">步骤1. master端配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#步骤2-下层dns服务器"><span class="nav-number">3.6.3.2.</span> <span class="nav-text">步骤2. 下层dns服务器</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#view-视图解析配置"><span class="nav-number">3.6.4.</span> <span class="nav-text">view-视图解析配置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#acl列表"><span class="nav-number">3.6.4.1.</span> <span class="nav-text">acl列表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#view区块配置"><span class="nav-number">3.6.4.2.</span> <span class="nav-text">view区块配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#测试"><span class="nav-number">3.6.4.3.</span> <span class="nav-text">测试</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#启动"><span class="nav-number">3.7.</span> <span class="nav-text">启动</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#命令行启动"><span class="nav-number">3.7.1.</span> <span class="nav-text">命令行启动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#启动脚本"><span class="nav-number">3.7.2.</span> <span class="nav-text">启动脚本</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#功能测试"><span class="nav-number">3.8.</span> <span class="nav-text">功能测试</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#监控"><span class="nav-number">4.</span> <span class="nav-text">监控</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#bind总结"><span class="nav-number">5.</span> <span class="nav-text">bind总结</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#rndc命令"><span class="nav-number">5.1.</span> <span class="nav-text">rndc命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#概述"><span class="nav-number">5.1.1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常用命令"><span class="nav-number">5.1.2.</span> <span class="nav-text">常用命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实际案例"><span class="nav-number">5.1.3.</span> <span class="nav-text">实际案例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#named-conf配置文件详解"><span class="nav-number">5.2.</span> <span class="nav-text">named.conf配置文件详解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#acl"><span class="nav-number">5.2.1.</span> <span class="nav-text">acl</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#include"><span class="nav-number">5.2.2.</span> <span class="nav-text">include</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#key-controls"><span class="nav-number">5.2.3.</span> <span class="nav-text">key+controls</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#options"><span class="nav-number">5.2.4.</span> <span class="nav-text">options</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#logging"><span class="nav-number">5.2.5.</span> <span class="nav-text">logging</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#channel"><span class="nav-number">5.2.5.1.</span> <span class="nav-text">channel</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#category"><span class="nav-number">5.2.5.2.</span> <span class="nav-text">category</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#view"><span class="nav-number">5.2.6.</span> <span class="nav-text">view</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#zone"><span class="nav-number">5.2.7.</span> <span class="nav-text">zone</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#zone配置文件详解"><span class="nav-number">5.3.</span> <span class="nav-text">zone配置文件详解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#TTL-86400"><span class="nav-number">5.3.1.</span> <span class="nav-text">$TTL      86400</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#"><span class="nav-number">5.3.2.</span> <span class="nav-text">@</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SOA"><span class="nav-number">5.3.3.</span> <span class="nav-text">SOA</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#注意事项"><span class="nav-number">5.3.4.</span> <span class="nav-text">注意事项</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#有关rndc"><span class="nav-number">5.4.</span> <span class="nav-text">有关rndc</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#启动用户"><span class="nav-number">5.5.</span> <span class="nav-text">启动用户</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#递归查询"><span class="nav-number">5.6.</span> <span class="nav-text">递归查询</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#相关问题"><span class="nav-number">5.7.</span> <span class="nav-text">相关问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#主从数据同步"><span class="nav-number">5.7.1.</span> <span class="nav-text">主从数据同步</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Name-Servers-in-Multiple-Roles导致不能实现域名穿透"><span class="nav-number">5.7.2.</span> <span class="nav-text">Name Servers in Multiple Roles导致不能实现域名穿透</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#注意事项-1"><span class="nav-number">5.8.</span> <span class="nav-text">注意事项</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#案例-多机房异地多活dns建设"><span class="nav-number">6.</span> <span class="nav-text">案例-多机房异地多活dns建设</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#背景"><span class="nav-number">6.1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#需求概述"><span class="nav-number">6.2.</span> <span class="nav-text">需求概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#bind部署需要明确的几个问题"><span class="nav-number">6.3.</span> <span class="nav-text">bind部署需要明确的几个问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#架构规划这里是拓扑图"><span class="nav-number">6.4.</span> <span class="nav-text">架构规划这里是拓扑图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#部署实施"><span class="nav-number">6.5.</span> <span class="nav-text">部署实施</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#目录分层"><span class="nav-number">6.5.1.</span> <span class="nav-text">目录分层</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#zone配置"><span class="nav-number">6.5.2.</span> <span class="nav-text">zone配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#common"><span class="nav-number">6.5.3.</span> <span class="nav-text">common</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据写入"><span class="nav-number">6.6.</span> <span class="nav-text">数据写入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#优化进阶"><span class="nav-number">6.7.</span> <span class="nav-text">优化进阶</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#主节点zone数据信息变更"><span class="nav-number">6.8.</span> <span class="nav-text">主节点zone数据信息变更</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#写入"><span class="nav-number">6.8.1.</span> <span class="nav-text">写入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改"><span class="nav-number">6.8.2.</span> <span class="nav-text">修改</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除"><span class="nav-number">6.8.3.</span> <span class="nav-text">删除</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#主从数据同步-1"><span class="nav-number">6.9.</span> <span class="nav-text">主从数据同步</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#序列号增长问题"><span class="nav-number">6.10.</span> <span class="nav-text">序列号增长问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#dns服务稳定性问题"><span class="nav-number">6.11.</span> <span class="nav-text">dns服务稳定性问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#注意事项-2"><span class="nav-number">6.12.</span> <span class="nav-text">注意事项</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#主节点-acl配置"><span class="nav-number">6.13.</span> <span class="nav-text">主节点 acl配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#从节点acl配置"><span class="nav-number">6.14.</span> <span class="nav-text">从节点acl配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试："><span class="nav-number">6.15.</span> <span class="nav-text">测试：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#notify配置"><span class="nav-number">6.16.</span> <span class="nav-text">notify配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#从节点直接显示文本"><span class="nav-number">6.17.</span> <span class="nav-text">从节点直接显示文本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多view主从同步问题"><span class="nav-number">6.18.</span> <span class="nav-text">多view主从同步问题</span></a></li></ol></li></ol></div>
             
 
           </div>

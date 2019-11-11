@@ -496,6 +496,32 @@
 </li>
 <li>如果使用的是默认端口，那么端口参数可以省略</li>
 </ul>
+<h1 id="discovery-自动发现"><a href="#discovery-自动发现" class="headerlink" title="discovery-自动发现"></a>discovery-自动发现</h1><h2 id="整体流程"><a href="#整体流程" class="headerlink" title="整体流程"></a>整体流程</h2><p>分为2个部分</p>
+<ol>
+<li>动态发现要监控的对象</li>
+<li>根据上一步输出的对象，添加预先设置好的监控项和触发器</li>
+</ol>
+<p>也就是说，分为2个逻辑</p>
+<ol>
+<li>获取监控对象的逻辑</li>
+<li>根据上面输出变量的值，添加监控项和触发器</li>
+</ol>
+<p>官方说明：</p>
+<p>首先，用户在“配置”→“模板”→“发现”列中创建一个发现规则。发现规则包括（1）发现必要实体（例如，文件系统或网络接口）的项目和（2）应该根据该项目的值创建的监控项，触发器和图形的原型</p>
+<p>发现必要实体的项目就像其他地方所看到的常规项目：服务器向该项目的值询问Zabbix agent（或者该项目的任何类型的设置），agent以文本值进行响应。区别在于agent响应的值应该包含特定JSON格式的发现实体的列表。这种格式的自定义检查者发现的细节才是最重要的，因为返回值必须包含宏→值对。例如，项目“net.if.discovery”可能会返回两对键值：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">“&#123;#IFNAME&#125;”→“lo”和“&#123;#IFNAME&#125;”→“eth0”。</span><br></pre></td></tr></table></figure>
+<p>这些宏用于名称，键值和其他原型字段中，然后用接收到的值为每个发现的实体创建实际的监控项，触发器，图形甚至主机。请参阅使用LLD宏的<a href="https://www.zabbix.com/documentation/3.4/manual/config/macros/lld_macros" target="_blank" rel="noopener">选项</a>的完整列表。</p>
+<p>当服务器接收到发现项目的值时，它会查看宏→值对，每对都根据原型生成实际监控项，触发器和图形。在上面的“net.if.discovery”示例中，服务器将生成环路接口“lo”的一组监控项，触发器和图表，另一组用于界面“eth0”。</p>
+<p>以下部分将详细说明上述过程，并作为一个指导上述类型的所有发现。最后一节描述了发现项目的JSON格式，并给出了文件系统发现实现的Perl脚本的示例。</p>
+<h2 id="具体实现-1"><a href="#具体实现-1" class="headerlink" title="具体实现"></a>具体实现</h2><h3 id="创建模板和应用集"><a href="#创建模板和应用集" class="headerlink" title="创建模板和应用集"></a>创建模板和应用集</h3><h3 id="创建discovery-rules"><a href="#创建discovery-rules" class="headerlink" title="创建discovery rules"></a>创建discovery rules</h3><h2 id="实例案例-zookeeper"><a href="#实例案例-zookeeper" class="headerlink" title="实例案例-zookeeper"></a>实例案例-zookeeper</h2><p>根据端口号，定位pid，然后根据pid去获取相应的jvm信息</p>
+<h3 id="监控脚本"><a href="#监控脚本" class="headerlink" title="监控脚本"></a>监控脚本</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">#!/application/python/bin/python</span><br><span class="line"># -*- coding:utf-8 -*-</span><br><span class="line">import subprocess,json,sys</span><br><span class="line">#base_path=os.path.dirname(os.path.dirname(os.path.abspath(__file__)))</span><br><span class="line">#sys.path.append(base_path)</span><br><span class="line">args = sys.argv[1:]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def get_zk_node_path():</span><br><span class="line">    get_path_cmd = &quot;&quot;&quot;sudo /bin/ps -elf | grep zookeeper| grep -E -v &apos;grep|sleep|sugar_java|scripts|sudo&apos; | awk &apos;&#123;print $NF&#125;&apos; | awk -F &quot;/&quot; &apos;&#123;print &quot;/&quot;$2&quot;/&quot;$3&quot;/&quot;$4&#125;&apos;&quot;&quot;&quot;</span><br><span class="line">    zk_node_path_list=subprocess.Popen(get_path_cmd,shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)</span><br><span class="line">    macros_keys = &#123;&quot;data&quot;: []&#125;</span><br><span class="line">    for zk_node_path in zk_node_path_list.stdout.readlines():</span><br><span class="line">        zk_node_path = zk_node_path.strip()</span><br><span class="line">        macros_keys[&apos;data&apos;].append(&#123;&apos;&#123;&amp;#35ZK_NODE&#125;&apos;:zk_node_path&#125;)</span><br><span class="line">    return json.dumps(macros_keys)</span><br><span class="line"></span><br><span class="line">def get_zk_value(zk_node_path,key):</span><br><span class="line">    get_pid_cmd = &quot;&quot;&quot;sudo /bin/ps -elf | grep %s | grep -Ev &quot;grep|python&quot;  | awk &apos;&#123;print $4&#125;&apos;&quot;&quot;&quot; % (zk_node_path)</span><br><span class="line">    zk_pid_tmp = subprocess.Popen(get_pid_cmd,shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)</span><br><span class="line">    zk_pid = zk_pid_tmp.stdout.read().strip()</span><br><span class="line">    values=subprocess.Popen(&apos;sudo /usr/local/jdk/bin/jstat -gcutil &#123;&#125;&apos;.format(zk_pid),shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)</span><br><span class="line">    jstat_keys = values.stdout.readline().strip().split()</span><br><span class="line">    jstat_values = values.stdout.readline().strip().split()</span><br><span class="line">    try:</span><br><span class="line">        index_num=jstat_keys.index(key)</span><br><span class="line">    except ValueError:</span><br><span class="line">        pass</span><br><span class="line">    else:</span><br><span class="line">        return jstat_values[index_num]</span><br><span class="line"></span><br><span class="line">if __name__==&apos;__main__&apos;:</span><br><span class="line">    result=None</span><br><span class="line">    if len(args)==1:</span><br><span class="line">        if args[0]==&apos;discovery&apos;:</span><br><span class="line">            result = get_zk_node_path()</span><br><span class="line">    if len(args)==2:</span><br><span class="line">        result = get_zk_value(args[0],args[1])</span><br><span class="line">    if result:</span><br><span class="line">        print (result)</span><br></pre></td></tr></table></figure>
+<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><p>zabbix上创建模板</p>
+<p>修改sudo</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@common001-dev.novalocal ~]# cat /etc/sudoers </span><br><span class="line">在文件末尾添加</span><br><span class="line">zabbix  ALL = (ALL)     NOPASSWD: /usr/local/jdk/bin/jps, /usr/local/jdk/bin/jstat, /sbin/blockdev, /bin/ps</span><br></pre></td></tr></table></figure>
+<p>脚本上传</p>
+<p>修改配置文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@common001-dev.novalocal zabbix_agentd.conf.d]# pwd</span><br><span class="line">/usr/local/zabbix/etc/zabbix_agentd.conf.d</span><br><span class="line"></span><br><span class="line">[root@common001-dev.novalocal zabbix_agentd.conf.d]# cat zk_jvm.conf</span><br><span class="line">UserParameter=zkjvm.discovery, /usr/local/zabbix/scripts/get_zk_jvm.py discovery</span><br><span class="line">UserParameter=zkjvm.status[*], /usr/local/zabbix/scripts/get_zk_jvm.py $1 $2</span><br></pre></td></tr></table></figure>
+<p>重启agent</p>
 
       
     </div>
@@ -675,7 +701,7 @@ var jiathis_config={
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">66</span>
+                  <span class="site-state-item-count">64</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -686,7 +712,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">74</span>
+                  <span class="site-state-item-count">67</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -697,7 +723,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">68</span>
+                  <span class="site-state-item-count">58</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -737,7 +763,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#具体实现"><span class="nav-number">2.</span> <span class="nav-text">具体实现</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#实现逻辑"><span class="nav-number">2.1.</span> <span class="nav-text">实现逻辑</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置流程"><span class="nav-number">2.2.</span> <span class="nav-text">配置流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#zabbix-sender语法"><span class="nav-number">2.3.</span> <span class="nav-text">zabbix_sender语法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#注意事项"><span class="nav-number">2.4.</span> <span class="nav-text">注意事项</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#具体实现"><span class="nav-number">2.</span> <span class="nav-text">具体实现</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#实现逻辑"><span class="nav-number">2.1.</span> <span class="nav-text">实现逻辑</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置流程"><span class="nav-number">2.2.</span> <span class="nav-text">配置流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#zabbix-sender语法"><span class="nav-number">2.3.</span> <span class="nav-text">zabbix_sender语法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#注意事项"><span class="nav-number">2.4.</span> <span class="nav-text">注意事项</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#discovery-自动发现"><span class="nav-number">3.</span> <span class="nav-text">discovery-自动发现</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#整体流程"><span class="nav-number">3.1.</span> <span class="nav-text">整体流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#具体实现-1"><span class="nav-number">3.2.</span> <span class="nav-text">具体实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建模板和应用集"><span class="nav-number">3.2.1.</span> <span class="nav-text">创建模板和应用集</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建discovery-rules"><span class="nav-number">3.2.2.</span> <span class="nav-text">创建discovery rules</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实例案例-zookeeper"><span class="nav-number">3.3.</span> <span class="nav-text">实例案例-zookeeper</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#监控脚本"><span class="nav-number">3.3.1.</span> <span class="nav-text">监控脚本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置"><span class="nav-number">3.3.2.</span> <span class="nav-text">配置</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
