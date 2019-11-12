@@ -216,7 +216,7 @@
     <lastmod>2019-03-15T03:11:00.000Z</lastmod>
     <data>
         <display>
-        <title>Centos7的firewalld配置</title>
+        <title>Centos6的iptables及Centos7的firewalld配置</title>
         <pubTime>2019-03-15T03:11:00.000Z</pubTime>
         
         <tag>firewalld</tag>
