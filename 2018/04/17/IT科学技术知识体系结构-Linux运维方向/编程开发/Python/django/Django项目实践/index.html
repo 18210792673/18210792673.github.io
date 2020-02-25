@@ -1125,12 +1125,17 @@ r让django将这个字符串视为原始字符串，并指出正则表达式包�
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python manage.py corntab -e</span><br></pre></td></tr></table></figure>
 <h2 id="实际案例"><a href="#实际案例" class="headerlink" title="实际案例"></a>实际案例</h2><h3 id="dname项目-bind定时获取主机名"><a href="#dname项目-bind定时获取主机名" class="headerlink" title="dname项目-bind定时获取主机名"></a>dname项目-bind定时获取主机名</h3><p>具体看项目源码</p>
 <h1 id="django配置uWSGI"><a href="#django配置uWSGI" class="headerlink" title="django配置uWSGI"></a>django配置uWSGI</h1><p>启动命令：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/usr/local/bin/uwsgi --http :8000 --chdir /Users/wangxiaohua/PycharmProjects/dnamed --wsgi-file dnamed_django/wsgi.py</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">/usr/local/bin/uwsgi --http :8000 --chdir /Users/wangxiaohua/PycharmProjects/dnamed --wsgi-file dnamed_django/wsgi.py</span><br><span class="line"></span><br><span class="line">/application/python3/bin/uwsgi --http :8000 --chdir /application/dnamed --wsgi-file dnamed_django/wsgi.py</span><br><span class="line"></span><br><span class="line">/application/dnamed</span><br></pre></td></tr></table></figure>
 <p>其中：</p>
 <ul>
 <li>–chdir：项目目录</li>
 <li>–wsgi-file：项目中wsgi.py文件的目录，相对于项目目录</li>
 </ul>
+<p>还可以是本地使用socket的方式：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/application/python/bin/uwsgi --socket 127.0.0.1:9093 --chdir /application/saltapi_django_qa_prod --wsgi-file /application/saltapi_django_qa_prod/saltapi_django/wsgi.py --master --processes 4 --threads 50</span><br></pre></td></tr></table></figure>
+<p>nginx中的配置文件：</p>
+<p>这是salt-api的接口配置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">[root@salt-jumpserver-dev conf.d]# cat saltapi_qa_prod_http.conf</span><br><span class="line">#</span><br><span class="line"># The default server</span><br><span class="line">#</span><br><span class="line"></span><br><span class="line">server &#123;</span><br><span class="line">    listen       10080;</span><br><span class="line"></span><br><span class="line">    location /static &#123;</span><br><span class="line">        root /data1/saltapi/static_qa_prod;</span><br><span class="line">    &#125;</span><br><span class="line">    location / &#123;</span><br><span class="line">        uwsgi_pass 127.0.0.1:9093;</span><br><span class="line">        include uwsgi_params;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    error_page 404 /404.html;</span><br><span class="line">        location = /40x.html &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    error_page 500 502 503 504 /50x.html;</span><br><span class="line">        location = /50x.html &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h1 id="django自定义404页面"><a href="#django自定义404页面" class="headerlink" title="django自定义404页面"></a>django自定义404页面</h1><ol>
 <li><p>编辑setting.py文件</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">DEBUG = False</span><br><span class="line"> </span><br><span class="line">ALLOWED_HOSTS = [&apos;*&apos;,]</span><br><span class="line"> </span><br><span class="line">TEMPLATES = [</span><br><span class="line">    &#123;</span><br><span class="line">        ...</span><br><span class="line">        &apos;DIRS&apos;: [os.path.join(BASE_DIR, &apos;templates&apos;)]</span><br><span class="line">        ...</span><br><span class="line">    &#125;,</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
@@ -1338,7 +1343,7 @@ var jiathis_config={
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">64</span>
+                  <span class="site-state-item-count">66</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1349,7 +1354,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">67</span>
+                  <span class="site-state-item-count">69</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -1360,7 +1365,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">58</span>
+                  <span class="site-state-item-count">60</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -1420,7 +1425,7 @@ var jiathis_config={
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
