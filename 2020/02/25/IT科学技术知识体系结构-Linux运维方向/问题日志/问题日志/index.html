@@ -457,13 +457,27 @@
 <p>使用zk的cons命令</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[zookeeper@common001-dev.novalocal version-2]$ echo cons | nc 127.0.0.1 2181 | grep -i &quot;0x2706083ada50136&quot;</span><br><span class="line"> /192.168.1.107:44194[1](queued=0,recved=3726396779,sent=3726396753,sid=0x2706083ada50136,lop=GETD,est=1582293664630,to=40000,lcxid=0x7fffffff,lzxid=0x49743acabe,lresp=1582598304375,llat=1,minlat=0,avglat=1,maxlat=791)</span><br></pre></td></tr></table></figure>
 <p>可以看到，这个对应的客户端信息为：192.168.1.107:44194</p>
-<p>2）根据客户端信息定位具体的pod</p>
+<p>2）根据客户端信息定位具体的pod，找到应用</p>
 <p>因为使用的k8s网络问题，这里显示的并不是真正的容器实例，而是宿主机的信息，因此还需要再进行一层解析</p>
 <p>使用命令如下，根据端口确定：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@app028-dev.novalocal ~]# cat /proc/net/nf_conntrack* | grep 44194</span><br><span class="line">ipv4     2 tcp      6 86398 ESTABLISHED src=10.201.3.140 dst=192.168.11.29 sport=44194 dport=2181 src=192.168.11.29 dst=192.168.1.107 sport=2181 dport=44194 [ASSURED] mark=0 zone=0 use=2</span><br></pre></td></tr></table></figure>
 <p>到这里，找到真正的客户端ip: 10.201.3.140。打开我们的容器终端界面，找到了对应的应用。</p>
-<p>3）找到对应的开发，进行沟通，了解问题产生的真正原因</p>
-<p>zk在这个应用中的是被拿来进行选主的。</p>
+<p>3）找到应用对应的开发，进行沟通，了解问题产生的真正原因</p>
+<p>zk在这个应用中的作用是被拿来进行实例选主的。</p>
+<p>选主逻辑：</p>
+<blockquote>
+<p>每个应用实例在启动的时候都会在这个znode（这里是/app_name/leader）下注册一个临时节点，然后对所有节点名排序，排第一个的就是主，同时所有实例还要监听这个目录下面的节点变动，如果节点变动了，再重新进行排序选主。</p>
+<p>个人问题：如果新加入了一个实例，经过计算，这个实例的值是排第一的，那么就算现有的主是正常的，也会触发重新选主吗?</p>
+<p>开发解答：好像可能会被顶掉的，所以应用要check，自己当前还是不是主了。实例创建的node名称用了uuid，而uuid前几位是根据系统时间算出来的，所以只要不同实例之间的系统时间差别不大，一般不会被顶掉</p>
+</blockquote>
+<p>4）重启应用，问题暂时解决，不再输出相关的事务日志</p>
+<p>5）在这个过程中，发现follower中的数据和leader中的不一致。</p>
+<blockquote>
+<p>follower中这个znode下多了一个实例。在删除时删除不掉，因为所有的删除操作都会转到主上执行再同步下去，主上又没有，所以就没办法删。没有办法只好重启这个follower，重启之后，数据恢复一致。</p>
+</blockquote>
+<p>6）到这里，问题算是解决了。</p>
+<p>但是为什么日志中会不断的create然后再delete这些znode还不明确。</p>
+<p>以及zk主从节点之间数据为什么会不同步的原因也还是没有明确，我猜想大概率是版本的bug，可以看这些：<a href="https://www.jianshu.com/p/9fc4f6fdd44f以及https://issues.apache.org/jira/browse/ZOOKEEPER-2845。在3.4.12版本之后，修复了这个事务日志编号问题" target="_blank" rel="noopener">https://www.jianshu.com/p/9fc4f6fdd44f以及https://issues.apache.org/jira/browse/ZOOKEEPER-2845。在3.4.12版本之后，修复了这个事务日志编号问题</a></p>
 
       
     </div>
